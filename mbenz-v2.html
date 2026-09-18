@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Hrishikesh Nanda — UI/UX Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Outfit:wght@200;300;400;500;600&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+
+/* ─────────────────────────────────────
+   TOKENS
+───────────────────────────────────── */
+:root {
+  --sharp:  cubic-bezier(0.16, 1, 0.3, 1);
+  --silk:   cubic-bezier(0.37, 0, 0.63, 1);
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --silver:  #AFAFB3;
+  --gold:    #B8962E;
+  --gold-s:  rgba(184,150,46,0.1);
+}
+
+[data-theme="dark"] {
+  --bg:      #090909;
+  --bg2:     #0F0F0F;
+  --bg3:     #161616;
+  --border:  rgba(255,255,255,0.055);
+  --border2: rgba(255,255,255,0.1);
+  --text:    #E6E4E0;
+  --text2:   #686866;
+  --text3:   #2C2C2C;
+  --inv:     #090909;
+  --nav-bg:  rgba(9,9,9,0.9);
+}
+
+[data-theme="light"] {
+  --bg:      #F3F1EE;
+  --bg2:     #ECEAE6;
+  --bg3:     #E2DFD9;
+  --border:  rgba(0,0,0,0.07);
+  --border2: rgba(0,0,0,0.13);
+  --text:    #131110;
+  --text2:   #888480;
+  --text3:   #C8C4BC;
+  --inv:     #F3F1EE;
+  --nav-bg:  rgba(243,241,238,0.9);
+}
+
+/* ─────────────────────────────────────
+   RESET
+───────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  cursor: none;
+  transition: background .6s var(--sharp), color .4s;
+}
+a { color: inherit; text-decoration: none; }
+
+/* ─────────────────────────────────────
+   CURSOR — with tyre-trail
+───────────────────────────────────── */
+#cur-wrap { position: fixed; inset: 0; z-index: 9999; pointer-events: none; }
+
+#cur-dot {
+  position: absolute;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--text);
+  transform: translate(-50%, -50%);
+  transition: background .3s, transform .2s;
+}
+#cur-ring {
+  position: absolute;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(175,175,179,0.35);
+  transform: translate(-50%, -50%);
+  transition: width .4s var(--sharp), height .4s var(--sharp),
+              border-color .3s, opacity .3s;
+}
+
+body.hovering #cur-ring {
+  width: 56px; height: 56px;
+  border-color: var(--gold);
+  opacity: .5;
+}
+body.hovering #cur-dot { background: var(--gold); }
+
+/* Tyre track canvas */
+#trail-canvas {
+  position: fixed; inset: 0;
+  z-index: 9990; pointer-events: none;
+  opacity: .18;
+}
+[data-theme="light"] #trail-canvas { opacity: .07; }
+
+/* ─────────────────────────────────────
+   NOISE
+───────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 9980;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: .02;
+}
+
+/* ─────────────────────────────────────
+   SCROLL PROGRESS — 1px gold
+───────────────────────────────────── */
+#prog {
+  position: fixed; top: 0; left: 0;
+  height: 1px; background: var(--gold);
+  z-index: 1000; width: 0;
+  transition: width .06s linear;
+}
+
+/* ─────────────────────────────────────
+   NAV
+───────────────────────────────────── */
+nav {
+  position: fixed; inset: 0 0 auto 0;
+  z-index: 800; height: 62px;
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 0 56px;
+  background: var(--nav-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
+  transition: background .5s;
+}
+
+.nav-logo {
+  display: flex; align-items: center; gap: 12px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400; font-size: 16px;
+  letter-spacing: .1em; text-transform: uppercase;
+}
+
+/* Minimal three-pointed star */
+.nav-star {
+  width: 26px; height: 26px;
+  position: relative; opacity: .55;
+  transition: opacity .3s;
+}
+.nav-star::before {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+}
+.nav-star svg { width: 100%; height: 100%; }
+
+.nav-links { display: flex; gap: 40px; }
+.nav-links a {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9.5px; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--text2);
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--text); }
+
+.nav-r { display: flex; align-items: center; gap: 18px; }
+
+.nav-avail {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px; letter-spacing: .13em;
+  text-transform: uppercase; color: var(--text2);
+  display: flex; align-items: center; gap: 7px;
+}
+.pip {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: #3ECF8E;
+  animation: pip 2.4s ease-in-out infinite;
+}
+@keyframes pip { 0%,100%{opacity:1} 50%{opacity:.25} }
+
+.theme-btn {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--text2);
+  background: transparent; border: 1px solid var(--border2);
+  padding: 7px 14px; cursor: none;
+  transition: color .2s, border-color .2s;
+}
+.theme-btn:hover { color: var(--text); border-color: var(--silver); }
+
+/* ─────────────────────────────────────
+   LAYOUT
+───────────────────────────────────── */
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 56px; }
+
+/* ─────────────────────────────────────
+   REVEAL
+───────────────────────────────────── */
+.r {
+  opacity: 0; transform: translateY(22px);
+  transition: opacity 1s var(--sharp), transform 1s var(--sharp);
+}
+.r.up { opacity: 1; transform: none; }
+.d1{transition-delay:.1s} .d2{transition-delay:.2s}
+.d3{transition-delay:.3s} .d4{transition-delay:.4s}
+.d5{transition-delay:.5s}
+
+/* ─────────────────────────────────────
+   HERO
+───────────────────────────────────── */
+#hero {
+  min-height: 100svh;
+  display: flex; flex-direction: column;
+  justify-content: flex-end;
+  padding-top: 62px;
+  position: relative; overflow: hidden;
+}
+
+/* Odometer — ambient, bottom right */
+.hero-odo {
+  position: absolute;
+  right: 56px; top: 50%;
+  transform: translateY(-50%);
+  display: flex; flex-direction: column;
+  gap: 6px; align-items: flex-end;
+  opacity: 0; animation: fadeup .8s var(--sharp) 1.3s forwards;
+}
+.odo-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--text3);
+}
+.odo-digits {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 28px; letter-spacing: .06em;
+  color: var(--text3); line-height: 1;
+  /* simulates odometer roll */
+  position: relative;
+}
+.odo-digits .rolling {
+  display: inline-block;
+  animation: odo-roll 8s steps(10, end) infinite;
+}
+@keyframes odo-roll {
+  0%  { content: '0'; }
+  to  { transform: translateY(0); }
+}
+.odo-unit {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px; letter-spacing: .14em;
+  color: var(--text3);
+}
+
+.hero-wrap {
+  padding: 0 56px 80px;
+  max-width: 1120px; margin: 0 auto; width: 100%;
+}
+
+.hero-kicker {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px; letter-spacing: .22em;
+  text-transform: uppercase; color: var(--text2);
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 44px;
+  opacity: 0; animation: fadeup .8s var(--sharp) .3s forwards;
+}
+.kicker-rule { width: 32px; height: 1px; background: var(--text3); }
+
+.hero-h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(56px, 9vw, 128px);
+  line-height: .92; letter-spacing: -.01em;
+  opacity: 0; animation: fadeup 1.1s var(--sharp) .5s forwards;
+}
+.hero-h1 em { font-style: italic; color: var(--text2); }
+
+.hero-foot {
+  display: flex; align-items: flex-end;
+  justify-content: space-between; gap: 40px;
+  margin-top: 60px; padding-top: 36px;
+  border-top: 1px solid var(--border);
+  opacity: 0; animation: fadeup .8s var(--sharp) .9s forwards;
+}
+
+.hero-desc {
+  max-width: 400px;
+  font-size: 15px; line-height: 1.82;
+  color: var(--text2); font-weight: 300;
+}
+.hero-desc strong { color: var(--text); font-weight: 400; }
+
+/* Hero meta — right side, like a spec sticker */
+.hero-meta {
+  display: flex; flex-direction: column;
+  align-items: flex-end; gap: 5px;
+}
+.meta-row {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px; letter-spacing: .13em;
+  text-transform: uppercase; color: var(--text3);
+  display: flex; gap: 10px;
+}
+.meta-row span { color: var(--text2); }
+
+/* Floating chips — same as before, personality not sermon */
+.hero-floaters {
+  position: absolute;
+  right: 56px; top: 50%;
+  transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 8px;
+  opacity: 0; animation: fadeup .8s var(--sharp) 1.2s forwards;
+}
+.floater {
+  display: flex; align-items: center; gap: 9px;
+  padding: 9px 16px; border-radius: 2px;
+  border: 1px solid var(--border2);
+  background: var(--bg2);
+  font-size: 12px; color: var(--text2);
+  white-space: nowrap; cursor: none;
+  font-weight: 300;
+  transition: border-color .3s, color .3s, transform .35s var(--spring);
+}
+.floater:hover {
+  border-color: var(--gold);
+  color: var(--text);
+  transform: translateX(-6px);
+}
+.fi { font-size: 14px; }
+
+/* ─────────────────────────────────────
+   MARQUEE
+───────────────────────────────────── */
+.marquee-wrap {
+  overflow: hidden;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 0;
+}
+.marquee-inner {
+  display: flex;
+  animation: marquee 30s linear infinite;
+  width: max-content;
+}
+.marquee-unit {
+  display: flex; align-items: center; gap: 16px;
+  padding: 0 28px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--text3);
+  white-space: nowrap;
+}
+.msep { color: var(--gold); font-size: 7px; }
+@keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* ─────────────────────────────────────
+   WORK
+───────────────────────────────────── */
+#work { border-top: 1px solid var(--border); padding: 120px 0; }
+
+.section-head {
+  display: flex; align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 72px;
+}
+.s-eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--gold);
+}
+.s-h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: clamp(32px, 4.5vw, 54px);
+  line-height: 1.02; letter-spacing: .01em;
+  margin-top: 12px;
+}
+.s-h2 em { font-style: italic; color: var(--text2); }
+.s-count {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px; color: var(--text3);
+  letter-spacing: .1em; padding-bottom: 8px;
+}
+
+/* Project rows */
+.proj-list { display: flex; flex-direction: column; }
+.proj-row {
+  display: grid;
+  grid-template-columns: 44px 1fr 260px 36px;
+  align-items: center; gap: 28px;
+  padding: 36px 0;
+  border-bottom: 1px solid var(--border);
+  cursor: none; color: inherit;
+  position: relative; overflow: hidden;
+  transition: padding-left .5s var(--sharp);
+}
+.proj-row::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: var(--bg2);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .5s var(--sharp); z-index: -1;
+}
+.proj-row:hover { padding-left: 16px; }
+.proj-row:hover::after { transform: scaleX(1); }
+
+.proj-n {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px; color: var(--text3); letter-spacing: .1em;
+}
+.proj-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400; font-size: clamp(18px, 2.5vw, 28px);
+  letter-spacing: .02em; margin-bottom: 4px;
+  transition: color .3s;
+}
+.proj-row:hover .proj-name { color: var(--gold); }
+.proj-sub { font-size: 12px; color: var(--text2); font-weight: 300; }
+
+.proj-chips { display: flex; gap: 5px; justify-content: flex-end; flex-wrap: wrap; }
+.chip {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px; letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 3px 9px; border: 1px solid var(--border2);
+  color: var(--text2); white-space: nowrap;
+  transition: border-color .3s;
+}
+.chip-g { border-color: rgba(184,150,46,.35); color: var(--gold); }
+.proj-arr {
+  font-size: 16px; color: var(--text3);
+  text-align: right;
+  transition: color .3s, transform .4s var(--spring);
+}
+.proj-row:hover .proj-arr { color: var(--gold); transform: translate(3px,-3px); }
+
+/* ─────────────────────────────────────
+   ABOUT — spec sheet
+───────────────────────────────────── */
+#about { border-top: 1px solid var(--border); padding: 120px 0; }
+
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 96px; align-items: start;
+}
+.about-h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300; font-size: clamp(32px, 4.2vw, 52px);
+  line-height: 1.04; letter-spacing: .01em;
+  margin-top: 12px; margin-bottom: 28px;
+}
+.about-h2 em { font-style: italic; color: var(--text2); }
+.about-copy {
+  font-size: 15px; line-height: 1.85;
+  color: var(--text2); font-weight: 300;
+}
+.about-copy p + p { margin-top: 16px; }
+.about-copy strong { color: var(--text); font-weight: 400; }
+
+/* Spec card — vehicle datasheet style */
+.spec-card {
+  border: 1px solid var(--border2);
+  background: var(--bg2);
+  position: relative;
+}
+.spec-card-header {
+  padding: 16px 22px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg3);
+  display: flex; align-items: center;
+  justify-content: space-between;
+}
+.spec-model-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px; letter-spacing: .15em;
+  text-transform: uppercase; color: var(--text2);
+}
+.spec-avail {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px; letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #3ECF8E;
+  background: rgba(62,207,142,.08);
+  border: 1px solid rgba(62,207,142,.2);
+  padding: 3px 9px;
+}
+
+.spec-rows { display: flex; flex-direction: column; }
+.spec-row {
+  display: flex; gap: 16px;
+  padding: 14px 22px;
+  border-bottom: 1px solid var(--border);
+  transition: background .2s;
+}
+.spec-row:last-child { border-bottom: none; }
+.spec-row:hover { background: var(--bg3); }
+.sk {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px; letter-spacing: .13em;
+  text-transform: uppercase; color: var(--text3);
+  min-width: 100px; flex-shrink: 0; padding-top: 2px;
+}
+.sv {
+  font-size: 12.5px; color: var(--text2);
+  line-height: 1.5; font-weight: 300;
+}
+.sv strong { color: var(--text); font-weight: 400; }
+.sv .g { color: var(--gold); }
+
+/* Torque bar — the one delightful easter egg */
+.torque-bar {
+  width: 72px; height: 2px;
+  background: var(--border2); margin-top: 6px;
+  overflow: hidden;
+}
+.torque-fill {
+  height: 100%; width: 0;
+  background: linear-gradient(90deg, var(--silver), var(--gold));
+  transition: width 1.4s var(--sharp);
+}
+.spec-row:hover .torque-fill { width: var(--w, 80%); }
+
+/* ─────────────────────────────────────
+   CAPABILITIES
+───────────────────────────────────── */
+#caps { border-top: 1px solid var(--border); padding: 120px 0; background: var(--bg2); }
+
+.caps-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border);
+  margin-top: 64px;
+}
+.cap {
+  background: var(--bg2); padding: 38px 32px;
+  transition: background .25s;
+}
+.cap:hover { background: var(--bg3); }
+.cap-n {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px; letter-spacing: .16em;
+  color: var(--text3); margin-bottom: 20px;
+}
+.cap-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400; font-size: 20px;
+  letter-spacing: .02em; margin-bottom: 10px;
+}
+.cap-desc {
+  font-size: 13px; line-height: 1.72;
+  color: var(--text2); font-weight: 300;
+}
+.cap-tags { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 5px; }
+
+/* ─────────────────────────────────────
+   EXPERIENCE
+───────────────────────────────────── */
+#exp { border-top: 1px solid var(--border); padding: 120px 0; }
+
+.exp-list { margin-top: 64px; }
+.exp-item {
+  display: grid; grid-template-columns: 156px 1fr;
+  gap: 52px; padding: 44px 0;
+  border-bottom: 1px solid var(--border);
+}
+.exp-item:first-child { border-top: 1px solid var(--border); }
+.exp-date {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px; letter-spacing: .13em;
+  text-transform: uppercase; color: var(--text3);
+  padding-top: 4px;
+}
+.exp-co {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px; letter-spacing: .17em;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 7px;
+}
+.exp-role {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400; font-size: 22px;
+  letter-spacing: .02em; margin-bottom: 12px;
+}
+.exp-desc {
+  font-size: 14px; line-height: 1.8;
+  color: var(--text2); font-weight: 300;
+  max-width: 520px;
+}
+
+/* ─────────────────────────────────────
+   CONTACT
+───────────────────────────────────── */
+#contact { border-top: 1px solid var(--border); padding: 148px 0 120px; }
+
+.contact-h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(48px, 8vw, 108px);
+  line-height: .91; letter-spacing: -.01em;
+  margin-top: 12px; margin-bottom: 36px;
+}
+.contact-h2 em { font-style: italic; color: var(--text2); }
+.contact-sub {
+  font-size: 14px; color: var(--text2);
+  line-height: 1.8; font-weight: 300;
+  max-width: 360px; margin-bottom: 48px;
+}
+
+.btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 28px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px; letter-spacing: .14em;
+  text-transform: uppercase; cursor: none;
+  transition: all .3s var(--sharp);
+}
+.btn-solid {
+  background: var(--text); color: var(--inv);
+  border: 1px solid var(--text);
+}
+.btn-solid:hover { background: var(--gold); border-color: var(--gold); color: #fff; }
+.btn-ghost {
+  background: transparent; color: var(--text2);
+  border: 1px solid var(--border2);
+}
+.btn-ghost:hover { border-color: var(--silver); color: var(--text); }
+
+/* ─────────────────────────────────────
+   FOOTER
+───────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 26px 56px;
+  display: flex; align-items: center;
+  justify-content: space-between;
+}
+.ft { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: .1em; color: var(--text3); }
+.ft-r { display: flex; gap: 24px; }
+.ft-r a { color: var(--text3); transition: color .2s; }
+.ft-r a:hover { color: var(--text); }
+
+@keyframes fadeup { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:none} }
+
+/* ─────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────── */
+@media(max-width:900px){
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .wrap,.hero-wrap,footer { padding-left: 24px; padding-right: 24px; }
+  .hero-floaters { display: none; }
+  .hero-foot { flex-direction: column; align-items: flex-start; }
+  .about-grid { grid-template-columns: 1fr; gap: 48px; }
+  .caps-grid { grid-template-columns: 1fr; }
+  .exp-item { grid-template-columns: 1fr; gap: 8px; }
+  .proj-row { grid-template-columns: 32px 1fr 28px; }
+  .proj-chips { display: none; }
+  #work,.#about,#caps,#exp,#contact { padding: 88px 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- TYRE TRAIL CANVAS -->
+<canvas id="trail-canvas"></canvas>
+
+<!-- CURSOR -->
+<div id="cur-wrap">
+  <div id="cur-dot"></div>
+  <div id="cur-ring"></div>
+</div>
+
+<!-- PROGRESS BAR -->
+<div id="prog"></div>
+
+<!-- ── NAV ────────────────────────────── -->
+<nav>
+  <a href="#hero" class="nav-logo">
+    <div class="nav-star">
+      <svg viewBox="0 0 28 28" fill="none">
+        <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width=".8"/>
+        <line x1="14" y1="2" x2="14" y2="14" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+        <line x1="14" y1="14" x2="23.5" y2="21" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+        <line x1="14" y1="14" x2="4.5" y2="21" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+        <circle cx="14" cy="14" r="1.8" fill="currentColor" opacity=".5"/>
+      </svg>
+    </div>
+    Hrishikesh Nanda
+  </a>
+
+  <div class="nav-links">
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
+    <a href="#exp">Experience</a>
+    <a href="#contact">Contact</a>
+  </div>
+
+  <div class="nav-r">
+    <div class="nav-avail"><div class="pip"></div>Available</div>
+    <button class="theme-btn" id="themeBtn">Day Mode</button>
+  </div>
+</nav>
+
+<!-- ── HERO ───────────────────────────── -->
+<section id="hero">
+  <div class="hero-wrap">
+    <div class="hero-kicker">
+      <span class="kicker-rule"></span>
+      UX Designer — Bangalore, India
+    </div>
+
+    <h1 class="hero-h1">
+      Designing things<br>
+      that <em>actually</em><br>
+      ship<span style="color:var(--gold)">.</span>
+    </h1>
+
+    <div class="hero-foot">
+      <p class="hero-desc">
+        IIT Guwahati B.Des. Led design at <strong>Upstox</strong> across
+        flows used by <strong>10M+ people</strong>. Spent the last year
+        with my hands in ECUs. Now looking for
+        the next product to obsess over.
+      </p>
+      <div class="hero-meta">
+        <div class="meta-row">Based <span>Bangalore, IN</span></div>
+        <div class="meta-row">Exp <span>3+ Years</span></div>
+        <div class="meta-row">Edu <span>IIT Guwahati · B.Des</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating chips — the personality -->
+  <div class="hero-floaters">
+    <div class="floater"><span class="fi">🏎</span>Can rebuild an engine</div>
+    <div class="floater"><span class="fi">🏍</span>Bikes too, obviously</div>
+    <div class="floater"><span class="fi">🐧</span>Arch Linux daily driver</div>
+    <div class="floater"><span class="fi">🎮</span>Immortal · Valorant</div>
+  </div>
+</section>
+
+<!-- ── MARQUEE ─────────────────────────── -->
+<div class="marquee-wrap">
+  <div class="marquee-inner" aria-hidden="true">
+    <div class="marquee-unit">Product Design <span class="msep">◆</span></div>
+    <div class="marquee-unit">Design Systems <span class="msep">◆</span></div>
+    <div class="marquee-unit">User Research <span class="msep">◆</span></div>
+    <div class="marquee-unit">Figma <span class="msep">◆</span></div>
+    <div class="marquee-unit">HMI <span class="msep">◆</span></div>
+    <div class="marquee-unit">Infotainment <span class="msep">◆</span></div>
+    <div class="marquee-unit">IIT Guwahati <span class="msep">◆</span></div>
+    <div class="marquee-unit">Fintech <span class="msep">◆</span></div>
+    <div class="marquee-unit">Mobile · Web <span class="msep">◆</span></div>
+    <div class="marquee-unit">Interaction Design <span class="msep">◆</span></div>
+    <div class="marquee-unit">ECU Calibration <span class="msep">◆</span></div>
+    <div class="marquee-unit">Product Design <span class="msep">◆</span></div>
+    <div class="marquee-unit">Design Systems <span class="msep">◆</span></div>
+    <div class="marquee-unit">User Research <span class="msep">◆</span></div>
+    <div class="marquee-unit">Figma <span class="msep">◆</span></div>
+    <div class="marquee-unit">HMI <span class="msep">◆</span></div>
+    <div class="marquee-unit">Infotainment <span class="msep">◆</span></div>
+    <div class="marquee-unit">IIT Guwahati <span class="msep">◆</span></div>
+    <div class="marquee-unit">Fintech <span class="msep">◆</span></div>
+    <div class="marquee-unit">Mobile · Web <span class="msep">◆</span></div>
+    <div class="marquee-unit">Interaction Design <span class="msep">◆</span></div>
+    <div class="marquee-unit">ECU Calibration <span class="msep">◆</span></div>
+  </div>
+</div>
+
+<!-- ── WORK ───────────────────────────── -->
+<section id="work">
+  <div class="wrap">
+    <div class="section-head r">
+      <div>
+        <div class="s-eyebrow">Selected Work</div>
+        <h2 class="s-h2">Case Studies</h2>
+      </div>
+      <div class="s-count">04 projects</div>
+    </div>
+
+    <div class="proj-list">
+      <a href="case-nao.html" class="proj-row r" data-cursor="View Case">
+        <div class="proj-n">01</div>
+        <div>
+          <div class="proj-name">Native Account Opening 2.0</div>
+          <div class="proj-sub">Upstox · 2022–23 · Lead Designer · 10M+ users</div>
+        </div>
+        <div class="proj-chips">
+          <span class="chip chip-g">Lead Designer</span>
+          <span class="chip">Fintech</span>
+          <span class="chip">Mobile</span>
+        </div>
+        <div class="proj-arr">↗</div>
+      </a>
+
+      <a href="case-devconsole.html" class="proj-row r d1">
+        <div class="proj-n">02</div>
+        <div>
+          <div class="proj-name">Developer API Console</div>
+          <div class="proj-sub">Upstox · 2022–23 · Developer tooling & account management</div>
+        </div>
+        <div class="proj-chips">
+          <span class="chip">Dev Tools</span>
+          <span class="chip">Web App</span>
+        </div>
+        <div class="proj-arr">↗</div>
+      </a>
+
+      <a href="case-upalert.html" class="proj-row r d2">
+        <div class="proj-n">03</div>
+        <div>
+          <div class="proj-name">Up.alert — Notification Platform</div>
+          <div class="proj-sub">Upstox · 2022–23 · Internal real-time communications system</div>
+        </div>
+        <div class="proj-chips">
+          <span class="chip">Dashboard</span>
+          <span class="chip">Internal Tool</span>
+        </div>
+        <div class="proj-arr">↗</div>
+      </a>
+
+      <a href="case-trophee.html" class="proj-row r d3">
+        <div class="proj-n">04</div>
+        <div>
+          <div class="proj-name">Trophee — Manga Reader & Web App</div>
+          <div class="proj-sub">Trophee.xyz · 2021–22 · Freelance · Visual identity + full UI</div>
+        </div>
+        <div class="proj-chips">
+          <span class="chip">Freelance</span>
+          <span class="chip">Mobile</span>
+        </div>
+        <div class="proj-arr">↗</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT ──────────────────────────── -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div>
+        <div class="s-eyebrow r">The Human</div>
+        <h2 class="about-h2 r d1">
+          Designer who builds<br>
+          <em>things with his hands.</em>
+        </h2>
+        <div class="about-copy r d2">
+          <p>I'm Hrishikesh. Studied design at IIT Guwahati, then joined Upstox as
+          lead designer on their account-opening product — the first experience
+          every new user goes through. Real stakes, real conversion numbers,
+          real engineers to argue with.</p>
+          <p>Outside screens: I co-founded an anime app, spent 2025 doing ECU
+          calibration at an IIT Madras automotive startup, and yes, I know what
+          it feels like to have an engine apart on the garage floor and not
+          entirely know how it goes back together.</p>
+          <p>Great design and mechanical intuition come from the same place —
+          understanding <strong>how things actually work</strong> well enough
+          to make them feel effortless.</p>
+        </div>
+      </div>
+
+      <!-- Vehicle datasheet spec card -->
+      <div class="r d3">
+        <div class="spec-card">
+          <div class="spec-card-header">
+            <div class="spec-model-num">Model: HN-2025 · UX Designer</div>
+            <div class="spec-avail">Available</div>
+          </div>
+          <div class="spec-rows">
+
+            <div class="spec-row">
+              <div class="sk">Origin</div>
+              <div class="sv">IIT Guwahati — B.Des 2022</div>
+            </div>
+
+            <div class="spec-row">
+              <div class="sk">Output</div>
+              <div class="sv"><strong>10M+ users</strong> · 4 products shipped</div>
+            </div>
+
+            <div class="spec-row">
+              <div class="sk">Stack</div>
+              <div class="sv">Figma · Prototyping · Systems · Research</div>
+            </div>
+
+            <div class="spec-row">
+              <div class="sk">Domain</div>
+              <div class="sv"><span class="g">HMI · Infotainment · Consumer · Fintech</span></div>
+            </div>
+
+            <div class="spec-row">
+              <div class="sk">Mechanical</div>
+              <div class="sv">
+                Full engine rebuilds · ECU mapping
+                <div style="font-size:10px;color:var(--text3);margin-top:2px;">
+                  Hover to see torque
+                </div>
+                <div class="torque-bar">
+                  <div class="torque-fill" style="--w:92%"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="spec-row">
+              <div class="sk">Two wheels</div>
+              <div class="sv">Bikes — yes, those too</div>
+            </div>
+
+            <div class="spec-row">
+              <div class="sk">OS</div>
+              <div class="sv">Arch Linux · daily driver always</div>
+            </div>
+
+            <div class="spec-row">
+              <div class="sk">Side note</div>
+              <div class="sv">Immortal in Valorant · Elden Ring in &lt;2hrs</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── CAPS ───────────────────────────── -->
+<section id="caps">
+  <div class="wrap">
+    <div class="r">
+      <div class="s-eyebrow">What I Do</div>
+      <h2 class="s-h2">Capabilities</h2>
+    </div>
+    <div class="caps-grid">
+      <div class="cap r d1">
+        <div class="cap-n">01</div>
+        <div class="cap-name">Product Design</div>
+        <p class="cap-desc">End-to-end ownership — discovery, flows, hi-fi, handoff. I run the full lifecycle.</p>
+        <div class="cap-tags"><span class="chip">Figma</span><span class="chip">User Flows</span><span class="chip">Wireframing</span></div>
+      </div>
+      <div class="cap r d2">
+        <div class="cap-n">02</div>
+        <div class="cap-name">Design Systems</div>
+        <p class="cap-desc">Scalable libraries that let teams ship without losing coherence. Pixels that make sense at scale.</p>
+        <div class="cap-tags"><span class="chip">Components</span><span class="chip">Tokens</span><span class="chip">Docs</span></div>
+      </div>
+      <div class="cap r d3">
+        <div class="cap-n">03</div>
+        <div class="cap-name">HMI & Automotive UI</div>
+        <p class="cap-desc">Glance-based interfaces, hierarchy under pressure, safety-critical information design. The hardest canvas.</p>
+        <div class="cap-tags"><span class="chip">Clusters</span><span class="chip">Infotainment</span><span class="chip">HUD</span></div>
+      </div>
+      <div class="cap r d1">
+        <div class="cap-n">04</div>
+        <div class="cap-name">Research & Data</div>
+        <p class="cap-desc">Drop-off analysis, usability testing, stakeholder alignment. Decisions with evidence attached.</p>
+        <div class="cap-tags"><span class="chip">Analytics</span><span class="chip">A/B Tests</span><span class="chip">Interviews</span></div>
+      </div>
+      <div class="cap r d2">
+        <div class="cap-n">05</div>
+        <div class="cap-name">Technical Fluency</div>
+        <p class="cap-desc">I understand how things get built — mobile, web, ECUs. Fewer blockers, more shipped product.</p>
+        <div class="cap-tags"><span class="chip">Android/iOS</span><span class="chip">Web</span><span class="chip">APIs</span></div>
+      </div>
+      <div class="cap r d3">
+        <div class="cap-n">06</div>
+        <div class="cap-name">Collaboration</div>
+        <p class="cap-desc">Got CEO sign-off, led team rituals, coordinated PM + engineering. Design that navigates real organisations.</p>
+        <div class="cap-tags"><span class="chip">Stakeholders</span><span class="chip">Critiques</span><span class="chip">Roadmaps</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EXPERIENCE ─────────────────────── -->
+<section id="exp">
+  <div class="wrap">
+    <div class="r">
+      <div class="s-eyebrow">Career</div>
+      <h2 class="s-h2">Experience</h2>
+    </div>
+    <div class="exp-list">
+
+      <div class="exp-item r d1">
+        <div class="exp-date">2024</div>
+        <div>
+          <div class="exp-co">Ani! · Co-Founder</div>
+          <div class="exp-role">Co-Founder & Product Designer</div>
+          <p class="exp-desc">Co-founded an anime social platform on iOS and Android. Led all product design from zero to shipped — architecture, visual identity, every screen.</p>
+        </div>
+      </div>
+
+      <div class="exp-item r d2">
+        <div class="exp-date">2022–2023</div>
+        <div>
+          <div class="exp-co">Upstox (RKSV Securities)</div>
+          <div class="exp-role">UX Designer I</div>
+          <p class="exp-desc">Lead designer on NAO 2.0 — the full onboarding experience for 10M+ users. Also shipped Developer API Console and Up.alert. Got CEO sign-off, pixel-perfect to the end.</p>
+        </div>
+      </div>
+
+      <div class="exp-item r d3">
+        <div class="exp-date">2021–2022</div>
+        <div>
+          <div class="exp-co">Trophee.xyz · Freelance, Singapore</div>
+          <div class="exp-role">Lead UI Designer</div>
+          <p class="exp-desc">Visual identity and full UI for a Singapore manga NFT platform — mobile reader and web application, end to end.</p>
+        </div>
+      </div>
+
+      <div class="exp-item r d4">
+        <div class="exp-date">2025</div>
+        <div>
+          <div class="exp-co">NikOttO Pvt. Ltd. · IIT Madras</div>
+          <div class="exp-role">ECU Calibration & Automotive</div>
+          <p class="exp-desc">A deliberate detour. Engine calibration, ECU tuning, and the software side of automotive engineering. Mapping a throttle curve and a user flow aren't that different — both are about response, precision, and what happens at the limit.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ────────────────────────── -->
+<section id="contact">
+  <div class="wrap">
+    <div class="s-eyebrow r">Let's talk</div>
+    <h2 class="contact-h2 r d1">
+      Got a<br><em>problem</em><br>to solve?
+    </h2>
+    <p class="contact-sub r d2">
+      Open to the right role. Whether it's a product challenge,
+      a critique session, or an argument about inline-four versus flat-six.
+    </p>
+    <div class="btn-row r d3">
+      <a href="mailto:hrishikesh.nanda@rksv.in" class="btn btn-solid">Say Hello</a>
+      <a href="#" target="_blank" class="btn btn-ghost">LinkedIn ↗</a>
+      <a href="#" class="btn btn-ghost">Resume ↓</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft">© 2025 Hrishikesh Nanda</div>
+  <div class="ft ft-r">
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<!-- ── JS ─────────────────────────────── -->
+<script>
+// ── CURSOR + TYRE TRAIL ──────────────────────────────
+const dot   = document.getElementById('cur-dot');
+const ring  = document.getElementById('cur-ring');
+const canvas = document.getElementById('trail-canvas');
+const ctx   = canvas.getContext('2d');
+
+let mx = -200, my = -200;
+let cx = -200, cy = -200; // ring (lagged)
+let dx = -200, dy = -200; // dot (lagged less)
+
+// Trail points
+const trail = [];
+const TRAIL_LEN = 28;
+
+function resizeCanvas(){
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+
+function lerp(a,b,t){ return a+(b-a)*t; }
+
+;(function tick(){
+  // move elements
+  dx = lerp(dx, mx, 0.22);
+  dy = lerp(dy, my, 0.22);
+  cx = lerp(cx, mx, 0.10);
+  cy = lerp(cy, my, 0.10);
+
+  dot.style.left  = dx + 'px';
+  dot.style.top   = dy + 'px';
+  ring.style.left = cx + 'px';
+  ring.style.top  = cy + 'px';
+
+  // trail
+  trail.push({ x: dx, y: dy });
+  if(trail.length > TRAIL_LEN) trail.shift();
+
+  // draw tyre track — two parallel thin lines
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  const isDark = document.documentElement.dataset.theme === 'dark';
+  const trackCol = isDark ? '255,255,255' : '0,0,0';
+
+  if(trail.length > 2){
+    const GAP = 3.5; // tyre width gap
+
+    for(let side = -1; side <= 1; side += 2){
+      ctx.beginPath();
+      for(let i = 1; i < trail.length; i++){
+        const t  = trail[i], tp = trail[i-1];
+        const dx2 = t.x - tp.x, dy2 = t.y - tp.y;
+        const len = Math.sqrt(dx2*dx2 + dy2*dy2) || 1;
+        const nx = -dy2/len * GAP * side;
+        const ny =  dx2/len * GAP * side;
+        const alpha = (i/trail.length) * 0.5;
+        if(i === 1){ ctx.moveTo(tp.x+nx, tp.y+ny); }
+        ctx.lineTo(t.x+nx, t.y+ny);
+      }
+      ctx.strokeStyle = `rgba(${trackCol},0.22)`;
+      ctx.lineWidth = 1.2;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+    }
+
+    // tread marks — short dashes perpendicular to direction
+    for(let i = 4; i < trail.length; i += 5){
+      const t  = trail[i], tp = trail[i-1];
+      const dx2 = t.x - tp.x, dy2 = t.y - tp.y;
+      const len = Math.sqrt(dx2*dx2+dy2*dy2)||1;
+      const nx = -dy2/len * 4;
+      const ny =  dx2/len * 4;
+      const alpha = (i/trail.length) * 0.18;
+      ctx.beginPath();
+      ctx.moveTo(t.x - nx, t.y - ny);
+      ctx.lineTo(t.x + nx, t.y + ny);
+      ctx.strokeStyle = `rgba(${trackCol},${alpha})`;
+      ctx.lineWidth = .8;
+      ctx.stroke();
+    }
+  }
+
+  requestAnimationFrame(tick);
+})();
+
+// hover state
+document.querySelectorAll('a,button,.spec-row,.floater,.cap,.proj-row').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+});
+
+// ── THEME ────────────────────────────────────────────
+const themeBtn = document.getElementById('themeBtn');
+themeBtn.addEventListener('click', () => {
+  const dark = document.documentElement.dataset.theme === 'dark';
+  document.documentElement.dataset.theme = dark ? 'light' : 'dark';
+  themeBtn.textContent = dark ? 'Night Mode' : 'Day Mode';
+});
+
+// ── SCROLL PROGRESS ──────────────────────────────────
+const prog = document.getElementById('prog');
+window.addEventListener('scroll', () => {
+  prog.style.width = (window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100) + '%';
+}, { passive: true });
+
+// ── SCROLL REVEAL ────────────────────────────────────
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('up'); });
+}, { threshold: .08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.r').forEach(el => io.observe(el));
+
+// ── ODOMETER COUNTER ─────────────────────────────────
+// Animates stats like a rolling odometer on scroll into view
+document.querySelectorAll('[data-count]').forEach(el => {
+  const target = parseInt(el.dataset.count);
+  const obs = new IntersectionObserver(([entry]) => {
+    if(!entry.isIntersecting) return;
+    let start = 0;
+    const step = () => {
+      start = Math.min(start + Math.ceil(target/60), target);
+      el.textContent = start.toLocaleString();
+      if(start < target) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+    obs.disconnect();
+  });
+  obs.observe(el);
+});
+</script>
+
+</body>
+</html>
