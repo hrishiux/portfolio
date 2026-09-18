@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Account Centre &amp; Developer API Console — Hrishikesh Nanda</title>
+<meta name="description" content="UI ownership of Upstox Account Centre and the Developer API Console, 2022–2023.">
+<meta name="author" content="Hrishikesh Nanda">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Account Centre &amp; Developer API Console — Hrishikesh Nanda">
+<meta property="og:description" content="UI ownership of Upstox Account Centre and the Developer API Console, 2022–2023.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="../assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400..800;1,400..800&family=EB+Garamond:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<script>document.documentElement.className += " js";</script>
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<header class="nav" data-tone="light">
+  <a class="nav__wordmark" href="../index.html"><span class="nowrap">hrishikesh</span></a>
+  <nav class="nav__links label-mono">
+    <a href="../index.html#works">works</a>
+    <a href="../about.html">about</a>
+    <a href="../index.html#contact">contact</a>
+  </nav>
+</header>
+
+<main>
+
+<header class="cs-hero">
+    <a class="back label-mono" href="../index.html#works">← works</a>
+    <p class="cs-hero__eyebrow label-mono">Case study 03</p>
+    <h1 class="display-lg">Account Centre &amp; Developer API Console</h1>
+    <p class="lede-serif">A dedicated web product where users manage their profile, reports and corporate actions &mdash; and where third-party developers manage the integrations they build on Upstox&rsquo;s trading infrastructure.</p>
+
+    <dl class="meta">
+      <div><dt>Role</dt><dd>UI Designer</dd></div>
+      <div><dt>Timeline</dt><dd>July <div><dt>Timeline</dt><dd>July &ndash; September 2022</dd></div>ndash; September 2022</dd></div>
+      <div><dt>Company</dt><dd>Upstox</dd></div>
+      <div><dt>Scope</dt><dd>Responsive shell, Account Centre, Developer API Console</dd></div>
+    </dl>
+</header>
+
+<section class="section">
+  <div class="gutter">
+    <div class="cs-body">
+
+
+      <article class="prose">
+
+      <h2 id="overview">Overview</h2>
+      <p>Upstox is one of India&rsquo;s largest retail stock broking platforms, with 10M+ registered users and ~3M active traders at the time of this project. Account Centre was a dedicated web product &mdash; separate from the main trading app &mdash; where users could manage their profile, view financial reports, handle corporate actions, and for developer users, manage their API integrations and subscriptions.</p>
+      <p>I was initially brought on to design the billing section within Account Centre. As the scope expanded, I took over full UI ownership of the Developer API Console &mdash; the end-to-end interface through which third-party developers build on top of Upstox&rsquo;s trading infrastructure.</p>
+
+      <h2 id="role">My role</h2>
+      <p>I owned UI design and final production screens for Account Centre and the Developer API Console &mdash; every screen, state, and interaction detail that shipped. The underlying UX flows and stakeholder-facing product decisions were handled separately; my part began once those directions were set, translating them into shell architecture, componentry, and pixel-perfect screens ready for engineering handoff.</p>
+
+      <h2 id="problem">The problem</h2>
+      <p>Upstox&rsquo;s developer-facing API product was growing, but the tooling around it hadn&rsquo;t kept pace. Developers subscribing to API plans (Interactive at &#8377;499/mo, Historical at &#8377;499/mo, Combined at &#8377;899/mo) had no coherent self-serve experience to manage their apps, track billing, or test integrations before committing. Separately, a SEBI compliance circular mandated changes to the API login mechanism by September 2022, requiring both a knowledge factor (PIN/password) and a possession factor (OTP via SMS + email) &mdash; the existing flow only had the former.</p>
+      <p>The broader Account Centre also lacked a proper responsive foundation, with nothing designed to work coherently across mobile, tablet, and desktop with consistent states.</p>
+
+      <h2 id="approach">Design approach</h2>
+      <p>The first thing I established before touching any product screen was the shell &mdash; the structural and behavioural foundation everything else would sit on. This meant defining:</p>
+      <ul>
+        <li>Loading, error, and empty states for every page and sub-section, both mobile and desktop</li>
+        <li>404 and server error gates</li>
+        <li>Grid systems &mdash; SM columns for mobile/tablet (up to 1024px), LG columns for desktop (1016px content width)</li>
+        <li>Navigation architecture &mdash; top bar behaviour on home vs child pages, scroll-pinning rules, tab bar collapse on scroll, account dropdown context menu</li>
+        <li>Alert and toast placement rules, inherited from the DS but adapted for this product&rsquo;s specific constraints</li>
+      </ul>
+      <p>That upfront work made handoff clean and prevented engineers from making layout decisions themselves. Every edge case had a defined answer before a single product screen was built.</p>
+      <p>With the shell established, I designed the full Account Centre UI across its three primary tabs &mdash; Profile, Reports, and Corporate Actions &mdash; before moving into the Developer API Console, which became the most complex and technically nuanced section of the project.</p>
+
+      <h3>Developer API Console</h3>
+      <p>For the <strong>Developer API Console</strong>, the key areas I worked through were:</p>
+
+      <h4>App lifecycle management</h4>
+      <p>Developers needed to create apps, subscribe to plans, and track the payment status of those subscriptions. Working within the async handling logic defined for the underlying limit deduction API (response time anywhere from 5 seconds to 2 minutes), I designed the UI for the post-confirmation in-progress state &mdash; apps surfaced with a &ldquo;creation in progress&rdquo; status, transitioning to a success screen (API key + secret) or a failure screen (retry and delete options).</p>
+
+      <h4>Billing and wallet flow</h4>
+      <p>Plan charges were deducted from the user&rsquo;s Upstox wallet. If insufficient funds were available, the flow redirected users to a pre-filled add funds experience. I designed both the happy path and the insufficient funds screens, keeping developers in context throughout.</p>
+
+      <h4>Sandbox environment</h4>
+      <p>To increase API adoption, a sandbox mode was needed so developers could test integrations without real funds or a live account. I designed the sandbox as a parallel environment within the console, with clear visual differentiation from the live environment to prevent accidental production actions.</p>
+
+      <h4>SEBI compliance login</h4>
+      <p>The existing API login (UCC + password + year of birth) needed OTP-based possession factor authentication added. I designed the updated login screens incorporating mobile number + OTP + PIN, meeting the regulatory deadline while keeping the experience frictionless for developers who log in frequently.</p>
+
+      <h2 id="attention">What I paid attention to</h2>
+      <p>The developer audience is different from a retail trader. They&rsquo;re technical, they&rsquo;re impatient with friction, and they will read error states. So every failed state &mdash; app creation failed, insufficient funds, API key load error &mdash; was written and designed with precision. Specific copy, a clear recovery action, an explicit next step.</p>
+      <p>The responsive shell also mattered here more than in most internal tools, because developers access consoles across environments &mdash; a MacBook in an office, a phone on the go checking subscription status. The grid system and navigation architecture I built ensured the experience held up across every viewport.</p>
+
+      <h2 id="outcome">Outcome</h2>
+      <p>The Account Centre shipped as a unified web product replacing fragmented legacy account management pages. The Developer API Console enabled Upstox to launch paid API plans with a self-serve subscription and management experience. The SEBI login compliance was delivered ahead of the September 2022 deadline.</p>
+
+      </article>
+
+
+      <nav class="cs-rail" aria-label="Sections"><p class="label-mono">sections</p><ol></ol></nav>
+
+
+    </div>
+
+    <nav class="pager">
+      <a href="up-alert.html"><small>Previous</small><strong>&larr; Up.alert</strong></a>
+      <a href="invest-logos.html"><small>Next case study</small><strong>Invest Logos &rarr;</strong></a>
+    </nav>
+  </div>
+</main>
+
+<footer class="foot" id="contact">
+  <h2>open to product design roles</h2>
+  <p>The case studies carry the detail. The CV carries the summary.</p>
+  <ul class="foot__links label-mono">
+    <li><a href="mailto:hrishi.ux@gmail.com">hrishi.ux@gmail.com →</a></li>
+    <li><a href="https://hrishiux.github.io/portfolio">hrishiux.github.io/portfolio →</a></li>
+    <li><a href="../assets/docs/Hrishikesh-Nanda-CV.pdf">cv (pdf) →</a></li>
+  </ul>
+  <div class="foot__bar label-mono">
+    <span>© 2026 <span class="nowrap">hrishikesh nanda</span></span>
+    <span><a href="../index.html#works">works</a> · <a href="../about.html">about</a></span>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

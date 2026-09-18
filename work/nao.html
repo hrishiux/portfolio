@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Upstox NAO 2.0 — Hrishikesh Nanda</title>
+<meta name="description" content="Systems-level UX redesign and onboarding architecture overhaul for Upstox native account opening, Aug 2022 – Feb 2023.">
+<meta name="author" content="Hrishikesh Nanda">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Upstox NAO 2.0 — Hrishikesh Nanda">
+<meta property="og:description" content="Systems-level UX redesign and onboarding architecture overhaul for Upstox native account opening, Aug 2022 – Feb 2023.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="../assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400..800;1,400..800&family=EB+Garamond:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<script>document.documentElement.className += " js";</script>
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<header class="nav" data-tone="light">
+  <a class="nav__wordmark" href="../index.html"><span class="nowrap">hrishikesh</span></a>
+  <nav class="nav__links label-mono">
+    <a href="../index.html#works">works</a>
+    <a href="../about.html">about</a>
+    <a href="../index.html#contact">contact</a>
+  </nav>
+</header>
+
+<main>
+
+<header class="cs-hero">
+    <a class="back label-mono" href="../index.html#works">← works</a>
+    <p class="cs-hero__eyebrow label-mono">Case study 01</p>
+    <h1 class="display-lg">Upstox Native Account Opening (NAO) 2.0</h1>
+    <p class="lede-serif">Systems-level UX redesign and onboarding architecture overhaul. Upstox is India&rsquo;s Robinhood equivalent &mdash; one of the country&rsquo;s largest retail broking platforms, with 10M+ registered users and around 3M active traders at the time of this project.</p>
+
+    <dl class="meta">
+      <div><dt>Role</dt><dd>Lead Product Designer (Systems &amp; Platform)</dd></div>
+      <div><dt>Timeline</dt><dd>August 2022 &ndash; February 2023</dd></div>
+      <div><dt>Sector</dt><dd>Fintech / Wealth Management</dd></div>
+      <div><dt>Target metric</dt><dd>Lead &rarr; Account Created, 21.47% &rarr; 60.0%</dd></div>
+    </dl>
+</header>
+
+<section class="section">
+  <div class="gutter">
+
+    <ul class="keyfigures reveal">
+      <li><b>6</b><span>Verification blocks rebuilt — email, PAN, bank, liveness, signature, e-sign</span></li>
+      <li><b>15 &rarr; 9</b><span>Mandatory manual fields; document uploads went from 3 to 0</span></li>
+      <li><b>+3.56 pts</b><span>PAN step conversion, measured, after the Equifax integration</span></li>
+      <li><b>+4.90 pts</b><span>Email step conversion, measured, after Google and Apple SSO</span></li>
+    </ul>
+
+    <div class="cs-body">
+
+
+      <article class="prose">
+
+      <h2 id="summary">1. Executive summary &amp; strategic business objective</h2>
+
+      <h3>The challenge</h3>
+      <p>In the highly competitive Indian brokerage landscape, user acquisition velocity is directly gated by the onboarding funnel. Upstox&rsquo;s classic onboarding flow exhibited high drop-off rates due to severe cognitive load, complex regulatory requirements, manual data inputs, and high-latency offline scrutiny.</p>
+
+      <p>The baseline performance metrics were:</p>
+      <ul>
+        <li><strong>Classic Flow Conversion Rate (Organic):</strong> 12.94%</li>
+        <li><strong>Initial Native Account Opening (NAO 1.0) Conversion Rate (Organic):</strong> 22.72%</li>
+        <li><strong>Overall Baseline Funnel Conversion (All Channels):</strong> 21.47% (with NAO at 31.63%)</li>
+        <li><strong>Rejection Rate:</strong> 35.0%</li>
+        <li><strong>Drop-off Rate Across the Funnel:</strong> ~60.0%</li>
+      </ul>
+
+      <h3>The objective</h3>
+      <p>The strategic mandate was to <strong>redesign and engineer NAO 2.0</strong> to:</p>
+      <ol>
+        <li><strong>Nearly double overall conversion to 60.0%</strong>.</li>
+        <li><strong>Reduce overall step-level rejection rates from 35.0% to 10.0%</strong> by replacing post-submission manual audit checks with real-time, automated verification APIs.</li>
+        <li><strong>Reduce median Time-to-Account Creation</strong> from 30 minutes to under 20 minutes, with a downstream system capability to open accounts instantly (under 2 hours).</li>
+        <li><strong>Decrease customer support overhead</strong> (historically, 40.0% of all completed accounts required active sales assistance calls to navigate the funnel).</li>
+      </ol>
+
+      <hr>
+
+      <h2 id="audit">2. Funnel audit &amp; drop-off mapping</h2>
+      <p>To identify the structural bottlenecks, we conducted an audit of step-level drop-offs and rejections (June MTD data):</p>
+
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr><th>Funnel step</th><th class="num">Drop-off %</th><th class="num">Rejection weight %</th><th>Core UX/technical friction point</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Email Verification</strong></td><td class="num">24.19%</td><td class="num">N/A</td><td>Manual entry of 60-char email addresses; high OTP latency/delivery failures.</td></tr>
+            <tr><td><strong>PAN &amp; DOB</strong></td><td class="num">21.13%</td><td class="num">5.19% (DOB) 5.19% (Name)</td><td>Manual entry of PAN digits and date-of-birth; high typographical error rate.</td></tr>
+            <tr><td><strong>Bank Details</strong></td><td class="num">7.87%</td><td class="num">15.53%</td><td>Mandatory manual typing of Bank Account Numbers, repeat validation fields, and IFSC lookup.</td></tr>
+            <tr><td><strong>Photo Upload</strong></td><td class="num">3.23%</td><td class="num">18.45%</td><td>Static web camera captures with poor lighting, leading to downstream automated or manual rejection.</td></tr>
+            <tr><td><strong>Signature Upload</strong></td><td class="num">3.92%</td><td class="num">21.32%</td><td>High friction in manual signature drawing or photo upload; illegible/cut-off signatures.</td></tr>
+            <tr><td><strong>E-Sign (NSDL)</strong></td><td class="num">2.28%</td><td class="num">3.91%</td><td>High trust-barrier on third-party government portal; poor mobile responsiveness.</td></tr>
+            <tr><td><strong>Address Verification</strong></td><td class="num">17.08%</td><td class="num">N/A</td><td>High-friction manual document upload or Aadhaar XML flow.</td></tr>
+            <tr><td><strong>Account Opening Plan</strong></td><td class="num">51.12%</td><td class="num">N/A</td><td>Complex pricing structures, PEP/disclaimer screens causing paralysis of choice.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <hr>
+
+      <h2 id="philosophy">3. Experience philosophy: the &ldquo;N-Star&rdquo; &amp; screen format frameworks</h2>
+      <p>We moved away from isolated, superficial UI updates, framing our redesign around two strategic systems:</p>
+
+      <h3>A. The &ldquo;N-Star&rdquo; experience vision</h3>
+      <p>To align design, engineering, and business operations, we conceptualized a progression framework ranging from a basic functional app to an automated, high-touch platform:</p>
+      <ul>
+        <li><strong>1-Star:</strong> User cannot complete signup due to platform bugs.</li>
+        <li><strong>4-Star:</strong> User opens the account in a single session without human assistance.</li>
+        <li><strong>5-Star:</strong> Instant activation. As soon as the user e-signs, they can trade immediately.</li>
+        <li><strong>6-Star:</strong> Zero manual input. Entering a mobile number pulls investment history and net worth in the background with user permission.</li>
+        <li><strong>10-Star:</strong> Founder-level onboarding. Fully personalized experience, direct welcoming calls from executives, premium physical welcome merchandise delivered to the user&rsquo;s home.</li>
+      </ul>
+
+      <h3>B. The screen format framework</h3>
+      <p>We classified onboarding interfaces into three functional buckets to standardize the UI patterns and cognitive load across all screens:</p>
+
+      <figure class="figure-block">
+        <div class="figure-block__scroll">
+          <svg viewBox="0 0 800 300" role="img" aria-labelledby="fig-formats-t">
+          <title id="fig-formats-t">Three screen formats: simplified, hand-holding and education</title>
+          <g font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="1.6" fill="var(--muted-foreground)">
+            <text x="400" y="18" text-anchor="middle">screen format framework</text>
+          </g>
+          <path d="M400 30 V54 M120 54 H680 M120 54 V72 M400 54 V72 M680 54 V72"
+                fill="none" stroke="var(--border)" stroke-width="1"/>
+          <g>
+            <rect x="8" y="72" width="224" height="212" rx="4" fill="var(--card)" stroke="var(--border)"/>
+            <rect x="8" y="72" width="224" height="3" fill="var(--primary)"/>
+            <rect x="288" y="72" width="224" height="212" rx="4" fill="var(--card)" stroke="var(--border)"/>
+            <rect x="288" y="72" width="224" height="3" fill="var(--meadow)"/>
+            <rect x="568" y="72" width="224" height="212" rx="4" fill="var(--card)" stroke="var(--border)"/>
+            <rect x="568" y="72" width="224" height="3" fill="var(--sky)"/>
+          </g>
+          <g font-family="Archivo, sans-serif" font-size="17" font-weight="600" fill="var(--foreground)">
+            <text x="28" y="112">Simplified</text>
+            <text x="308" y="112">Hand-holding</text>
+            <text x="588" y="112">Education</text>
+          </g>
+          <g font-family="EB Garamond, serif" font-size="14.5" fill="var(--muted-foreground)">
+            <text x="28" y="142"><tspan x="28" dy="0">Low cognitive-load steps.</tspan><tspan x="28" dy="20">Minimise actions — one tap,</tspan><tspan x="28" dy="20">clear SSO choices.</tspan></text>
+            <text x="308" y="142"><tspan x="308" dy="0">High-friction, error-prone</tspan><tspan x="308" dy="20">steps. In-context overlays,</tspan><tspan x="308" dy="20">GIFs or video.</tspan></text>
+            <text x="588" y="142"><tspan x="588" dy="0">Where the user must retain</tspan><tspan x="588" dy="20">regulatory information, or</tspan><tspan x="588" dy="20">trust has to be built.</tspan></text>
+          </g>
+          <g font-family="JetBrains Mono, monospace" font-size="10.5" letter-spacing="1.2" fill="var(--muted-foreground)">
+            <text x="28" y="252">e.g. one-tap google sso</text>
+            <text x="308" y="252">e.g. signature canvas</text>
+            <text x="588" y="252">e.g. credibility carousel</text>
+          </g>
+        </svg>
+        </div>
+        <figcaption>every onboarding screen sorted into one of three formats</figcaption>
+      </figure>
+
+      <ol>
+        <li><strong>Simplified Format:</strong> Applied to low cognitive-load steps. Focuses on minimizing actions. <em>Example: Email verification via one-tap Google/Apple SSO.</em></li>
+        <li><strong>Hand-Holding Format:</strong> Applied to high-friction, error-prone steps requiring external lookups. Features in-context instructional overlays, GIFs, or videos. <em>Example: Real-time interactive canvas for digital signatures with explicit boundary-rule cues.</em></li>
+        <li><strong>Education Format:</strong> Applied when we need the user to retain critical regulatory information or build trust in the platform&rsquo;s security. <em>Example: Front-loaded platform credibility carousel highlighting Upstox&rsquo;s 1Cr+ investor base.</em></li>
+      </ol>
+
+      <hr>
+
+      <h2 id="architecture">4. Platform system architecture overhaul</h2>
+      <p>To support dynamic customization and rapid experimentation, we transitioned from a statically hardcoded step sequence to a modular, backend-driven <strong>Templates and Blocks Architecture</strong>.</p>
+
+      <figure class="figure-block">
+        <div class="figure-block__scroll">
+          <svg viewBox="0 0 800 340" role="img" aria-labelledby="fig-arch-t">
+          <title id="fig-arch-t">Backend CMS drives an onboarding engine built from configurable blocks</title>
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" fill="var(--muted-foreground)"/>
+            </marker>
+          </defs>
+
+          <rect x="190" y="8" width="420" height="94" rx="4" fill="var(--card)" stroke="var(--border)"/>
+          <text x="214" y="36" font-family="Archivo, sans-serif" font-size="15" font-weight="600" fill="var(--foreground)">Backend CMS</text>
+          <g font-family="EB Garamond, serif" font-size="14" fill="var(--muted-foreground)">
+            <text x="214" y="60">Custom UX configuration · match thresholds</text>
+            <text x="214" y="82">Segment template routing</text>
+          </g>
+
+          <path d="M400 102 V146" fill="none" stroke="var(--muted-foreground)" stroke-width="1" marker-end="url(#arrow)"/>
+          <text x="412" y="130" font-family="JetBrains Mono, monospace" font-size="10.5" letter-spacing="1.2" fill="var(--muted-foreground)">json rule engine</text>
+
+          <rect x="8" y="150" width="784" height="180" rx="4" fill="none" stroke="var(--border)"/>
+          <text x="28" y="178" font-family="JetBrains Mono, monospace" font-size="10.5" letter-spacing="1.6" fill="var(--muted-foreground)">onboarding engine</text>
+
+          <g>
+            <rect x="32" y="200" width="212" height="104" rx="4" fill="var(--card)" stroke="var(--border)"/>
+            <rect x="294" y="200" width="212" height="104" rx="4" fill="var(--card)" stroke="var(--border)"/>
+            <rect x="556" y="200" width="212" height="104" rx="4" fill="var(--card)" stroke="var(--border)"/>
+          </g>
+          <g font-family="Archivo, sans-serif" font-size="15" font-weight="600" fill="var(--foreground)">
+            <text x="52" y="236">Email — SSO</text>
+            <text x="314" y="236">PAN — Equifax</text>
+            <text x="576" y="236">Bank — penny drop</text>
+          </g>
+          <g font-family="EB Garamond, serif" font-size="13.5" fill="var(--muted-foreground)">
+            <text x="52" y="262">one-tap google / apple</text>
+            <text x="314" y="262">automated background check</text>
+            <text x="576" y="262">upi reverse drop via setu</text>
+          </g>
+          <g font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="1.1" fill="var(--primary)">
+            <text x="52" y="286">block</text>
+            <text x="314" y="286">block</text>
+            <text x="576" y="286">block</text>
+          </g>
+
+          <path d="M248 252 H288" fill="none" stroke="var(--muted-foreground)" stroke-width="1" marker-end="url(#arrow)"/>
+          <path d="M510 252 H550" fill="none" stroke="var(--muted-foreground)" stroke-width="1" marker-end="url(#arrow)"/>
+        </svg>
+        </div>
+        <figcaption>templates and blocks — flows reconfigured without a code release</figcaption>
+      </figure>
+
+      <h3>Key technical specs</h3>
+      <ul>
+        <li><strong>Blocks:</strong> Self-contained functional units (e.g. Email Verification Block, Liveness Block, Bank Verification Block) responsible for executing specific inputs, API integrations, and rule processing.</li>
+        <li><strong>Templates:</strong> Compiled sequences of connected blocks.</li>
+        <li><strong>Operator Dashboard (CMS):</strong> Enables PMs and Engineering Managers to drag, drop, and configure onboarding flows dynamically without code releases.
+          <ul>
+            <li><em>UX Toggles:</em> Toggling explanatory video overlays on/off per step.</li>
+            <li><em>System Thresholds:</em> Remotely updating backend rule variables (e.g. changing the fuzzy name match pass score from 80 to 90 via CMS).</li>
+            <li><em>Dynamic Template Assignment:</em> Segmenting users dynamically and serving custom onboarding flows (Templates) based on user demographic or intent.</li>
+          </ul>
+        </li>
+      </ul>
+
+      <hr>
+
+      <h2 id="blocks">5. Granular component redesigns (six key blocks)</h2>
+
+      <h3>Block A: Signup, splash, and carousel (the entry point)</h3>
+      <p><strong>The friction point:</strong> High latency in cold-app loading, static landing layouts, and manual typing of phone numbers on Android devices.</p>
+      <p><strong>The redesign solution:</strong></p>
+      <ol>
+        <li>Optimized asset pipeline to establish minimal splash screen time.</li>
+        <li>Developed a remote-configured, auto-advancing <strong>Dynamic Media Carousel Space</strong> supporting images, GIFs, and videos. Carousel adjusts dynamically to 3-second intervals for photos, or matches video/GIF playback durations, with auto-adjustment patterns when the virtual keyboard opens.</li>
+        <li>Integrated the <strong>Android Hint Module API</strong> to auto-suggest active phone numbers stored on the device, allowing one-tap selection and automating OTP reading and autofill.</li>
+      </ol>
+
+      <h3>Block B: SSO email verification</h3>
+      <p><strong>The friction point:</strong> Manual input of email addresses up to 60 characters long resulted in a 7.0% drop-off rate, primarily due to typographic errors, fake emails, or manual OTP entry friction.</p>
+      <p><strong>The redesign solution:</strong></p>
+      <ol>
+        <li>Implemented native <strong>Google Sign-In</strong> and <strong>Apple Sign-In</strong> (exclusive to iOS), converting email verification into a single-tap action.</li>
+        <li>Engineered a backend <strong>verified duplicate-checking routine</strong> that validates inputs against existing lead databases and active verified accounts in real time to prevent duplicate signups.</li>
+        <li>Created a real-time <strong>auto-verification mechanism</strong> for SSO emails. These accounts bypass manual scrutiny check-queues entirely, dropping off the scrutiny officer&rsquo;s dashboard to save operational bandwidth.</li>
+      </ol>
+
+      <h3>Block C: Bank account verification</h3>
+      <p><strong>The friction point:</strong> Manually typing account numbers, re-entering them, searching for IFSC codes, and uploading cancelled cheques resulted in a 4.53% step-level drop-off and a 15.53% overall rejection rate due to typo mismatch.</p>
+      <p><strong>The redesign solution:</strong></p>
+      <ol>
+        <li>Introduced a <strong>Unified Payment Interface (UPI) Reverse Penny Drop</strong> (via Setu): The user initiates a nominal 1 Rupee transaction via whitelisted local UPI apps. Setu captures the account holder&rsquo;s name, account number, and IFSC directly from the UPI credit-alert webhook, then automatically refunds the 1 Rupee back to the user.</li>
+        <li><strong>Forward Penny Drop Automation (Backup Path):</strong> For manual entries, the system deposits 1 Rupee and triggers real-time checking via <strong>Digio API</strong> (processing transactions in 4 seconds compared to Razorpay&rsquo;s 16 seconds).</li>
+        <li>Implemented a <strong>Fuzzy Name Match Algorithm</strong>: Matches the fetched bank name with the Income Tax (PAN) record name. A matched score of &ge; 70 allows the user to proceed automatically. Any score below 70 is flagged for manual scrutiny.</li>
+      </ol>
+
+      <figure class="figure-block">
+        <div class="figure-block__scroll">
+          <svg viewBox="0 0 800 380" role="img" aria-labelledby="fig-bank-t">
+          <title id="fig-bank-t">Two bank verification paths: UPI reverse penny drop, and a forward penny drop gated by a fuzzy name match</title>
+          <defs>
+            <marker id="arrow2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" fill="var(--muted-foreground)"/>
+            </marker>
+          </defs>
+
+          <text x="8" y="18" font-family="JetBrains Mono, monospace" font-size="10.5" letter-spacing="1.6" fill="var(--muted-foreground)">path a — upi reverse penny drop (setu)</text>
+          <g>
+            <rect x="8" y="32" width="230" height="58" rx="4" fill="var(--card)" stroke="var(--border)"/>
+            <rect x="285" y="32" width="230" height="58" rx="4" fill="var(--card)" stroke="var(--border)"/>
+            <rect x="562" y="32" width="230" height="58" rx="4" fill="var(--card)" stroke="var(--border)"/>
+          </g>
+          <g font-family="EB Garamond, serif" font-size="14.5" fill="var(--foreground)">
+            <text x="28" y="59">User pays ₹1</text>
+            <text x="305" y="59">Webhook returns name,</text>
+            <text x="305" y="77">IFSC, account number</text>
+            <text x="582" y="59">₹1 refunded</text>
+          </g>
+          <path d="M242 61 H281" fill="none" stroke="var(--muted-foreground)" stroke-width="1" marker-end="url(#arrow2)"/>
+          <path d="M519 61 H558" fill="none" stroke="var(--muted-foreground)" stroke-width="1" marker-end="url(#arrow2)"/>
+
+          <path d="M8 118 H792" stroke="var(--border)" stroke-width="1"/>
+
+          <text x="8" y="148" font-family="JetBrains Mono, monospace" font-size="10.5" letter-spacing="1.6" fill="var(--muted-foreground)">path b — forward penny drop (digio, 4s)</text>
+          <g>
+            <rect x="8" y="162" width="230" height="58" rx="4" fill="var(--card)" stroke="var(--border)"/>
+            <rect x="285" y="162" width="230" height="58" rx="4" fill="var(--card)" stroke="var(--border)"/>
+          </g>
+          <g font-family="EB Garamond, serif" font-size="14.5" fill="var(--foreground)">
+            <text x="28" y="189">User enters details</text>
+            <text x="305" y="189">System deposits ₹1</text>
+          </g>
+          <path d="M242 191 H281" fill="none" stroke="var(--muted-foreground)" stroke-width="1" marker-end="url(#arrow2)"/>
+
+          <rect x="562" y="152" width="230" height="78" rx="4" fill="var(--secondary)" stroke="var(--primary)"/>
+          <text x="582" y="182" font-family="Archivo, sans-serif" font-size="14" font-weight="600" fill="var(--foreground)">Fuzzy name match</text>
+          <text x="582" y="204" font-family="EB Garamond, serif" font-size="13.5" fill="var(--muted-foreground)">bank name vs PAN record</text>
+          <path d="M519 191 H558" fill="none" stroke="var(--muted-foreground)" stroke-width="1" marker-end="url(#arrow2)"/>
+
+          <path d="M677 230 V258 M300 258 H677 M677 258 H700 M300 258 V286 M700 258 V286"
+                fill="none" stroke="var(--muted-foreground)" stroke-width="1"/>
+
+          <rect x="180" y="286" width="240" height="66" rx="4" fill="var(--card)" stroke="var(--meadow)"/>
+          <text x="200" y="314" font-family="Archivo, sans-serif" font-size="14" font-weight="600" fill="var(--foreground)">Auto-approved</text>
+          <text x="200" y="336" font-family="JetBrains Mono, monospace" font-size="10.5" letter-spacing="1.2" fill="var(--meadow)">score ≥ 70</text>
+
+          <rect x="580" y="286" width="240" height="66" rx="4" fill="var(--card)" stroke="var(--border)"/>
+          <text x="600" y="314" font-family="Archivo, sans-serif" font-size="14" font-weight="600" fill="var(--foreground)">Manual scrutiny</text>
+          <text x="600" y="336" font-family="JetBrains Mono, monospace" font-size="10.5" letter-spacing="1.2" fill="var(--muted-foreground)">score &lt; 70</text>
+        </svg>
+        </div>
+        <figcaption>bank verification — the automatic path, and the one that needs a human</figcaption>
+      </figure>
+
+      <h3>Block D: Digital identity &amp; liveness verification</h3>
+      <p><strong>The friction point:</strong> Static live photo submission checks took place post-form submission, introducing high processing delays. Poor camera angles or lighting led to an 18.45% photo rejection rate.</p>
+      <p><strong>The redesign solution:</strong></p>
+      <ol>
+        <li>Integrated <strong>HyperVerge Liveness SDK</strong> directly into the front-end capture flow, shifting photo verification to a real-time step.</li>
+        <li>Implemented front-end photo capture guidelines (lighting cues, head centering circle overlay) and dynamic edge-assessment to verify image clarity prior to capture.</li>
+        <li>Backend performs <strong>real-time liveness threshold check</strong> (currently configured at an AI confidence score of &gt; 75).</li>
+        <li><strong>Facial Matching Confidence Score:</strong> For non-KRA users, the system compares the live capture against official government records in real time, automatically routing failed matches or low-confidence scores to the scrutiny desk.</li>
+      </ol>
+
+      <h3>Block E: Digital signature canvas</h3>
+      <p><strong>The friction point:</strong> Signature rejections accounted for 21.32% of total onboarding rejections, primarily due to signature cropping, illegible scribbles, or users drawing signatures inside a portrait container with restricted width.</p>
+      <p><strong>The redesign solution:</strong></p>
+      <ol>
+        <li>Designed a <strong>GIF/Media-driven priming module</strong> showing animated, language-agnostic instructions on how to sign within the boundaries.</li>
+        <li>Constructed a <strong>landscape-oriented digital signature canvas</strong> that automatically opens in landscape mode upon interaction, maximizing canvas area and preventing stroke-clipping.</li>
+        <li>Engineered an absolute <strong>zero-state canvas reset policy</strong>: If a signature is rejected by scrutiny, the previous canvas state is entirely cleared from the UI and memory to prevent the user from resubmitting an identical failed stroke.</li>
+        <li><strong>Pixel-Cutoff Regression testing (R&amp;D):</strong> Configured real-time pixel-density heuristics to validate signature presence and check for minimum stroke pixel counts before allowing submissions.</li>
+      </ol>
+
+      <h3>Block F: E-Sign custom UI integration</h3>
+      <p><strong>The friction point:</strong> The standard NSDL/UIDAI interface was complex, cluttered, and highly drop-off prone (~10.0% overall drop-off on E-Sign), heavily damaging mobile user trust.</p>
+      <p><strong>The redesign solution:</strong></p>
+      <ol>
+        <li>Collaborated with <strong>Setu</strong> to replace the standard portal with a customizable mobile-first UI.</li>
+        <li>Repackaged and surfaced key information clearly to minimize user concern over entering sensitive Aadhaar numbers on non-Upstox interfaces.</li>
+        <li>Expected step drop-off reduction of ~50.0%.</li>
+      </ol>
+
+      <hr>
+
+      <h2 id="benchmark">6. Competitive analysis &amp; benchmark</h2>
+      <p>Our architectural decisions were validated against a technical competitive benchmark comparing Upstox NAO 2.0 with leading market players:</p>
+
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr><th>Parameter</th><th class="num">Zerodha</th><th class="num">Angel One</th><th class="num">Groww</th><th class="num">Upstox NAO 2.0</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Mandatory Manual Fields</strong></td><td class="num">15</td><td class="num">15</td><td class="num">12</td><td class="num"><strong>9</strong></td></tr>
+            <tr><td><strong>Easily Recalled Inputs</strong> (e.g. OTP/Mobile)</td><td class="num">9</td><td class="num">11</td><td class="num">8</td><td class="num"><strong>7</strong></td></tr>
+            <tr><td><strong>Complex Inputs</strong> (e.g. Aadhaar/PAN)</td><td class="num">6</td><td class="num">4</td><td class="num">4</td><td class="num"><strong>2</strong> (Aadhaar Only)</td></tr>
+            <tr><td><strong>Mandatory Document Uploads</strong></td><td class="num">3</td><td class="num">0</td><td class="num">0</td><td class="num"><strong>0</strong></td></tr>
+            <tr><td><strong>Onboarding Exploration State</strong></td><td class="num">No</td><td class="num">No (Force KYC)</td><td class="num">Yes (KYC first, fallback to explore)</td><td class="num"><strong>Yes</strong> (Explore app first; contextually nudged KYC)</td></tr>
+            <tr><td><strong>Turnaround Time (TAT)</strong></td><td class="num">48 Hours</td><td class="num">N/A</td><td class="num">&gt;48 Hours</td><td class="num"><strong>&lt;24 Hours</strong> (Targeting &lt;2 Hours)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <hr>
+
+      <h2 id="impact">7. Business impact &amp; metric validation</h2>
+      <p>The rollout of individual modules within the NAO 2.0 initiative delivered immediate, quantifiable improvements across our organic cohorts:</p>
+
+      <ul class="bars">
+        <li>
+          <span class="bars__head">
+            <span>pan step — equifax background verification</span>
+            <span class="bars__delta">+3.56 pts</span>
+          </span>
+          <span class="bars__track">
+            <span class="bars__fill" style="width:71.73%"></span>
+            <span class="bars__val">71.73% before</span>
+          </span>
+          <span class="bars__track">
+            <span class="bars__fill bars__fill--after" style="width:75.29%"></span>
+            <span class="bars__val">75.29% after</span>
+          </span>
+        </li>
+        <li>
+          <span class="bars__head">
+            <span>email step — google / apple sso</span>
+            <span class="bars__delta">+4.90 pts</span>
+          </span>
+          <span class="bars__track">
+            <span class="bars__fill" style="width:85%"></span>
+            <span class="bars__val">85.00% before</span>
+          </span>
+          <span class="bars__track">
+            <span class="bars__fill bars__fill--after" style="width:89.9%"></span>
+            <span class="bars__val">89.90% after</span>
+          </span>
+        </li>
+      </ul>
+
+      <h3>Measured cohort performance</h3>
+      <ol>
+        <li><strong>PAN Verification Block (Equifax):</strong> Shifting to automated Equifax background verification raised step-level conversion from <strong>71.73% to 75.29% (a +3.56% absolute improvement)</strong>.</li>
+        <li><strong>Email Verification Block (SSO):</strong> Incorporating Google/Apple SSO elevated conversion from <strong>85.0% to 89.9% (a +4.90% absolute step improvement)</strong>.</li>
+        <li><strong>Liveness Verification Block (HyperVerge):</strong> Transitioning to real-time image analysis predicted an <strong>overall conversion lift of +2.19%</strong> by reducing photo drop-offs to 1.0%.</li>
+        <li><strong>Overall NAO Conversion Lift:</strong> Replaced manual entry pipelines across PAN, Email, Bank, and Liveness checks to eliminate a potential <strong>33.72% drop-off overhead</strong>, achieving a <strong>+7.8% overall conversion increase</strong>.</li>
+      </ol>
+
+      <div class="callout">
+        <h3>Key product takeaway</h3>
+        <p>By combining systems engineering (modular Templates &amp; Blocks backend architecture) with contextual, empathetic UI designs (such as the landscape digital signature canvas and the Setu customizable E-sign frame), we removed the typical trade-off between rigorous regulatory compliance (KYC) and a frictionless user experience.</p>
+      </div>
+
+      <div class="callout callout--amber">
+        <h3>On the numbers</h3>
+        <p>Figures on this page are the ones measured and recorded during the project. The PAN and email lifts are measured cohort results; the liveness and overall conversion figures are stated as predicted and target values in the source material, and are labelled as such above.</p>
+      </div>
+
+      </article>
+
+
+      <nav class="cs-rail" aria-label="Sections"><p class="label-mono">sections</p><ol></ol></nav>
+
+
+    </div>
+
+    <nav class="pager">
+      <a href="../index.html#works"><small>Back to</small><strong>All work</strong></a>
+      <a href="up-alert.html"><small>Next case study</small><strong>Up.alert &rarr;</strong></a>
+    </nav>
+  </div>
+</main>
+
+<footer class="foot" id="contact">
+  <h2>open to product design roles</h2>
+  <p>The case studies carry the detail. The CV carries the summary.</p>
+  <ul class="foot__links label-mono">
+    <li><a href="mailto:hrishi.ux@gmail.com">hrishi.ux@gmail.com →</a></li>
+    <li><a href="https://hrishiux.github.io/portfolio">hrishiux.github.io/portfolio →</a></li>
+    <li><a href="../assets/docs/Hrishikesh-Nanda-CV.pdf">cv (pdf) →</a></li>
+  </ul>
+  <div class="foot__bar label-mono">
+    <span>© 2026 <span class="nowrap">hrishikesh nanda</span></span>
+    <span><a href="../index.html#works">works</a> · <a href="../about.html">about</a></span>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

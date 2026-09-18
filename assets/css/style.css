@@ -1,0 +1,600 @@
+/* ==========================================================================
+   Lovable verision — Hrishikesh Nanda portfolio
+   Visual system ported from the Lovable export (remix-of-my-digital-story):
+   Archivo display / EB Garamond serif / JetBrains Mono labels, the teal
+   background with meadow + cream accents, 4px radius, bordered cards.
+   Static. One stylesheet, one script, no build step.
+   ========================================================================== */
+
+:root{
+  --radius: 0.25rem;
+
+  --background: oklch(0.985 0.012 190);
+  --foreground: oklch(0.22 0.04 200);
+  --card: oklch(1 0 0);
+  --primary: oklch(0.58 0.11 205);
+  --primary-foreground: oklch(0.99 0.01 190);
+  --secondary: oklch(0.94 0.03 175);
+  --secondary-foreground: oklch(0.28 0.05 200);
+  --muted: oklch(0.95 0.015 190);
+  --muted-foreground: oklch(0.5 0.03 200);
+  --accent: oklch(0.78 0.14 148);
+  --accent-foreground: oklch(0.22 0.05 150);
+  --border: oklch(0.9 0.02 190);
+  --ring: oklch(0.58 0.11 205);
+  --sky: oklch(0.72 0.13 220);
+  --meadow: oklch(0.68 0.16 148);
+  --cream: oklch(0.97 0.02 95);
+
+  --font-display: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-serif: "EB Garamond", Georgia, "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* px-8 / md:px-14 from the source */
+  --gutter: 2rem;
+  --prose: min(68ch, 100%);
+}
+
+@media (min-width: 768px){
+  :root{ --gutter: 3.5rem; }
+}
+
+*,*::before,*::after{ box-sizing:border-box }
+
+html{ scroll-behavior:smooth; -webkit-text-size-adjust:100% }
+@media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto } }
+
+body{
+  margin:0;
+  background-color:var(--background);
+  color:var(--foreground);
+  font-family:var(--font-serif);
+  font-size:1.0625rem;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+
+img,video{ max-width:100%; display:block }
+a{ color:inherit }
+
+h1,h2,h3,h4{ margin:0; font-family:var(--font-display); font-weight:500; letter-spacing:-0.02em; line-height:1.1 }
+
+.nowrap{ white-space:nowrap }
+
+/* ---------- utilities ported from the source ---------- */
+.label-mono{
+  font-family:var(--font-mono);
+  font-size:0.75rem;
+  letter-spacing:0.18em;
+  text-transform:lowercase;
+  line-height:1.6;
+}
+.muted{ color:var(--muted-foreground) }
+.gutter{ padding-inline:var(--gutter) }
+
+/* ---------- nav ---------- */
+.nav{
+  position:fixed; inset-inline:0; top:0; z-index:50;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:1.5rem var(--gutter);
+  color:var(--cream);
+  transition:color .3s ease, background-color .3s ease;
+}
+.nav[data-tone="dark"]{
+  color:var(--foreground);
+  background-color:color-mix(in oklab, var(--background) 88%, transparent);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+.nav__wordmark{
+  font-family:var(--font-display);
+  font-size:1.125rem; font-weight:800; font-style:italic;
+  letter-spacing:-0.03em; text-decoration:none; white-space:nowrap;
+}
+.nav__links{ display:flex; gap:1.5rem }
+.nav__links a{ text-decoration:none; opacity:.8; transition:opacity .2s ease }
+.nav__links a:hover,.nav__links a[aria-current="page"]{ opacity:1 }
+
+/* ---------- hero ---------- */
+.hero{ position:relative; min-height:100svh; overflow:hidden; background-color:var(--foreground) }
+.hero__media{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  /* Mirrored so the frog and picnic sit clear of the left-aligned type.
+     Applies to the poster frame as well as the video. */
+  transform:scaleX(-1);
+}
+.hero__wash{
+  position:absolute; inset:0;
+  /* The source's left-to-right wash, plus a bottom scrim so the serif lede and
+     the scroll row stay legible over the bright hill in the lower frame. */
+  background:
+    linear-gradient(to top, rgb(0 0 0 / .58) 0%, rgb(0 0 0 / .22) 26%, transparent 50%),
+    linear-gradient(to right, rgb(0 0 0 / .44), rgb(0 0 0 / .12) 48%, transparent 66%);
+}
+.hero__inner{
+  position:relative; z-index:10;
+  display:flex; flex-direction:column; justify-content:center;
+  min-height:100svh; padding:6rem var(--gutter);
+}
+.hero__eyebrow{ color:color-mix(in oklab, var(--cream) 80%, transparent); margin:0 }
+.hero__title{ margin:1.5rem 0 0; line-height:.82 }
+.hero__line,.hero__name{ display:block; font-family:var(--font-display) }
+.hero__line{
+  font-size:clamp(3.25rem, 16vw, 9rem); font-weight:500;
+  /* The source used cream/40. Over this frame's bright cloud bank that drops
+     the middle of "designer" out entirely, so it sits a little stronger. */
+  color:color-mix(in oklab, var(--cream) 55%, transparent);
+}
+.hero__name{
+  margin-top:.5rem;
+  /* "hrishikesh" is ten characters — at the source's 10rem it ran the full
+     width of the frame. Scaled back so it sits as a mark, not a banner. */
+  font-size:clamp(2.75rem, 10.5vw, 6.5rem); font-weight:800; font-style:italic;
+  letter-spacing:-0.035em; color:var(--cream);
+}
+.hero__lede{
+  margin:2.5rem 0 0; max-width:34rem;
+  font-family:var(--font-serif); font-size:1.25rem; line-height:1.6;
+  color:color-mix(in oklab, var(--cream) 90%, transparent);
+}
+.hero__foot{
+  position:absolute; inset-inline:0; bottom:1.5rem; z-index:10;
+  display:flex; align-items:flex-end; justify-content:space-between; gap:1rem;
+  padding-inline:var(--gutter);
+}
+.hero__scroll{
+  display:inline-flex; align-items:center; gap:.75rem; text-decoration:none;
+  color:color-mix(in oklab, var(--cream) 80%, transparent);
+  background:none; border:0; padding:0; cursor:pointer;
+  transition:opacity .2s ease;
+}
+.hero__scroll:hover{ opacity:1; color:var(--cream) }
+.hero__tick{ display:inline-block; width:1px; height:1rem; background-color:color-mix(in oklab, var(--cream) 60%, transparent) }
+.hero__caption{
+  color:color-mix(in oklab, var(--cream) 70%, transparent);
+  background:none; border:0; padding:0; cursor:pointer; text-align:right;
+  font-family:var(--font-mono); font-size:.75rem; letter-spacing:.18em; text-transform:lowercase;
+  transition:color .2s ease;
+}
+.hero__caption:hover{ color:var(--cream) }
+@media (max-width: 640px){ .hero__caption{ display:none } }
+
+/* ---------- sections ---------- */
+.section{ position:relative; padding-block:7rem 6rem }
+.section--flush{ padding-top:0 }
+.display-xl{
+  margin:1rem 0 0;
+  font-family:var(--font-display); font-weight:800; font-style:italic;
+  letter-spacing:-0.035em; line-height:.95;
+  font-size:clamp(3rem, 9vw, 6rem);
+}
+.display-lg{
+  margin:1rem 0 0;
+  font-family:var(--font-display); font-weight:800; font-style:italic;
+  letter-spacing:-0.03em; line-height:1;
+  font-size:clamp(2.25rem, 6vw, 4rem);
+}
+.lede-serif{
+  margin:2rem 0 0; max-width:44rem;
+  font-family:var(--font-serif); font-size:1.5rem; line-height:1.55;
+}
+.note-serif{
+  margin:1.5rem 0 0; max-width:44rem;
+  font-family:var(--font-serif); font-size:1.125rem; line-height:1.7;
+  color:var(--muted-foreground);
+}
+.link-mono{
+  display:inline-block; margin-top:3.5rem; color:var(--primary); text-decoration:none;
+}
+.link-mono:hover{ text-decoration:underline }
+
+/* ---------- work index ----------
+   An index of rows rather than eight boxes of grey paragraph. Big type does the
+   work; the rule between rows is the only chrome. */
+.index{ list-style:none; margin:3.5rem 0 0; padding:0; border-top:1px solid var(--border) }
+.index__row{ border-bottom:1px solid var(--border) }
+.index__link{
+  display:grid; gap:.5rem 2rem; align-items:baseline;
+  padding:1.75rem .25rem; text-decoration:none;
+  transition:padding-left .25s cubic-bezier(.2,.7,.3,1), background-color .25s ease;
+}
+.index__link:hover,.index__link:focus-visible{
+  background-color:var(--secondary);
+  padding-left:1rem;
+}
+.index__year{ color:var(--muted-foreground); white-space:nowrap }
+.index__name{
+  display:block; font-family:var(--font-display); font-weight:500;
+  font-size:clamp(1.75rem, 4vw, 2.75rem); letter-spacing:-0.035em; line-height:1.05;
+  color:var(--foreground); transition:color .2s ease;
+}
+.index__link:hover .index__name{ color:var(--primary) }
+.index__role{ display:block; margin-top:.5rem; color:var(--muted-foreground) }
+.index__note{
+  font-family:var(--font-serif); font-size:1.0625rem; line-height:1.6;
+  color:var(--muted-foreground);
+}
+.index__go{
+  font-family:var(--font-mono); font-size:1rem; color:var(--muted-foreground);
+  transition:color .2s ease, transform .25s cubic-bezier(.2,.7,.3,1);
+}
+.index__link:hover .index__go{ color:var(--primary); transform:translateX(.4rem) }
+
+@media (min-width:900px){
+  .index__link{
+    grid-template-columns:11rem minmax(0,1.05fr) minmax(0,1fr) 2rem;
+    align-items:center;
+  }
+  .index__year{ align-self:center }
+}
+@media (max-width:899px){
+  .index__note{ display:none }
+  .index__go{ display:none }
+  .index__link{ grid-template-columns:1fr; padding-block:1.5rem }
+  .index__link:hover,.index__link:focus-visible{ padding-left:.25rem }
+}
+
+/* ---------- figure strip ---------- */
+.figures{ list-style:none; margin:3.5rem 0 0; padding:0; display:grid; gap:1.25rem }
+@media (min-width:768px){ .figures{ grid-template-columns:repeat(4,minmax(0,1fr)) } }
+.figures li{ border-top:1px solid var(--border); padding-top:1.25rem }
+.figures b{
+  display:block; font-family:var(--font-display); font-weight:500;
+  font-size:clamp(1.75rem,3vw,2.25rem); letter-spacing:-0.03em; line-height:1.1;
+}
+.figures span{ display:block; margin-top:.75rem; font-size:1rem; line-height:1.6; color:var(--muted-foreground) }
+
+/* ---------- generic column grid ---------- */
+.cols{ display:grid; gap:3.5rem; margin-top:3.5rem }
+@media (min-width:768px){
+  .cols{ grid-template-columns:repeat(12,minmax(0,1fr)) }
+  .cols__main{ grid-column:span 7 / span 7 }
+  .cols__side{ grid-column:9 / span 4 }
+}
+.stack{ list-style:none; margin:1rem 0 0; padding:0 }
+.stack li{ margin:.5rem 0; font-family:var(--font-serif); font-size:1.125rem }
+.stack--mono li{
+  font-family:var(--font-mono); font-size:.75rem; letter-spacing:.18em;
+  text-transform:lowercase; overflow-wrap:anywhere;
+}
+.foot__links a{ overflow-wrap:anywhere }
+.stack a{ color:var(--primary); text-decoration:none }
+.stack a:hover{ text-decoration:underline }
+
+/* ---------- case study masthead ----------
+   A dark band so a case study opens on something, instead of pale text on a
+   pale field. */
+.cs-hero{
+  background-color:var(--foreground); color:var(--cream);
+  padding:7.5rem var(--gutter) 3rem;
+}
+.cs-hero .back{ color:color-mix(in oklab, var(--cream) 70%, transparent) }
+.cs-hero .back:hover{ color:var(--cream) }
+.cs-hero__eyebrow{ color:color-mix(in oklab, var(--cream) 62%, transparent); margin:0 }
+.cs-hero h1{
+  margin:1rem 0 0; color:var(--cream);
+  font-family:var(--font-display); font-weight:800; font-style:italic;
+  font-size:clamp(2.125rem, 5.2vw, 3.75rem); letter-spacing:-0.035em; line-height:1.02;
+  max-width:18ch;
+}
+.cs-hero .lede-serif{
+  color:color-mix(in oklab, var(--cream) 88%, transparent);
+  max-width:46rem;
+}
+
+.back{ display:inline-block; margin-bottom:2.5rem; color:var(--primary); text-decoration:none }
+.back:hover{ text-decoration:underline }
+
+.meta{
+  display:grid; gap:0; margin:3rem 0 0; padding:0;
+  border-top:1px solid color-mix(in oklab, var(--cream) 22%, transparent);
+}
+@media (min-width:700px){ .meta{ grid-template-columns:repeat(4,minmax(0,1fr)) } }
+.meta div{
+  padding:1.25rem 0;
+  border-bottom:1px solid color-mix(in oklab, var(--cream) 14%, transparent);
+}
+@media (min-width:700px){
+  .meta div{ padding-right:1.5rem; border-bottom:0 }
+}
+.meta dt{
+  margin:0; font-family:var(--font-mono); font-size:.75rem; letter-spacing:.18em;
+  text-transform:lowercase; color:color-mix(in oklab, var(--cream) 55%, transparent);
+}
+.meta dd{
+  margin:.75rem 0 0; font-family:var(--font-serif); font-size:1.0625rem;
+  line-height:1.5; color:var(--cream);
+}
+
+/* ---------- case study visual components ---------- */
+.keyfigures{
+  list-style:none; margin:0; padding:0; display:grid; gap:1px;
+  background-color:var(--border); border:1px solid var(--border);
+  border-radius:var(--radius); overflow:hidden;
+}
+@media (min-width:640px){ .keyfigures{ grid-template-columns:repeat(2,1fr) } }
+@media (min-width:960px){ .keyfigures{ grid-template-columns:repeat(4,1fr) } }
+.keyfigures li{ background-color:var(--card); padding:1.5rem 1.25rem }
+.keyfigures b{
+  display:block; font-family:var(--font-display); font-weight:600;
+  font-size:clamp(1.75rem,3vw,2.25rem); letter-spacing:-0.035em; line-height:1.05;
+  color:var(--foreground);
+}
+.keyfigures span{
+  display:block; margin-top:.6rem; font-size:.9375rem; line-height:1.5;
+  color:var(--muted-foreground);
+}
+
+.figure-block{ margin:2.5rem 0 0 }
+.figure-block figcaption{
+  margin-top:.9rem; font-family:var(--font-mono); font-size:.6875rem;
+  letter-spacing:.14em; text-transform:lowercase; color:var(--muted-foreground);
+}
+.figure-block svg{ width:100%; height:auto; display:block; border-radius:var(--radius) }
+
+/* Scaled to a phone's width the labels inside these diagrams drop to about six
+   pixels. Below that width they scroll sideways at a legible size instead. */
+@media (max-width:760px){
+  .figure-block__scroll{
+    overflow-x:auto; -webkit-overflow-scrolling:touch;
+    margin-inline:calc(var(--gutter) * -1); padding-inline:var(--gutter);
+  }
+  .figure-block__scroll svg{ min-width:660px }
+  .figure-block figcaption::after{
+    content:" · scroll to see all"; color:var(--primary);
+  }
+}
+
+.bars{ list-style:none; margin:2rem 0 0; padding:0; display:grid; gap:1.5rem }
+.bars li{ display:block }
+.bars__head{
+  display:flex; align-items:baseline; justify-content:space-between; gap:1rem;
+  font-family:var(--font-mono); font-size:.75rem; letter-spacing:.14em;
+  text-transform:lowercase; color:var(--muted-foreground);
+  padding-bottom:.35rem; border-bottom:1px solid var(--border);
+}
+.bars__delta{ color:var(--meadow); font-weight:500 }
+.bars__track{
+  position:relative; display:block; margin-top:.5rem; height:2.25rem;
+  background-color:var(--muted); border-radius:2px; overflow:hidden;
+}
+.bars__fill{
+  position:absolute; inset-block:0; left:0;
+  background-color:color-mix(in oklab, var(--primary) 28%, transparent);
+}
+.bars__fill--after{ background-color:var(--primary) }
+.bars__val{
+  position:absolute; top:50%; transform:translateY(-50%); left:.75rem;
+  font-family:var(--font-mono); font-size:.8125rem; color:var(--foreground);
+}
+.bars__fill--after + .bars__val{ color:var(--primary-foreground) }
+
+.pullquote{
+  margin:3rem 0 0; padding:0 0 0 1.5rem; border-left:2px solid var(--meadow);
+  font-family:var(--font-display); font-weight:500; font-style:italic;
+  font-size:clamp(1.25rem,2.2vw,1.625rem); line-height:1.3; letter-spacing:-0.02em;
+  color:var(--foreground); max-width:30ch;
+}
+
+/* Case study body: prose in a reading measure, with a sticky section rail
+   filling what was a large empty column at desktop. */
+.cs-body{ margin-top:4.5rem }
+@media (min-width:1080px){
+  .cs-body{
+    display:grid; grid-template-columns:minmax(0,1fr) 14rem; gap:4rem;
+    align-items:start;
+  }
+}
+.cs-rail{ display:none }
+@media (min-width:1080px){
+  .cs-rail{
+    display:block; position:sticky; top:6.5rem;
+    border-left:1px solid var(--border); padding-left:1.5rem;
+  }
+  .cs-rail p{ margin:0 0 1rem; color:var(--muted-foreground) }
+  .cs-rail ol{ list-style:none; margin:0; padding:0 }
+  .cs-rail li{ margin:0 0 .6rem }
+  .cs-rail a{
+    display:block; text-decoration:none; color:var(--muted-foreground);
+    font-size:.9375rem; line-height:1.35; transition:color .2s ease;
+  }
+  .cs-rail a:hover{ color:var(--foreground) }
+  .cs-rail a.is-current{ color:var(--primary) }
+}
+
+/* The column is as wide as the layout allows; the reading measure is applied to
+   the text itself, so tables and diagrams get the full column without colliding
+   with the rail. */
+.prose{ width:100%; max-width:var(--prose); margin-top:0 }
+@media (min-width:1080px){
+  .prose{ max-width:none }
+  .prose p,.prose ul,.prose ol,.prose h2,.prose h3,.prose h4,
+  .prose blockquote,.prose hr,.prose .callout{ max-width:var(--prose) }
+}
+.prose > *:first-child{ margin-top:0 }
+/* Section heads stay calm. One italic display per page — the title — so a long
+   case study does not read as twelve competing headlines. */
+.prose h2{
+  margin:4rem 0 0; padding-top:1.75rem; border-top:1px solid var(--border);
+  font-family:var(--font-display); font-weight:600;
+  font-size:1.5rem; letter-spacing:-0.025em; line-height:1.2;
+  scroll-margin-top:6rem;
+}
+.prose h2:first-child{ margin-top:0; padding-top:0; border-top:0 }
+.prose h3{
+  margin:2.75rem 0 0; font-family:var(--font-display); font-weight:600;
+  font-size:1.375rem; letter-spacing:-0.02em;
+}
+.prose h4{ margin:2rem 0 0; font-family:var(--font-display); font-weight:600; font-size:1.125rem }
+.prose h2 + p,.prose h3 + p,.prose h4 + p{ margin-top:1rem }
+.prose p{ margin:1.5rem 0 0; font-size:1.125rem; line-height:1.75 }
+.prose ul,.prose ol{ margin:1.5rem 0 0; padding-left:1.25rem }
+.prose li{ margin:.65rem 0; font-size:1.125rem; line-height:1.7 }
+.prose li::marker{ color:var(--muted-foreground) }
+.prose ul ul,.prose ol ol,.prose ul ol,.prose ol ul{ margin-top:.5rem }
+.prose strong{ font-weight:600; color:var(--foreground) }
+.prose a{ color:var(--primary) }
+.prose hr{ margin:4rem 0 0; height:1px; border:0; background-color:var(--border) }
+
+.prose blockquote{
+  margin:2rem 0 0; padding:1.25rem 1.5rem;
+  border-left:2px solid var(--primary);
+  background-color:var(--secondary);
+  border-radius:0 var(--radius) var(--radius) 0;
+}
+.prose blockquote p{ margin:0; font-size:1.25rem; line-height:1.6 }
+
+.tablewrap{
+  margin:2rem 0 0; overflow-x:auto; border:1px solid var(--border);
+  border-radius:var(--radius); -webkit-overflow-scrolling:touch;
+  background-color:var(--card);
+}
+table{ border-collapse:collapse; width:100%; min-width:36rem }
+thead th{
+  background-color:var(--muted); text-align:left; padding:.9rem 1rem;
+  border-bottom:1px solid var(--border); white-space:nowrap;
+  font-family:var(--font-mono); font-size:.6875rem; letter-spacing:.14em;
+  text-transform:lowercase; font-weight:500; color:var(--muted-foreground);
+}
+tbody td{
+  padding:.9rem 1rem; border-bottom:1px solid var(--border); vertical-align:top;
+  font-family:var(--font-serif); font-size:1rem; line-height:1.6;
+}
+tbody tr:last-child td{ border-bottom:0 }
+td.num,th.num{ text-align:center; font-variant-numeric:tabular-nums }
+
+pre{
+  margin:2rem 0 0; padding:1.5rem; overflow-x:auto;
+  background-color:var(--foreground); color:var(--cream);
+  border-radius:var(--radius); -webkit-overflow-scrolling:touch;
+  font-family:var(--font-mono); font-size:.75rem; line-height:1.5;
+}
+code{
+  font-family:var(--font-mono); font-size:.85em;
+  background-color:var(--muted); padding:.1rem .35rem; border-radius:var(--radius);
+  /* long constant names would otherwise push the page sideways on a phone */
+  overflow-wrap:anywhere;
+}
+pre code{ background:none; padding:0; font-size:inherit; color:inherit }
+
+.callout{
+  margin:2.5rem 0 0; padding:1.5rem;
+  background-color:var(--secondary); border-left:2px solid var(--primary);
+  border-radius:0 var(--radius) var(--radius) 0;
+}
+.callout h3{ margin:0 0 .75rem; font-family:var(--font-display); font-size:1.0625rem; font-weight:600 }
+.callout p{ margin:0; font-size:1.0625rem; line-height:1.7 }
+.callout p + p{ margin-top:.9rem }
+.callout--note{ background-color:var(--cream); border-left-color:var(--meadow) }
+
+/* Dense tables and ASCII diagrams use the full content column, never the
+   narrower reading measure. */
+.prose .tablewrap,
+.prose pre{ width:100%; max-width:none }
+
+/* ---------- pager ---------- */
+.pager{ display:grid; gap:1.25rem; margin-top:5rem }
+@media (min-width:768px){ .pager{ grid-template-columns:repeat(2,minmax(0,1fr)) } }
+.pager a{
+  display:block; padding:1.5rem; text-decoration:none;
+  border:1px solid var(--border); border-radius:var(--radius);
+  background-color:var(--card);
+  transition:border-color .2s ease, transform .2s ease;
+}
+.pager a:hover{ border-color:var(--primary); transform:translateY(-0.25rem) }
+.pager small{ display:block; color:var(--muted-foreground); font-family:var(--font-mono); font-size:.75rem; letter-spacing:.18em; text-transform:lowercase }
+.pager strong{
+  display:block; margin-top:.75rem; font-family:var(--font-display);
+  font-weight:500; font-size:1.375rem; letter-spacing:-0.02em;
+}
+
+/* ---------- about ---------- */
+.timeline{ list-style:none; margin:3.5rem 0 0; padding:0 }
+.timeline li{ display:grid; gap:.5rem 2.5rem; padding:1.75rem 0; border-top:1px solid var(--border) }
+@media (min-width:768px){ .timeline li{ grid-template-columns:10rem minmax(0,1fr) } }
+.timeline li:last-child{ border-bottom:1px solid var(--border) }
+.timeline time{ font-family:var(--font-mono); font-size:.75rem; letter-spacing:.18em; text-transform:lowercase; color:var(--muted-foreground); padding-top:.4rem }
+.timeline b{ display:block; font-family:var(--font-display); font-weight:600; font-size:1.25rem; letter-spacing:-0.02em }
+.timeline p{ margin:.65rem 0 0; font-size:1.0625rem; line-height:1.7; color:var(--muted-foreground) }
+
+.garage{ list-style:none; margin:3.5rem 0 0; padding:0; display:grid; gap:1.25rem }
+@media (min-width:768px){ .garage{ grid-template-columns:repeat(2,minmax(0,1fr)) } }
+.garage li{ border:1px solid var(--border); background-color:var(--card); border-radius:var(--radius); padding:1.75rem }
+.garage h3{ font-family:var(--font-display); font-weight:500; font-size:1.5rem; letter-spacing:-0.02em }
+.garage p{ margin:.75rem 0 0; font-size:1.0625rem; line-height:1.7; color:var(--muted-foreground) }
+
+.panel{
+  margin-top:3.5rem; padding:2.5rem;
+  border:1px solid var(--border); background-color:var(--card); border-radius:var(--radius);
+}
+
+/* ---------- footer ---------- */
+.foot{ background-color:var(--foreground); color:var(--cream); padding:6rem var(--gutter) 2.5rem }
+.foot h2{
+  font-family:var(--font-display); font-weight:800; font-style:italic;
+  font-size:clamp(2.25rem,6vw,4rem); letter-spacing:-0.03em; line-height:1;
+  color:var(--cream);
+}
+.foot p{
+  margin:1.75rem 0 0; max-width:34rem; font-size:1.25rem; line-height:1.6;
+  color:color-mix(in oklab, var(--cream) 82%, transparent);
+}
+.foot__links{ list-style:none; margin:2.5rem 0 0; padding:0; display:flex; flex-wrap:wrap; gap:.75rem 2rem }
+.foot__links a{ color:var(--cream); text-decoration:none; opacity:.85; transition:opacity .2s ease }
+.foot__links a:hover{ opacity:1; text-decoration:underline }
+.foot__bar{
+  display:flex; flex-wrap:wrap; gap:.75rem 2rem; justify-content:space-between;
+  margin-top:5rem; padding-top:1.5rem;
+  border-top:1px solid color-mix(in oklab, var(--cream) 22%, transparent);
+  color:color-mix(in oklab, var(--cream) 70%, transparent);
+}
+.foot__bar a{ color:inherit; text-decoration:none }
+.foot__bar a:hover{ color:var(--cream) }
+
+/* ---------- reveal ----------
+   Progressive enhancement: content is visible by default. Only a page that has
+   run its script hides it to animate it in, so a JS or IntersectionObserver
+   failure can never leave the work list invisible. */
+.js .reveal{ opacity:0; transform:translateY(1rem) }
+.js .reveal.is-in{
+  opacity:1; transform:none;
+  transition:opacity .6s cubic-bezier(.2,.7,.3,1), transform .6s cubic-bezier(.2,.7,.3,1);
+}
+@media (prefers-reduced-motion: reduce){
+  .js .reveal,.js .reveal.is-in{ opacity:1; transform:none; transition:none }
+  .hero__media{ /* the poster frame still shows */ }
+}
+
+/* ---------- phones ---------- */
+@media (max-width:600px){
+  :root{ --gutter:1.5rem }
+
+  .nav{ padding-block:1.125rem }
+  .nav__wordmark{ font-size:1rem }
+  .nav__links{ gap:1.125rem }
+  .nav__links a{ font-size:.6875rem; letter-spacing:.12em }
+
+  /* The frog sits at the edge of a 16:9 frame; a portrait crop loses it.
+     Bias the crop toward that side. (Sampled pre-transform, then mirrored.) */
+  .hero__media{ object-position:22% 56% }
+
+  .hero__inner{ padding-block:5.5rem 7.5rem }
+  .hero__eyebrow{ font-size:.6875rem; letter-spacing:.12em }
+  .hero__lede{ font-size:1.0625rem; line-height:1.55; margin-top:1.75rem }
+
+  .section{ padding-block:4.5rem 3.5rem }
+  .display-xl{ font-size:clamp(2.5rem,13vw,3.25rem) }
+  .display-lg{ font-size:clamp(2rem,9vw,2.5rem) }
+  .lede-serif{ font-size:1.1875rem }
+
+  .cs-body{ margin-top:3rem }
+  .prose h2{ margin-top:3rem; padding-top:1.5rem }
+  .prose p,.prose li{ font-size:1.0625rem }
+
+  .meta div{ padding:1rem 0 }
+  .foot{ padding-block:4rem 2rem }
+  .foot__bar{ margin-top:3rem }
+}
+
+:where(a,button):focus-visible{ outline:2px solid var(--primary); outline-offset:3px; border-radius:var(--radius) }
+.nav :where(a):focus-visible,.hero :where(a,button):focus-visible{ outline-color:var(--cream) }

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Keel — Hrishikesh Nanda</title>
+<meta name="description" content="Keel — an agentic control plane concept for server fleets. Concept, ideation complete, one interactive demo.">
+<meta name="author" content="Hrishikesh Nanda">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Keel — Hrishikesh Nanda">
+<meta property="og:description" content="Keel — an agentic control plane concept for server fleets. Concept, ideation complete, one interactive demo.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="../assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400..800;1,400..800&family=EB+Garamond:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<script>document.documentElement.className += " js";</script>
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<header class="nav" data-tone="light">
+  <a class="nav__wordmark" href="../index.html"><span class="nowrap">hrishikesh</span></a>
+  <nav class="nav__links label-mono">
+    <a href="../index.html#works">works</a>
+    <a href="../about.html">about</a>
+    <a href="../index.html#contact">contact</a>
+  </nav>
+</header>
+
+<main>
+
+<header class="cs-hero">
+    <a class="back label-mono" href="../index.html#works">← works</a>
+    <p class="cs-hero__eyebrow label-mono">Concept 08</p>
+    <h1 class="display-lg">Keel &mdash; an agentic control plane for server fleets</h1>
+    <p class="lede-serif">Runs your fleet. Never without asking. The design question underneath: how do you give an agent root on production and keep a human accountable?</p>
+
+    <dl class="meta">
+      <div><dt>Status</dt><dd>Concept, demo only</dd></div>
+      <div><dt>Date</dt><dd>September 2026</dd></div>
+      <div><dt>Name</dt><dd>Keel (working placeholder)</dd></div>
+      <div><dt>Built</dt><dd>Scroll explainer + run simulation</dd></div>
+    </dl>
+</header>
+
+<section class="section">
+  <div class="gutter">
+    <div class="cs-body">
+
+
+      <article class="prose">
+
+      <div class="callout callout--amber">
+        <h3>Status</h3>
+        <p>Status: concept, ideation complete, one interactive demo built. Nothing has been built beyond the demo, and all copy in it is placeholder-grade. No product exists behind the page.</p>
+      </div>
+
+      <h2 id="pitch">The original pitch</h2>
+      <p>An &ldquo;Agentic OS&rdquo; that runs as the base for all the servers powering the world. Imagine stable Linux server operating systems, but agentic &mdash; so the higher-ups no longer need to hire and pay people to run and maintain them (updates, fixes, the usual Linux lifecycle). Everything done in plain-English speech.</p>
+
+      <h2 id="viability">Viability assessment</h2>
+      <p>The problem is real and big. The framing has a fault line: it bundles two bets &mdash; that agents should run infrastructure (correct, crowded), and that this therefore means shipping a new OS (the part that breaks).</p>
+
+      <h3>What already exists, September 2026</h3>
+      <ul>
+        <li><strong>SUSE SLES 16</strong> &mdash; first enterprise Linux with a built-in agentic AI framework. Agents query system state, evaluate options within policy constraints, perform bounded actions. GA November 2025, MCP baked in, instant rollback of upgrades/patches/config edits, 16-year lifecycle.</li>
+        <li><strong>Red Hat Lightspeed</strong> &mdash; shell-level assistant in RHEL 10 for troubleshooting and compliance.</li>
+        <li><strong>Canonical Ubuntu 26.04 LTS</strong> (April 2026) &mdash; positioned for the &ldquo;agentic era&rdquo;, layered isolation so agents run with controllable blast radius.</li>
+        <li><strong>The AI SRE layer is fully capitalised:</strong> Resolve.ai (unicorn), Traversal (Sequoia, Kleiner Perkins), Datadog / Azure / incident.io all ship agents. NeuBird reports ~230,000 alerts autonomously resolved in a year.</li>
+        <li><strong>Literal versions of the idea exist as hobby projects</strong> &mdash; CX Linux, AgntOS (NixOS), LinuxOS-AI. None have traction.</li>
+      </ul>
+
+      <h3>Why the OS framing is the weak leg</h3>
+      <ol>
+        <li><strong>Nobody swaps their OS.</strong> Hardware, drivers, compliance audits and support contracts are certified against RHEL/Ubuntu/SLES. A startup distro doesn&rsquo;t get booted in production. Shipping an OS is a distribution problem first; the engineering is the easy half.</li>
+        <li><strong>The pain isn&rsquo;t where the pitch aims.</strong> Updates and fixes were automated 15 years ago. What still burns money: incident diagnosis, config drift, capacity, security posture, migrations. Patching is the cheap part.</li>
+        <li><strong>&ldquo;No humans needed&rdquo; is the wrong promise.</strong> Every serious vendor sells human-in-the-loop, because a wrong <code>rm</code> at 3am is unbounded liability. Telling a CTO you&rsquo;ll fire their ops team makes you the defendant in the next outage.</li>
+        <li><strong>The English interface is a feature, not a moat.</strong> Everyone shipped it. A weekend to demo, zero time to copy.</li>
+      </ol>
+
+      <h3>What is actually worth building</h3>
+      <p>The instinct about the OS layer is half right: autonomy is only safe when the substrate guarantees rollback &mdash; immutable base, A/B slots, declarative config, transactional updates, append-only audit ledger. That <em>is</em> an OS-level property. The move is to build it as a <strong>control plane on top of existing distros</strong> and let SUSE and Canonical keep the distro business.</p>
+      <ul>
+        <li><strong>Wedge on one boring workflow with hard ROI</strong> &mdash; CVE remediation with provable rollback, or EOL migrations. Deterministic, verifiable, currently outsourced to consultancies for seven figures.</li>
+        <li><strong>Sell to the underserved middle</strong> &mdash; MSPs and hosting providers. An MSP bills per node per month; if one tech manages 5&times; the fleet, pricing writes itself.</li>
+        <li><strong>Compete on trust architecture, not intelligence</strong> &mdash; policy-as-code gates, signed action ledgers, simulated dry runs, one-command rollback. The model is a commodity; the safety envelope is the product.</li>
+      </ul>
+
+      <h2 id="decisions">Decisions taken</h2>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th class="num">#</th><th>Decision</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td class="num">1</td><td><strong>Target outcome: case study first, product later</strong></td><td>Chosen from: portfolio case study / real product / case-study-first / still deciding</td></tr>
+            <tr><td class="num">2</td><td><strong>Not a new OS &mdash; a control plane beside existing distros</strong></td><td>The demo has an explicit section arguing this</td></tr>
+            <tr><td class="num">3</td><td><strong>Target segment deliberately not narrowed yet</strong></td><td>All four segments still work; the recommendation on record is MSPs / hosting providers</td></tr>
+            <tr><td class="num">4</td><td><strong>The trust/policy layer is the product, not the AI</strong></td><td>Intent &rarr; policy &rarr; transaction &rarr; ledger</td></tr>
+            <tr><td class="num">5</td><td><strong>Demo aesthetic: instrument panel, not terminal-green</strong></td><td>Deep navy, single signal amber for anything held or awaiting a human, mono type only where the machine speaks. The thesis is controlled autonomy, and that vernacular belongs to flight decks</td></tr>
+            <tr><td class="num">6</td><td><strong>Working name: Keel</strong></td><td>Placeholder, swap freely</td></tr>
+            <tr><td class="num">7</td><td><strong>Demo ends on three honest unanswered questions</strong></td><td>Credibility move for portfolio reviewers</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="segment">The segment question, unresolved</h2>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Segment</th><th>What they&rsquo;re buying</th><th>Interface</th><th>Trust model</th><th>Pays?</th></tr></thead>
+          <tbody>
+            <tr><td>Solo dev / homelab</td><td>&ldquo;fix my box&rdquo;</td><td>CLI</td><td>none needed</td><td>~&#8377;0</td></tr>
+            <tr><td>Small team, no ops</td><td>&ldquo;stop waking me at 3am&rdquo;</td><td>Slack bot</td><td>guardrails they can&rsquo;t configure</td><td>small, self-serve</td></tr>
+            <tr><td>MSP / hosting</td><td>fleet leverage, margin per node</td><td>multi-tenant fleet console</td><td>per-client isolation, billable evidence</td><td>yes, channel deal</td></tr>
+            <tr><td>Enterprise platform</td><td>policy compliance, audit</td><td>policy + approval console</td><td>policy-as-code, SOC2, change management</td><td>yes, 9-month cycle</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The argument for narrowing: four different screens, four definitions of &ldquo;done&rdquo;. Design for all four and you get a chat box and a dashboard &mdash; what every hobby project already produced. Craft signal comes from specificity: which action needed a gate, why the rollback affordance sits there, what happened at 2am when the agent was wrong.</p>
+      <p>The open input the decision actually hinges on: which segment can realistically produce three or four real conversations in the next two weeks. Research access beats theoretical market size.</p>
+
+      <h2 id="demo">The demo</h2>
+      <p>Standalone HTML, scroll-based narrative, seven sections. Fonts: Instrument Sans and IBM Plex Mono. Tokens: ink <code>#0C1A29</code>, surface <code>#13263A</code>, bone <code>#E9EEF3</code>, haze <code>#93A7BC</code>, amber <code>#FFB020</code>, mint <code>#6FD3A8</code>, alert <code>#FF6B5B</code>.</p>
+      <ol>
+        <li><strong>Hero</strong> &mdash; &ldquo;Runs your fleet. Never without asking.&rdquo; A console types <code>upgrade the fleet to the 6.12 kernel before sunday</code> and ends in a &ldquo;Held for approval&rdquo; state: 240 nodes, 3 batches, 41 min, reboot required.</li>
+        <li><strong>Problem</strong> &mdash; &ldquo;The work is boring. The risk is not.&rdquo; An animated 240-node fleet grid where nodes drift amber and go unreachable red on scroll.</li>
+        <li><strong>Architecture</strong> &mdash; &ldquo;Three things sit between a sentence and root.&rdquo; Intent (sentence &rarr; named plan with blast radius) / Policy (runs unattended, waits for a person, never runs &mdash; &ldquo;the agent proposes, policy consents&rdquo;) / Transaction (every change lands on a snapshot or boot slot; a failed health check auto-reverts).</li>
+        <li><strong>Walkthrough</strong> &mdash; the interactive centrepiece. A kernel upgrade across 240 nodes at 01:12 IST. Intent &rarr; Plan &rarr; Dry run &rarr; Gate &rarr; Apply &rarr; Verify &rarr; Revert. The user must click <strong>Approve batch 1</strong>, or <strong>Hold until morning</strong>, which is a first-class ending: &ldquo;Nothing moved&rdquo;. On approve: 24 nodes upgrade, 22 pass health, 2 fail (nic driver not loaded), auto-revert to slot A in 19s, batches 2&ndash;3 halted. Verdict: &ldquo;24 nodes changed. 2 reverted in 19 seconds. 216 never touched. Nobody was woken up.&rdquo;</li>
+        <li><strong>Ledger</strong> &mdash; append-only, signed. Six entries from intent-opened to auto-revert, each with a hash and the policy rule that permitted it (<code>kernel.requires_human</code>).</li>
+        <li><strong>Stack</strong> &mdash; &ldquo;It is not a new operating system.&rdquo; Three bands: your workloads / Keel / Debian&middot;RHEL&middot;Ubuntu&middot;SUSE, with support contracts and certifications still valid.</li>
+        <li><strong>Close</strong> &mdash; three unanswered questions, and a footer stating that no product exists behind the page.</li>
+      </ol>
+
+      <h2 id="questions">Open design questions</h2>
+      <ol>
+        <li><strong>Who holds the pager when the agent is wrong?</strong> Auto-revert covers failures a health check can see; it does nothing for the quiet ones where every check passes and something is subtly broken for nine hours. Accountability has to be designed, not designed away.</li>
+        <li><strong>What does policy look like to someone who has never written policy?</strong> If authoring rules feels like firewall config in 2009, people approve everything by default and the gate becomes decoration.</li>
+        <li><strong>How does trust get earned?</strong> Probably one action class at a time &mdash; log rotation before kernels, read-only before write. The product may be less about capability and more about a ladder someone climbs over months.</li>
+      </ol>
+
+      <h2 id="next">Where it stands</h2>
+      <ul>
+        <li>All copy in the demo is placeholder-grade and expected to be redlined, especially the hero.</li>
+        <li>The segment decision is parked pending research access.</li>
+        <li>Nothing has been built beyond the demo. No case-study write-up exists yet.</li>
+        <li>Suggested next: pick the segment, get three or four real conversations, then design the policy-authoring surface &mdash; the weakest part of the current story &mdash; and the approval console.</li>
+      </ul>
+
+      </article>
+
+
+      <nav class="cs-rail" aria-label="Sections"><p class="label-mono">sections</p><ol></ol></nav>
+
+
+    </div>
+
+    <nav class="pager">
+      <a href="grasp.html"><small>Previous</small><strong>&larr; Grasp</strong></a>
+      <a href="../about.html"><small>Next</small><strong>About &rarr;</strong></a>
+    </nav>
+  </div>
+</main>
+
+<footer class="foot" id="contact">
+  <h2>open to product design roles</h2>
+  <p>The case studies carry the detail. The CV carries the summary.</p>
+  <ul class="foot__links label-mono">
+    <li><a href="mailto:hrishi.ux@gmail.com">hrishi.ux@gmail.com →</a></li>
+    <li><a href="https://hrishiux.github.io/portfolio">hrishiux.github.io/portfolio →</a></li>
+    <li><a href="../assets/docs/Hrishikesh-Nanda-CV.pdf">cv (pdf) →</a></li>
+  </ul>
+  <div class="foot__bar label-mono">
+    <span>© 2026 <span class="nowrap">hrishikesh nanda</span></span>
+    <span><a href="../index.html#works">works</a> · <a href="../about.html">about</a></span>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

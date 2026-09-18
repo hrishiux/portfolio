@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Up.alert — Hrishikesh Nanda</title>
+<meta name="description" content="Notification dashboard for Upstox's marketing, content and communications teams. Solo designer, November 2022.">
+<meta name="author" content="Hrishikesh Nanda">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Up.alert — Hrishikesh Nanda">
+<meta property="og:description" content="Notification dashboard for Upstox's marketing, content and communications teams. Solo designer, November 2022.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="../assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400..800;1,400..800&family=EB+Garamond:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<script>document.documentElement.className += " js";</script>
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<header class="nav" data-tone="light">
+  <a class="nav__wordmark" href="../index.html"><span class="nowrap">hrishikesh</span></a>
+  <nav class="nav__links label-mono">
+    <a href="../index.html#works">works</a>
+    <a href="../about.html">about</a>
+    <a href="../index.html#contact">contact</a>
+  </nav>
+</header>
+
+<main>
+
+<header class="cs-hero">
+    <a class="back label-mono" href="../index.html#works">← works</a>
+    <p class="cs-hero__eyebrow label-mono">Case study 02</p>
+    <h1 class="display-lg">Up.alert &middot; Notification Dashboard</h1>
+    <p class="lede-serif">An internal web tool giving Upstox&rsquo;s marketing, content and communications teams the ability to send push notifications and in-app alert banners to users directly, without any engineering involvement.</p>
+
+    <dl class="meta">
+      <div><dt>Role</dt><dd>Sole designer, end to end</dd></div>
+      <div><dt>Timeline</dt><dd>November – December 2022</dd></div>
+      <div><dt>Company</dt><dd>Upstox</dd></div>
+      <div><dt>Surfaces</dt><dd>Okta login, Audiences, Notification creation</dd></div>
+    </dl>
+</header>
+
+<section class="section">
+  <div class="gutter">
+
+    <ul class="keyfigures reveal">
+      <li><b>10M+</b><span>Registered Upstox users at the time, around 3M actively trading</span></li>
+      <li><b>&lt;1 month</b><span>Written requirements to a production greenlight</span></li>
+      <li><b>3</b><span>Surfaces — Okta login, audience management, notification creation</span></li>
+      <li><b>2 modes</b><span>Test and production, with a permanent indicator and a data-level guard</span></li>
+    </ul>
+
+    <div class="cs-body">
+
+
+      <article class="prose">
+
+      <h2 id="overview">Overview</h2>
+      <p>Upstox is one of India&rsquo;s largest retail stock broking platforms, with 10M+ registered users and ~3M active traders at the time of this project. Up.alert was an internal web tool built for Upstox&rsquo;s marketing, content, and communications teams &mdash; giving them the ability to send push notifications and in-app alert banners to users directly, without any engineering involvement. I was the sole designer on this project, working end-to-end from requirements to production-ready screens.</p>
+
+      <h2 id="role">My role</h2>
+      <p>The PM provided written requirements, and I translated them into a working, production-ready interface &mdash; from UX through final UI &mdash; with no prior version to iterate on and no existing internal-tool design language to reference. The work was reviewed by my manager and the Head of the department, and greenlit for production, all within a month.</p>
+
+      <h2 id="problem">The problem</h2>
+      <p>Up.alert had been scoped, planned, and then shelved for close to a year before I was handed it. When it was picked back up in November 2022, the urgency was real &mdash; the team had been living without it the entire time, dependent on engineering for every user-facing communication. Every push notification, every urgent in-app warning during a market event or technical outage, required a code deployment.</p>
+      <p>Beyond the dependency problem, Upstox had no way to deliver persistent in-app messages &mdash; content that stayed in a user&rsquo;s inbox and could be revisited. The solution needed to serve two distinct use cases from one interface: proactive marketing communications (campaigns, announcements) and reactive crisis communications (system warnings, fund-related alerts) &mdash; with safeguards robust enough that the wrong message could never reach the wrong audience.</p>
+
+      <h2 id="approach">Design approach</h2>
+      <p>The tool had three core surfaces: a login gate (via Okta SSO), an Audiences management tab, and a Notification creation page. Given the timeline, the real design complexity lived in the logic and edge cases that had to be surfaced clearly for a non-technical team operating a tool with real, immediate user-facing consequences.</p>
+
+      <h3>Test vs. Production mode</h3>
+      <p><strong>Test vs. Production mode</strong> was the first design problem. The same tool served internal QA testing and live production sends. I designed a persistent, unambiguous environment indicator &mdash; always visible in the interface, impossible to miss. Test mode audiences were restricted to groups prefixed with &ldquo;Test_&rdquo; to add a data-level guard alongside the visual one.</p>
+
+      <h3>Audience management</h3>
+      <p><strong>Audience management</strong> involved CSV upload and reuse. Operators upload lists of UCCs (user codes), which persist for 30 days before archiving. I designed the upload flow with immediate feedback &mdash; successful uploads surfaced UCC count confirmation, failures gave specific retry prompts. When selecting a pre-uploaded audience for a new notification, the selected group&rsquo;s UCC count was surfaced again at the point of selection &mdash; a deliberate confirmation moment to prevent the wrong list being used at send time.</p>
+
+      <h3>Personalisation</h3>
+      <p><strong>Personalisation</strong> was technically interesting &mdash; the CSV format supported variables (name, balance, etc.) that could be injected as placeholders in notification body copy. I had to make this legible to content writers who had never written template syntax. The interface made the variable format explicit and visible, with the notification creation fields laid out so the relationship between CSV columns and message variables was obvious without documentation.</p>
+
+      <h3>In-app warning banners</h3>
+      <p><strong>In-app warning banners</strong> persist on screen until the user dismisses them or acts on the CTA. They needed to be killable after publish &mdash; a warning about a funds issue should disappear the moment it&rsquo;s resolved, not continue surfacing a stale alert. I designed a pause/resume control into the dashboard for active in-app messages, keeping the communications team in control post-send.</p>
+
+      <h3>Tracking</h3>
+      <p><strong>Tracking</strong> was built in from the start. The notification history view surfaced send status, timestamp, and editor. A dedicated performance view per notification showed sends, deliveries, and click-through &mdash; a feedback loop on communication effectiveness, and an audit trail for CS escalations.</p>
+
+      <h2 id="attention">What I paid attention to</h2>
+      <p>The users of this tool were marketing managers and content writers making time-sensitive decisions, sometimes during active incidents. Every high-consequence action &mdash; sending to all users, publishing a live in-app banner &mdash; had enough friction to be intentional, calibrated so it created pause without creating delay during a crisis.</p>
+      <p>The audit trail requirement also informed how I thought about the history view. It was a compliance and accountability surface as much as a convenience feature.</p>
+
+      <h2 id="outcome">Outcome</h2>
+      <p>Up.alert shipped end-to-end in under a month &mdash; a project that had sat untouched for close to a year, designed, reviewed, and greenlit for production within a single sprint cycle. It gave Upstox&rsquo;s marketing and communications teams their first fully self-serve channel to reach users without engineering dependency, handling both scheduled campaign communications and real-time crisis messaging from a single interface.</p>
+
+      <div class="callout callout--amber">
+        <h3>Status</h3>
+        <p>By December 2022, all design work was completed and delivered to the engineering team in production-ready format, with pixel-perfect specifications for iOS, Android and web, and documentation for both the user-facing notification centre and the internal admin panel.</p>
+        <p>The product was not shipped during my tenure at Upstox &mdash; I departed in February 2023. The complete design system was ready for implementation.</p>
+      </div>
+
+      <hr>
+
+      <h2 id="system">The wider system</h2>
+      <p>The design covered two integrated components, built to Upstox&rsquo;s existing design language and experience standards.</p>
+
+      <h3>Component 1: User-facing notification centre</h3>
+      <p>A dedicated inbox accessible from the navigation drawer that served as a central hub for all user communications:</p>
+      <ul>
+        <li><strong>Announcement Cards:</strong> Horizontally scrollable cards highlighting new products, features, and promotions with rich media support (images, GIFs, videos).</li>
+        <li><strong>Categorized Notifications:</strong> System-generated notifications organized by priority (Critical, Warning, Normal) and category (Funds, Orders, Rewards, Price Alerts).</li>
+        <li><strong>Critical Alert Bar:</strong> Persistent top-of-screen alerts for urgent matters (MTM warnings, system outages) that remain visible until user action is taken.</li>
+        <li><strong>Notification Settings:</strong> Granular control allowing users to manage notification preferences by category and manage price alerts.</li>
+      </ul>
+
+      <h3>Component 2: Marketing admin panel</h3>
+      <p>An internal dashboard enabling marketing teams to create and manage communications independently:</p>
+      <ul>
+        <li><strong>Message Creation Interface:</strong> Intuitive form for composing notifications with title, body, URL, CTA, and rich media options.</li>
+        <li><strong>Audience Targeting:</strong> CSV upload system for targeting specific user segments with support for personalized content via variables.</li>
+        <li><strong>Test/Production Modes:</strong> Safe testing environment before broadcasting to production users.</li>
+        <li><strong>Campaign History:</strong> Complete audit trail of sent messages with metadata and search functionality.</li>
+        <li><strong>Performance Analytics:</strong> Real-time metrics showing notifications sent, delivered, and clicked with conversion tracking.</li>
+      </ul>
+
+      <h2 id="technical">Technical considerations</h2>
+      <p>Working closely with engineering teams, I designed solutions that balanced user experience with technical feasibility:</p>
+      <ul>
+        <li><strong>Socket-based delivery:</strong> Designed real-time notification appearance without requiring app refresh</li>
+        <li><strong>WebView integration:</strong> In-app browser for external URLs, maintaining user context within the app</li>
+        <li><strong>Personalization system:</strong> Variable placeholder design (e.g. $name, $funds) allowing dynamic content without UI changes</li>
+        <li><strong>Performance optimization:</strong> Lazy loading, image optimization, and pagination ensuring smooth performance across devices</li>
+      </ul>
+
+      <h2 id="challenges">Challenges and how they were solved</h2>
+
+      <h3>Balancing urgency with UX</h3>
+      <p>I designed a graduated alerting system. Critical alerts appear as persistent bars at screen-top with clear dismiss/action options. Warnings appear prominently in the inbox but don&rsquo;t block primary workflows. Normal notifications remain non-intrusive. This hierarchy ensures genuinely critical information stands out.</p>
+
+      <h3>Designing for non-technical users</h3>
+      <p>I created an interface that abstracts technical complexity. The CSV format follows familiar spreadsheet patterns. Variable syntax ($name) mirrors common templating. Test mode provides a safe sandbox. Real-time previews show exactly how messages will appear. Success/error messages guide users through each step.</p>
+
+      <h3>Managing information density</h3>
+      <p>Two-section layout separates curated Announcements (carousel) from system Notifications (list). Auto-archiving after 2 days keeps the list manageable. Category filters and clear visual hierarchy enable quick scanning. Pagination ensures performance even with high notification volumes.</p>
+
+      <h2 id="appendix">Appendix: notification categories &amp; types</h2>
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr><th>Category</th><th>Priority</th><th>Variant</th><th>Trigger</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Orders</td><td>Normal</td><td>Traded</td><td>Order fully executed</td></tr>
+            <tr><td>Funds</td><td>Normal</td><td>Deposit</td><td>Payment successful</td></tr>
+            <tr><td>Margin</td><td>Critical</td><td>MTM Alert</td><td>100% fund consumption</td></tr>
+            <tr><td>Rewards</td><td>Normal</td><td>Invitation</td><td>Referral sent</td></tr>
+            <tr><td>Price Alert</td><td>Normal</td><td>Upward</td><td>Price above threshold</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      </article>
+
+
+      <nav class="cs-rail" aria-label="Sections"><p class="label-mono">sections</p><ol></ol></nav>
+
+
+    </div>
+
+    <nav class="pager">
+      <a href="nao.html"><small>Previous</small><strong>&larr; Upstox NAO 2.0</strong></a>
+      <a href="dev-api.html"><small>Next case study</small><strong>Account Centre &amp; Dev API &rarr;</strong></a>
+    </nav>
+  </div>
+</main>
+
+<footer class="foot" id="contact">
+  <h2>open to product design roles</h2>
+  <p>The case studies carry the detail. The CV carries the summary.</p>
+  <ul class="foot__links label-mono">
+    <li><a href="mailto:hrishi.ux@gmail.com">hrishi.ux@gmail.com →</a></li>
+    <li><a href="https://hrishiux.github.io/portfolio">hrishiux.github.io/portfolio →</a></li>
+    <li><a href="../assets/docs/Hrishikesh-Nanda-CV.pdf">cv (pdf) →</a></li>
+  </ul>
+  <div class="foot__bar label-mono">
+    <span>© 2026 <span class="nowrap">hrishikesh nanda</span></span>
+    <span><a href="../index.html#works">works</a> · <a href="../about.html">about</a></span>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
