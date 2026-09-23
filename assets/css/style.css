@@ -369,6 +369,65 @@ h1,h2,h3,h4{ margin:0; font-family:var(--font-display); font-weight:500; letter-
 }
 .bars__fill--after + .bars__val{ color:var(--primary-foreground) }
 
+/* ---------- case study imagery ---------- */
+
+/* A row of production screens. Scrolls sideways rather than shrinking below
+   legibility; each screen keeps its own aspect ratio. */
+.shots{
+  list-style:none; margin:2.5rem 0 0; padding:0 0 .75rem;
+  display:flex; gap:1rem; overflow-x:auto; -webkit-overflow-scrolling:touch;
+  scroll-snap-type:x proximity;
+}
+/* Uniform height, natural widths — the screens were captured at different
+   aspect ratios and a shared width left a tall one dictating the row. */
+.shots li{ flex:0 0 auto; scroll-snap-align:start }
+.shots img{
+  height:clamp(320px, 46vh, 460px); width:auto; border-radius:var(--radius);
+  border:1px solid var(--border); background-color:var(--card);
+}
+.shots figcaption{
+  margin-top:.7rem; font-family:var(--font-mono); font-size:.6875rem;
+  letter-spacing:.12em; text-transform:lowercase; color:var(--muted-foreground);
+  line-height:1.5;
+}
+@media (min-width:1080px){
+  .shots{ width:100%; max-width:none }
+}
+
+/* A wide figure: flows, boards, desktop strips. Breaks the reading measure. */
+.wide{ margin:2.75rem 0 0; width:100%; max-width:none }
+.wide img{
+  width:100%; height:auto; display:block; border-radius:var(--radius);
+  border:1px solid var(--border); background-color:var(--card);
+}
+.wide--ink img{ border-color:transparent; background-color:var(--foreground) }
+.wide figcaption{
+  margin-top:.85rem; font-family:var(--font-mono); font-size:.6875rem;
+  letter-spacing:.14em; text-transform:lowercase; color:var(--muted-foreground);
+  line-height:1.6;
+}
+
+/* Wide artwork that needs its own scroll on small screens to stay readable. */
+.wide__scroll{ overflow-x:auto; -webkit-overflow-scrolling:touch }
+@media (max-width:760px){
+  .wide__scroll{ margin-inline:calc(var(--gutter) * -1); padding-inline:var(--gutter) }
+  .wide__scroll img{ min-width:680px }
+  .wide--zoom figcaption::after{ content:" · scroll to see all"; color:var(--primary) }
+}
+
+/* Two screens side by side, for before/after. */
+.compare{ display:grid; gap:1.25rem; margin:2.5rem 0 0 }
+@media (min-width:640px){ .compare{ grid-template-columns:1fr 1fr } }
+.compare figure{ margin:0 }
+.compare img{
+  width:100%; height:auto; border-radius:var(--radius);
+  border:1px solid var(--border); background-color:var(--card);
+}
+.compare figcaption{
+  margin-top:.7rem; font-family:var(--font-mono); font-size:.6875rem;
+  letter-spacing:.12em; text-transform:lowercase; color:var(--muted-foreground);
+}
+
 .pullquote{
   margin:3rem 0 0; padding:0 0 0 1.5rem; border-left:2px solid var(--meadow);
   font-family:var(--font-display); font-weight:500; font-style:italic;
@@ -408,7 +467,7 @@ h1,h2,h3,h4{ margin:0; font-family:var(--font-display); font-weight:500; letter-
 .prose{ width:100%; max-width:var(--prose); margin-top:0 }
 @media (min-width:1080px){
   .prose{ max-width:none }
-  .prose p,.prose ul,.prose ol,.prose h2,.prose h3,.prose h4,
+  .prose p,.prose ul:not(.shots),.prose ol,.prose h2,.prose h3,.prose h4,
   .prose blockquote,.prose hr,.prose .callout{ max-width:var(--prose) }
 }
 .prose > *:first-child{ margin-top:0 }

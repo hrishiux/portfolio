@@ -88,6 +88,29 @@
       <h2 id="audit">2. Funnel audit &amp; drop-off mapping</h2>
       <p>To identify the structural bottlenecks, we conducted an audit of step-level drop-offs and rejections (June MTD data):</p>
 
+      <ul class="shots">
+        <li><figure>
+          <img src="../assets/img/nao/screen-pan.jpg" alt="PAN details step: PAN and date of birth fields with a compliance panel." loading="lazy" width="726" height="1556">
+          <figcaption>pan &amp; dob — shipped</figcaption>
+        </figure></li>
+        <li><figure>
+          <img src="../assets/img/nao/screen-email-otp.jpg" alt="Email verification step with OTP entry and a resend option." loading="lazy" width="718" height="1558">
+          <figcaption>email verification — shipped</figcaption>
+        </figure></li>
+        <li><figure>
+          <img src="../assets/img/nao/screen-bank-manual.jpg" alt="Bank details step with account holder name, IFSC code, account number and a re-entry field." loading="lazy" width="716" height="1552">
+          <figcaption>bank details — the manual path being replaced</figcaption>
+        </figure></li>
+        <li><figure>
+          <img src="../assets/img/nao/screen-photo.jpg" alt="Photo quality check step with a retake option." loading="lazy" width="720" height="1558">
+          <figcaption>live photo — quality check</figcaption>
+        </figure></li>
+        <li><figure>
+          <img src="../assets/img/nao/screen-segment.jpg" alt="Segment selection with futures and options activation and an income proof upload." loading="lazy" width="360" height="1340">
+          <figcaption>segment selection &amp; income proof</figcaption>
+        </figure></li>
+      </ul>
+
       <div class="tablewrap">
         <table>
           <thead>
@@ -106,6 +129,33 @@
         </table>
       </div>
 
+      <p>Every step was then worked through on its own board &mdash; what the customer feels, what the business needs from them, where the rejections and drop-offs actually come from, and the design pillars the step has to satisfy.</p>
+
+      <figure class="wide wide--ink">
+        <img src="../assets/img/nao/board-email.jpg" alt="Analysis board for the mobile number, biometrics and email verification step, covering customer sentiment, business needs, a 26.32% drop-off with its causes, and design pillars." loading="lazy" width="1384" height="756">
+        <figcaption>step board — mobile number, biometrics, email verification (26.32% drop-off)</figcaption>
+      </figure>
+
+      <figure class="wide wide--ink">
+        <img src="../assets/img/nao/board-personal.jpg" alt="Analysis board for the personal details step, covering customer sentiment, business needs, a 22.32% drop-off with its causes, and design pillars." loading="lazy" width="1800" height="1000">
+        <figcaption>step board — personal details (22.32% drop-off)</figcaption>
+      </figure>
+
+      <figure class="wide wide--ink">
+        <img src="../assets/img/nao/board-bank.jpg" alt="Analysis board for the bank details and fees step, covering customer sentiment, business needs, an 8.25% bank drop-off and 8.61% on account opening fees, and design pillars." loading="lazy" width="1800" height="1000">
+        <figcaption>step board — bank details &amp; fees, where the reverse penny drop was proposed</figcaption>
+      </figure>
+
+      <figure class="wide wide--ink">
+        <img src="../assets/img/nao/board-identity.jpg" alt="Analysis board for the identity verification step." loading="lazy" width="1800" height="1000">
+        <figcaption>step board — identity verification</figcaption>
+      </figure>
+
+      <figure class="wide wide--ink">
+        <img src="../assets/img/nao/board-sign.jpg" alt="Analysis board for the sign and submit step, covering a 9.55% drop-off and its causes." loading="lazy" width="1800" height="1000">
+        <figcaption>step board — sign and submit (9.55% drop-off)</figcaption>
+      </figure>
+
       <hr>
 
       <h2 id="philosophy">3. Experience philosophy: the &ldquo;N-Star&rdquo; &amp; screen format frameworks</h2>
@@ -120,6 +170,11 @@
         <li><strong>6-Star:</strong> Zero manual input. Entering a mobile number pulls investment history and net worth in the background with user permission.</li>
         <li><strong>10-Star:</strong> Founder-level onboarding. Fully personalized experience, direct welcoming calls from executives, premium physical welcome merchandise delivered to the user&rsquo;s home.</li>
       </ul>
+
+      <figure class="wide">
+        <img src="../assets/img/nao/nstar.jpg" alt="The N-Star experience ladder as presented internally, from a one-star experience where bugs block signup to a six-star experience where information is fetched in the background." loading="lazy" width="1440" height="810">
+        <figcaption>the n-star ladder, as it went to stakeholders</figcaption>
+      </figure>
 
       <h3>B. The screen format framework</h3>
       <p>We classified onboarding interfaces into three functional buckets to standardize the UI patterns and cognitive load across all screens:</p>
@@ -240,6 +295,13 @@
 
       <h2 id="blocks">5. Granular component redesigns (six key blocks)</h2>
 
+      <figure class="wide wide--zoom">
+        <div class="wide__scroll">
+          <img src="../assets/img/nao/canvas-login.jpg" alt="A section of the working design canvas: labelled groups for login and signup landing and phone number capture, with phone frames wired together by decision diamonds and branch labels." loading="lazy" width="2000" height="485">
+        </div>
+        <figcaption>the working canvas — every state wired to the branch that reaches it</figcaption>
+      </figure>
+
       <h3>Block A: Signup, splash, and carousel (the entry point)</h3>
       <p><strong>The friction point:</strong> High latency in cold-app loading, static landing layouts, and manual typing of phone numbers on Android devices.</p>
       <p><strong>The redesign solution:</strong></p>
@@ -258,6 +320,20 @@
         <li>Created a real-time <strong>auto-verification mechanism</strong> for SSO emails. These accounts bypass manual scrutiny check-queues entirely, dropping off the scrutiny officer&rsquo;s dashboard to save operational bandwidth.</li>
       </ol>
 
+      <figure class="wide wide--zoom">
+        <div class="wide__scroll">
+          <img src="../assets/img/nao/flow-email.png" alt="Information flow for the email step: Google sign-in and manual entry branches, validation rules, duplicate checking against verified emails, OTP trigger, and the success and failure states." loading="lazy" width="1800" height="1245">
+        </div>
+        <figcaption>email step — the flow as specced, including the validation rules and every failure branch</figcaption>
+      </figure>
+
+      <figure class="wide wide--zoom">
+        <div class="wide__scroll">
+          <img src="../assets/img/nao/web-pan.jpg" alt="Five desktop browser frames of the PAN capture step: empty name fields, filled fields, an inline validation error reading remove special characters from your name, and the corrected state." loading="lazy" width="2200" height="270">
+        </div>
+        <figcaption>pan capture on web desktop — empty, filled, the inline error, and the fetch overlay</figcaption>
+      </figure>
+
       <h3>Block C: Bank account verification</h3>
       <p><strong>The friction point:</strong> Manually typing account numbers, re-entering them, searching for IFSC codes, and uploading cancelled cheques resulted in a 4.53% step-level drop-off and a 15.53% overall rejection rate due to typo mismatch.</p>
       <p><strong>The redesign solution:</strong></p>
@@ -266,6 +342,13 @@
         <li><strong>Forward Penny Drop Automation (Backup Path):</strong> For manual entries, the system deposits 1 Rupee and triggers real-time checking via <strong>Digio API</strong> (processing transactions in 4 seconds compared to Razorpay&rsquo;s 16 seconds).</li>
         <li>Implemented a <strong>Fuzzy Name Match Algorithm</strong>: Matches the fetched bank name with the Income Tax (PAN) record name. A matched score of &ge; 70 allows the user to proceed automatically. Any score below 70 is flagged for manual scrutiny.</li>
       </ol>
+
+      <figure class="wide wide--zoom">
+        <div class="wide__scroll">
+          <img src="../assets/img/nao/flow-segment.png" alt="Routing map from segment selection: stocks and mutual funds go through bank validation and an account aggregator; stocks, mutual funds and futures and options go through bank validation and PAN via Equifax." loading="lazy" width="1800" height="800">
+        </div>
+        <figcaption>segment selection decides the route — account aggregator on one branch, equifax on the other</figcaption>
+      </figure>
 
       <figure class="figure-block">
         <div class="figure-block__scroll">
@@ -325,6 +408,13 @@
         <figcaption>bank verification — the automatic path, and the one that needs a human</figcaption>
       </figure>
 
+      <figure class="wide wide--zoom">
+        <div class="wide__scroll">
+          <img src="../assets/img/nao/web-bank-upi.jpg" alt="Five desktop browser frames showing the UPI reverse penny drop: link your bank account, generating UPI QR code, scan this QR code on your UPI app to verify bank, awaiting UPI confirmation, and bank account verified." loading="lazy" width="2200" height="262">
+        </div>
+        <figcaption>the same verification on web desktop — qr generated, scanned on the phone, confirmed back in the browser</figcaption>
+      </figure>
+
       <h3>Block D: Digital identity &amp; liveness verification</h3>
       <p><strong>The friction point:</strong> Static live photo submission checks took place post-form submission, introducing high processing delays. Poor camera angles or lighting led to an 18.45% photo rejection rate.</p>
       <p><strong>The redesign solution:</strong></p>
@@ -334,6 +424,24 @@
         <li>Backend performs <strong>real-time liveness threshold check</strong> (currently configured at an AI confidence score of &gt; 75).</li>
         <li><strong>Facial Matching Confidence Score:</strong> For non-KRA users, the system compares the live capture against official government records in real time, automatically routing failed matches or low-confidence scores to the scrutiny desk.</li>
       </ol>
+
+      <figure class="wide wide--zoom">
+        <div class="wide__scroll">
+          <img src="../assets/img/nao/flow-liveness.png" alt="Information flow for the live photo step: camera and storage permissions, KRA and non-KRA branches, liveness score thresholds, face match against Aadhaar, and the rejection path that shows the reason." loading="lazy" width="1800" height="736">
+        </div>
+        <figcaption>live photo — permissions, the kra split, and where a rejection has to explain itself</figcaption>
+      </figure>
+
+      <div class="compare">
+        <figure>
+          <img src="../assets/img/nao/web-selfie.jpg" alt="Two desktop browser frames of the take a selfie step, one with the capture action enabled and one with it disabled." loading="lazy" width="1043" height="303">
+          <figcaption>capture, on web desktop</figcaption>
+        </figure>
+        <figure>
+          <img src="../assets/img/nao/web-photo-error.jpg" alt="Desktop frame reading we found some errors in your photo, listing specific reasons such as face size is too small, with a retake photo action." loading="lazy" width="488" height="293">
+          <figcaption>and what a rejection actually says</figcaption>
+        </figure>
+      </div>
 
       <h3>Block E: Digital signature canvas</h3>
       <p><strong>The friction point:</strong> Signature rejections accounted for 21.32% of total onboarding rejections, primarily due to signature cropping, illegible scribbles, or users drawing signatures inside a portrait container with restricted width.</p>
@@ -345,6 +453,13 @@
         <li><strong>Pixel-Cutoff Regression testing (R&amp;D):</strong> Configured real-time pixel-density heuristics to validate signature presence and check for minimum stroke pixel counts before allowing submissions.</li>
       </ol>
 
+      <figure class="wide wide--zoom">
+        <div class="wide__scroll">
+          <img src="../assets/img/nao/web-signature.jpg" alt="Desktop browser frames of the signature step: an empty signing area, a drawn signature, a submitting state, then the two endings — signature successfully uploaded, and failed to upload with a try again action." loading="lazy" width="2200" height="462">
+        </div>
+        <figcaption>signature on web desktop — draw, submit, and the two endings it can have</figcaption>
+      </figure>
+
       <h3>Block F: E-Sign custom UI integration</h3>
       <p><strong>The friction point:</strong> The standard NSDL/UIDAI interface was complex, cluttered, and highly drop-off prone (~10.0% overall drop-off on E-Sign), heavily damaging mobile user trust.</p>
       <p><strong>The redesign solution:</strong></p>
@@ -353,6 +468,18 @@
         <li>Repackaged and surfaced key information clearly to minimize user concern over entering sensitive Aadhaar numbers on non-Upstox interfaces.</li>
         <li>Expected step drop-off reduction of ~50.0%.</li>
       </ol>
+
+      <figure class="wide">
+        <img src="../assets/img/nao/esign-setu.jpg" alt="Side by side comparison: the market-standard NSDL electronic signature portal against Setu's customisable Aadhaar e-sign interface carrying Upstox branding." loading="lazy" width="1600" height="1200">
+        <figcaption>e-sign — the market-standard portal, and the customisable frame that replaced it</figcaption>
+      </figure>
+
+      <figure class="wide wide--zoom">
+        <div class="wide__scroll">
+          <img src="../assets/img/nao/web-esign.jpg" alt="Desktop browser frames of the final e-sign step, with a modal asking whether to add a nominee to the account before signing with Aadhaar." loading="lazy" width="1535" height="294">
+        </div>
+        <figcaption>e-sign on web desktop — the last step, with the nominee prompt sitting in front of it</figcaption>
+      </figure>
 
       <hr>
 
