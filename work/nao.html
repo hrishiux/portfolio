@@ -90,19 +90,19 @@
 
       <ul class="shots">
         <li><figure>
-          <img src="../assets/img/nao/screen-pan.jpg" alt="PAN details step: PAN and date of birth fields with a compliance panel." loading="lazy" width="726" height="1556">
+          <img src="../assets/img/nao/screen-pan.jpg" alt="PAN details step: PAN and date of birth fields with a compliance panel." loading="lazy" width="714" height="1544">
           <figcaption>pan &amp; dob — shipped</figcaption>
         </figure></li>
         <li><figure>
-          <img src="../assets/img/nao/screen-email-otp.jpg" alt="Email verification step with OTP entry and a resend option." loading="lazy" width="718" height="1558">
+          <img src="../assets/img/nao/screen-email-otp.jpg" alt="Email verification step with OTP entry and a resend option." loading="lazy" width="706" height="1546">
           <figcaption>email verification — shipped</figcaption>
         </figure></li>
         <li><figure>
-          <img src="../assets/img/nao/screen-bank-manual.jpg" alt="Bank details step with account holder name, IFSC code, account number and a re-entry field." loading="lazy" width="716" height="1552">
+          <img src="../assets/img/nao/screen-bank-manual.jpg" alt="Bank details step with account holder name, IFSC code, account number and a re-entry field." loading="lazy" width="704" height="1540">
           <figcaption>bank details — the manual path being replaced</figcaption>
         </figure></li>
         <li><figure>
-          <img src="../assets/img/nao/screen-photo.jpg" alt="Photo quality check step with a retake option." loading="lazy" width="720" height="1558">
+          <img src="../assets/img/nao/screen-photo.jpg" alt="Photo quality check step with a retake option." loading="lazy" width="708" height="1546">
           <figcaption>live photo — quality check</figcaption>
         </figure></li>
         <li><figure>
@@ -327,12 +327,6 @@
         <figcaption>email step — the flow as specced, including the validation rules and every failure branch</figcaption>
       </figure>
 
-      <figure class="wide wide--zoom">
-        <div class="wide__scroll">
-          <img src="../assets/img/nao/web-pan.jpg" alt="Five desktop browser frames of the PAN capture step: empty name fields, filled fields, an inline validation error reading remove special characters from your name, and the corrected state." loading="lazy" width="2200" height="270">
-        </div>
-        <figcaption>pan capture on web desktop — empty, filled, the inline error, and the fetch overlay</figcaption>
-      </figure>
 
       <h3>Block C: Bank account verification</h3>
       <p><strong>The friction point:</strong> Manually typing account numbers, re-entering them, searching for IFSC codes, and uploading cancelled cheques resulted in a 4.53% step-level drop-off and a 15.53% overall rejection rate due to typo mismatch.</p>
@@ -408,12 +402,6 @@
         <figcaption>bank verification — the automatic path, and the one that needs a human</figcaption>
       </figure>
 
-      <figure class="wide wide--zoom">
-        <div class="wide__scroll">
-          <img src="../assets/img/nao/web-bank-upi.jpg" alt="Five desktop browser frames showing the UPI reverse penny drop: link your bank account, generating UPI QR code, scan this QR code on your UPI app to verify bank, awaiting UPI confirmation, and bank account verified." loading="lazy" width="2200" height="262">
-        </div>
-        <figcaption>the same verification on web desktop — qr generated, scanned on the phone, confirmed back in the browser</figcaption>
-      </figure>
 
       <h3>Block D: Digital identity &amp; liveness verification</h3>
       <p><strong>The friction point:</strong> Static live photo submission checks took place post-form submission, introducing high processing delays. Poor camera angles or lighting led to an 18.45% photo rejection rate.</p>
@@ -432,16 +420,6 @@
         <figcaption>live photo — permissions, the kra split, and where a rejection has to explain itself</figcaption>
       </figure>
 
-      <div class="compare">
-        <figure>
-          <img src="../assets/img/nao/web-selfie.jpg" alt="Two desktop browser frames of the take a selfie step, one with the capture action enabled and one with it disabled." loading="lazy" width="1043" height="303">
-          <figcaption>capture, on web desktop</figcaption>
-        </figure>
-        <figure>
-          <img src="../assets/img/nao/web-photo-error.jpg" alt="Desktop frame reading we found some errors in your photo, listing specific reasons such as face size is too small, with a retake photo action." loading="lazy" width="488" height="293">
-          <figcaption>and what a rejection actually says</figcaption>
-        </figure>
-      </div>
 
       <h3>Block E: Digital signature canvas</h3>
       <p><strong>The friction point:</strong> Signature rejections accounted for 21.32% of total onboarding rejections, primarily due to signature cropping, illegible scribbles, or users drawing signatures inside a portrait container with restricted width.</p>
@@ -453,12 +431,6 @@
         <li><strong>Pixel-Cutoff Regression testing (R&amp;D):</strong> Configured real-time pixel-density heuristics to validate signature presence and check for minimum stroke pixel counts before allowing submissions.</li>
       </ol>
 
-      <figure class="wide wide--zoom">
-        <div class="wide__scroll">
-          <img src="../assets/img/nao/web-signature.jpg" alt="Desktop browser frames of the signature step: an empty signing area, a drawn signature, a submitting state, then the two endings — signature successfully uploaded, and failed to upload with a try again action." loading="lazy" width="2200" height="462">
-        </div>
-        <figcaption>signature on web desktop — draw, submit, and the two endings it can have</figcaption>
-      </figure>
 
       <h3>Block F: E-Sign custom UI integration</h3>
       <p><strong>The friction point:</strong> The standard NSDL/UIDAI interface was complex, cluttered, and highly drop-off prone (~10.0% overall drop-off on E-Sign), heavily damaging mobile user trust.</p>
@@ -474,12 +446,36 @@
         <figcaption>e-sign — the market-standard portal, and the customisable frame that replaced it</figcaption>
       </figure>
 
-      <figure class="wide wide--zoom">
-        <div class="wide__scroll">
-          <img src="../assets/img/nao/web-esign.jpg" alt="Desktop browser frames of the final e-sign step, with a modal asking whether to add a nominee to the account before signing with Aadhaar." loading="lazy" width="1535" height="294">
-        </div>
-        <figcaption>e-sign on web desktop — the last step, with the nominee prompt sitting in front of it</figcaption>
-      </figure>
+
+      <aside class="webframes" aria-label="Web desktop version">
+        <p class="webframes__label label-mono">also designed for web desktop &mdash; tap a frame for the full flow</p>
+        <ul class="webframes__grid">
+          <li><a href="../assets/img/nao/web-pan.jpg" target="_blank" rel="noopener">
+            <span class="webframes__crop"><span class="webframes__win" style="--l:.639;--w:.1985;--t:0;--h:1;aspect-ratio:1.62"><img src="../assets/img/nao/web-pan.jpg" alt="Desktop PAN step with an inline name validation error." loading="lazy"></span></span>
+            <span class="webframes__cap">pan details</span>
+          </a></li>
+          <li><a href="../assets/img/nao/web-bank-upi.jpg" target="_blank" rel="noopener">
+            <span class="webframes__crop"><span class="webframes__win" style="--l:.405;--w:.1885;--t:0;--h:1;aspect-ratio:1.58"><img src="../assets/img/nao/web-bank-upi.jpg" alt="Desktop bank step showing a UPI QR code to scan." loading="lazy"></span></span>
+            <span class="webframes__cap">bank via upi qr</span>
+          </a></li>
+          <li><a href="../assets/img/nao/web-selfie.jpg" target="_blank" rel="noopener">
+            <span class="webframes__crop"><span class="webframes__win" style="--l:.0115;--w:.463;--t:0;--h:1;aspect-ratio:1.59"><img src="../assets/img/nao/web-selfie.jpg" alt="Desktop take a selfie step." loading="lazy"></span></span>
+            <span class="webframes__cap">selfie</span>
+          </a></li>
+          <li><a href="../assets/img/nao/web-photo-error.jpg" target="_blank" rel="noopener">
+            <span class="webframes__crop"><span class="webframes__win" style="--l:0;--w:1;--t:0;--h:1;aspect-ratio:1.67"><img src="../assets/img/nao/web-photo-error.jpg" alt="Desktop photo error listing the reasons for rejection." loading="lazy"></span></span>
+            <span class="webframes__cap">photo rejected</span>
+          </a></li>
+          <li><a href="../assets/img/nao/web-signature.jpg" target="_blank" rel="noopener">
+            <span class="webframes__crop"><span class="webframes__win" style="--l:.7675;--w:.152;--t:.024;--h:.425;aspect-ratio:1.70"><img src="../assets/img/nao/web-signature.jpg" alt="Desktop signature step, signature successfully uploaded." loading="lazy"></span></span>
+            <span class="webframes__cap">signature</span>
+          </a></li>
+          <li><a href="../assets/img/nao/web-esign.jpg" target="_blank" rel="noopener">
+            <span class="webframes__crop"><span class="webframes__win" style="--l:.343;--w:.315;--t:.05;--h:.94;aspect-ratio:1.75"><img src="../assets/img/nao/web-esign.jpg" alt="Desktop e-sign step with the nominee prompt." loading="lazy"></span></span>
+            <span class="webframes__cap">e-sign</span>
+          </a></li>
+        </ul>
+      </aside>
 
       <hr>
 
