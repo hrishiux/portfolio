@@ -382,7 +382,7 @@ h1,h2,h3,h4{ margin:0; font-family:var(--font-display); font-weight:500; letter-
    aspect ratios and a shared width left a tall one dictating the row. */
 .shots li{ flex:0 0 auto; scroll-snap-align:start }
 .shots img{
-  height:clamp(320px, 46vh, 460px); width:auto; border-radius:var(--radius);
+  height:clamp(320px, 46vh, 460px); width:auto; border-radius:6px;
   border:1px solid var(--border); background-color:var(--card);
 }
 .shots figcaption{
@@ -413,6 +413,36 @@ h1,h2,h3,h4{ margin:0; font-family:var(--font-display); font-weight:500; letter-
   .wide__scroll{ margin-inline:calc(var(--gutter) * -1); padding-inline:var(--gutter) }
   .wide__scroll img{ min-width:680px }
   .wide--zoom figcaption::after{ content:" · scroll to see all"; color:var(--primary) }
+}
+
+/* Quiet row of desktop frames: one cropped frame per step, full strip on click. */
+.webframes{ margin:3.5rem 0 0; padding-top:1.5rem; border-top:1px dashed var(--border); width:100%; max-width:none }
+.prose .webframes__label, .webframes__label{ color:var(--muted-foreground); font-size:.6875rem; letter-spacing:.14em; line-height:1.6 }
+.prose .webframes__grid, .webframes__grid{
+  list-style:none; margin:1.1rem 0 0; padding:0;
+  display:grid; gap:1rem .9rem; grid-template-columns:repeat(2, minmax(0,1fr));
+}
+@media (min-width:640px){ .prose .webframes__grid, .webframes__grid{ grid-template-columns:repeat(3, minmax(0,1fr)) } }
+@media (min-width:1080px){ .prose .webframes__grid, .webframes__grid{ grid-template-columns:repeat(6, minmax(0,1fr)) } }
+.prose .webframes__grid li, .webframes__grid li{ margin:0; line-height:1; font-size:inherit }
+.webframes__label.label-mono{ margin:0 }
+.webframes a{ display:block; text-decoration:none; color:inherit }
+.webframes__crop{
+  display:flex; align-items:center; aspect-ratio:1.65; overflow:hidden; border-radius:6px;
+  border:1px solid var(--border); background-color:var(--card);
+  opacity:.82; transition:opacity .2s, border-color .2s;
+}
+.webframes__win{ display:block; position:relative; overflow:hidden; width:100%; flex:none }
+.webframes__crop img{
+  position:absolute; max-width:none; width:auto;
+  height:calc(100% / var(--h));
+  top:calc(-100% * var(--t) / var(--h));
+  left:calc(-100% * var(--l) / var(--w));
+}
+.webframes a:hover .webframes__crop, .webframes a:focus-visible .webframes__crop{ opacity:1; border-color:var(--primary) }
+.webframes__cap{
+  display:block; margin-top:.5rem; font-family:var(--font-mono); font-size:.625rem;
+  letter-spacing:.12em; text-transform:lowercase; color:var(--muted-foreground);
 }
 
 /* Two screens side by side, for before/after. */
@@ -467,7 +497,7 @@ h1,h2,h3,h4{ margin:0; font-family:var(--font-display); font-weight:500; letter-
 .prose{ width:100%; max-width:var(--prose); margin-top:0 }
 @media (min-width:1080px){
   .prose{ max-width:none }
-  .prose p,.prose ul:not(.shots),.prose ol,.prose h2,.prose h3,.prose h4,
+  .prose p,.prose ul:not(.shots):not(.webframes__grid),.prose ol,.prose h2,.prose h3,.prose h4,
   .prose blockquote,.prose hr,.prose .callout{ max-width:var(--prose) }
 }
 .prose > *:first-child{ margin-top:0 }
