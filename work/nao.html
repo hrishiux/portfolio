@@ -38,7 +38,7 @@
     <p class="lede-serif">Systems-level UX redesign and onboarding architecture overhaul. Upstox is India&rsquo;s Robinhood equivalent &mdash; one of the country&rsquo;s largest retail broking platforms, with 10M+ registered users and around 3M active traders at the time of this project.</p>
 
     <dl class="meta">
-      <div><dt>Role</dt><dd>Lead Product Designer (Systems &amp; Platform)</dd></div>
+      <div><dt>Role</dt><dd>Product Designer (Systems &amp; Platform) and Project Ownership</dd></div>
       <div><dt>Timeline</dt><dd>August 2022 &ndash; February 2023</dd></div>
       <div><dt>Sector</dt><dd>Fintech / Wealth Management</dd></div>
       <div><dt>Target metric</dt><dd>Lead &rarr; Account Created, 21.47% &rarr; 60.0%</dd></div>
@@ -60,10 +60,11 @@
 
       <article class="prose">
 
-      <h2 id="summary">1. Executive summary &amp; strategic business objective</h2>
+      <h2 id="summary">1. Executive summary &amp; overall business objective</h2>
 
       <h3>The challenge</h3>
-      <p>In the highly competitive Indian brokerage landscape, user acquisition velocity is directly gated by the onboarding funnel. Upstox&rsquo;s classic onboarding flow exhibited high drop-off rates due to severe cognitive load, complex regulatory requirements, manual data inputs, and high-latency offline scrutiny.</p>
+      <p>In the highly competitive Indian brokerage landscape, user acquisition is directly gated by the onboarding funnel. Upstox&rsquo;s classic onboarding flow was facing high drop-off rates due to severe cognitive load, complex regulatory requirements, manual data inputs, and high-latency offline scrutiny (this is a given in our country esp when trying to do anything govt related or official, just like in this case -- opening an Demat account and regiserting with SEBI etc).</p>
+      <p>Only 21.47% of leads ended up with an account, 35% of submitted applications were rejected, and 40% of the accounts that did get opened needed a sales call to get through. (Like mentioned above - the cause was all the manual typing: email, PAN, bank details, signature combiend with the checks that only ran after the user had already submitted everything.)</p>
 
       <p>The baseline performance metrics were:</p>
       <ul>
@@ -75,7 +76,7 @@
       </ul>
 
       <h3>The objective</h3>
-      <p>The strategic mandate was to <strong>redesign and engineer NAO 2.0</strong> to:</p>
+      <p>The goal was to <strong>redesign and engineer NAO 2.0</strong> to:</p>
       <ol>
         <li><strong>Nearly double overall conversion to 60.0%</strong>.</li>
         <li><strong>Reduce overall step-level rejection rates from 35.0% to 10.0%</strong> by replacing post-submission manual audit checks with real-time, automated verification APIs.</li>
@@ -159,7 +160,7 @@
       <hr>
 
       <h2 id="philosophy">3. Experience philosophy: the &ldquo;N-Star&rdquo; &amp; screen format frameworks</h2>
-      <p>We moved away from isolated, superficial UI updates, framing our redesign around two strategic systems:</p>
+      <p>We moved away from isolated, superficial UI updates, to framing our redesign around two strategic systems:</p>
 
       <h3>A. The &ldquo;N-Star&rdquo; experience vision</h3>
       <p>To align design, engineering, and business operations, we conceptualized a progression framework ranging from a basic functional app to an automated, high-touch platform:</p>
@@ -217,7 +218,7 @@
       </figure>
 
       <ol>
-        <li><strong>Simplified Format:</strong> Applied to low cognitive-load steps. Focuses on minimizing actions. <em>Example: Email verification via one-tap Google/Apple SSO.</em></li>
+        <li><strong>Simplified Format:</strong> Applied to low cognitive-load steps. Focuses on minimizing actions (easy steps = fewest possible taps). <em>Example: Email verification via one-tap Google/Apple SSO.</em></li>
         <li><strong>Hand-Holding Format:</strong> Applied to high-friction, error-prone steps requiring external lookups. Features in-context instructional overlays, GIFs, or videos. <em>Example: Real-time interactive canvas for digital signatures with explicit boundary-rule cues.</em></li>
         <li><strong>Education Format:</strong> Applied when we need the user to retain critical regulatory information or build trust in the platform&rsquo;s security. <em>Example: Front-loaded platform credibility carousel highlighting Upstox&rsquo;s 1Cr+ investor base.</em></li>
       </ol>
@@ -281,7 +282,7 @@
       <h3>Key technical specs</h3>
       <ul>
         <li><strong>Blocks:</strong> Self-contained functional units (e.g. Email Verification Block, Liveness Block, Bank Verification Block) responsible for executing specific inputs, API integrations, and rule processing.</li>
-        <li><strong>Templates:</strong> Compiled sequences of connected blocks.</li>
+        <li><strong>Templates:</strong> Compiled sequences of blocks.</li>
         <li><strong>Operator Dashboard (CMS):</strong> Enables PMs and Engineering Managers to drag, drop, and configure onboarding flows dynamically without code releases.
           <ul>
             <li><em>UX Toggles:</em> Toggling explanatory video overlays on/off per step.</li>
@@ -480,7 +481,7 @@
       <hr>
 
       <h2 id="benchmark">6. Competitive analysis &amp; benchmark</h2>
-      <p>Our architectural decisions were validated against a technical competitive benchmark comparing Upstox NAO 2.0 with leading market players:</p>
+      <p>Our architectural decisions were also validated against a technical competitive benchmark comparing Upstox NAO 2.0 with leading market players:</p>
 
       <div class="tablewrap">
         <table>
