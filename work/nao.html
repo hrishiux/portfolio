@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400..800;1,400..800&family=EB+Garamond:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
 <script>document.documentElement.className += " js";</script>
-<link rel="stylesheet" href="../assets/css/style.css?v=20260927e">
+<link rel="stylesheet" href="../assets/css/style.css?v=20260929h">
 </head>
 <body>
 
@@ -47,13 +47,6 @@
 
 <section class="section">
   <div class="gutter">
-
-    <ul class="keyfigures reveal">
-      <li><b>6</b><span>Verification blocks rebuilt — email, PAN, bank, liveness, signature, e-sign</span></li>
-      <li><b>15 &rarr; 9</b><span>Mandatory manual fields; document uploads went from 3 to 0</span></li>
-      <li><b>+3.56 pts</b><span>PAN step conversion, measured, after the Equifax integration</span></li>
-      <li><b>+4.90 pts</b><span>Email step conversion, measured, after Google and Apple SSO</span></li>
-    </ul>
 
     <div class="cs-body">
 
@@ -164,6 +157,7 @@
 
       <h3>A. The &ldquo;N-Star&rdquo; experience vision</h3>
       <p>To align design, engineering, and business operations, we conceptualized a progression framework ranging from a basic functional app to an automated, high-touch platform:</p>
+      <div class="nstar">
       <ul>
         <li><strong>1-Star:</strong> User cannot complete signup due to platform bugs.</li>
         <li><strong>4-Star:</strong> User opens the account in a single session without human assistance.</li>
@@ -172,10 +166,30 @@
         <li><strong>10-Star:</strong> Founder-level onboarding. Fully personalized experience, direct welcoming calls from executives, premium physical welcome merchandise delivered to the user&rsquo;s home.</li>
       </ul>
 
-      <figure class="wide">
-        <img src="../assets/img/nao/nstar.jpg" alt="The N-Star experience ladder as presented internally, from a one-star experience where bugs block signup to a six-star experience where information is fetched in the background." loading="lazy" width="1440" height="810">
-        <figcaption>the n-star ladder, as it went to stakeholders</figcaption>
-      </figure>
+      <div class="compare">
+        <figure>
+          <img src="../assets/img/nao/nstar.jpg" alt="The N-Star experience ladder as presented internally, from a one-star experience where bugs block signup to a six-star experience where information is fetched in the background." loading="lazy" width="1440" height="810">
+          <figcaption>the ladder as it went to stakeholders — 1 to 6 stars</figcaption>
+        </figure>
+        <figure>
+          <img src="../assets/img/nao/nstar-2.jpg" alt="The N-Star ladder continued, from a seven-star experience where bank accounts are linked in the background, through a welcome call and one-click transfer of existing investments, to a ten-star experience with founder calls and welcome merchandise delivered home." loading="lazy" width="1440" height="810">
+          <figcaption>and 7 to 10 stars</figcaption>
+        </figure>
+      </div>
+      </div>
+
+      <div class="callout callout--note callout--ladder">
+        <h3>What changed from 1 star to 10</h3>
+        <p>The point of the ladder was to name what changes between each step, because that difference is what the design has to deliver. Read upwards, every step takes one more job off the user:</p>
+        <ul>
+          <li><strong>1 to 4:</strong> they stop needing help. First the bugs go, then the sales calls and shared OTPs, until one person can finish in a single sitting.</li>
+          <li><strong>4 to 5:</strong> they stop waiting. The account works the moment they e-sign.</li>
+          <li><strong>5 to 6:</strong> they stop typing. Details and existing investments are fetched from the mobile number.</li>
+          <li><strong>6 to 9:</strong> they stop doing the setup. Bank linked in the background, salary invested automatically, existing holdings moved in one click.</li>
+          <li><strong>9 to 10:</strong> they stop doing it at all. Someone opens the account for them, and what is left is being looked after: calls from the founders, pro customers and support, and a welcome kit at home.</li>
+        </ul>
+        <p>NAO 2.0 was aimed at making 4 and 5 stars the default, with the fetched data &mdash; SSO email, Equifax PAN, UPI bank details &mdash; as the first steps toward 6.</p>
+      </div>
 
       <h3>B. The screen format framework</h3>
       <p>We classified onboarding interfaces into three functional buckets to standardize the UI patterns and cognitive load across all screens:</p>
@@ -443,7 +457,7 @@
       </ol>
 
       <figure class="wide">
-        <img src="../assets/img/nao/esign-setu.jpg" alt="Side by side comparison: the market-standard NSDL electronic signature portal against Setu's customisable Aadhaar e-sign interface carrying Upstox branding." loading="lazy" width="1600" height="1200">
+        <img src="../assets/img/nao/esign-setu.jpg" alt="Side by side comparison: the market-standard NSDL electronic signature portal against Setu's customisable Aadhaar e-sign interface, with an Aadhaar number field, a consent checkbox and a send OTP button." loading="lazy" width="1448" height="1086">
         <figcaption>e-sign — the market-standard portal, and the customisable frame that replaced it</figcaption>
       </figure>
 
@@ -504,36 +518,44 @@
       <h2 id="impact">7. Business impact &amp; metric validation</h2>
       <p>The rollout of individual modules within the NAO 2.0 initiative delivered immediate, quantifiable improvements across our organic cohorts:</p>
 
-      <ul class="bars">
-        <li>
-          <span class="bars__head">
-            <span>pan step — equifax background verification</span>
-            <span class="bars__delta">+3.56 pts</span>
-          </span>
-          <span class="bars__track">
-            <span class="bars__fill" style="width:71.73%"></span>
-            <span class="bars__val">71.73% before</span>
-          </span>
-          <span class="bars__track">
-            <span class="bars__fill bars__fill--after" style="width:75.29%"></span>
-            <span class="bars__val">75.29% after</span>
-          </span>
-        </li>
-        <li>
-          <span class="bars__head">
-            <span>email step — google / apple sso</span>
-            <span class="bars__delta">+4.90 pts</span>
-          </span>
-          <span class="bars__track">
-            <span class="bars__fill" style="width:85%"></span>
-            <span class="bars__val">85.00% before</span>
-          </span>
-          <span class="bars__track">
-            <span class="bars__fill bars__fill--after" style="width:89.9%"></span>
-            <span class="bars__val">89.90% after</span>
-          </span>
-        </li>
-      </ul>
+      <figure class="dumbbell" role="group" aria-label="Step conversion before and after, on a 65 to 95 percent scale. PAN step: 71.73% before, 75.29% after, plus 3.56 points. Email step: 85.00% before, 89.90% after, plus 4.90 points.">
+        <div class="dumbbell__legend label-mono" aria-hidden="true">
+          <span><i class="dumbbell__key"></i>before</span>
+          <span><i class="dumbbell__key dumbbell__key--after"></i>after</span>
+          <span class="dumbbell__scale">step conversion, 65–95%</span>
+        </div>
+
+        <div class="dumbbell__row">
+          <div class="dumbbell__label">
+            <b>PAN step</b>
+            <span>Equifax background verification</span>
+          </div>
+          <div class="dumbbell__plot">
+            <span class="dumbbell__gap" style="--a:22.43%; --b:34.30%"></span>
+            <span class="dumbbell__dot" style="--x:22.43%" tabindex="0" data-tip="Before · 71.73%"><em>71.73%</em></span>
+            <span class="dumbbell__dot dumbbell__dot--after" style="--x:34.30%" tabindex="0" data-tip="After Equifax · 75.29%"><em>75.29%</em></span>
+          </div>
+          <div class="dumbbell__delta"><b>+3.56</b><span>pts</span></div>
+        </div>
+
+        <div class="dumbbell__row">
+          <div class="dumbbell__label">
+            <b>Email step</b>
+            <span>Google / Apple sign-in</span>
+          </div>
+          <div class="dumbbell__plot">
+            <span class="dumbbell__gap" style="--a:66.67%; --b:83.00%"></span>
+            <span class="dumbbell__dot" style="--x:66.67%" tabindex="0" data-tip="Before · 85.00%"><em>85.00%</em></span>
+            <span class="dumbbell__dot dumbbell__dot--after" style="--x:83.00%" tabindex="0" data-tip="After SSO · 89.90%"><em>89.90%</em></span>
+          </div>
+          <div class="dumbbell__delta"><b>+4.90</b><span>pts</span></div>
+        </div>
+
+        <div class="dumbbell__axis" aria-hidden="true">
+          <span style="--xn:.16667">70%</span><span style="--xn:.33333">75%</span><span style="--xn:.5">80%</span><span style="--xn:.66667">85%</span><span style="--xn:.83333">90%</span>
+        </div>
+        <figcaption>measured on organic cohorts — exact figures in the list below</figcaption>
+      </figure>
 
       <h3>Measured cohort performance</h3>
       <ol>
@@ -588,6 +610,6 @@
   </div>
 </footer>
 
-<script src="../assets/js/main.js?v=20260927e"></script>
+<script src="../assets/js/main.js?v=20260929h"></script>
 </body>
 </html>

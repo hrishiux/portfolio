@@ -564,6 +564,97 @@ h1,h2,h3,h4{ margin:0; font-family:var(--font-display); font-weight:500; letter-
 }
 .bars__fill--after + .bars__val{ color:var(--primary-foreground) }
 
+/* Before → after dumbbell. Position on a zoomed 65–95% scale, so the change
+   itself is the visible length; bars from zero hid it. After = accent, before
+   = hollow grey (emphasis form); values labelled at the dots, delta in ink. */
+.dumbbell{
+  --c-after:var(--primary); --c-before:#7f9094;
+  margin:2.25rem 0 0; padding:1.5rem 1.75rem 1.25rem;
+  background-color:var(--card); border:1px solid var(--border); border-radius:14px;
+}
+.dumbbell__legend{
+  display:flex; flex-wrap:wrap; align-items:center; gap:.4rem 1.25rem;
+  font-size:.6875rem; letter-spacing:.12em; color:var(--muted-foreground);
+}
+.dumbbell__legend > span{ display:inline-flex; align-items:center; gap:.45rem }
+.dumbbell__scale{ margin-left:auto }
+.dumbbell__key{
+  width:10px; height:10px; border-radius:50%; box-sizing:border-box;
+  border:2px solid var(--c-before); background:var(--card);
+}
+.dumbbell__key--after{ border-color:var(--c-after); background:var(--c-after) }
+
+.dumbbell__row, .dumbbell__axis{
+  display:grid; grid-template-columns:13rem minmax(0,1fr) 6.5rem; gap:0 1.5rem; align-items:center;
+}
+.dumbbell__row{ padding:1.1rem 0; border-bottom:1px solid var(--border) }
+.dumbbell__row:first-of-type{ margin-top:.75rem; border-top:1px solid var(--border) }
+.dumbbell__label b{ display:block; font-family:var(--font-display); font-weight:600; font-size:1.0625rem; letter-spacing:-0.015em }
+.dumbbell__label span{ display:block; margin-top:.15rem; font-size:.9375rem; line-height:1.35; color:var(--muted-foreground) }
+
+.dumbbell__plot{
+  position:relative; height:3.25rem;
+  /* hairline gridlines at 70 / 75 / 80 / 85 / 90 */
+  background:repeating-linear-gradient(to right, transparent 0 calc(16.667% - 1px), color-mix(in oklab, var(--border) 85%, transparent) calc(16.667% - 1px) 16.667%);
+}
+.dumbbell__gap{
+  position:absolute; top:50%; height:4px; margin-top:-2px; border-radius:2px;
+  left:var(--a); width:calc(var(--b) - var(--a));
+  background:linear-gradient(to right, color-mix(in oklab, var(--c-before) 55%, transparent), var(--c-after));
+}
+.dumbbell__dot{
+  position:absolute; top:50%; left:var(--x);
+  width:28px; height:28px; margin:-14px 0 0 -14px; /* hit target larger than the mark */
+  display:grid; place-items:center; outline-offset:2px; border-radius:50%;
+}
+.dumbbell__dot::before{
+  content:""; width:14px; height:14px; border-radius:50%; box-sizing:border-box;
+  border:2px solid var(--c-before); background:var(--card);
+  box-shadow:0 0 0 2px var(--card); /* surface ring */
+}
+.dumbbell__dot--after::before{ width:16px; height:16px; border:0; background:var(--c-after) }
+.dumbbell__dot em{
+  position:absolute; top:50%; transform:translateY(-50%); white-space:nowrap;
+  font-style:normal; font-family:var(--font-mono); font-size:.75rem; letter-spacing:.02em;
+  font-variant-numeric:tabular-nums; color:var(--muted-foreground);
+  right:calc(100% - 2px);
+}
+.dumbbell__dot--after em{ right:auto; left:calc(100% - 2px); color:var(--foreground); font-weight:500 }
+/* tooltip */
+.dumbbell__dot::after{
+  content:attr(data-tip); position:absolute; bottom:calc(100% + 6px); left:50%;
+  transform:translate(-50%, 4px); opacity:0; pointer-events:none; white-space:nowrap;
+  padding:.35rem .6rem; border-radius:6px; background:var(--foreground); color:var(--cream);
+  font-family:var(--font-mono); font-size:.6875rem; transition:opacity .15s, transform .15s;
+}
+.dumbbell__dot:hover::after,.dumbbell__dot:focus-visible::after{ opacity:1; transform:translate(-50%, 0) }
+
+.dumbbell__delta{ text-align:right; white-space:nowrap }
+.dumbbell__delta b{
+  font-family:var(--font-display); font-weight:700; font-size:1.75rem; letter-spacing:-0.03em; line-height:1;
+  color:var(--foreground);
+}
+.dumbbell__delta span{ margin-left:.3rem; font-family:var(--font-mono); font-size:.75rem; color:var(--muted-foreground) }
+
+.dumbbell__axis{ display:block; position:relative; height:1.25rem; margin-top:.5rem }
+.dumbbell__axis span{
+  position:absolute; top:0; transform:translateX(-50%);
+  font-family:var(--font-mono); font-size:.6875rem; color:var(--muted-foreground); font-variant-numeric:tabular-nums;
+  /* positioned against the middle (plot) column */
+  left:calc(13rem + 1.5rem + (100% - 13rem - 6.5rem - 3rem) * var(--xn));
+}
+.dumbbell figcaption{
+  margin-top:1rem; font-family:var(--font-mono); font-size:.6875rem; letter-spacing:.12em;
+  text-transform:lowercase; color:var(--muted-foreground);
+}
+@media (max-width:760px){
+  .dumbbell{ padding:1.25rem 1.1rem 1rem }
+  .dumbbell__scale{ margin-left:0 }
+  .dumbbell__row{ grid-template-columns:minmax(0,1fr) auto; row-gap:.4rem }
+  .dumbbell__plot{ grid-column:1 / -1; grid-row:2 }
+  .dumbbell__axis span{ left:calc(100% * var(--xn)) }
+}
+
 /* ---------- case study imagery ---------- */
 
 /* A row of production screens. Scrolls sideways rather than shrinking below
@@ -771,6 +862,34 @@ pre code{ background:none; padding:0; font-size:inherit; color:inherit }
 .callout h3{ margin:0 0 .75rem; font-family:var(--font-display); font-size:1.0625rem; font-weight:600 }
 .callout p{ margin:0; font-size:1.0625rem; line-height:1.7 }
 .callout p + p{ margin-top:.9rem }
+/* N-Star: the ladder as text beside the two stakeholder slides, kept small —
+   supporting thinking, so the whole block stays within about one screen. */
+/* The star list, then the two slides side by side at a readable size. */
+.nstar{ margin-top:1.5rem }
+.nstar .compare{ margin-top:2rem; gap:1.25rem }
+@media (min-width:640px){ .nstar .compare{ grid-template-columns:1fr 1fr } }
+.nstar + .callout{ margin-top:2rem }
+/* What changed between rungs: the five steps as a row of small tiles. */
+.prose .callout--ladder{ max-width:none; padding:1.25rem 1.5rem 1.5rem }
+.prose .callout--ladder > p{ max-width:none }
+.prose .callout.callout--ladder ul{
+  list-style:none; padding:0; margin:1rem 0 0; max-width:none;
+  display:grid; gap:.625rem; grid-template-columns:repeat(auto-fit, minmax(8.75rem, 1fr));
+}
+.nstar + .callout--ladder{ margin-top:2rem }
+.prose .callout.callout--ladder li{
+  margin:0; padding:.8rem .9rem; border-radius:10px;
+  background-color:rgb(255 255 255 / .6); border:1px solid rgb(16 35 41 / .07);
+  font-size:.9063rem; line-height:1.45;
+}
+.callout--ladder li strong{
+  display:block; margin-bottom:.25rem;
+  font-family:var(--font-mono); font-weight:500; font-size:.6875rem;
+  letter-spacing:.12em; color:var(--primary);
+}
+.prose .callout ul{ margin:.9rem 0 0 }
+.prose .callout li{ margin:.5rem 0; font-size:1.0625rem; line-height:1.65 }
+.callout ul + p{ margin-top:.9rem }
 .callout--note{ background-color:var(--cream); border-left-color:var(--meadow) }
 
 /* Dense tables and ASCII diagrams use the full content column, never the
@@ -912,3 +1031,6 @@ pre code{ background:none; padding:0; font-size:inherit; color:inherit }
 
 :where(a,button):focus-visible{ outline:2px solid var(--primary); outline-offset:3px; border-radius:var(--radius) }
 .nav :where(a):focus-visible,.hero :where(a,button):focus-visible{ outline-color:var(--cream) }
+
+/* A case study without a figures row opens straight into the body. */
+.gutter > .cs-body:first-child{ margin-top:0 }
