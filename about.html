@@ -14,9 +14,9 @@
 <link rel="alternate icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400..800;1,400..800&family=EB+Garamond:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400..800;1,400..800&family=EB+Garamond:wght@400;500&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@500;600&display=swap">
 <script>document.documentElement.className += " js";</script>
-<link rel="stylesheet" href="assets/css/style.css?v=20260929h">
+<link rel="stylesheet" href="assets/css/style.css?v=20261002e">
 </head>
 <body>
 
@@ -32,50 +32,81 @@
 <main>
 
   <!-- ============================ INTRO ============================ -->
-  <section class="section">
-    <div class="gutter">
-      <p class="label-mono muted">about — hello</p>
-      <h1 class="display-xl">hrishikesh</h1>
+  <section class="section section--about">
+    <div class="gutter container">
 
-      <div class="cols">
-        <div class="cols__main">
-          <p class="lede-serif">
-            Product designer, four years, mostly fintech.
-          </p>
+      <div class="about-top">
+        <div class="about-top__text">
+          <p class="label-mono muted">about</p>
+          <h1 class="display-xl">hrishikesh</h1>
+          <p class="about-tags label-mono"><i aria-hidden="true"></i>design · cars · games · tech</p>
+          <p class="lede-serif">I&rsquo;m Hrishi, a product designer who likes taking things apart to see how they work.</p>
           <p class="note-serif">
-            B.Des from the Indian Institute of Technology Guwahati, 2018&ndash;2022. Freelance design
-            for Trophee.xyz through 2021 and 2022, game testing for Bulliverse in early 2022, then
-            Upstox from 2022 to 2023. Co-founded Ani! in 2024. 2025 went into building and selling
-            bikes and cars, and a stint at an Indian Institute of Technology Madras startup learning
-            the ECU side of things.
+            I studied design at the Indian Institute of Technology Guwahati. I&rsquo;ve designed a manga
+            reader for Trophee, account opening and internal tools at Upstox, and Ani!, an anime app I
+            co-founded. Outside of work it&rsquo;s cars and bikes I buy, fix and sometimes sell, old
+            laptops running Arch Linux, and Elden Ring, sometimes at level 1.
           </p>
+          <div class="about-top__actions">
+            <a class="btn btn--ink" href="mailto:hrishi.ux@gmail.com">email me <span aria-hidden="true">&rarr;</span></a>
+            <a class="btn btn--line" href="assets/docs/Hrishikesh-Nanda-CV.pdf">cv (pdf)</a>
+            <span class="label-mono muted about-top__where">bangalore, india</span>
+          </div>
         </div>
 
-        <div class="cols__side">
-          <p class="label-mono muted">capabilities</p>
-          <ul class="stack">
-            <li>Onboarding &amp; funnel architecture</li>
-            <li>Internal &amp; operator tooling</li>
-            <li>Developer platform UI</li>
-            <li>Design systems &amp; responsive shells</li>
-            <li>Design ops &amp; mentoring</li>
-          </ul>
-
-          <p class="label-mono muted" style="margin-top:2.5rem;">elsewhere</p>
-          <ul class="stack stack--mono">
-            <li><a href="mailto:hrishi.ux@gmail.com">hrishi.ux@gmail.com</a></li>
-            <li><a href="https://hrishiux.github.io/portfolio">hrishiux.github.io/portfolio</a></li>
-            <li>bangalore, india</li>
-            <li><a href="assets/docs/Hrishikesh-Nanda-CV.pdf">cv (pdf)</a></li>
-          </ul>
-        </div>
+        <figure class="about-top__photo">
+          <img src="assets/img/about/hero-driveway.webp" alt="Three cars parked in a lit driveway at night." width="1800" height="1350" fetchpriority="high">
+          <p class="scribble scribble--photo" aria-hidden="true">owned all three.<br>sold all three.</p>
+        </figure>
       </div>
+
+      <div class="quests">
+        <div class="quests__head">
+          <span class="label-mono"><i aria-hidden="true"></i>side quests</span>
+          <span class="quests__rule" aria-hidden="true"></span>
+          <span class="label-mono muted">more on each below &darr;</span>
+        </div>
+        <ul class="quests__row">
+          <li><a class="quest" href="#garage">
+            <span class="quest__media"><img src="assets/img/about/hands-engine.webp" alt="" width="900" height="1200" loading="lazy"></span>
+            <b>The garage</b>
+            <span>What followed was a run of buying, fixing, and sometimes selling cars and bikes.</span>
+          </a></li>
+          <li><a class="quest" href="#cbr">
+            <span class="quest__media"><img src="assets/img/about/cbr-stripped.webp" alt="" width="1400" height="1050" loading="lazy"></span>
+            <b>The CBR</b>
+            <span>Seized, sat in a shed for about seven years. Runs now.</span>
+          </a></li>
+          <li><a class="quest" href="#tinkering">
+            <span class="quest__media"><img src="assets/img/about/headunit.webp" alt="" width="675" height="1200" loading="lazy"></span>
+            <b>Tinkering</b>
+            <span>Old laptops and PCs I fix, running Arch Linux on everything.</span>
+          </a></li>
+          <li><a class="quest" href="#gaming">
+            <span class="quest__media"><video class="loop" muted loop playsinline preload="none" poster="assets/img/about/p-elden-destined.webp" aria-hidden="true"><source src="assets/video/about/elden-ring-destined-death.mp4" type="video/mp4"></video></span>
+            <b>Gaming</b>
+            <span>Elden Ring in two hours. Level 1 runs.</span>
+          </a></li>
+        </ul>
+      </div>
+
+      <div class="about-caps">
+        <p class="label-mono muted">what I work on</p>
+        <ul class="pills">
+          <li>Onboarding &amp; funnel architecture</li>
+          <li>Internal &amp; operator tooling</li>
+          <li>Developer platform UI</li>
+          <li>Design systems &amp; responsive shells</li>
+          <li>Design ops &amp; mentoring</li>
+        </ul>
+      </div>
+
     </div>
   </section>
 
   <!-- ============================ TIMELINE ============================ -->
   <section class="section section--flush">
-    <div class="gutter">
+    <div class="gutter container">
       <p class="label-mono muted">the run so far</p>
       <h2 class="display-lg">where the years went</h2>
 
@@ -135,7 +166,7 @@
 
   <!-- ============================ UPSTOX ============================ -->
   <section class="section section--flush">
-    <div class="gutter">
+    <div class="gutter container">
       <p class="label-mono muted">on the upstox years</p>
       <h2 class="display-lg">the scale of the work was the point</h2>
 
@@ -160,8 +191,8 @@
   </section>
 
   <!-- ============================ GARAGE ============================ -->
-  <section class="section section--flush">
-    <div class="gutter">
+  <section class="section section--flush" id="garage">
+    <div class="gutter container">
       <p class="label-mono muted">off the clock</p>
       <h2 class="display-lg">weekends in the garage</h2>
 
@@ -169,71 +200,151 @@
         Didn&rsquo;t drive a car until my mid-twenties. Rode two-wheelers only for the first several
         years of adult life, never got around to learning. June 2023 I put a month into it, full
         focus, and picked it up fast. Somewhere in that month it turned into wanting to understand
-        the mechanical side of things properly, not just drive. What followed was a run of buying,
-        fixing, and sometimes selling cars and bikes.
+        the mechanical side of things properly, not just drive.
       </p>
+      <p class="note-serif">What followed was a run of buying, fixing, and sometimes selling cars and bikes.</p>
 
-      <ul class="garage reveal">
-        <li>
-          <h3>MS800</h3>
-          <p>A relative&rsquo;s car that had been sitting abandoned. Got it running again, drove it for a couple of months, sold it running clean.</p>
-        </li>
-        <li>
-          <h3>Honda City</h3>
-          <p>First car I bought, after months of looking. Had suspension issues — worn out, needed full replacement including ball joints — which at the time I didn&rsquo;t have the tools or setup to handle. Fixed the engine side of things, drove it, eventually sold it. Still on the list to buy back someday.</p>
-        </li>
-        <li>
-          <h3>Suzuki SY416</h3>
-          <p>Still own it, most-worked-on car of the lot. Engine mounts, head gasket, intake, and exhaust done myself; clutch done with help from a shop. Full interior redo too — cluster, audio system, speakers, gear knob. Car&rsquo;s 17&ndash;20 years old and no previous owner kept it in great shape, so the goal throughout has been OE-plus across the board.</p>
-        </li>
-        <li>
-          <h3>Honda CBR250R</h3>
-          <p>Bought at a state MVD auction — a bike that had been seized and sat in a shed for about seven years. Looked decent physically, mechanically dead. Set one rule going in: don&rsquo;t buy a replacement part if it can be fixed instead. The injector was clogged solid with old fuel gunk; built a rig to clean it instead of buying a new one. Took about three months, done in spare time. Runs now.</p>
-        </li>
-        <li>
-          <h3>Skoda Laura (2011)</h3>
-          <p>Bought for scrap value, shipped down from Delhi (HR plate), paperwork cleared. Using it to learn turbo tuning in general — boost pressure, air-fuel mixture, boost variables, that side of things.</p>
-        </li>
-        <li>
-          <h3>Special mentions</h3>
-          <p>Volkswagen Ameo — bought for my dad in 2022, worked on it a bit. Ford EcoSport — replaced the Ameo in April 2025, worked on this one a little too.</p>
-        </li>
-      </ul>
+      <div class="rides">
+
+        <article class="ride" id="ms800">
+          <div class="ride__text">
+            <p class="ride__meta label-mono">2023 · sold</p>
+            <h3>MS800</h3>
+            <p>A relative&rsquo;s car that had been sitting abandoned. Got it running again, drove it for a couple of months, sold it running clean.</p>
+          </div>
+          <div class="mosaic" data-zoom-group>
+            <figure class="m m--wide m--tall"><img src="assets/img/about/ms800-parked.webp" alt="The white MS800 parked on dry leaves, covered in dust." width="1400" height="1050" loading="lazy"></figure>
+            <figure class="m m--tall"><img src="assets/img/about/ms800-bonnet.webp" alt="The MS800 with its bonnet up and a green battery in the engine bay." width="900" height="1195" loading="lazy"><figcaption>under the bonnet, 2023</figcaption></figure>
+            <figure class="m m--tall"><img src="assets/img/about/ms800-washed.webp" alt="The MS800 freshly washed, on a wet driveway." width="900" height="1200" loading="lazy"><figcaption>washed</figcaption></figure>
+            <figure class="m m--wide m--tall"><img src="assets/img/about/ms800-night.webp" alt="The MS800 with its headlights on beside the Ameo, in the driveway at night." width="1400" height="792" loading="lazy"></figure>
+          </div>
+        </article>
+
+        <article class="ride" id="city">
+          <div class="ride__text">
+            <p class="ride__meta label-mono">first car · sold</p>
+            <h3>Honda City</h3>
+            <p>First car I bought, after months of looking. Had suspension issues — worn out, needed full replacement including ball joints — which at the time I didn&rsquo;t have the tools or setup to handle. Fixed the engine side of things, drove it, eventually sold it. Still on the list to buy back someday.</p>
+          </div>
+          <div class="mosaic" data-zoom-group>
+            <figure class="m m--wide m--tall"><video class="loop" muted loop playsinline preload="none" poster="assets/img/about/p-city-walkaround.webp" aria-label="Walking around the black Honda City at dusk."><source src="assets/video/about/city-walkaround.mp4" type="video/mp4"></video></figure>
+            <figure class="m m--tall"><img src="assets/img/about/honda-badge.webp" alt="Close-up of the Honda badge on the steering wheel." width="1200" height="900" loading="lazy"></figure>
+            <figure class="m m--full"><img src="assets/img/about/city-silhouette.webp" alt="Sitting on the City's bonnet against a pink evening sky." width="1400" height="1049" loading="lazy"></figure>
+          </div>
+        </article>
+
+        <article class="ride" id="sy416">
+          <div class="ride__text">
+            <p class="ride__meta label-mono">still own it</p>
+            <h3>Suzuki SY416</h3>
+            <p>Still own it, most-worked-on car of the lot. Engine mounts, head gasket, intake, and exhaust done myself; clutch done with help from a shop. Full interior redo too — cluster, audio system, speakers, gear knob. Car&rsquo;s 17&ndash;20 years old and no previous owner kept it in great shape, so the goal throughout has been OE-plus across the board.</p>
+          </div>
+          <div class="mosaic" data-zoom-group>
+            <figure class="m m--wide m--tall"><img src="assets/img/about/sy416-engine.webp" alt="The SY416 engine bay." width="1400" height="1050" loading="lazy"><figcaption>engine bay</figcaption></figure>
+            <figure class="m m--tall"><img src="assets/img/about/sunday-dash.webp" alt="The dashboard with the instrument cluster pulled out, captioned Sunday 11:15 am." width="720" height="1280" loading="lazy"><figcaption>cluster out</figcaption></figure>
+            <figure class="m m--tall"><img src="assets/img/about/old-exhaust.webp" alt="Holding the old rusted exhaust behind the open boot." width="900" height="1200" loading="lazy"><figcaption>the old exhaust</figcaption></figure>
+            <figure class="m m--tall"><video class="loop" muted loop playsinline preload="none" poster="assets/img/about/p-sy416-exhaust.webp" aria-label="The rear of the SY416, showing the exhaust."><source src="assets/video/about/sy416-exhaust-rear.mp4" type="video/mp4"></video><figcaption>exhaust, done myself</figcaption></figure>
+            <figure class="m m--tall"><img src="assets/img/about/sy416-fog.webp" alt="The SY416 at night with its fog lights on." width="826" height="1200" loading="lazy"></figure>
+          </div>
+        </article>
+
+        <article class="ride" id="cbr">
+          <div class="ride__text">
+            <p class="ride__meta label-mono">MVD auction · runs now</p>
+            <h3>Honda CBR250R</h3>
+            <p>Bought at a state MVD auction — a bike that had been seized and sat in a shed for about seven years. Looked decent physically, mechanically dead.</p>
+            <p>Set one rule going in: don&rsquo;t buy a replacement part if it can be fixed instead. Partly budget, partly the point — swapping every broken part on a bike like this until it runs ends up costing more than a well-maintained used one anyway, and CBR250R parts aren&rsquo;t easy to find in India on top of that. The injector was clogged solid with old fuel gunk; built a rig to clean it instead of buying a new one. Took about three months, done in spare time. Runs now.</p>
+          </div>
+          <div class="mosaic" data-zoom-group>
+            <figure class="m m--tall"><video class="loop" muted loop playsinline preload="none" poster="assets/img/about/p-auction-shed.webp" aria-label="Walking through the MVD auction shed full of seized bikes."><source src="assets/video/about/mvd-auction-shed.mp4" type="video/mp4"></video><figcaption>the shed</figcaption></figure>
+            <figure class="m m--wide m--tall"><img src="assets/img/about/cbr-truck.webp" alt="The CBR arriving on a recovery truck." width="1400" height="1050" loading="lazy"><figcaption>on the recovery truck</figcaption></figure>
+            <figure class="m m--wide m--tall"><img src="assets/img/about/cbr-stripped.webp" alt="The CBR stripped of its fairings at night." width="1400" height="1050" loading="lazy"><figcaption>stripped</figcaption></figure>
+            <figure class="m m--tall"><img src="assets/img/about/cbr-rig.webp" alt="The stripped CBR with a green bottle rig hooked up for cleaning the injector." width="900" height="1200" loading="lazy"><figcaption>the injector rig</figcaption></figure>
+            <figure class="m m--wide m--tall"><img src="assets/img/about/workshop.webp" alt="The workshop with the stripped CBR and the SY416 bonnet up." width="1080" height="1001" loading="lazy"><figcaption>two projects at once</figcaption></figure>
+            <figure class="m m--tall"><img src="assets/img/about/cbr-front.webp" alt="The CBR with its fairings and windscreen back on, from the front." width="900" height="1023" loading="lazy"><figcaption>back together</figcaption></figure>
+            <figure class="m m--wide m--tall"><img src="assets/img/about/cbr-back-together.webp" alt="The CBR with its fairings back on, side view, parked beside the Skoda." width="1400" height="1050" loading="lazy"></figure>
+            <figure class="m m--tall"><img src="assets/img/about/cbr-cockpit.webp" alt="The CBR's cockpit lit up at night, running." width="900" height="1200" loading="lazy"><figcaption>running</figcaption></figure>
+          </div>
+        </article>
+
+        <article class="ride" id="laura">
+          <div class="ride__text">
+            <p class="ride__meta label-mono">2011 · learning on it</p>
+            <h3>Skoda Laura</h3>
+            <p>Bought for scrap value, shipped down from Delhi (HR plate), paperwork cleared. Using it to learn turbo tuning in general — boost pressure, air-fuel mixture, boost variables, that side of things.</p>
+          </div>
+          <div class="mosaic" data-zoom-group>
+            <figure class="m m--wide m--tall"><img src="assets/img/about/laura.webp" alt="The silver Skoda Laura parked under the carport." width="1400" height="1050" loading="lazy"></figure>
+            <figure class="m m--tall"><video class="loop" muted loop playsinline preload="none" poster="assets/img/about/p-laura-sweep.webp" aria-label="The Skoda's instrument cluster needles sweeping."><source src="assets/video/about/laura-needle-sweep.mp4" type="video/mp4"></video><figcaption>needle sweep</figcaption></figure>
+            <figure class="m m--wide m--tall"><img src="assets/img/about/skoda-laptop.webp" alt="A laptop running diagnostics on the Skoda's passenger seat." width="1400" height="1050" loading="lazy"><figcaption>laptop in, diagnostics up</figcaption></figure>
+            <figure class="m m--tall"><img src="assets/img/about/laura-engine.webp" alt="The Skoda's engine bay with a blue cone air filter." width="900" height="1040" loading="lazy"><figcaption>engine bay</figcaption></figure>
+          </div>
+        </article>
+
+        <article class="ride ride--note">
+          <div class="ride__text">
+            <p class="ride__meta label-mono">special mentions</p>
+            <p>Volkswagen Ameo — bought for my dad in 2022, worked on it a bit.</p>
+            <p>Ford EcoSport — replaced the Ameo in April 2025, worked on this one a little too.</p>
+          </div>
+          <div class="mosaic mosaic--strip" data-zoom-group>
+            <figure class="m"><img src="assets/img/about/ameo.webp" alt="The white Volkswagen Ameo." width="1200" height="752" loading="lazy"><figcaption>the ameo</figcaption></figure>
+            <figure class="m"><img src="assets/img/about/ecosport.webp" alt="The white Ford EcoSport parked beside the SY416 on a dirt lot." width="1200" height="900" loading="lazy"><figcaption>the ecosport</figcaption></figure>
+            <figure class="m"><img src="assets/img/about/hotwheels.webp" alt="A shelf of Hot Wheels cars." width="1400" height="1050" loading="lazy"><figcaption>the shelf</figcaption></figure>
+          </div>
+        </article>
+
+      </div>
     </div>
   </section>
 
   <!-- ============================ ELSEWHERE ============================ -->
   <section class="section section--flush">
-    <div class="gutter">
+    <div class="gutter container">
       <p class="label-mono muted">the rest of it</p>
       <h2 class="display-lg">tinkering, gaming, volunteering</h2>
 
-      <div class="cols reveal">
-        <div class="cols__main">
-          <h3 style="font-family:var(--font-display); font-weight:600; font-size:1.375rem; letter-spacing:-0.02em;">Systems, all the way down</h3>
-          <p class="note-serif" style="margin-top:1rem;">
-            System tinkering with all the old laptops and PCs I fix, running Arch Linux on everything.
-            Compiled my own OS for the first Samsung Android phone in the 2011&ndash;2013 window, plus a
-            custom recovery for that phone.
-          </p>
+      <div class="rides">
+        <article class="ride" id="tinkering">
+          <div class="ride__text">
+            <p class="ride__meta label-mono">tinkering</p>
+            <h3>Systems, all the way down</h3>
+            <p>System tinkering with all the old laptops and PCs I fix, running Arch Linux on everything. Compiled my own OS for the first Samsung Android phone in the 2011&ndash;2013 window, plus a custom recovery for that phone.</p>
+          </div>
+          <div class="mosaic" data-zoom-group>
+            <figure class="m m--tall"><img src="assets/img/about/headunit.webp" alt="A car head unit taken apart on a desk." width="675" height="1200" loading="lazy"><figcaption>head unit, apart</figcaption></figure>
+            <figure class="m m--wide m--tall"><img src="assets/img/about/desk-night.webp" alt="Desk setup at night: two monitors and a white keyboard." width="1400" height="1050" loading="lazy"><figcaption>the desk</figcaption></figure>
+            <figure class="m m--tall"><video class="loop" muted loop playsinline preload="none" poster="assets/img/about/p-phone-flashing.webp" aria-label="Flashing a phone from the terminal at 3am."><source src="assets/video/about/phone-flashing-3am.mp4" type="video/mp4"></video><figcaption>flashing a phone, 3am</figcaption></figure>
+            <figure class="m m--tall"><img src="assets/img/about/pcb.webp" alt="Macro shot of a circuit board." width="900" height="1200" loading="lazy"></figure>
+            <figure class="m m--tall"><img src="assets/img/about/cluster-desk.webp" alt="An instrument cluster on the desk under the monitors." width="900" height="1200" loading="lazy"><figcaption>a cluster on the desk</figcaption></figure>
+          </div>
+        </article>
 
-          <h3 style="font-family:var(--font-display); font-weight:600; font-size:1.375rem; letter-spacing:-0.02em; margin-top:2.5rem;">Gaming</h3>
-          <p class="note-serif" style="margin-top:1rem;">
-            Used to want to go pro in CS, and wanted to stream League. Competed in Valorant
-            tournaments, close to Immortal skill level. Can speedrun Elden Ring in two hours and
-            finish, and have done level 1 runs and beaten multiple bosses without taking a single
-            point of damage.
-          </p>
-        </div>
+        <article class="ride" id="gaming">
+          <div class="ride__text">
+            <p class="ride__meta label-mono">gaming</p>
+            <h3>Gaming</h3>
+            <p>Used to want to go pro in CS, and wanted to stream League. Competed in Valorant tournaments, close to Immortal skill level. Can speedrun Elden Ring in two hours and finish, and have done level 1 runs and beaten multiple bosses without taking a single point of damage.</p>
+          </div>
+          <div class="mosaic mosaic--two">
+            <figure class="m m--wide"><video class="loop" muted loop playsinline preload="none" poster="assets/img/about/p-elden-destined.webp" aria-label="Elden Ring boss fight."><source src="assets/video/about/elden-ring-destined-death.mp4" type="video/mp4"></video><figcaption>elden ring</figcaption></figure>
+            <figure class="m m--wide"><video class="loop" muted loop playsinline preload="none" poster="assets/img/about/p-elden-rellana.webp" aria-label="Elden Ring, the Rellana fight."><source src="assets/video/about/elden-ring-rellana.mp4" type="video/mp4"></video><figcaption>rellana</figcaption></figure>
+          </div>
+        </article>
 
-        <div class="cols__side">
-          <p class="label-mono muted">volunteer — broseph</p>
-          <ul class="stack">
-            <li>Worked with Broseph, a social work and charitable organization, supporting efforts to report and address privacy violations against women online.</li>
-            <li>Volunteered at orphanages — donated food and clothing, and spent time directly with the children.</li>
-            <li>Participated in city clean-up initiatives.</li>
-          </ul>
-        </div>
+        <article class="ride ride--note">
+          <div class="ride__text">
+            <p class="ride__meta label-mono">volunteer — broseph</p>
+            <ul class="ride__list">
+              <li>Worked with Broseph, a social work and charitable organization, supporting efforts to report and address privacy violations against women online.</li>
+              <li>Volunteered at orphanages — donated food and clothing, and spent time directly with the children.</li>
+              <li>Participated in city clean-up initiatives.</li>
+            </ul>
+          </div>
+          <div class="mosaic mosaic--one" data-zoom-group>
+            <figure class="m"><img src="assets/img/about/broseph.jpg" alt="Hrishikesh looking at his phone while a friend holds a phone receiver to his ear, in front of the St. Broseph Army sign, in a photo pinned to the Broseph wall." width="700" height="550" loading="lazy"><figcaption>at broseph, off their wall</figcaption></figure>
+          </div>
+        </article>
       </div>
 
       <a class="link-mono label-mono" href="index.html#works">← see the works</a>
@@ -262,6 +373,6 @@
   </div>
 </footer>
 
-<script src="assets/js/main.js?v=20260929h"></script>
+<script src="assets/js/main.js?v=20261002e"></script>
 </body>
 </html>

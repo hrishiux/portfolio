@@ -14,9 +14,9 @@
 <link rel="alternate icon" href="../assets/img/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400..800;1,400..800&family=EB+Garamond:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400..800;1,400..800&family=EB+Garamond:wght@400;500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
 <script>document.documentElement.className += " js";</script>
-<link rel="stylesheet" href="../assets/css/style.css?v=20260929h">
+<link rel="stylesheet" href="../assets/css/style.css?v=20261002e">
 </head>
 <body>
 
@@ -43,6 +43,7 @@
       <div><dt>Company</dt><dd>Upstox</dd></div>
       <div><dt>Surfaces</dt><dd>Okta login, Audiences, Notification creation</dd></div>
     </dl>
+    <p class="cs-hero__note label-mono"><i aria-hidden="true"></i>the dashboard on this page is rebuilt from the figma frames and fully working &mdash; click through it</p>
 </header>
 
 <section class="section">
@@ -56,8 +57,8 @@
       <h2 id="overview">Overview</h2>
       <p>Upstox is one of India&rsquo;s largest retail stock broking platforms, with 10M+ registered users and ~3M active traders at the time of this project. Up.alert was an internal web tool built for Upstox&rsquo;s marketing, content, and communications teams &mdash; giving them the ability to send push notifications and in-app alert banners to users directly, without any engineering involvement. I was the sole designer on this project, working end-to-end from requirements to production-ready screens.</p>
 
-      <figure class="wide">
-        <img src="../assets/img/upalert/dashboard-alerts.jpg" alt="The Up.alert dashboard in a desktop browser: two attention-required banners at the top, one orange and one beige, above a searchable table of messages with title, body, last edited by, type, time of delivery and status columns." loading="lazy" width="1600" height="1166">
+      <figure class="wide ua-fig" data-ua="dashboard" data-hint="working prototype — open a message, filter, dismiss a banner">
+        <div class="ua-fallback"><img src="../assets/img/upalert/dashboard-alerts.jpg" alt="The Up.alert dashboard: two attention-required banners at the top, one orange and one beige, above a searchable table of messages with title, body, last edited by, type, time of delivery and status columns." loading="lazy" width="1600" height="1166"></div>
         <figcaption>the dashboard, with a critical and a warning banner live at the top</figcaption>
       </figure>
 
@@ -71,72 +72,48 @@
       <h2 id="approach">Design approach</h2>
       <p>The tool had three core surfaces: a login gate (via Okta SSO), an Audiences management tab, and a Notification creation page. Given the timeline, the real design complexity lived in the logic and edge cases that had to be surfaced clearly for a non-technical team operating a tool with real, immediate user-facing consequences.</p>
 
-      <div class="compare compare--three">
-        <figure>
-          <img src="../assets/img/upalert/state-loading.jpg" alt="The message list while content is loading: table headers with a loading indicator below." loading="lazy" width="1600" height="900">
-          <figcaption>loading</figcaption>
-        </figure>
-        <figure>
-          <img src="../assets/img/upalert/state-failed.jpg" alt="The message list when content fails: failed to load page, with a try again button." loading="lazy" width="1600" height="900">
-          <figcaption>failed to load</figcaption>
-        </figure>
-        <figure>
-          <img src="../assets/img/upalert/state-empty.jpg" alt="The message list with nothing in it yet: no messages created yet, with a create new message button." loading="lazy" width="1600" height="900">
-          <figcaption>nothing created yet</figcaption>
-        </figure>
-      </div>
+      <figure class="wide ua-fig" data-ua="states" data-hint="the list before there is anything to show">
+        <div class="ua-fallback"><img src="../assets/img/upalert/state-failed.jpg" alt="The message list when content fails: failed to load page, with a try again button." loading="lazy" width="1600" height="900"></div>
+        <figcaption>loading, failed to load, and nothing created yet — try again and create new message both work</figcaption>
+      </figure>
 
       <h3>Test vs. Production mode</h3>
       <p><strong>Test vs. Production mode</strong> was the first design problem. The same tool served internal QA testing and live production sends. I designed a persistent, unambiguous environment indicator &mdash; always visible in the interface, impossible to miss. Test mode audiences were restricted to groups prefixed with &ldquo;Test_&rdquo; to add a data-level guard alongside the visual one.</p>
 
-      <div class="compare">
-        <figure>
-          <img src="../assets/img/upalert/create-test.jpg" alt="Create new message form in test mode: the all users and all customers options are disabled, leaving only target lists." loading="lazy" width="1577" height="1316">
-          <figcaption>test mode — the broad audiences are locked</figcaption>
-        </figure>
-        <figure>
-          <img src="../assets/img/upalert/create-production.jpg" alt="Create new message form in production mode, filled in: target users, a selected audience list, title, body, URL, in-app alert as the message type, dismissible on, and a Got it call to action." loading="lazy" width="1600" height="1289">
-          <figcaption>production mode — the same form, filled in</figcaption>
-        </figure>
-      </div>
+      <figure class="wide ua-fig" data-ua="create" data-hint="switch between test mode and production mode, then fill it in">
+        <div class="ua-fallback"><img src="../assets/img/upalert/create-test.jpg" alt="Create new message form in test mode: the all users and all customers options are disabled, leaving only target lists." loading="lazy" width="1577" height="1316"></div>
+        <figcaption>test mode locks the broad audiences and offers only Test_ lists — production opens them up</figcaption>
+      </figure>
 
       <h3>Audience management</h3>
       <p><strong>Audience management</strong> involved CSV upload and reuse. Operators upload lists of UCCs (user codes), which persist for 30 days before archiving. I designed the upload flow with immediate feedback &mdash; successful uploads surfaced UCC count confirmation, failures gave specific retry prompts. When selecting a pre-uploaded audience for a new notification, the selected group&rsquo;s UCC count was surfaced again at the point of selection &mdash; a deliberate confirmation moment to prevent the wrong list being used at send time.</p>
 
-      <figure class="wide wide--zoom">
-        <div class="wide__scroll">
-          <img src="../assets/img/upalert/flow-audience.jpg" alt="Flow for adding an audience list: the audiences table, the upload overlay, an upload success decision, then a table with an upload completed toast on the yes branch and an error toast on the no branch." loading="lazy" width="2225" height="738">
-        </div>
-        <figcaption>adding an audience list — upload, then the success and failure branches</figcaption>
+      <figure class="wide ua-fig" data-ua="audiences" data-hint="add new list, then pick a file">
+        <div class="ua-fallback"><img src="../assets/img/upalert/flow-audience.jpg" alt="Flow for adding an audience list: the audiences table, the upload overlay, an upload success decision, then a table with an upload completed toast on the yes branch and an error toast on the no branch." loading="lazy" width="2225" height="738"></div>
+        <figcaption>adding an audience list — a good .csv, the wrong file type, and a list with errors</figcaption>
       </figure>
 
       <h3>Personalisation</h3>
       <p><strong>Personalisation</strong> was technically interesting &mdash; the CSV format supported variables (name, balance, etc.) that could be injected as placeholders in notification body copy. I had to make this legible to content writers who had never written template syntax. The interface made the variable format explicit and visible, with the notification creation fields laid out so the relationship between CSV columns and message variables was obvious without documentation.</p>
 
-      <figure class="wide">
-        <img src="../assets/img/upalert/rows-personalised.jpg" alt="Message table rows from the component sheet, including rows whose body reads Welcome to Upstox $name, your current balance is $funds, with edit, duplicate, delete and expand actions." loading="lazy" width="1548" height="765">
-        <figcaption>table rows from the component sheet — $name and $funds sitting in a message body</figcaption>
+      <figure class="wide ua-fig" data-ua="rows" data-hint="rows filtered to $name — collapse, expand, edit or duplicate one">
+        <div class="ua-fallback"><img src="../assets/img/upalert/rows-personalised.jpg" alt="Message table rows from the component sheet, including rows whose body reads Welcome to Upstox $name, your current balance is $funds, with edit, duplicate, delete and expand actions." loading="lazy" width="1548" height="765"></div>
+        <figcaption>$name and $funds sitting in a message body</figcaption>
       </figure>
 
       <h3>In-app warning banners</h3>
       <p><strong>In-app warning banners</strong> persist on screen until the user dismisses them or acts on the CTA. They needed to be killable after publish &mdash; a warning about a funds issue should disappear the moment it&rsquo;s resolved, not continue surfacing a stale alert. I designed a pause/resume control into the dashboard for active in-app messages, keeping the communications team in control post-send.</p>
 
-      <div class="compare">
-        <figure>
-          <img src="../assets/img/upalert/detail-pause.jpg" alt="Message detail page for a live in-app alert, with pause, duplicate, edit and delete actions." loading="lazy" width="1600" height="900">
-          <figcaption>a live in-app alert, with pause</figcaption>
-        </figure>
-        <figure>
-          <img src="../assets/img/upalert/detail-resume.jpg" alt="The same message detail page after pausing, now offering resume." loading="lazy" width="1600" height="900">
-          <figcaption>the same alert, paused</figcaption>
-        </figure>
-      </div>
+      <figure class="wide ua-fig" data-ua="detail" data-hint="pause the alert, then resume it">
+        <div class="ua-fallback"><img src="../assets/img/upalert/detail-pause.jpg" alt="Message detail page for a live in-app alert, with pause, duplicate, edit and delete actions." loading="lazy" width="1600" height="900"></div>
+        <figcaption>a live in-app alert, with pause and resume</figcaption>
+      </figure>
 
       <h3>Tracking</h3>
       <p><strong>Tracking</strong> was built in from the start. The notification history view surfaced send status, timestamp, and editor. A dedicated performance view per notification showed sends, deliveries, and click-through &mdash; a feedback loop on communication effectiveness, and an audit trail for CS escalations.</p>
 
-      <figure class="wide">
-        <img src="../assets/img/upalert/history.jpg" alt="Notification history table with filters for all, sent, drafts and failed, showing each message's title, body, last edited by, type, time of delivery and status." loading="lazy" width="1600" height="900">
+      <figure class="wide ua-fig" data-ua="history" data-hint="switch between sent, drafts and failed — open one for its numbers">
+        <div class="ua-fallback"><img src="../assets/img/upalert/history.jpg" alt="Notification history table with filters for all, sent, drafts and failed, showing each message's title, body, last edited by, type, time of delivery and status." loading="lazy" width="1600" height="900"></div>
         <figcaption>message history — who edited it, when it went out, and where it stands</figcaption>
       </figure>
 
@@ -144,16 +121,10 @@
       <p>The users of this tool were marketing managers and content writers making time-sensitive decisions, sometimes during active incidents. Every high-consequence action &mdash; sending to all users, publishing a live in-app banner &mdash; had enough friction to be intentional, calibrated so it created pause without creating delay during a crisis.</p>
       <p>The audit trail requirement also informed how I thought about the history view. It was a compliance and accountability surface as much as a convenience feature.</p>
 
-      <div class="compare">
-        <figure>
-          <img src="../assets/img/upalert/confirm-send.jpg" alt="Review message screen with a confirm sending the message dialog, stating the message will be sent to 1000 devices, with review and send buttons." loading="lazy" width="1600" height="900">
-          <figcaption>sending — the device count, one last time</figcaption>
-        </figure>
-        <figure>
-          <img src="../assets/img/upalert/confirm-delete.jpg" alt="Dialog asking are you sure you want to delete the Title 1 message, with confirm and cancel buttons." loading="lazy" width="1600" height="900">
-          <figcaption>deleting — named, and confirmed</figcaption>
-        </figure>
-      </div>
+      <figure class="wide ua-fig" data-ua="review" data-hint="press send message — then delete one from the list">
+        <div class="ua-fallback"><img src="../assets/img/upalert/confirm-send.jpg" alt="Review message screen with a confirm sending the message dialog, stating the message will be sent to 1000 devices, with review and send buttons." loading="lazy" width="1600" height="900"></div>
+        <figcaption>sending shows the device count one last time; deleting names the message</figcaption>
+      </figure>
 
       <h2 id="outcome">Outcome</h2>
       <p>Up.alert shipped end-to-end in under a month &mdash; a project that had sat untouched for close to a year, designed, reviewed, and greenlit for production within a single sprint cycle. It gave Upstox&rsquo;s marketing and communications teams their first fully self-serve channel to reach users without engineering dependency, handling both scheduled campaign communications and real-time crisis messaging from a single interface.</p>
@@ -164,26 +135,32 @@
         <p>The product was not shipped during my tenure at Upstox &mdash; I departed in February 2023. The complete design system was ready for implementation.</p>
       </div>
 
+      <figure class="wide wide--canvas">
+        <img src="../assets/img/upalert/figma-canvas.webp" alt="The whole Up.alert Figma canvas, zoomed out: rows of dashboard frames grouped by flow, notification creation, filters, pagination, the create-message flow, the message dashboard, audiences and list addition, each row labelled on a green card." loading="lazy" decoding="async" width="3650" height="4096">
+        <figcaption>the whole figma file, zoomed out — every flow, state and edge case; tap to see all of it</figcaption>
+      </figure>
+
       <hr>
 
       <h2 id="system">The wider system</h2>
       <p>The design covered two integrated components, built to Upstox&rsquo;s existing design language and experience standards.</p>
 
       <h3>Component 1: User-facing notification centre</h3>
-      <p>A dedicated inbox accessible from the navigation drawer that served as a central hub for all user communications:</p>
-      <ul>
-        <li><strong>Announcement Cards:</strong> Horizontally scrollable cards highlighting new products, features, and promotions with rich media support (images, GIFs, videos).</li>
-        <li><strong>Categorized Notifications:</strong> System-generated notifications organized by priority (Critical, Warning, Normal) and category (Funds, Orders, Rewards, Price Alerts).</li>
-        <li><strong>Critical Alert Bar:</strong> Persistent top-of-screen alerts for urgent matters (MTM warnings, system outages) that remain visible until user action is taken.</li>
-        <li><strong>Notification Settings:</strong> Granular control allowing users to manage notification preferences by category and manage price alerts.</li>
-      </ul>
-
-      <ul class="shots">
-        <li><figure>
-          <img src="../assets/img/upalert/app-announcement.jpg" alt="The Upstox app watchlist with an announcement card at the top reading get ready-made option strategies in NIFTY and BANK NIFTY, try now." loading="lazy" width="541" height="1200">
+      <div class="phone-split">
+        <div>
+          <p>A dedicated inbox accessible from the navigation drawer that served as a central hub for all user communications:</p>
+          <ul>
+            <li><strong>Announcement Cards:</strong> Horizontally scrollable cards highlighting new products, features, and promotions with rich media support (images, GIFs, videos).</li>
+            <li><strong>Categorized Notifications:</strong> System-generated notifications organized by priority (Critical, Warning, Normal) and category (Funds, Orders, Rewards, Price Alerts).</li>
+            <li><strong>Critical Alert Bar:</strong> Persistent top-of-screen alerts for urgent matters (MTM warnings, system outages) that remain visible until user action is taken.</li>
+            <li><strong>Notification Settings:</strong> Granular control allowing users to manage notification preferences by category and manage price alerts.</li>
+          </ul>
+        </div>
+        <figure class="phone-split__fig">
+          <img class="screens__img" src="../assets/img/upalert/app-announcement.webp" alt="The Upstox app watchlist with an announcement card at the top reading get ready-made option strategies in NIFTY and BANK NIFTY, try now." loading="lazy" decoding="async" width="720" height="1600">
           <figcaption>in the app — an announcement card above the watchlist</figcaption>
-        </figure></li>
-      </ul>
+        </figure>
+      </div>
 
       <h3>Component 2: Marketing admin panel</h3>
       <p>An internal dashboard enabling marketing teams to create and manage communications independently:</p>
@@ -241,7 +218,7 @@
 
     <nav class="pager">
       <a href="nao.html"><small>Previous</small><strong>&larr; Upstox NAO 2.0</strong></a>
-      <a href="dev-api.html"><small>Next case study</small><strong>Account Centre &amp; Dev API &rarr;</strong></a>
+      <a href="trophee.html"><small>Next case study</small><strong>Trophee &rarr;</strong></a>
     </nav>
   </div>
 </main>
@@ -266,6 +243,7 @@
   </div>
 </footer>
 
-<script src="../assets/js/main.js?v=20260929h"></script>
+<script src="../assets/js/main.js?v=20261002e"></script>
+<script src="../assets/js/upalert-app.js?v=20261002e"></script>
 </body>
 </html>
