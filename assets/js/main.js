@@ -118,6 +118,105 @@
     }
   }
 
+  /* --- tap to enlarge: phone screens and the figma canvas ---
+     Each image is wrapped in a button at load, so without the script they are
+     plain images. Arrow keys step through the row the image belongs to. */
+  var ZOOM = '.screens__img, .wide--canvas img, .boards__img, .nstar .compare img, .mosaic img';
+  var zoomables = document.querySelectorAll(ZOOM);
+  if (zoomables.length && typeof HTMLDialogElement === 'function') {
+    var box = document.createElement('dialog');
+    box.className = 'lightbox';
+    box.setAttribute('aria-label', 'Enlarged screen');
+    box.innerHTML =
+      '<div class="lightbox__stage"><img class="lightbox__img" alt=""></div>' +
+      '<p class="lightbox__cap"><span class="lightbox__count"></span><span class="lightbox__text"></span></p>' +
+      '<button type="button" class="lightbox__btn lightbox__close" aria-label="Close">&#x2715;</button>' +
+      '<button type="button" class="lightbox__btn lightbox__prev" aria-label="Previous screen">&larr;</button>' +
+      '<button type="button" class="lightbox__btn lightbox__next" aria-label="Next screen">&rarr;</button>';
+    document.body.appendChild(box);
+
+    var bigImg = box.querySelector('.lightbox__img');
+    var capText = box.querySelector('.lightbox__text');
+    var capCount = box.querySelector('.lightbox__count');
+    var prevBtn = box.querySelector('.lightbox__prev');
+    var nextBtn = box.querySelector('.lightbox__next');
+    var group = [];
+    var at = 0;
+
+    var captionFor = function (img) {
+      var li = img.closest('li');
+      var cap = li && li.querySelector('.screens__cap');
+      if (cap) { return cap.textContent.replace(/\s+/g, ' ').trim(); }
+      var fig = img.closest('figure');
+      var fc = fig && fig.querySelector('figcaption');
+      return fc ? fc.textContent.replace(/\s+/g, ' ').trim() : '';
+    };
+
+    var show = function (i) {
+      at = (i + group.length) % group.length;
+      var img = group[at];
+      bigImg.src = img.currentSrc || img.src;
+      bigImg.alt = img.alt;
+      capText.textContent = captionFor(img);
+      capCount.textContent = group.length > 1 ? (at + 1) + ' / ' + group.length : '';
+      box.classList.toggle('is-wide', img.naturalWidth > img.naturalHeight);
+      prevBtn.hidden = nextBtn.hidden = group.length < 2;
+    };
+
+    var close = function () { if (box.open) { box.close(); } };
+    box.addEventListener('close', function () {
+      document.documentElement.classList.remove('is-locked');
+      bigImg.removeAttribute('src');
+    });
+
+    Array.prototype.forEach.call(zoomables, function (img) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'zoomable';
+      btn.setAttribute('aria-label', 'Enlarge: ' + (captionFor(img) || img.alt));
+      img.parentNode.insertBefore(btn, img);
+      btn.appendChild(img);
+      btn.addEventListener('click', function () {
+        var fig = img.closest('[data-zoom-group]') || img.closest('figure');
+        group = fig ? Array.prototype.slice.call(fig.querySelectorAll(ZOOM)) : [img];
+        show(group.indexOf(img));
+        document.documentElement.classList.add('is-locked');
+        box.showModal();
+        box.querySelector('.lightbox__close').focus();
+      });
+    });
+
+    box.querySelector('.lightbox__close').addEventListener('click', close);
+    prevBtn.addEventListener('click', function () { show(at - 1); });
+    nextBtn.addEventListener('click', function () { show(at + 1); });
+    box.addEventListener('click', function (e) {
+      if (e.target === box || e.target.classList.contains('lightbox__stage')) { close(); }
+    });
+    box.addEventListener('keydown', function (e) {
+      if (group.length < 2) { return; }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); show(at - 1); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); show(at + 1); }
+    });
+  }
+
+  /* --- short loops (about page): play only while on screen, poster otherwise ---
+     preload="none" in the markup, so nothing downloads until a loop scrolls in. */
+  var loops = document.querySelectorAll('video.loop');
+  if (loops.length && !reduced && 'IntersectionObserver' in window) {
+    var lio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var v = entry.target;
+        if (entry.isIntersecting) {
+          var p = v.play();
+          if (p && typeof p.catch === 'function') { p.catch(function () {}); }
+        } else {
+          v.pause();
+        }
+      });
+    }, { threshold: 0.35 });
+    Array.prototype.forEach.call(loops, function (v) { lio.observe(v); });
+  }
+
   /* --- hero video: autoplay where allowed, poster frame where not --- */
   var video = document.querySelector('.hero__media');
   var caption = document.querySelector('.hero__caption');
