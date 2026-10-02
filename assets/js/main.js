@@ -2,6 +2,21 @@
 (function () {
   'use strict';
 
+  /* --- review mode: open any page with ?review to pin notes on the site
+     (assets/js/review.js). Stays on across pages until its "exit" button;
+     ?review=off also turns it off. Nobody else ever loads it. --- */
+  try {
+    var rq = /[?&]review(?:=([^&]*))?/.exec(location.search);
+    if (rq && rq[1] === 'off') { localStorage.removeItem('hr-review'); }
+    else if (rq) { localStorage.setItem('hr-review', '1'); }
+    if (localStorage.getItem('hr-review') === '1' && document.currentScript) {
+      var rs = document.createElement('script');
+      rs.src = document.currentScript.src.replace(/main\.js(\?[^#]*)?$/, 'review.js$1');
+      rs.defer = true;
+      document.head.appendChild(rs);
+    }
+  } catch (e) {}
+
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* --- nav switches from cream to ink once the hero is behind you --- */
