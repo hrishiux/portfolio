@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400..800;1,400..800&family=EB+Garamond:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
 <script>document.documentElement.className += " js";</script>
-<link rel="stylesheet" href="../assets/css/style.css?v=20261002v">
+<link rel="stylesheet" href="../assets/css/style.css?v=20261005g">
 </head>
 <body>
 
@@ -25,7 +25,7 @@
   <nav class="nav__links label-mono">
     <a href="../index.html#works">works</a>
     <a href="../about.html">about</a>
-    <a href="../index.html#contact">contact</a>
+    <a href="#contact">contact</a>
   </nav>
 </header>
 
@@ -53,11 +53,31 @@
 
       <article class="prose">
 
+      <section class="glance" aria-labelledby="glance-t">
+        <p class="glance__label label-mono" id="glance-t">at a glance</p>
+        <p class="glance__lede">Account opening was losing most of its leads to manual typing and checks that ran only after submission. I reframed the flow as backend-configured blocks, then redesigned the steps behind most drop-offs and rejections &mdash; signup, email, bank, selfie, signature and e-sign &mdash; so verification happens while the user is still there.</p>
+        <ul class="figures figures--glance">
+          <li><b>21.47%</b><span>of leads became accounts before NAO 2.0; 35% of applications were rejected.</span></li>
+          <li><b>+4.9<small>pts</small></b><span>email step conversion with Google / Apple sign-in, <span class="nowrap">85.0% &rarr; 89.9%</span>.</span></li>
+          <li><b>+3.56<small>pts</small></b><span>PAN step conversion with an Equifax background check, <span class="nowrap">71.73% &rarr; 75.29%</span>.</span></li>
+          <li><b>9</b><span>mandatory manual fields, against 12&ndash;15 at Zerodha, Angel One and Groww.</span></li>
+        </ul>
+        <figure class="screens" style="--n:4">
+          <ol class="screens__row">
+            <li><img class="screens__img" src="../assets/img/nao/m/a-carousel.webp" alt="Landing carousel above the sign-up sheet with a mobile number field." width="540" height="1204" loading="lazy" decoding="async"><span class="screens__cap">sign up</span></li>
+            <li><img class="screens__img" src="../assets/img/nao/m/b-linking.webp" alt="Email step, linking with Google in one tap." width="540" height="1196" loading="lazy" decoding="async"><span class="screens__cap">email, one tap</span></li>
+            <li><img class="screens__img" src="../assets/img/nao/m/d-ring-ok.webp" alt="Selfie capture with the guide ring turned green." width="540" height="1200" loading="lazy" decoding="async"><span class="screens__cap">guided selfie</span></li>
+            <li><img class="screens__img" src="../assets/img/nao/m/e-guide.webp" alt="Landscape signature canvas with an example signature." width="540" height="1196" loading="lazy" decoding="async"><span class="screens__cap">landscape signature</span></li>
+          </ol>
+          <figcaption>a few of the finished screens &mdash; each one is covered in section 5</figcaption>
+        </figure>
+      </section>
+
       <h2 id="summary">1. Executive summary &amp; overall business objective</h2>
 
       <h3>The challenge</h3>
-      <p>In the highly competitive Indian brokerage landscape, user acquisition is directly gated by the onboarding funnel. Upstox&rsquo;s classic onboarding flow was facing high drop-off rates due to severe cognitive load, complex regulatory requirements, manual data inputs, and high-latency offline scrutiny (this is a given in our country esp when trying to do anything govt related or official, just like in this case -- opening an Demat account and regiserting with SEBI etc).</p>
-      <p>Only 21.47% of leads ended up with an account, 35% of submitted applications were rejected, and 40% of the accounts that did get opened needed a sales call to get through. (Like mentioned above - the cause was all the manual typing: email, PAN, bank details, signature combiend with the checks that only ran after the user had already submitted everything.)</p>
+      <p>In the highly competitive Indian brokerage landscape, user acquisition is directly gated by the onboarding funnel. Upstox&rsquo;s classic onboarding flow was facing high drop-off rates due to severe cognitive load, complex regulatory requirements, manual data inputs, and high-latency offline scrutiny (this is a given in our country esp when trying to do anything govt related or official, just like in this case -- opening a Demat account and registering with SEBI etc).</p>
+      <p>Only 21.47% of leads ended up with an account, 35% of submitted applications were rejected, and 40% of the accounts that did get opened needed a sales call to get through. (Like mentioned above - the cause was all the manual typing: email, PAN, bank details, signature combined with the checks that only ran after the user had already submitted everything.)</p>
 
       <p>The baseline performance metrics were:</p>
       <ul>
@@ -727,8 +747,8 @@
 
       <h3>Measured cohort performance</h3>
       <ol>
-        <li><strong>PAN Verification Block (Equifax):</strong> Shifting to automated Equifax background verification raised step-level conversion from <strong>71.73% to 75.29% (a +3.56% absolute improvement)</strong>.</li>
-        <li><strong>Email Verification Block (SSO):</strong> Incorporating Google/Apple SSO elevated conversion from <strong>85.0% to 89.9% (a +4.90% absolute step improvement)</strong>.</li>
+        <li><strong>PAN Verification Block (Equifax):</strong> Shifting to automated Equifax background verification raised step-level conversion from <strong>71.73% to 75.29% (+3.56 percentage points)</strong>.</li>
+        <li><strong>Email Verification Block (SSO):</strong> Incorporating Google/Apple SSO elevated conversion from <strong>85.0% to 89.9% (+4.90 percentage points)</strong>.</li>
         <li><strong>Liveness Verification Block (HyperVerge):</strong> Transitioning to real-time image analysis predicted an <strong>overall conversion lift of +2.19%</strong> by reducing photo drop-offs to 1.0%.</li>
         <li><strong>Overall NAO Conversion Lift:</strong> Replaced manual entry pipelines across PAN, Email, Bank, and Liveness checks to eliminate a potential <strong>33.72% drop-off overhead</strong>, achieving a <strong>+7.8% overall conversion increase</strong>.</li>
       </ol>
@@ -778,7 +798,7 @@
   </div>
 </footer>
 
-<script src="../assets/js/main.js?v=20261002v"></script>
-<script src="../assets/js/nao-flows.js?v=20261002v"></script>
+<script src="../assets/js/main.js?v=20261005g"></script>
+<script src="../assets/js/nao-flows.js?v=20261005g"></script>
 </body>
 </html>

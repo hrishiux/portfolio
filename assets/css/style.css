@@ -84,6 +84,14 @@ h1,h2,h3,h4{ margin:0; font-family:var(--font-display); font-weight:500; letter-
   color:var(--cream);
   transition:color .3s ease, background-color .3s ease;
 }
+/* Home: frosted, lightly tinted glass behind the cream nav once it's about to
+   overlap the big "hrishikesh" (main.js sets html.nav-near). */
+.nav{ transition:color .3s ease, background-color .3s ease, backdrop-filter .3s ease, -webkit-backdrop-filter .3s ease }
+html.nav-near .nav:not([data-tone="dark"]){
+  background-color:rgb(8 36 40 / .28);
+  -webkit-backdrop-filter:blur(16px) saturate(1.1); backdrop-filter:blur(16px) saturate(1.1);
+  border-bottom:1px solid rgb(255 255 255 / .12);
+}
 .nav[data-tone="dark"]{
   color:var(--foreground);
   background-color:color-mix(in oklab, var(--background) 88%, transparent);
@@ -312,7 +320,7 @@ h1,h2,h3,h4{ margin:0; font-family:var(--font-display); font-weight:500; letter-
 .card__link:hover .card__arrow{ transform:translate(.12em,-.12em); color:var(--primary) }
 .card__meta{
   display:block; margin-top:.55rem;
-  color:var(--muted-foreground); font-size:.625rem; letter-spacing:.14em;
+  color:var(--muted-foreground); font-size:.6875rem; letter-spacing:.12em;
 }
 /* Every item carries a leading bullet; the row's first bullet sits in the
    negative margin and is clipped, so a wrapped line never starts with one. */
@@ -1428,7 +1436,7 @@ pre code{ background:none; padding:0; font-size:inherit; color:inherit }
 }
 .aboutcard__caps a:hover{ background-color:rgb(255 255 255 / .6) }
 .aboutcard__caps b{ display:block; font-family:var(--font-display); font-weight:600; font-size:.9375rem; letter-spacing:-.01em; line-height:1.25 }
-.aboutcard__caps small{ display:block; margin-top:.1rem; font-family:var(--font-mono); font-size:.625rem; letter-spacing:.06em; color:var(--muted-foreground) }
+.aboutcard__caps small{ display:block; margin-top:.1rem; font-family:var(--font-mono); font-size:.6875rem; letter-spacing:.06em; color:var(--muted-foreground) }
 .cap-ico{
   flex:none; display:grid; place-items:center; width:2.25rem; height:2.25rem; border-radius:10px;
   background-color:var(--card); border:1px solid var(--border); color:var(--foreground);
@@ -2860,4 +2868,34 @@ fieldset.ua-card{ display:flex; flex-direction:column; gap:2px }
   .card--compact .card__name{ font-size:1.25rem }
   .card--compact .card__note{ font-size:.95rem; margin-top:.6rem }
   .card--compact .card__go{ padding-top:.9rem }
+}
+
+/* ---------- review pass, oct 2026 ---------- */
+
+/* Timeline: project names link through to their case studies. */
+.tl-compact p a{
+  color:var(--foreground); text-decoration:underline;
+  text-decoration-color:color-mix(in oklab, var(--foreground) 25%, transparent);
+  text-underline-offset:.2em; transition:color .15s, text-decoration-color .15s;
+}
+.tl-compact p a:hover{ color:var(--primary); text-decoration-color:currentColor }
+
+/* Case study "at a glance": the outcome and the finished screens before the
+   long read, for anyone who only has two minutes. */
+.glance{ padding-bottom:1rem }
+.prose .glance__label{ margin:0; font-size:.75rem; color:var(--muted-foreground) }
+.prose .glance__lede{ margin-top:1rem; font-size:1.25rem; line-height:1.6 }
+.prose ul.figures.figures--glance{ max-width:none; margin:2rem 0 0; padding:0 }
+.prose .figures--glance li{ margin:0; font-size:inherit; line-height:inherit }
+.figures--glance b small{
+  margin-left:.25rem; font-family:var(--font-mono); font-size:.4em;
+  letter-spacing:.08em; font-weight:400; color:var(--muted-foreground);
+}
+.figures--glance span{ font-size:.9688rem; line-height:1.55 }
+.glance .screens{ margin-top:2.5rem }
+.figures--glance span .nowrap{ display:inline; margin:0; font-size:inherit; color:inherit }
+@media (max-width:767px){
+  .figures--glance{ grid-template-columns:repeat(2, minmax(0,1fr)); gap:1.5rem 1rem }
+  .prose .glance__lede{ font-size:1.125rem }
+  .figures--glance span{ font-size:.9375rem }
 }

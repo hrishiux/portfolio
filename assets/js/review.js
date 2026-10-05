@@ -1,21 +1,49 @@
-/* Review mode: click anything on the page, pin a note to it, copy every note
-   out in one go. main.js loads this only after the site was opened with
-   ?review (it stays on across pages until "exit"). Notes are kept in this
-   browser's localStorage and nowhere else. */
+/* Review mode. Two tools, one toolbar:
+   - pin:  click anything, leave a note on it
+   - edit: click a line of text and retype it in place
+   "copy all" puts every note and every text edit on the clipboard to paste
+   into the chat, where they get applied to the real files.
+   main.js loads this only after the site was opened with ?review (it stays on
+   across pages until "exit"). Notes and edits live in this browser's
+   localStorage and nowhere else; edits show on the page only while review
+   mode is on. */
 (function () {
   'use strict';
   if (window.__hrReview || !document.body) { return; }
   window.__hrReview = true;
 
   var KEY = 'hr-review-notes';
-  var PIN_KEY = 'hr-review-pin';
+  var EDIT_KEY = 'hr-review-edits';
+  var MODE_KEY = 'hr-review-mode';
 
   function store(k, v) { try { if (v === null) { localStorage.removeItem(k); } else { localStorage.setItem(k, v); } } catch (e) {} }
   function read(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function readList(k) { try { return JSON.parse(read(k)) || []; } catch (e) { return []; } }
 
-  var notes;
-  try { notes = JSON.parse(read(KEY)) || []; } catch (e) { notes = []; }
-  function save() { store(KEY, JSON.stringify(notes)); }
+  var notes = readList(KEY);
+  var edits = readList(EDIT_KEY);
+  function save() { store(KEY, JSON.stringify(notes)); sync(); }
+  function saveEdits() { store(EDIT_KEY, JSON.stringify(edits)); sync(); }
+
+  /* Laptop sync: when the site is served by tools/serve-phone.ps1, every
+     change is also sent to the laptop (Portfolio/review-inbox/<device>.json)
+     so nothing has to be copied off the phone. Static hosts don't answer the
+     ping, so there it quietly stays off. */
+  var syncOn = false, syncTimer = null, device = read('hr-review-device');
+  if (!device) { device = 'dev-' + Math.random().toString(36).slice(2, 10); store('hr-review-device', device); }
+  function sync() {
+    if (!syncOn) { return; }
+    clearTimeout(syncTimer);
+    syncTimer = setTimeout(function () {
+      var body = JSON.stringify({ device: device, ua: navigator.userAgent, savedAt: new Date().toISOString(), notes: notes, edits: edits });
+      fetch('/__review-save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body, keepalive: true })
+        .then(function (r) { if (!r.ok) { throw new Error(r.status); } setSynced(true); })
+        .catch(function () { setSynced(false); });
+    }, 500);
+  }
+
+  /* 'pin' | 'edit' | 'off' (older builds stored pin on/off under hr-review-pin) */
+  var mode = read(MODE_KEY) || (read('hr-review-pin') === 'off' ? 'off' : 'pin');
 
   /* index.html, about.html, work/nao.html ... */
   var page = (function () {
@@ -24,8 +52,6 @@
     return m ? m[1] : 'index.html';
   })();
   var toRoot = page.indexOf('work/') === 0 ? '../' : '';
-
-  var pinning = read(PIN_KEY) !== 'off';
 
   /* ---------- describing what was clicked ---------- */
 
@@ -48,8 +74,9 @@
     return parts.join(' > ');
   }
 
+  function norm(s) { return (s || '').replace(/\s+/g, ' ').trim(); }
   function clip(s, n) {
-    s = (s || '').replace(/\s+/g, ' ').trim();
+    s = norm(s);
     return s.length > n ? s.slice(0, n - 1) + '…' : s;
   }
 
@@ -72,10 +99,11 @@
       else { break; }
     }
     var bits = [];
-    if (best) { bits.push(clip(best.innerText || best.textContent, 40)); }
+    if (best && best !== el) { bits.push(clip(best.innerText || best.textContent, 40)); }
     var card = el.closest('.card');
     var name = card && card.querySelector('.card__name, h3');
-    if (name && name !== best) { bits.push(clip(name.innerText || name.textContent, 40) + ' card'); }
+    if (name && name !== best && name !== el) { bits.push(clip(name.innerText || name.textContent, 40) + ' card'); }
+    else if (name && name === el) { bits.push('card title'); }
     var fig = el.closest('figure');
     var cap = fig && fig.querySelector('figcaption');
     if (cap && !card && !cap.contains(el)) { bits.push('figure: ' + clip(cap.innerText || cap.textContent, 40)); }
@@ -100,6 +128,7 @@
     '*{box-sizing:border-box;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}',
     '.w.probing *{pointer-events:none!important}',
     '.hl{position:fixed;pointer-events:none;border:2px solid #ff5a1f;background:rgba(255,90,31,.07);border-radius:4px;display:none;transition:all .06s}',
+    '.hl.edit{border-color:#2f6fed;background:rgba(47,111,237,.07)}',
     '.pin{position:fixed;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:#111;color:#fff;border:2px solid #fff;',
     '  font:700 12px/22px ui-sans-serif,system-ui,sans-serif;text-align:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.35);padding:0}',
     '.pin.dim{opacity:.35}',
@@ -108,9 +137,14 @@
     '.bar{position:fixed;right:16px;bottom:16px;display:flex;align-items:center;gap:2px;background:#111;color:#fff;border-radius:999px;',
     '  padding:4px;box-shadow:0 6px 24px rgba(0,0,0,.3);font-size:12px;max-width:calc(100vw - 32px)}',
     '.bar b{font-weight:600;padding:0 8px 0 10px;white-space:nowrap}',
+    '.bar .sync{flex:none;width:8px;height:8px;margin-left:8px;border-radius:50%;background:#3ccf74}',
+    '.bar .sync.off{background:#e5534b}',
+    '.bar .sync[hidden]{display:none}',
     '.bar button{background:none;border:0;color:#fff;font-size:12px;padding:7px 10px;border-radius:999px;cursor:pointer;white-space:nowrap}',
     '.bar button:hover{background:rgba(255,255,255,.14)}',
     '.bar button.on{background:#ff5a1f}',
+    '.bar button.editbtn.on{background:#2f6fed}',
+    '@media (max-width:440px){.bar b{display:none}.bar button{padding:7px 8px}}',
     '.toast{position:fixed;right:16px;bottom:62px;background:#111;color:#fff;font-size:12px;padding:8px 12px;border-radius:8px;display:none;max-width:calc(100vw - 32px)}',
     '.pop,.panel{position:fixed;background:#fff;color:#111;border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,.28);font-size:13px}',
     '.pop{width:300px;max-width:calc(100vw - 24px);padding:12px;display:none}',
@@ -122,13 +156,17 @@
     '.btn{border:0;border-radius:8px;padding:7px 12px;font-size:12px;cursor:pointer;background:#eee;color:#111}',
     '.btn.go{background:#111;color:#fff}',
     '.btn.del{background:none;color:#c0392b}',
-    '.panel{right:16px;bottom:62px;width:360px;max-width:calc(100vw - 32px);max-height:62vh;overflow:auto;padding:6px 0;display:none}',
+    '.panel{right:16px;bottom:62px;width:380px;max-width:calc(100vw - 32px);max-height:62vh;overflow:auto;padding:6px 0;display:none}',
     '.panel h4{margin:10px 14px 4px;font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.06em}',
     '.panel .it{display:flex;gap:10px;padding:8px 14px;cursor:pointer;align-items:flex-start;line-height:1.35}',
     '.panel .it:hover{background:#f4f4f4}',
-    '.panel .n{flex:none;width:22px;height:22px;border-radius:50%;background:#111;color:#fff;font-size:11px;font-weight:700;text-align:center;line-height:22px}',
+    '.panel .n{flex:none;min-width:22px;height:22px;padding:0 5px;border-radius:11px;background:#111;color:#fff;font-size:11px;font-weight:700;text-align:center;line-height:22px}',
+    '.panel .n.e{background:#2f6fed}',
+    '.panel .body{flex:1;min-width:0;word-break:break-word}',
     '.panel .it small{display:block;color:#888;font-size:11px;margin-top:2px}',
-    '.panel .empty{padding:14px;color:#666}',
+    '.panel .was{color:#999;text-decoration:line-through}',
+    '.panel .undo{flex:none;border:0;background:none;color:#c0392b;font-size:11px;cursor:pointer;padding:2px 0}',
+    '.panel .empty{padding:14px;color:#666;line-height:1.45}',
     '.panel .foot{border-top:1px solid #eee;margin-top:6px;padding:8px 14px 4px;display:flex;justify-content:space-between;align-items:center}',
     '.panel textarea{width:calc(100% - 28px);margin:8px 14px;height:180px;font:11px/1.4 ui-monospace,monospace}',
     '</style>',
@@ -139,41 +177,83 @@
     '    <div class="row"><span class="hint">ctrl+enter to save</span><button class="btn del">delete</button><button class="btn cancel">cancel</button><button class="btn go">save</button></div></div>',
     '  <div class="panel"></div>',
     '  <div class="toast"></div>',
-    '  <div class="bar"><b>review</b>',
-    '    <button class="pinbtn" title="P toggles. Off = click through the site normally">pin</button>',
-    '    <button class="listbtn">notes</button>',
+    '  <div class="bar"><i class="sync" hidden></i><b>review</b>',
+    '    <button class="pinbtn" title="P · click anything to leave a note">pin</button>',
+    '    <button class="editbtn" title="E · click a line of text and retype it">edit text</button>',
+    '    <button class="listbtn">list</button>',
     '    <button class="copybtn">copy all</button>',
-    '    <button class="exitbtn" title="Leave review mode. Notes are kept">exit</button></div>',
+    '    <button class="exitbtn" title="Leave review mode. Notes and edits are kept">exit</button></div>',
     '</div>'
   ].join('\n');
 
   function $(s) { return root.querySelector(s); }
   var wrap = $('.w'), hl = $('.hl'), pinsEl = $('.pins'), pop = $('.pop'), ta = pop.querySelector('textarea');
   var ctxEl = pop.querySelector('.ctx'), panel = $('.panel'), toastEl = $('.toast');
-  var pinBtn = $('.pinbtn'), listBtn = $('.listbtn');
+  var pinBtn = $('.pinbtn'), editBtn = $('.editbtn'), listBtn = $('.listbtn');
 
-  var cursorStyle = document.createElement('style');
-  cursorStyle.textContent = 'html.hr-pinning, html.hr-pinning *{cursor:crosshair!important}';
-  document.head.appendChild(cursorStyle);
+  /* page-side styles: cursors, the text being edited, and edited text */
+  var pageStyle = document.createElement('style');
+  pageStyle.textContent = [
+    'html.hr-pinning, html.hr-pinning *{cursor:crosshair!important}',
+    'html.hr-editing, html.hr-editing *{cursor:text!important}',
+    '[data-rv-editing]{outline:2px solid #2f6fed!important;outline-offset:3px;background:rgba(47,111,237,.07)!important;caret-color:#2f6fed}',
+    '[data-rv-edited]{background:rgba(47,111,237,.09)!important;box-shadow:inset 0 -2px 0 rgba(47,111,237,.6)!important}'
+  ].join('\n');
+  document.head.appendChild(pageStyle);
 
   function ours(e) { return e.composedPath && e.composedPath().indexOf(host) !== -1; }
 
-  /* ---------- pins ---------- */
+  function toast(msg) {
+    toastEl.textContent = msg;
+    toastEl.style.display = 'block';
+    clearTimeout(toast.t);
+    toast.t = setTimeout(function () { toastEl.style.display = 'none'; }, 2800);
+  }
 
-  function here() { return notes.filter(function (n) { return n.page === page; }); }
+  var syncDot = $('.bar .sync');
+  function setSynced(ok) {
+    syncDot.hidden = false;
+    syncDot.classList.toggle('off', !ok);
+    syncDot.title = ok ? 'saved to the laptop too' : 'laptop not reachable: still saved on this device';
+    if (!ok && !setSynced.warned) { setSynced.warned = true; toast('could not reach the laptop: everything is still saved on this device'); }
+    if (ok) { setSynced.warned = false; }
+  }
+
+  /* ---------- toolbar ---------- */
+
+  function hereNotes() { return notes.filter(function (n) { return n.page === page; }); }
+  function hereEdits() { return edits.filter(function (d) { return d.page === page; }); }
 
   function renderBar() {
-    pinBtn.classList.toggle('on', pinning);
-    pinBtn.textContent = pinning ? 'pin: on' : 'pin: off';
-    document.documentElement.classList.toggle('hr-pinning', pinning);
-    var h = here().length;
-    listBtn.textContent = 'notes ' + notes.length + (notes.length && h !== notes.length ? ' (' + h + ' here)' : '');
-    if (!pinning) { hl.style.display = 'none'; }
+    pinBtn.classList.toggle('on', mode === 'pin');
+    editBtn.classList.toggle('on', mode === 'edit');
+    document.documentElement.classList.toggle('hr-pinning', mode === 'pin');
+    document.documentElement.classList.toggle('hr-editing', mode === 'edit');
+    var bits = [];
+    if (notes.length) { bits.push(notes.length + (notes.length === 1 ? ' note' : ' notes')); }
+    if (edits.length) { bits.push(edits.length + (edits.length === 1 ? ' edit' : ' edits')); }
+    listBtn.textContent = bits.length ? 'list · ' + bits.join(', ') : 'list';
+    if (mode === 'off') { hl.style.display = 'none'; }
   }
+
+  function setMode(m, quiet) {
+    if (active) { finishEdit(); }
+    if (m !== 'pin') { closePop(); }
+    mode = m;
+    store(MODE_KEY, m);
+    hl.style.display = 'none';
+    renderBar();
+    if (quiet) { return; }
+    toast(m === 'pin' ? 'pin: click anything to leave a note'
+      : m === 'edit' ? 'edit text: click a line of text and type. Enter or click away to keep it, Esc to undo'
+      : 'review paused: the site works normally (P to pin, E to edit text)');
+  }
+
+  /* ---------- pins ---------- */
 
   function renderPins() {
     pinsEl.textContent = '';
-    here().forEach(function (n) {
+    hereNotes().forEach(function (n) {
       var b = document.createElement('button');
       b.className = 'pin';
       b.textContent = n.n;
@@ -188,7 +268,7 @@
   /* fixed-position pins, re-placed on scroll, resize and on a slow tick
      (the prototypes and scroll animations move things without scrolling) */
   function place() {
-    var list = here(), btns = pinsEl.children;
+    var list = hereNotes(), btns = pinsEl.children;
     wrap.classList.add('probing');
     for (var i = 0; i < list.length; i++) {
       var n = list[i], b = btns[i], el = find(n), x, y, r;
@@ -219,7 +299,7 @@
   }
   window.addEventListener('scroll', queue, { passive: true, capture: true });
   window.addEventListener('resize', queue, { passive: true });
-  setInterval(place, 500);
+  setInterval(function () { place(); applyEdits(); }, 500);
 
   /* ---------- note popover ---------- */
 
@@ -241,6 +321,7 @@
   function closePop() { pop.style.display = 'none'; editing = null; }
 
   function nextN() { return notes.reduce(function (m, n) { return Math.max(m, n.n); }, 0) + 1; }
+  function nextE() { return edits.reduce(function (m, d) { return Math.max(m, d.n); }, 0) + 1; }
 
   function label(n) {
     var s = [];
@@ -274,10 +355,126 @@
     if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { commit(); }
   });
 
+  /* ---------- text editing ---------- */
+
+  /* What can be edited: the nearest non-inline element around the click that
+     holds text and no media or layout blocks (a heading, a paragraph, a
+     label, a button, a list item). Small icons inside it are left alone. */
+  var NO_TEXT_INSIDE = 'img,video,picture,canvas,iframe,div,p,ul,ol,li,figure,section,article,header,footer,nav,main,table,h1,h2,h3,h4,h5,h6,blockquote,form,input,textarea,select';
+  function textTarget(t) {
+    var el = t && (t.nodeType === 1 ? t : t.parentElement);
+    if (!el || el === host) { return null; }
+    if (el.closest('svg')) { el = el.closest('svg').parentElement; }
+    while (el && el.parentElement && el !== document.body && getComputedStyle(el).display === 'inline') { el = el.parentElement; }
+    if (!el || el === document.body || el === document.documentElement) { return null; }
+    if (/^(img|video|svg|canvas|iframe|input|textarea|select)$/i.test(el.tagName)) { return null; }
+    if (!norm(el.textContent)) { return null; }
+    if (el.querySelector(NO_TEXT_INSIDE)) { return null; }
+    return el;
+  }
+
+  function editFor(el) {
+    var sel = cssPath(el);
+    for (var i = 0; i < edits.length; i++) { if (edits[i].page === page && edits[i].sel === sel) { return edits[i]; } }
+    return null;
+  }
+
+  function htmlText(html) {
+    var d = document.createElement('div');
+    d.innerHTML = html;
+    return norm(d.textContent);
+  }
+
+  var active = null, activeStart = '', activeOrig = '';
+
+  function startEdit(el) {
+    var rec = editFor(el);
+    active = el;
+    activeStart = el.innerHTML;
+    activeOrig = rec ? rec.beforeHTML : el.innerHTML;
+    el.setAttribute('contenteditable', 'true');
+    el.setAttribute('spellcheck', 'true');
+    el.setAttribute('data-rv-editing', '');
+    el.addEventListener('keydown', onEditKey);
+    el.addEventListener('paste', onEditPaste);
+    el.addEventListener('blur', onEditBlur);
+    hl.style.display = 'none';
+    el.focus();
+  }
+
+  function finishEdit(revert) {
+    var el = active;
+    if (!el) { return; }
+    active = null;
+    if (revert) { el.innerHTML = activeStart; }
+    el.removeAttribute('contenteditable');
+    el.removeAttribute('spellcheck');
+    el.removeAttribute('data-rv-editing');
+    el.removeEventListener('keydown', onEditKey);
+    el.removeEventListener('paste', onEditPaste);
+    el.removeEventListener('blur', onEditBlur);
+
+    var rec = editFor(el);
+    var beforeText = htmlText(activeOrig), afterText = norm(el.textContent);
+    if (afterText === beforeText) {
+      if (rec) { edits.splice(edits.indexOf(rec), 1); }
+      el.innerHTML = activeOrig;
+      el.removeAttribute('data-rv-edited');
+    } else {
+      if (!rec) {
+        rec = {
+          n: nextE(), page: page, sel: cssPath(el), tag: el.tagName.toLowerCase(),
+          ctx: context(el), beforeHTML: activeOrig, beforeText: beforeText,
+          vw: innerWidth, at: new Date().toISOString().slice(0, 16).replace('T', ' ')
+        };
+        edits.push(rec);
+      }
+      rec.afterHTML = el.innerHTML;
+      rec.afterText = afterText;
+      rec.applied = true;
+      el.setAttribute('data-rv-edited', rec.n);
+    }
+    saveEdits(); renderBar();
+    if (panel.style.display === 'block') { renderPanel(); }
+  }
+
+  function onEditKey(e) {
+    e.stopPropagation();   /* keep the site's own key handlers out of it */
+    if (e.key === 'Escape') { e.preventDefault(); finishEdit(true); toast('edit undone'); }
+    else if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); finishEdit(); }
+  }
+  function onEditPaste(e) {
+    e.preventDefault();
+    var t = (e.clipboardData || window.clipboardData).getData('text/plain') || '';
+    document.execCommand('insertText', false, t.replace(/\s*\n\s*/g, ' '));
+  }
+  function onEditBlur() { if (active) { finishEdit(); } }
+
+  /* show saved edits on the page; the prototypes build their DOM late, so
+     this runs on the slow tick until every edit for this page has landed */
+  function applyEdits() {
+    if (active) { return; }
+    hereEdits().forEach(function (d) {
+      var el = find(d);
+      if (!el) { d.applied = false; return; }
+      if (el.hasAttribute('data-rv-edited')) { return; }
+      var now = norm(el.textContent);
+      if (now === d.beforeText) { el.innerHTML = d.afterHTML; el.setAttribute('data-rv-edited', d.n); d.applied = true; }
+      else if (now === d.afterText) { el.setAttribute('data-rv-edited', d.n); d.applied = true; }
+      else { d.applied = false; }
+    });
+  }
+
+  function undoEdit(d) {
+    var el = d.page === page ? find(d) : null;
+    if (el && el.hasAttribute('data-rv-edited')) { el.innerHTML = d.beforeHTML; el.removeAttribute('data-rv-edited'); }
+    edits.splice(edits.indexOf(d), 1);
+    saveEdits(); renderBar(); renderPanel();
+  }
+
   /* ---------- capturing clicks on the page ---------- */
 
-  function block(e) {
-    if (!pinning || ours(e)) { return; }
+  function onPinEvent(e) {
     e.stopPropagation();
     e.stopImmediatePropagation();
     if (e.type === 'mousedown' || e.type === 'click' || e.type === 'dblclick') { e.preventDefault(); }
@@ -301,91 +498,127 @@
       at: new Date().toISOString().slice(0, 16).replace('T', ' ')
     }, e.clientX, e.clientY);
   }
+
+  function onEditEvent(e) {
+    var inside = active && active.contains(e.target);
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+    if (e.type === 'click') { e.preventDefault(); return; }          /* never follow links while editing */
+    if (inside) { return; }                                           /* let the caret move inside the text */
+    if (e.type === 'pointerdown') {
+      if (e.button) { return; }
+      var el = textTarget(e.target);
+      if (active) { finishEdit(); }
+      if (el) { startEdit(el); }                                      /* the mousedown that follows places the caret */
+      else { toast('that bit has no plain text to edit: pick a heading, a line or a label'); }
+      return;
+    }
+    if (e.type === 'mousedown' || e.type === 'dblclick') { e.preventDefault(); }
+  }
+
+  function onEvent(e) {
+    if (ours(e)) { return; }
+    if (mode === 'pin') { onPinEvent(e); }
+    else if (mode === 'edit') { onEditEvent(e); }
+  }
   ['pointerdown', 'pointerup', 'mousedown', 'mouseup', 'click', 'dblclick', 'touchstart', 'touchend'].forEach(function (t) {
-    window.addEventListener(t, block, true);
+    window.addEventListener(t, onEvent, true);
   });
 
   window.addEventListener('mousemove', function (e) {
-    if (!pinning || ours(e) || pop.style.display === 'block') { hl.style.display = 'none'; return; }
-    var el = pick(e.target);
-    if (!el || el === document.documentElement || el === document.body) { hl.style.display = 'none'; return; }
+    if (mode === 'off' || ours(e) || pop.style.display === 'block') { hl.style.display = 'none'; return; }
+    var el = mode === 'edit' ? textTarget(e.target) : pick(e.target);
+    if (!el || el === active || el === document.documentElement || el === document.body) { hl.style.display = 'none'; return; }
     var r = el.getBoundingClientRect();
+    hl.classList.toggle('edit', mode === 'edit');
     hl.style.display = 'block';
     hl.style.left = r.left - 2 + 'px'; hl.style.top = r.top - 2 + 'px';
     hl.style.width = r.width + 4 + 'px'; hl.style.height = r.height + 4 + 'px';
   }, { passive: true });
   document.addEventListener('mouseleave', function () { hl.style.display = 'none'; });
 
-  function setPinning(on) {
-    pinning = on;
-    store(PIN_KEY, on ? null : 'off');
-    renderBar();
-    toast(on ? 'pin on: click anything to leave a note' : 'pin off: the site works normally (P to switch back)');
-  }
-
   window.addEventListener('keydown', function (e) {
     var t = e.target, typing = t && (t.isContentEditable || /^(input|textarea|select)$/i.test(t.tagName));
     if (typing || ours(e) || e.ctrlKey || e.metaKey || e.altKey) { return; }
-    if (e.key === 'p' || e.key === 'P') { setPinning(!pinning); }
+    if (e.key === 'p' || e.key === 'P') { setMode(mode === 'pin' ? 'off' : 'pin'); }
+    if (e.key === 'e' || e.key === 'E') { setMode(mode === 'edit' ? 'off' : 'edit'); }
     if (e.key === 'Escape') { closePop(); panel.style.display = 'none'; }
   });
 
-  /* ---------- notes list ---------- */
+  /* ---------- the list ---------- */
 
   function pages() {
     var order = [];
-    notes.forEach(function (n) { if (order.indexOf(n.page) === -1) { order.push(n.page); } });
+    notes.concat(edits).forEach(function (n) { if (order.indexOf(n.page) === -1) { order.push(n.page); } });
     return order;
+  }
+
+  function el(tag, cls, text) {
+    var x = document.createElement(tag);
+    if (cls) { x.className = cls; }
+    if (text != null) { x.textContent = text; }
+    return x;
   }
 
   function renderPanel(showText) {
     panel.textContent = '';
-    if (!notes.length) {
-      var e = document.createElement('p');
-      e.className = 'empty';
-      e.textContent = 'No notes yet. With pin on, click anything on the page.';
-      panel.appendChild(e);
+    if (!notes.length && !edits.length) {
+      panel.appendChild(el('p', 'empty', 'Nothing yet. "pin" leaves a note on anything; "edit text" lets you click a line and retype it.'));
       return;
     }
     pages().forEach(function (pg) {
-      var h = document.createElement('h4');
-      h.textContent = pg + (pg === page ? ' (this page)' : '');
-      panel.appendChild(h);
+      panel.appendChild(el('h4', null, pg + (pg === page ? ' (this page)' : '')));
       notes.filter(function (n) { return n.page === pg; }).forEach(function (n) {
-        var it = document.createElement('div'), num = document.createElement('span'), body = document.createElement('div'), sm = document.createElement('small');
-        it.className = 'it'; num.className = 'n'; num.textContent = n.n;
-        body.textContent = n.note;
-        sm.textContent = label(n);
-        body.appendChild(sm);
-        it.appendChild(num); it.appendChild(body);
+        var it = el('div', 'it'), body = el('div', 'body', n.note);
+        body.appendChild(el('small', null, label(n)));
+        var del = el('button', 'undo', 'delete');
+        del.addEventListener('click', function (e) {
+          e.stopPropagation();
+          notes.splice(notes.indexOf(n), 1);
+          save(); renderPins(); renderBar(); renderPanel();
+        });
+        it.appendChild(el('span', 'n', n.n)); it.appendChild(body); it.appendChild(del);
         it.addEventListener('click', function () { goTo(n); });
         panel.appendChild(it);
       });
+      edits.filter(function (d) { return d.page === pg; }).forEach(function (d) {
+        var it = el('div', 'it'), body = el('div', 'body', clip(d.afterText, 160));
+        var was = el('small'); was.appendChild(el('span', 'was', clip(d.beforeText, 120)));
+        body.appendChild(was);
+        body.appendChild(el('small', null, (d.ctx ? d.ctx + ' — ' : '') + d.tag + (d.page === page && d.applied === false ? ' · not on screen right now' : '')));
+        var undo = el('button', 'undo', 'undo');
+        undo.addEventListener('click', function (e) { e.stopPropagation(); undoEdit(d); });
+        it.appendChild(el('span', 'n e', 'E' + d.n)); it.appendChild(body); it.appendChild(undo);
+        it.addEventListener('click', function () { goToEdit(d); });
+        panel.appendChild(it);
+      });
     });
-    var foot = document.createElement('div');
-    foot.className = 'foot';
-    var clear = document.createElement('button'), copy = document.createElement('button');
-    clear.className = 'btn del'; clear.textContent = 'clear all';
-    copy.className = 'btn go'; copy.textContent = 'copy all';
+    var foot = el('div', 'foot');
+    var clear = el('button', 'btn del', 'clear all'), copy = el('button', 'btn go', 'copy all');
     clear.addEventListener('click', function () {
-      if (confirm('Delete all ' + notes.length + ' notes on every page?')) { notes = []; save(); renderPins(); renderBar(); renderPanel(); }
+      if (!confirm('Delete all ' + notes.length + ' notes and ' + edits.length + ' text edits on every page?')) { return; }
+      hereEdits().forEach(function (d) { var x = find(d); if (x && x.hasAttribute('data-rv-edited')) { x.innerHTML = d.beforeHTML; x.removeAttribute('data-rv-edited'); } });
+      notes = []; edits = []; save(); saveEdits(); renderPins(); renderBar(); renderPanel();
     });
     copy.addEventListener('click', copyAll);
     foot.appendChild(clear); foot.appendChild(copy);
     panel.appendChild(foot);
     if (showText) {
-      var area = document.createElement('textarea');
+      var area = el('textarea');
       area.value = exportText();
       panel.appendChild(area);
       setTimeout(function () { area.focus(); area.select(); }, 0);
     }
   }
 
+  function scrollToEl(x, fallbackY) {
+    if (x && x.getBoundingClientRect().height) { x.scrollIntoView({ block: 'center', behavior: 'smooth' }); }
+    else if (fallbackY != null) { scrollTo({ top: fallbackY - innerHeight / 2, behavior: 'smooth' }); }
+  }
+
   function goTo(n) {
     if (n.page !== page) { location.href = toRoot + n.page + '#rv-' + n.n; return; }
-    var el = find(n);
-    if (el && el.getBoundingClientRect().height) { el.scrollIntoView({ block: 'center', behavior: 'smooth' }); }
-    else { scrollTo({ top: n.py - innerHeight / 2, behavior: 'smooth' }); }
+    scrollToEl(find(n), n.py);
     panel.style.display = 'none';
     setTimeout(function () {
       place();
@@ -394,18 +627,33 @@
     }, 600);
   }
 
+  function goToEdit(d) {
+    if (d.page !== page) { location.href = toRoot + d.page + '#rve-' + d.n; return; }
+    var x = find(d);
+    if (!x) { toast('that text is not on screen right now (inside a prototype screen?)'); return; }
+    scrollToEl(x);
+    panel.style.display = 'none';
+  }
+
   listBtn.addEventListener('click', function () {
     var open = panel.style.display === 'block';
     closePop();
+    if (active) { finishEdit(); }
     if (!open) { renderPanel(); }
     panel.style.display = open ? 'none' : 'block';
   });
-  pinBtn.addEventListener('click', function () { setPinning(!pinning); });
+  pinBtn.addEventListener('click', function () { setMode(mode === 'pin' ? 'off' : 'pin'); });
+  editBtn.addEventListener('click', function () { setMode(mode === 'edit' ? 'off' : 'edit'); });
 
   /* ---------- copy out ---------- */
 
+  function q(s) { return '"' + s + '"'; }
+
   function exportText() {
-    var out = ['Portfolio review: ' + notes.length + ' note' + (notes.length === 1 ? '' : 's'), ''];
+    var head = [];
+    if (notes.length) { head.push(notes.length + (notes.length === 1 ? ' note' : ' notes')); }
+    if (edits.length) { head.push(edits.length + (edits.length === 1 ? ' text edit' : ' text edits')); }
+    var out = ['Portfolio review: ' + head.join(', '), ''];
     pages().forEach(function (pg) {
       out.push(pg);
       notes.filter(function (n) { return n.page === pg; }).forEach(function (n) {
@@ -413,22 +661,24 @@
         out.push('    on: ' + label(n) + ' (at ' + n.vw + 'px wide)');
         out.push('    sel: ' + n.sel);
       });
+      edits.filter(function (d) { return d.page === pg; }).forEach(function (d) {
+        out.push('E' + d.n + '  TEXT EDIT' + (d.ctx ? ' — ' + d.ctx : '') + ' (' + d.tag + ', at ' + d.vw + 'px wide)');
+        out.push('    was: ' + q(d.beforeText));
+        out.push('    now: ' + q(d.afterText));
+        var h = (d.afterHTML || '').replace(/<svg[\s\S]*?<\/svg>/gi, '');
+        if (/<[a-z]/i.test(h)) { out.push('    html: ' + norm(h)); }   /* only when the line has <em>, <i>, links… */
+        out.push('    sel: ' + d.sel);
+      });
       out.push('');
     });
     return out.join('\n');
   }
 
-  function toast(msg) {
-    toastEl.textContent = msg;
-    toastEl.style.display = 'block';
-    clearTimeout(toast.t);
-    toast.t = setTimeout(function () { toastEl.style.display = 'none'; }, 2600);
-  }
-
   function copyAll() {
-    if (!notes.length) { toast('no notes to copy yet'); return; }
+    if (active) { finishEdit(); }
+    if (!notes.length && !edits.length) { toast('nothing to copy yet'); return; }
     var text = exportText();
-    var done = function () { toast('copied ' + notes.length + ' notes, paste them into the chat'); };
+    var done = function () { toast('copied, paste it into the chat'); };
     var fallback = function () {
       var t = document.createElement('textarea');
       t.value = text;
@@ -447,24 +697,35 @@
 
   $('.copybtn').addEventListener('click', copyAll);
   $('.exitbtn').addEventListener('click', function () {
+    if (active) { finishEdit(); }
     store('hr-review', null);
-    store(PIN_KEY, null);
-    document.documentElement.classList.remove('hr-pinning');
-    host.remove();
-    cursorStyle.remove();
-    location.href = location.pathname + location.hash.replace(/^#rv-\d+$/, '');
+    store(MODE_KEY, null);
+    store('hr-review-pin', null);
+    location.href = location.pathname + location.hash.replace(/^#rve?-\d+$/, '');
   });
 
   /* ---------- start ---------- */
 
   renderBar();
   renderPins();
-  var jump = /^#rv-(\d+)$/.exec(location.hash);
-  if (jump) {
+  applyEdits();
+  fetch('/__review-ping', { cache: 'no-store' })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (j) { if (j && j.inbox) { syncOn = true; sync(); } })
+    .catch(function () {});
+  var jump = /^#rv-(\d+)$/.exec(location.hash), jumpE = /^#rve-(\d+)$/.exec(location.hash);
+  if (jump || jumpE) {
     history.replaceState(null, '', location.pathname + location.search);
-    var target = notes.filter(function (n) { return n.n === +jump[1] && n.page === page; })[0];
-    if (target) { setTimeout(function () { goTo(target); }, 400); }
+    if (jump) {
+      var target = notes.filter(function (n) { return n.n === +jump[1] && n.page === page; })[0];
+      if (target) { setTimeout(function () { goTo(target); }, 400); }
+    } else {
+      var te = edits.filter(function (d) { return d.n === +jumpE[1] && d.page === page; })[0];
+      if (te) { setTimeout(function () { applyEdits(); goToEdit(te); }, 600); }
+    }
   } else {
-    toast(pinning ? 'review mode: click anything to pin a note (P switches pin off)' : 'review mode: pin is off (P to switch on)');
+    toast(mode === 'pin' ? 'review: pin is on (P). "edit text" (E) lets you retype any line'
+      : mode === 'edit' ? 'review: edit text is on (E). Click a line and type'
+      : 'review is paused: P to pin, E to edit text');
   }
 })();

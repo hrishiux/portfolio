@@ -17,6 +17,32 @@
     }
   } catch (e) {}
 
+  /* --- frosted nav over the home hero: html.nav-near is set once the nav is
+     about to run into the big "hrishikesh" (styles in style.css).
+     _nav-test.html passes ?navtest=current|a|b to preview the alternatives;
+     it also works when that page is opened as a file. --- */
+  var ntName = document.querySelector('.hero__name'), ntNav = document.querySelector('.nav');
+  if (ntName && ntNav) {
+    var nt = /[?&]navtest=(current|a|b)\b/.exec(location.search);
+    var nearClass = 'nav-near';
+    if (nt && nt[1] === 'current') nearClass = '';
+    if (nt && nt[1] === 'a') {
+      nearClass = 'nt-near';
+      var ns = document.createElement('style');
+      ns.textContent = 'html.nt-near .nav{ color:var(--foreground); background-color:color-mix(in oklab, var(--background) 88%, transparent); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px) }';
+      document.head.appendChild(ns);
+    }
+    if (nearClass) {
+      var ntTick = function () {
+        var near = ntName.getBoundingClientRect().top <= ntNav.getBoundingClientRect().bottom + 24;
+        document.documentElement.classList.toggle(nearClass, near);
+      };
+      window.addEventListener('scroll', ntTick, { passive: true });
+      window.addEventListener('resize', ntTick, { passive: true });
+      ntTick();
+    }
+  }
+
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* --- nav switches from cream to ink once the hero is behind you --- */
