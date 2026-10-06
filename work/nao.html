@@ -9,6 +9,9 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Upstox NAO 2.0 — Hrishikesh Nanda">
 <meta property="og:description" content="Systems-level UX redesign and onboarding architecture overhaul for Upstox native account opening, Aug 2022 – Feb 2023.">
+<meta property="og:url" content="https://hrishiux.github.io/portfolio/work/nao.html">
+<meta property="og:image" content="https://hrishiux.github.io/portfolio/assets/img/cards/nao.jpg">
+<meta name="twitter:image" content="https://hrishiux.github.io/portfolio/assets/img/cards/nao.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
 <link rel="alternate icon" href="../assets/img/favicon-32.png" sizes="32x32" type="image/png">
@@ -16,9 +19,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400..800;1,400..800&family=EB+Garamond:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
 <script>document.documentElement.className += " js";</script>
-<link rel="stylesheet" href="../assets/css/style.css?v=20261005g">
+<link rel="stylesheet" href="../assets/css/style.css?v=20261006a">
 </head>
 <body>
+<a class="skip" href="#main">skip to content</a>
 
 <header class="nav" data-tone="light">
   <a class="nav__wordmark" href="../index.html"><span class="nowrap">hrishikesh</span></a>
@@ -29,7 +33,7 @@
   </nav>
 </header>
 
-<main>
+<main id="main">
 
 <header class="cs-hero">
     <a class="back label-mono" href="../index.html#works">← works</a>
@@ -97,7 +101,6 @@
         <li><strong>Decrease customer support overhead</strong> (historically, 40.0% of all completed accounts required active sales assistance calls to navigate the funnel).</li>
       </ol>
 
-      <hr>
 
       <h2 id="audit">2. Funnel audit &amp; drop-off mapping</h2>
       <p>To identify the structural bottlenecks, we conducted an audit of step-level drop-offs and rejections (June MTD data):</p>
@@ -176,13 +179,12 @@
         <p class="boards__hint">tap any board to read it full size</p>
       </div>
 
-      <hr>
 
       <h2 id="philosophy">3. Experience philosophy: the &ldquo;N-Star&rdquo; &amp; screen format frameworks</h2>
       <p>We moved away from isolated, superficial UI updates, to framing our redesign around two strategic systems:</p>
 
       <h3>A. The &ldquo;N-Star&rdquo; experience vision</h3>
-      <p>To align design, engineering, and business operations, we conceptualized a progression framework ranging from a basic functional app to an automated, high-touch platform:</p>
+      <p>To align design, engineering, and business operations, we adapted Airbnb&rsquo;s 11-star experience exercise into a progression framework ranging from a basic functional app to an automated, high-touch platform:</p>
       <div class="nstar">
       <ul>
         <li><strong>1-Star:</strong> User cannot complete signup due to platform bugs.</li>
@@ -263,7 +265,6 @@
         <li><strong>Education Format:</strong> Applied when we need the user to retain critical regulatory information or build trust in the platform&rsquo;s security. <em>Example: Front-loaded platform credibility carousel highlighting Upstox&rsquo;s 1Cr+ investor base.</em></li>
       </ol>
 
-      <hr>
 
       <h2 id="architecture">4. Platform system architecture overhaul</h2>
       <p>To support dynamic customization and rapid experimentation, we transitioned from a statically hardcoded step sequence to a modular, backend-driven <strong>Templates and Blocks Architecture</strong>.</p>
@@ -354,7 +355,6 @@
         <figcaption>the one screen template every block is built on</figcaption>
       </figure>
 
-      <hr>
 
       <h2 id="blocks">5. Granular component redesigns (six key blocks)</h2>
 
@@ -430,10 +430,10 @@
 
 
       <h3>Block C: Bank account verification</h3>
-      <p><strong>The friction point:</strong> Manually typing account numbers, re-entering them, searching for IFSC codes, and uploading cancelled cheques resulted in a 4.53% step-level drop-off and a 15.53% overall rejection rate due to typo mismatch.</p>
+      <p><strong>The friction point:</strong> Manually typing account numbers, re-entering them, searching for IFSC codes, and uploading cancelled cheques resulted in a 4.53% step-level drop-off and 15.53% of all rejections, due to typo mismatch.</p>
       <p><strong>The redesign solution:</strong></p>
       <ol>
-        <li>Introduced a <strong>Unified Payment Interface (UPI) Reverse Penny Drop</strong> (via Setu): The user initiates a nominal 1 Rupee transaction via whitelisted local UPI apps. Setu captures the account holder&rsquo;s name, account number, and IFSC directly from the UPI credit-alert webhook, then automatically refunds the 1 Rupee back to the user.</li>
+        <li>Introduced a <strong>Unified Payments Interface (UPI) Reverse Penny Drop</strong> (via Setu): The user initiates a nominal 1 Rupee transaction via whitelisted local UPI apps. Setu captures the account holder&rsquo;s name, account number, and IFSC directly from the UPI credit-alert webhook, then automatically refunds the 1 Rupee back to the user.</li>
         <li><strong>Forward Penny Drop Automation (Backup Path):</strong> For manual entries, the system deposits 1 Rupee and triggers real-time checking via <strong>Digio API</strong> (processing transactions in 4 seconds compared to Razorpay&rsquo;s 16 seconds).</li>
         <li>Implemented a <strong>Fuzzy Name Match Algorithm</strong>: Matches the fetched bank name with the Income Tax (PAN) record name. A matched score of &ge; 70 allows the user to proceed automatically. Any score below 70 is flagged for manual scrutiny.</li>
       </ol>
@@ -458,7 +458,7 @@
 
       <figure class="figure-block">
         <div class="figure-block__scroll">
-          <svg viewBox="0 0 800 380" role="img" aria-labelledby="fig-bank-t">
+          <svg viewBox="0 0 824 380" role="img" aria-labelledby="fig-bank-t">
           <title id="fig-bank-t">Two bank verification paths: UPI reverse penny drop, and a forward penny drop gated by a fuzzy name match</title>
           <defs>
             <marker id="arrow2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
@@ -545,7 +545,7 @@
 
 
       <h3>Block D: Digital identity &amp; liveness verification</h3>
-      <p><strong>The friction point:</strong> Static live photo submission checks took place post-form submission, introducing high processing delays. Poor camera angles or lighting led to an 18.45% photo rejection rate.</p>
+      <p><strong>The friction point:</strong> Static live photo submission checks took place post-form submission, introducing high processing delays. Poor camera angles or lighting led to 18.45% of all rejections.</p>
       <p><strong>The redesign solution:</strong></p>
       <ol>
         <li>Integrated <strong>HyperVerge Liveness SDK</strong> directly into the front-end capture flow, shifting photo verification to a real-time step.</li>
@@ -590,8 +590,8 @@
       <ol>
         <li>Designed a <strong>GIF/Media-driven priming module</strong> showing animated, language-agnostic instructions on how to sign within the boundaries.</li>
         <li>Constructed a <strong>landscape-oriented digital signature canvas</strong> that automatically opens in landscape mode upon interaction, maximizing canvas area and preventing stroke-clipping.</li>
-        <li>Engineered an absolute <strong>zero-state canvas reset policy</strong>: If a signature is rejected by scrutiny, the previous canvas state is entirely cleared from the UI and memory to prevent the user from resubmitting an identical failed stroke.</li>
-        <li><strong>Pixel-Cutoff Regression testing (R&amp;D):</strong> Configured real-time pixel-density heuristics to validate signature presence and check for minimum stroke pixel counts before allowing submissions.</li>
+        <li>Signatures caused 21.32% of all rejections, mostly strokes cut off by a narrow portrait box. The canvas now opens in landscape with a faint example to follow.</li>
+        <li>Two guards back it up: a minimum-stroke check before submitting, and a blank canvas after a rejection, so the same failed signature can&rsquo;t be sent twice.</li>
       </ol>
 
       <figure class="screens" style="--n:3">
@@ -680,28 +680,27 @@
         </ul>
       </aside>
 
-      <hr>
 
       <h2 id="benchmark">6. Competitive analysis &amp; benchmark</h2>
       <p>Our architectural decisions were also validated against a technical competitive benchmark comparing Upstox NAO 2.0 with leading market players:</p>
 
       <div class="tablewrap">
         <table class="bench">
+          <caption class="visually-hidden">Onboarding compared: Zerodha, Angel One, Groww and Upstox NAO 2.0</caption>
           <thead>
-            <tr><th>Parameter</th><th class="num">Zerodha</th><th class="num">Angel One</th><th class="num">Groww</th><th class="num us">Upstox NAO 2.0</th></tr>
+            <tr><th scope="col">Parameter</th><th scope="col" class="num">Zerodha</th><th scope="col" class="num">Angel One</th><th scope="col" class="num">Groww</th><th scope="col" class="num us">Upstox NAO 2.0</th></tr>
           </thead>
           <tbody>
-            <tr><td><strong>Mandatory Manual Fields</strong></td><td class="num">15</td><td class="num">15</td><td class="num">12</td><td class="num us"><strong>9</strong></td></tr>
-            <tr><td><strong>Easily Recalled Inputs</strong> (e.g. OTP/Mobile)</td><td class="num">9</td><td class="num">11</td><td class="num">8</td><td class="num us"><strong>7</strong></td></tr>
-            <tr><td><strong>Complex Inputs</strong> (e.g. Aadhaar/PAN)</td><td class="num">6</td><td class="num">4</td><td class="num">4</td><td class="num us"><strong>2</strong> (Aadhaar Only)</td></tr>
-            <tr><td><strong>Mandatory Document Uploads</strong></td><td class="num">3</td><td class="num">0</td><td class="num">0</td><td class="num us"><strong>0</strong></td></tr>
-            <tr><td><strong>Onboarding Exploration State</strong></td><td class="num">No</td><td class="num">No (Force KYC)</td><td class="num">Yes (KYC first, fallback to explore)</td><td class="num us"><strong>Yes</strong> (Explore app first; contextually nudged KYC)</td></tr>
-            <tr><td><strong>Turnaround Time (TAT)</strong></td><td class="num"><span class="nowrap">48 Hours</span></td><td class="num">N/A</td><td class="num"><span class="nowrap">&gt;48 Hours</span></td><td class="num us"><strong class="nowrap">&lt;24 Hours</strong> (Targeting <span class="nowrap">&lt;2 Hours</span>)</td></tr>
+            <tr><th scope="row"><strong>Mandatory Manual Fields</strong></th><td class="num">15</td><td class="num">15</td><td class="num">12</td><td class="num us"><strong>9</strong></td></tr>
+            <tr><th scope="row"><strong>Easily Recalled Inputs</strong> (e.g. OTP/Mobile)</th><td class="num">9</td><td class="num">11</td><td class="num">8</td><td class="num us"><strong>7</strong></td></tr>
+            <tr><th scope="row"><strong>Complex Inputs</strong> (e.g. Aadhaar/PAN)</th><td class="num">6</td><td class="num">4</td><td class="num">4</td><td class="num us"><strong>2</strong> (Aadhaar Only)</td></tr>
+            <tr><th scope="row"><strong>Mandatory Document Uploads</strong></th><td class="num">3</td><td class="num">0</td><td class="num">0</td><td class="num us"><strong>0</strong></td></tr>
+            <tr><th scope="row"><strong>Onboarding Exploration State</strong></th><td class="num">No</td><td class="num">No (Force KYC)</td><td class="num">Yes (KYC first, fallback to explore)</td><td class="num us"><strong>Yes</strong> (Explore app first; contextually nudged KYC)</td></tr>
+            <tr><th scope="row"><strong>Turnaround Time (TAT)</strong></th><td class="num"><span class="nowrap">48 Hours</span></td><td class="num">N/A</td><td class="num"><span class="nowrap">&gt;48 Hours</span></td><td class="num us"><strong class="nowrap">&lt;24 Hours</strong> (Targeting <span class="nowrap">&lt;2 Hours</span>)</td></tr>
           </tbody>
         </table>
       </div>
 
-      <hr>
 
       <h2 id="impact">7. Business impact &amp; metric validation</h2>
       <p>The rollout of individual modules within the NAO 2.0 initiative delivered immediate, quantifiable improvements across our organic cohorts:</p>
@@ -720,8 +719,8 @@
           </div>
           <div class="dumbbell__plot">
             <span class="dumbbell__gap" style="--a:22.43%; --b:34.30%"></span>
-            <span class="dumbbell__dot" style="--x:22.43%" tabindex="0" data-tip="Before · 71.73%"><em>71.73%</em></span>
-            <span class="dumbbell__dot dumbbell__dot--after" style="--x:34.30%" tabindex="0" data-tip="After Equifax · 75.29%"><em>75.29%</em></span>
+            <span class="dumbbell__dot" style="--x:22.43%"><em>71.73%</em></span>
+            <span class="dumbbell__dot dumbbell__dot--after" style="--x:34.30%"><em>75.29%</em></span>
           </div>
           <div class="dumbbell__delta"><b>+3.56</b><span>pts</span></div>
         </div>
@@ -733,8 +732,8 @@
           </div>
           <div class="dumbbell__plot">
             <span class="dumbbell__gap" style="--a:66.67%; --b:83.00%"></span>
-            <span class="dumbbell__dot" style="--x:66.67%" tabindex="0" data-tip="Before · 85.00%"><em>85.00%</em></span>
-            <span class="dumbbell__dot dumbbell__dot--after" style="--x:83.00%" tabindex="0" data-tip="After SSO · 89.90%"><em>89.90%</em></span>
+            <span class="dumbbell__dot" style="--x:66.67%"><em>85.00%</em></span>
+            <span class="dumbbell__dot dumbbell__dot--after" style="--x:83.00%"><em>89.90%</em></span>
           </div>
           <div class="dumbbell__delta"><b>+4.90</b><span>pts</span></div>
         </div>
@@ -771,7 +770,7 @@
 
     </div>
 
-    <nav class="pager">
+    <nav class="pager" aria-label="More case studies">
       <a href="../index.html#works"><small>Back to</small><strong>All work</strong></a>
       <a href="up-alert.html"><small>Next case study</small><strong>Up.alert &rarr;</strong></a>
     </nav>
@@ -798,7 +797,7 @@
   </div>
 </footer>
 
-<script src="../assets/js/main.js?v=20261005g"></script>
-<script src="../assets/js/nao-flows.js?v=20261005g"></script>
+<script src="../assets/js/main.js?v=20261006a"></script>
+<script src="../assets/js/nao-flows.js?v=20261006a"></script>
 </body>
 </html>

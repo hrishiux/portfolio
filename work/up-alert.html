@@ -4,11 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Up.alert — Hrishikesh Nanda</title>
-<meta name="description" content="Notification dashboard for Upstox's marketing, content and communications teams. Solo designer, November 2022.">
+<meta name="description" content="Notification dashboard for Upstox's marketing, content and communications teams. Solo designer, November – December 2022.">
 <meta name="author" content="Hrishikesh Nanda">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Up.alert — Hrishikesh Nanda">
-<meta property="og:description" content="Notification dashboard for Upstox's marketing, content and communications teams. Solo designer, November 2022.">
+<meta property="og:description" content="Notification dashboard for Upstox's marketing, content and communications teams. Solo designer, November – December 2022.">
+<meta property="og:url" content="https://hrishiux.github.io/portfolio/work/up-alert.html">
+<meta property="og:image" content="https://hrishiux.github.io/portfolio/assets/img/cards/up-alert.jpg">
+<meta name="twitter:image" content="https://hrishiux.github.io/portfolio/assets/img/cards/up-alert.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
 <link rel="alternate icon" href="../assets/img/favicon-32.png" sizes="32x32" type="image/png">
@@ -16,9 +19,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400..800;1,400..800&family=EB+Garamond:wght@400;500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
 <script>document.documentElement.className += " js";</script>
-<link rel="stylesheet" href="../assets/css/style.css?v=20261005g">
+<link rel="stylesheet" href="../assets/css/style.css?v=20261006a">
 </head>
 <body>
+<a class="skip" href="#main">skip to content</a>
 
 <header class="nav" data-tone="light">
   <a class="nav__wordmark" href="../index.html"><span class="nowrap">hrishikesh</span></a>
@@ -29,7 +33,7 @@
   </nav>
 </header>
 
-<main>
+<main id="main">
 
 <header class="cs-hero">
     <a class="back label-mono" href="../index.html#works">← works</a>
@@ -78,7 +82,7 @@
       </figure>
 
       <h3>Test vs. Production mode</h3>
-      <p><strong>Test vs. Production mode</strong> was the first design problem. The same tool served internal QA testing and live production sends. I designed a persistent, unambiguous environment indicator &mdash; always visible in the interface, impossible to miss. Test mode audiences were restricted to groups prefixed with &ldquo;Test_&rdquo; to add a data-level guard alongside the visual one.</p>
+      <p>Test vs. Production mode was the first design problem. The same tool served internal QA testing and live production sends. I designed a persistent, unambiguous environment indicator &mdash; always visible in the interface, impossible to miss. Test mode audiences were restricted to groups prefixed with &ldquo;Test_&rdquo; to add a data-level guard alongside the visual one.</p>
 
       <figure class="wide ua-fig" data-ua="create" data-hint="switch between test mode and production mode, then fill it in">
         <div class="ua-fallback"><img src="../assets/img/upalert/create-test.jpg" alt="Create new message form in test mode: the all users and all customers options are disabled, leaving only target lists." loading="lazy" width="1577" height="1316"></div>
@@ -86,7 +90,7 @@
       </figure>
 
       <h3>Audience management</h3>
-      <p><strong>Audience management</strong> involved CSV upload and reuse. Operators upload lists of UCCs (user codes), which persist for 30 days before archiving. I designed the upload flow with immediate feedback &mdash; successful uploads surfaced UCC count confirmation, failures gave specific retry prompts. When selecting a pre-uploaded audience for a new notification, the selected group&rsquo;s UCC count was surfaced again at the point of selection &mdash; a deliberate confirmation moment to prevent the wrong list being used at send time.</p>
+      <p>Audience management involved CSV upload and reuse. Operators upload lists of UCCs (user codes), which persist for 30 days before archiving. I designed the upload flow with immediate feedback &mdash; successful uploads surfaced UCC count confirmation, failures gave specific retry prompts. When selecting a pre-uploaded audience for a new notification, the selected group&rsquo;s UCC count was surfaced again at the point of selection &mdash; a deliberate confirmation moment to prevent the wrong list being used at send time.</p>
 
       <figure class="wide ua-fig" data-ua="audiences" data-hint="add new list, then pick a file">
         <div class="ua-fallback"><img src="../assets/img/upalert/flow-audience.jpg" alt="Flow for adding an audience list: the audiences table, the upload overlay, an upload success decision, then a table with an upload completed toast on the yes branch and an error toast on the no branch." loading="lazy" width="2225" height="738"></div>
@@ -94,7 +98,7 @@
       </figure>
 
       <h3>Personalisation</h3>
-      <p><strong>Personalisation</strong> was technically interesting &mdash; the CSV format supported variables (name, balance, etc.) that could be injected as placeholders in notification body copy. I had to make this legible to content writers who had never written template syntax. The interface made the variable format explicit and visible, with the notification creation fields laid out so the relationship between CSV columns and message variables was obvious without documentation.</p>
+      <p>Personalisation was technically interesting &mdash; the CSV format supported variables (name, balance, etc.) that could be injected as placeholders in notification body copy. I had to make this legible to content writers who had never written template syntax. The interface made the variable format explicit and visible, with the notification creation fields laid out so the relationship between CSV columns and message variables was obvious without documentation.</p>
 
       <figure class="wide ua-fig" data-ua="rows" data-hint="rows filtered to $name — collapse, expand, edit or duplicate one">
         <div class="ua-fallback"><img src="../assets/img/upalert/rows-personalised.jpg" alt="Message table rows from the component sheet, including rows whose body reads Welcome to Upstox $name, your current balance is $funds, with edit, duplicate, delete and expand actions." loading="lazy" width="1548" height="765"></div>
@@ -102,7 +106,7 @@
       </figure>
 
       <h3>In-app warning banners</h3>
-      <p><strong>In-app warning banners</strong> persist on screen until the user dismisses them or acts on the CTA. They needed to be killable after publish &mdash; a warning about a funds issue should disappear the moment it&rsquo;s resolved, not continue surfacing a stale alert. I designed a pause/resume control into the dashboard for active in-app messages, keeping the communications team in control post-send.</p>
+      <p>In-app warning banners persist on screen until the user dismisses them or acts on the CTA. They needed to be killable after publish &mdash; a warning about a funds issue should disappear the moment it&rsquo;s resolved, not continue surfacing a stale alert. I designed a pause/resume control into the dashboard for active in-app messages, keeping the communications team in control post-send.</p>
 
       <figure class="wide ua-fig" data-ua="detail" data-hint="pause the alert, then resume it">
         <div class="ua-fallback"><img src="../assets/img/upalert/detail-pause.jpg" alt="Message detail page for a live in-app alert, with pause, duplicate, edit and delete actions." loading="lazy" width="1600" height="900"></div>
@@ -110,7 +114,7 @@
       </figure>
 
       <h3>Tracking</h3>
-      <p><strong>Tracking</strong> was built in from the start. The notification history view surfaced send status, timestamp, and editor. A dedicated performance view per notification showed sends, deliveries, and click-through &mdash; a feedback loop on communication effectiveness, and an audit trail for CS escalations.</p>
+      <p>Tracking was built in from the start. The notification history view surfaced send status, timestamp, and editor. A dedicated performance view per notification showed sends, deliveries, and click-through &mdash; a feedback loop on communication effectiveness, and an audit trail for CS escalations.</p>
 
       <figure class="wide ua-fig" data-ua="history" data-hint="switch between sent, drafts and failed — open one for its numbers">
         <div class="ua-fallback"><img src="../assets/img/upalert/history.jpg" alt="Notification history table with filters for all, sent, drafts and failed, showing each message's title, body, last edited by, type, time of delivery and status." loading="lazy" width="1600" height="900"></div>
@@ -140,7 +144,6 @@
         <figcaption>the whole figma file, zoomed out — every flow, state and edge case; tap to see all of it</figcaption>
       </figure>
 
-      <hr>
 
       <h2 id="system">The wider system</h2>
       <p>The design covered two integrated components, built to Upstox&rsquo;s existing design language and experience standards.</p>
@@ -216,7 +219,7 @@
 
     </div>
 
-    <nav class="pager">
+    <nav class="pager" aria-label="More case studies">
       <a href="nao.html"><small>Previous</small><strong>&larr; Upstox NAO 2.0</strong></a>
       <a href="trophee.html"><small>Next case study</small><strong>Trophee &rarr;</strong></a>
     </nav>
@@ -243,7 +246,7 @@
   </div>
 </footer>
 
-<script src="../assets/js/main.js?v=20261005g"></script>
-<script src="../assets/js/upalert-app.js?v=20261005g"></script>
+<script src="../assets/js/main.js?v=20261006a"></script>
+<script src="../assets/js/upalert-app.js?v=20261006a"></script>
 </body>
 </html>

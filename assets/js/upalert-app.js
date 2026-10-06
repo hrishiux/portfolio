@@ -167,19 +167,19 @@
 
     /* ---------- views ---------- */
     function topNav(active) {
-      return '<header class="ua-top"><span class="ua-logo">upstox</span><nav class="ua-tabs">' +
+      return '<div class="ua-top"><span class="ua-logo">upstox</span><div class="ua-tabs">' +
         btn('nav-list', 'Notification creation', 'ua-tab' + (active === 'list' ? ' is-on' : '')) +
         btn('nav-aud', 'Audiences', 'ua-tab' + (active === 'aud' ? ' is-on' : '')) +
-        '</nav><span class="ua-avatar" aria-label="Signed in">' + I.user + '</span></header>';
+        '</div><span class="ua-avatar" aria-label="Signed in">' + I.user + '</span></div>';
     }
     function subNav(title, act) {
-      return '<header class="ua-top ua-top--sub">' + btn(act, I.back + '<span class="ua-sr">Back</span>', 'ua-iconbtn ua-iconbtn--plain') + '<p class="ua-title">' + esc(title) + '</p></header>';
+      return '<div class="ua-top ua-top--sub">' + btn(act, I.back + '<span class="ua-sr">Back</span>', 'ua-iconbtn ua-iconbtn--plain') + '<p class="ua-title">' + esc(title) + '</p></div>';
     }
     function pager(page, pages, act) {
       if (pages < 2) return '';
-      var h = '<nav class="ua-pager">' + btn(act + ':' + (page - 1), 'Previous', 'ua-link', page === 1 ? ' disabled' : '');
+      var h = '<div class="ua-pager">' + btn(act + ':' + (page - 1), 'Previous', 'ua-link', page === 1 ? ' disabled' : '');
       for (var p = 1; p <= pages; p++) h += btn(act + ':' + p, String(p), 'ua-page' + (p === page ? ' is-on' : ''), p === page ? ' aria-current="page"' : '');
-      return h + btn(act + ':' + (page + 1), 'Next', 'ua-link', page === pages ? ' disabled' : '') + '</nav>';
+      return h + btn(act + ':' + (page + 1), 'Next', 'ua-link', page === pages ? ' disabled' : '') + '</div>';
     }
 
     function viewList() {
@@ -226,8 +226,8 @@
         });
         pagerH = pager(st.page, pages, 'page');
       }
-      return topNav('list') + '<div class="ua-body"><aside class="ua-side">' + side + '</aside><main class="ua-main">' + banners + tools +
-        '<table class="ua-table">' + head + '<tbody>' + body + '</tbody></table>' + pagerH + '</main></div>';
+      return topNav('list') + '<div class="ua-body"><div class="ua-side">' + side + '</div><div class="ua-main">' + banners + tools +
+        '<table class="ua-table">' + head + '<tbody>' + body + '</tbody></table>' + pagerH + '</div></div>';
     }
 
     function viewAudiences() {
@@ -241,11 +241,11 @@
         return '<tr class="ua-row' + (st.flash === l.id ? ' is-new' : '') + '"><td>' + esc(l.name) + '</td><td>' + l.devices + '</td><td>' + EDITOR + '</td><td>' + l.added + '</td><td>' + l.modified + '</td><td>' + chip(l.status) + '</td>' +
           '<td class="ua-acts">' + btn('lreplace:' + l.id, I.edit, 'ua-iconbtn', ' aria-label="Replace ' + esc(l.name) + '"') + btn('ldel:' + l.id, I.trash, 'ua-iconbtn', ' aria-label="Delete ' + esc(l.name) + '"') + '</td></tr>';
       }).join('') || '<tr class="ua-empty"><td colspan="7"><p>No lists match &ldquo;' + esc(st.audQ) + '&rdquo;</p></td></tr>';
-      return topNav('aud') + '<div class="ua-body"><aside class="ua-side">' + side + '</aside><main class="ua-main"><div class="ua-tools">' +
+      return topNav('aud') + '<div class="ua-body"><div class="ua-side">' + side + '</div><div class="ua-main"><div class="ua-tools">' +
         '<label class="ua-search">' + I.search + '<input type="search" placeholder="Search in the list" value="' + esc(st.audQ) + '" data-k="audq"></label>' +
         btn('asearch', 'Search', 'ua-pill') + btn('addlist', I.plus + 'Add new list', 'ua-cta') + '</div>' +
         '<table class="ua-table ua-table--aud"><thead><tr><th>Name</th><th>Devices</th><th>Last edited by</th><th>Date added</th><th>Date modified</th><th>Status</th><th><span class="ua-sr">Actions</span></th></tr></thead><tbody>' + rows + '</tbody></table>' +
-        pager(st.audPage, pages, 'apage') + '</main></div>';
+        pager(st.audPage, pages, 'apage') + '</div></div>';
     }
 
     function viewCreate() {

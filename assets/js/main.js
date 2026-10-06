@@ -1,6 +1,7 @@
-/* Lovable verision — one script, no dependencies. */
+/* Site script: one file, no dependencies. */
 (function () {
   'use strict';
+  document.documentElement.classList.add('js-ready');
 
   /* --- review mode: open any page with ?review to pin notes on the site
      (assets/js/review.js). Stays on across pages until its "exit" button;
@@ -152,6 +153,7 @@
         });
         links.forEach(function (pair) {
           pair.a.classList.toggle('is-current', pair === best);
+          if (pair === best) { pair.a.setAttribute('aria-current', 'true'); } else { pair.a.removeAttribute('aria-current'); }
         });
       };
       window.addEventListener('scroll', mark, { passive: true });
