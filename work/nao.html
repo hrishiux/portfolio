@@ -79,17 +79,17 @@
 
       <h2 id="summary">1. Executive summary &amp; overall business objective</h2>
 
-      <h3>The challenge</h3>
-      <p>In the highly competitive Indian brokerage landscape, user acquisition is directly gated by the onboarding funnel. Upstox&rsquo;s classic onboarding flow was facing high drop-off rates due to severe cognitive load, complex regulatory requirements, manual data inputs, and high-latency offline scrutiny (this is a given in our country esp when trying to do anything govt related or official, just like in this case -- opening a Demat account and registering with SEBI etc).</p>
-      <p>Only 21.47% of leads ended up with an account, 35% of submitted applications were rejected, and 40% of the accounts that did get opened needed a sales call to get through. (Like mentioned above - the cause was all the manual typing: email, PAN, bank details, signature combined with the checks that only ran after the user had already submitted everything.)</p>
+      <h3>The Challenge</h3>
+      <p>Opening a broking account in India means a Demat account, KYC and SEBI registration, and like most things with government paperwork behind them, it&rsquo;s slow. Upstox&rsquo;s old flow had users type their email, PAN, bank details and signature by hand, and checked none of it until a scrutiny team reviewed the application afterwards.</p>
+      <p>Only 21.47% of leads ended up with an account. 35% of submitted applications were rejected, and 40% of the accounts that did get opened needed a sales call to get there.</p>
 
-      <p>The baseline performance metrics were:</p>
+      <p>Where things stood:</p>
       <ul>
-        <li><strong>Classic Flow Conversion Rate (Organic):</strong> 12.94%</li>
-        <li><strong>Initial Native Account Opening (NAO 1.0) Conversion Rate (Organic):</strong> 22.72%</li>
-        <li><strong>Overall Baseline Funnel Conversion (All Channels):</strong> 21.47% (with NAO at 31.63%)</li>
-        <li><strong>Rejection Rate:</strong> 35.0%</li>
-        <li><strong>Drop-off Rate Across the Funnel:</strong> ~60.0%</li>
+        <li><strong>Classic flow conversion (organic):</strong> 12.94%</li>
+        <li><strong>NAO 1.0 conversion (organic):</strong> 22.72%</li>
+        <li><strong>Overall funnel conversion, all channels:</strong> 21.47% (NAO alone: 31.63%)</li>
+        <li><strong>Rejection rate:</strong> 35%</li>
+        <li><strong>Drop-off across the funnel:</strong> ~60%</li>
       </ul>
 
       <h3>The objective</h3>
@@ -102,7 +102,7 @@
       </ol>
 
 
-      <h2 id="audit">2. Funnel audit &amp; drop-off mapping</h2>
+      <h2 id="audit">2. Funnel audit &amp; drop-off mapping &mdash; Where people dropped off</h2>
       <p>To identify the structural bottlenecks, we conducted an audit of step-level drop-offs and rejections (June MTD data):</p>
 
       <div class="funnel" role="table" aria-label="Funnel audit, June MTD: drop-off and rejection weight for each onboarding step, with its friction point">
@@ -112,27 +112,27 @@
           <span role="columnheader"><i class="funnel__key funnel__key--rej"></i>rejection weight<em>share of all rejections</em></span>
         </div>
         <div class="funnel__row" role="row">
-          <div class="funnel__step" role="cell"><b>Email Verification</b><span>Manual entry of 60-char email addresses; high OTP latency/delivery failures.</span></div>
+          <div class="funnel__step" role="cell"><b>Email Verification</b><span>Email addresses up to 60 characters typed by hand; OTPs that arrived late or not at all.</span></div>
           <div class="funnel__cell" role="cell"><span class="fm fm--drop" style="--v:24.19"><b>24.19%</b><i></i></span></div>
           <div class="funnel__cell" role="cell"><span class="fm fm--na">N/A</span></div>
         </div>
         <div class="funnel__row" role="row">
-          <div class="funnel__step" role="cell"><b>PAN &amp; DOB</b><span>Manual entry of PAN digits and date-of-birth; high typographical error rate.</span></div>
+          <div class="funnel__step" role="cell"><b>PAN &amp; DOB</b><span>PAN and date of birth typed by hand, with lots of typos.</span></div>
           <div class="funnel__cell" role="cell"><span class="fm fm--drop" style="--v:21.13"><b>21.13%</b><i></i></span></div>
           <div class="funnel__cell" role="cell"><span class="fm fm--rej" style="--v:5.19"><b>5.19%<small>DOB</small></b><i></i></span><span class="fm fm--rej" style="--v:5.19"><b>5.19%<small>Name</small></b><i></i></span></div>
         </div>
         <div class="funnel__row" role="row">
-          <div class="funnel__step" role="cell"><b>Bank Details</b><span>Mandatory manual typing of Bank Account Numbers, repeat validation fields, and IFSC lookup.</span></div>
+          <div class="funnel__step" role="cell"><b>Bank Details</b><span>Account number typed twice, plus an IFSC lookup.</span></div>
           <div class="funnel__cell" role="cell"><span class="fm fm--drop" style="--v:7.87"><b>7.87%</b><i></i></span></div>
           <div class="funnel__cell" role="cell"><span class="fm fm--rej" style="--v:15.53"><b>15.53%</b><i></i></span></div>
         </div>
         <div class="funnel__row" role="row">
-          <div class="funnel__step" role="cell"><b>Photo Upload</b><span>Static web camera captures with poor lighting, leading to downstream automated or manual rejection.</span></div>
+          <div class="funnel__step" role="cell"><b>Photo Upload</b><span>A plain camera capture with no guidance; bad lighting got rejected later.</span></div>
           <div class="funnel__cell" role="cell"><span class="fm fm--drop" style="--v:3.23"><b>3.23%</b><i></i></span></div>
           <div class="funnel__cell" role="cell"><span class="fm fm--rej" style="--v:18.45"><b>18.45%</b><i></i></span></div>
         </div>
         <div class="funnel__row" role="row">
-          <div class="funnel__step" role="cell"><b>Signature Upload</b><span>High friction in manual signature drawing or photo upload; illegible/cut-off signatures.</span></div>
+          <div class="funnel__step" role="cell"><b>Signature Upload</b><span>Drawing or photographing a signature; many came out cut off or illegible.</span></div>
           <div class="funnel__cell" role="cell"><span class="fm fm--drop" style="--v:3.92"><b>3.92%</b><i></i></span></div>
           <div class="funnel__cell" role="cell"><span class="fm fm--rej" style="--v:21.32"><b>21.32%</b><i></i></span></div>
         </div>
@@ -183,8 +183,8 @@
       <h2 id="philosophy">3. Experience philosophy: the &ldquo;N-Star&rdquo; &amp; screen format frameworks</h2>
       <p>We moved away from isolated, superficial UI updates, to framing our redesign around two strategic systems:</p>
 
-      <h3>A. The &ldquo;N-Star&rdquo; experience vision</h3>
-      <p>To align design, engineering, and business operations, we adapted Airbnb&rsquo;s 11-star experience exercise into a progression framework ranging from a basic functional app to an automated, high-touch platform:</p>
+      <h3>A. The N-star ladder</h3>
+      <p>Airbnb&rsquo;s 11-star exercise, adapted so design, engineering and ops could agree on what &ldquo;better&rdquo; meant, from 1 (broken) to 10 (someone does it all for you):</p>
       <div class="nstar">
       <ul>
         <li><strong>1-Star:</strong> User cannot complete signup due to platform bugs.</li>
@@ -220,7 +220,7 @@
       </div>
 
       <h3>B. The screen format framework</h3>
-      <p>We classified onboarding interfaces into three functional buckets to standardize the UI patterns and cognitive load across all screens:</p>
+      <p>Classified onboarding interfaces into three functional buckets to standardize the UI patterns and cognitive load across all screens:</p>
 
       <figure class="figure-block">
         <div class="figure-block__scroll">
@@ -266,8 +266,8 @@
       </ol>
 
 
-      <h2 id="architecture">4. Platform system architecture overhaul</h2>
-      <p>To support dynamic customization and rapid experimentation, we transitioned from a statically hardcoded step sequence to a modular, backend-driven <strong>Templates and Blocks Architecture</strong>.</p>
+      <h2 id="architecture">4. Templates and blocks</h2>
+      <p>The old flow was a fixed, hard-coded sequence of steps. NAO 2.0 moved it to the backend-driven <strong>Templates and Blocks Architecture</strong>, so the funnel could be changed and experimented on without an app release.</p>
 
       <figure class="figure-block">
         <div class="figure-block__scroll">
@@ -695,7 +695,7 @@
             <tr><th scope="row"><strong>Easily Recalled Inputs</strong> (e.g. OTP/Mobile)</th><td class="num">9</td><td class="num">11</td><td class="num">8</td><td class="num us"><strong>7</strong></td></tr>
             <tr><th scope="row"><strong>Complex Inputs</strong> (e.g. Aadhaar/PAN)</th><td class="num">6</td><td class="num">4</td><td class="num">4</td><td class="num us"><strong>2</strong> (Aadhaar Only)</td></tr>
             <tr><th scope="row"><strong>Mandatory Document Uploads</strong></th><td class="num">3</td><td class="num">0</td><td class="num">0</td><td class="num us"><strong>0</strong></td></tr>
-            <tr><th scope="row"><strong>Onboarding Exploration State</strong></th><td class="num">No</td><td class="num">No (Force KYC)</td><td class="num">Yes (KYC first, fallback to explore)</td><td class="num us"><strong>Yes</strong> (Explore app first; contextually nudged KYC)</td></tr>
+            <tr><th scope="row"><strong>Explore the app before KYC</strong></th><td class="num">No</td><td class="num">No (Force KYC)</td><td class="num">Yes (KYC first, fallback to explore)</td><td class="num us"><strong>Yes</strong> (Explore app first; contextually nudged KYC)</td></tr>
             <tr><th scope="row"><strong>Turnaround Time (TAT)</strong></th><td class="num"><span class="nowrap">48 Hours</span></td><td class="num">N/A</td><td class="num"><span class="nowrap">&gt;48 Hours</span></td><td class="num us"><strong class="nowrap">&lt;24 Hours</strong> (Targeting <span class="nowrap">&lt;2 Hours</span>)</td></tr>
           </tbody>
         </table>
@@ -755,11 +755,6 @@
       <div class="callout">
         <h3>Key product takeaway</h3>
         <p>By combining systems engineering (modular Templates &amp; Blocks backend architecture) with contextual, empathetic UI designs (such as the landscape digital signature canvas and the Setu customizable E-sign frame), we removed the typical trade-off between rigorous regulatory compliance (KYC) and a frictionless user experience.</p>
-      </div>
-
-      <div class="callout callout--amber">
-        <h3>On the numbers</h3>
-        <p>Figures on this page are the ones measured and recorded during the project. The PAN and email lifts are measured cohort results; the liveness and overall conversion figures are stated as predicted and target values in the source material, and are labelled as such above.</p>
       </div>
 
       </article>

@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Keel — an agentic control plane for Linux fleets</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0C1A29;
+    --ink-2:#12253A;
+    --surface:#13263A;
+    --line:rgba(147,167,188,.16);
+    --line-strong:rgba(147,167,188,.32);
+    --bone:#E9EEF3;
+    --haze:#93A7BC;
+    --haze-dim:#64798F;
+    --amber:#FFB020;
+    --mint:#6FD3A8;
+    --alert:#FF6B5B;
+    --sans:'Instrument Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+    --pad:clamp(20px,5vw,64px);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--bone);
+    font-family:var(--sans);
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:radial-gradient(120% 70% at 50% -10%, rgba(80,120,165,.22), transparent 62%);
+    pointer-events:none;
+    z-index:0;
+  }
+  .wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:0 var(--pad);}
+
+  /* ---------- header ---------- */
+  .rail{
+    position:fixed;top:0;left:0;right:0;z-index:20;
+    backdrop-filter:blur(14px);
+    background:linear-gradient(to bottom, rgba(12,26,41,.86), rgba(12,26,41,0));
+  }
+  .rail-inner{
+    max-width:1180px;margin:0 auto;padding:16px var(--pad);
+    display:flex;align-items:baseline;gap:14px;
+  }
+  .mark{font-weight:600;letter-spacing:-.02em;font-size:18px;}
+  .mark-note{color:var(--haze-dim);font-size:13px;}
+
+  /* ---------- type ---------- */
+  h1,h2,h3{margin:0;font-weight:500;letter-spacing:-.033em;line-height:1.02;}
+  h1{font-size:clamp(2.7rem,6.2vw,4.7rem);}
+  h2{font-size:clamp(2rem,4.3vw,3.15rem);}
+  h3{font-size:1.15rem;letter-spacing:-.015em;line-height:1.35;}
+  p{margin:0;}
+  .lead{font-size:clamp(1.05rem,1.6vw,1.26rem);line-height:1.55;color:var(--haze);max-width:36ch;}
+  .body{color:var(--haze);max-width:60ch;}
+  .mono{font-family:var(--mono);font-size:.82rem;letter-spacing:0;}
+
+  section{padding:clamp(88px,13vh,150px) 0;}
+  .sec-head{display:grid;gap:22px;max-width:56ch;}
+
+  /* ---------- hero ---------- */
+  .hero{padding-top:clamp(120px,18vh,190px);padding-bottom:clamp(60px,9vh,110px);}
+  .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.02fr);gap:clamp(36px,6vw,80px);align-items:center;}
+  .hero-copy{display:grid;gap:26px;align-content:center;}
+  .hero h1 .l{display:block;opacity:0;transform:translateY(14px);}
+  .hero h1 .l.on{animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards;}
+  @keyframes rise{to{opacity:1;transform:none;}}
+  .hero .lead{opacity:0;}
+  .hero .lead.on{animation:rise .9s cubic-bezier(.2,.7,.2,1) .34s forwards;}
+
+  /* console */
+  .console{
+    border:1px solid var(--line);
+    border-radius:14px;
+    background:linear-gradient(180deg, rgba(23,44,66,.9), rgba(16,32,49,.9));
+    box-shadow:0 30px 70px -40px rgba(0,0,0,.9);
+    overflow:hidden;
+  }
+  .console-top{
+    display:flex;align-items:center;gap:10px;
+    padding:11px 16px;border-bottom:1px solid var(--line);
+    color:var(--haze-dim);font-family:var(--mono);font-size:.74rem;
+  }
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 3px rgba(111,211,168,.14);}
+  .console-body{padding:22px 20px 24px;min-height:232px;display:grid;align-content:start;gap:18px;}
+  .prompt{font-family:var(--mono);font-size:.95rem;line-height:1.5;color:var(--bone);}
+  .prompt .caret{display:inline-block;width:8px;height:1.05em;background:var(--amber);vertical-align:-2px;margin-left:2px;animation:blink 1.05s steps(1,end) infinite;}
+  @keyframes blink{50%{opacity:0;}}
+  .hold{
+    border:1px solid rgba(255,176,32,.36);
+    border-left:2px solid var(--amber);
+    border-radius:10px;
+    background:rgba(255,176,32,.06);
+    padding:15px 17px;
+    display:grid;gap:9px;
+    opacity:0;transform:translateY(10px) scale(.985);
+  }
+  .hold.on{animation:pop .7s cubic-bezier(.16,.9,.24,1) forwards;}
+  @keyframes pop{to{opacity:1;transform:none;}}
+  .hold-title{display:flex;align-items:center;gap:9px;font-weight:600;letter-spacing:-.01em;color:var(--amber);}
+  .hold-title .pulse{width:6px;height:6px;border-radius:50%;background:var(--amber);}
+  .hold-facts{display:flex;flex-wrap:wrap;gap:6px 22px;font-family:var(--mono);font-size:.78rem;color:var(--haze);}
+  .hold-note{font-size:.92rem;color:var(--haze);line-height:1.45;}
+
+  /* ---------- fleet ---------- */
+  .two{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(34px,6vw,76px);align-items:center;}
+  .fleet{
+    display:grid;grid-template-columns:repeat(24,1fr);gap:5px;
+    padding:26px;border:1px solid var(--line);border-radius:14px;background:rgba(19,38,58,.5);
+  }
+  .node{aspect-ratio:1;border-radius:2px;background:rgba(147,167,188,.22);transition:background .5s ease, box-shadow .5s ease;}
+  .node.drift{background:var(--amber);box-shadow:0 0 8px rgba(255,176,32,.55);}
+  .node.down{background:var(--alert);box-shadow:0 0 10px rgba(255,107,91,.6);}
+  .legend{display:flex;flex-wrap:wrap;gap:18px;margin-top:20px;font-family:var(--mono);font-size:.74rem;color:var(--haze-dim);}
+  .legend i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:7px;vertical-align:0;}
+  .facts{display:grid;gap:26px;}
+  .fact{display:grid;gap:7px;padding-left:18px;border-left:1px solid var(--line-strong);}
+
+  /* ---------- architecture ---------- */
+  .layers{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:54px;}
+  .layer{background:var(--surface);padding:30px 26px 34px;display:grid;gap:12px;align-content:start;}
+  .layer .glyph{height:46px;margin-bottom:6px;}
+  .layer p{color:var(--haze);font-size:.97rem;line-height:1.55;}
+  .layer .tag{font-family:var(--mono);font-size:.74rem;color:var(--haze-dim);}
+
+  /* ---------- walkthrough ---------- */
+  .run{display:grid;grid-template-columns:230px minmax(0,1fr);gap:0;margin-top:54px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--surface);box-shadow:0 40px 90px -60px #000;}
+  .steps{border-right:1px solid var(--line);padding:22px 0;background:rgba(10,22,35,.5);}
+  .step{
+    display:flex;gap:12px;align-items:flex-start;
+    padding:11px 22px;color:var(--haze-dim);font-size:.93rem;
+    transition:color .35s ease;
+  }
+  .step .pip{width:7px;height:7px;border-radius:50%;background:rgba(147,167,188,.3);margin-top:8px;flex:none;transition:all .35s ease;}
+  .step.done{color:var(--haze);}
+  .step.done .pip{background:var(--mint);}
+  .step.active{color:var(--bone);}
+  .step.active .pip{background:var(--amber);box-shadow:0 0 0 4px rgba(255,176,32,.16);}
+  .step.failed .pip{background:var(--alert);}
+  .stage{display:flex;flex-direction:column;min-height:470px;}
+  .tape{flex:1;overflow-y:auto;padding:24px 26px;display:grid;gap:14px;align-content:start;font-size:.93rem;}
+  .tape::-webkit-scrollbar{width:8px;}
+  .tape::-webkit-scrollbar-thumb{background:rgba(147,167,188,.2);border-radius:8px;}
+  .line{opacity:0;animation:fadeIn .45s ease forwards;}
+  @keyframes fadeIn{to{opacity:1;}}
+  .l-cmd{font-family:var(--mono);font-size:.84rem;color:var(--bone);}
+  .l-cmd::before{content:"$ ";color:var(--haze-dim);}
+  .l-out{font-family:var(--mono);font-size:.82rem;color:var(--haze);white-space:pre-wrap;}
+  .l-note{color:var(--haze);max-width:62ch;}
+  .l-ok{font-family:var(--mono);font-size:.82rem;color:var(--mint);}
+  .l-warn{font-family:var(--mono);font-size:.82rem;color:var(--amber);}
+  .l-fail{font-family:var(--mono);font-size:.82rem;color:var(--alert);}
+  .l-diff{font-family:var(--mono);font-size:.8rem;border-left:2px solid var(--line-strong);padding:10px 0 10px 14px;white-space:pre;overflow-x:auto;color:var(--haze);}
+  .l-diff .add{color:var(--mint);}
+  .l-diff .rem{color:var(--alert);}
+  .gate{
+    border:1px solid rgba(255,176,32,.4);border-radius:12px;background:rgba(255,176,32,.07);
+    padding:18px;display:grid;gap:14px;max-width:52ch;
+  }
+  .gate h3{color:var(--amber);}
+  .gate p{color:var(--haze);font-size:.93rem;line-height:1.5;}
+  .gate .policy{font-family:var(--mono);font-size:.78rem;color:var(--haze-dim);}
+  .verdict{display:grid;gap:10px;padding:20px 0 4px;}
+  .verdict .big{font-size:clamp(1.5rem,2.6vw,2rem);letter-spacing:-.03em;line-height:1.18;max-width:22ch;}
+  .verdict .sub{color:var(--haze);font-size:.95rem;}
+  .stage-foot{
+    border-top:1px solid var(--line);padding:16px 26px;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    background:rgba(10,22,35,.45);
+  }
+  .clock{font-family:var(--mono);font-size:.78rem;color:var(--haze-dim);}
+  button{
+    font-family:var(--sans);font-size:.93rem;font-weight:500;letter-spacing:-.01em;
+    color:var(--ink);background:var(--bone);
+    border:none;border-radius:999px;padding:10px 20px;cursor:pointer;
+    transition:transform .18s cubic-bezier(.2,.8,.2,1), background .18s ease;
+  }
+  button:hover{transform:translateY(-1px);background:#fff;}
+  button:active{transform:translateY(0);}
+  button.amber{background:var(--amber);}
+  button.ghost{background:transparent;color:var(--haze);border:1px solid var(--line-strong);}
+  button.ghost:hover{color:var(--bone);background:rgba(147,167,188,.08);}
+  button:focus-visible{outline:2px solid var(--amber);outline-offset:3px;}
+  button[disabled]{opacity:.4;cursor:default;transform:none;}
+
+  /* ---------- ledger ---------- */
+  .ledger{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:48px;}
+  .led-row{display:grid;grid-template-columns:96px 1fr 170px;gap:18px;padding:14px 20px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:.79rem;color:var(--haze);align-items:center;}
+  .led-row:last-child{border-bottom:none;}
+  .led-row span:first-child{color:var(--haze-dim);}
+  .led-row .who{color:var(--bone);font-family:var(--sans);font-size:.9rem;}
+  .led-row .hash{color:var(--haze-dim);text-align:right;overflow:hidden;text-overflow:ellipsis;}
+
+  /* ---------- stack ---------- */
+  .bands{display:grid;gap:10px;margin-top:44px;}
+  .band{border:1px solid var(--line);border-radius:12px;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;}
+  .band.keel{border-color:rgba(255,176,32,.4);background:rgba(255,176,32,.06);}
+  .band .nm{font-size:1.05rem;letter-spacing:-.02em;}
+  .band .ds{color:var(--haze);font-size:.9rem;max-width:46ch;}
+  .band.keel .nm{color:var(--amber);}
+
+  /* ---------- close ---------- */
+  .questions{display:grid;gap:1px;background:var(--line);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:48px;}
+  .q{background:var(--ink);padding:28px 0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:clamp(20px,4vw,60px);}
+  .q h3{max-width:24ch;}
+  .q p{color:var(--haze);font-size:.97rem;line-height:1.6;max-width:54ch;}
+  footer{padding:70px 0 90px;color:var(--haze-dim);font-size:.86rem;display:grid;gap:8px;}
+
+  .reveal{opacity:0;transform:translateY(12px);transition:opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1);}
+  .reveal.in{opacity:1;transform:none;}
+
+  @media (max-width:900px){
+    .hero-grid,.two{grid-template-columns:1fr;}
+    .layers{grid-template-columns:1fr;}
+    .run{grid-template-columns:1fr;}
+    .steps{border-right:none;border-bottom:1px solid var(--line);display:flex;overflow-x:auto;padding:14px 8px;}
+    .step{white-space:nowrap;padding:8px 14px;}
+    .q{grid-template-columns:1fr;gap:12px;}
+    .led-row{grid-template-columns:76px 1fr;}
+    .led-row .hash{display:none;}
+    .fleet{grid-template-columns:repeat(16,1fr);}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.001s !important;transition-duration:.001s !important;}
+    .reveal{opacity:1;transform:none;}
+    .hero h1 .l,.hero .lead,.hold{opacity:1;transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="rail">
+  <div class="rail-inner">
+    <span class="mark">Keel</span>
+    <span class="mark-note">concept demo</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <h1>
+        <span class="l" id="l1">Runs your fleet.</span>
+        <span class="l" id="l2">Never without asking.</span>
+      </h1>
+      <p class="lead" id="lead">An agentic control plane for Linux servers. You describe the outcome. It plans the work, holds every change behind a gate you own, and can undo all of it in one action.</p>
+    </div>
+
+    <div class="console">
+      <div class="console-top">
+        <span class="dot"></span>
+        <span>fleet · mum-1 · 240 nodes</span>
+      </div>
+      <div class="console-body">
+        <div class="prompt"><span id="typed"></span><span class="caret"></span></div>
+        <div class="hold" id="hold">
+          <div class="hold-title"><span class="pulse"></span>Held for approval</div>
+          <div class="hold-facts">
+            <span>240 nodes</span><span>3 batches</span><span>41 min</span><span>reboot required</span>
+          </div>
+          <p class="hold-note">Kernel changes reboot production. Policy says a person signs off on the first batch before anything moves.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section>
+  <div class="wrap two">
+    <div class="facts reveal">
+      <h2>The work is boring.<br>The risk is not.</h2>
+      <div class="fact">
+        <h3>Fleets drift</h3>
+        <p class="body">Kernels, packages, configs, and the one-off fix someone applied at 2am and never wrote down. Every node is a slightly different machine by month six.</p>
+      </div>
+      <div class="fact">
+        <h3>Patching is mechanical</h3>
+        <p class="body">Deciding whether tonight is a safe night to patch is not. That judgment is the entire job, and it sits in one tired person's head.</p>
+      </div>
+      <div class="fact">
+        <h3>So the work waits</h3>
+        <p class="body">It waits for the human with forty other tabs open, until a CVE deadline or an outage decides the schedule instead.</p>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="fleet" id="fleet"></div>
+      <div class="legend">
+        <span><i style="background:rgba(147,167,188,.22)"></i>in policy</span>
+        <span><i style="background:var(--amber)"></i>drifted</span>
+        <span><i style="background:var(--alert)"></i>unreachable</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>Three things sit between a sentence and root.</h2>
+      <p class="body">The intelligence is the cheap part. What makes autonomy survivable is everything wrapped around it.</p>
+    </div>
+    <div class="layers reveal">
+      <div class="layer">
+        <svg class="glyph" viewBox="0 0 60 46" fill="none" aria-hidden="true">
+          <path d="M2 10h34" stroke="#93A7BC" stroke-width="1.2"/>
+          <path d="M2 18h22" stroke="#93A7BC" stroke-width="1.2"/>
+          <path d="M2 26h30" stroke="#93A7BC" stroke-width="1.2"/>
+          <path d="M40 8l14 10-14 10" stroke="#FFB020" stroke-width="1.4"/>
+        </svg>
+        <span class="tag">intent</span>
+        <h3>A sentence becomes a named plan</h3>
+        <p>Plain English is resolved against live inventory into a plan with an explicit blast radius: which nodes, in what order, what reboots, what it expects to be true afterward.</p>
+      </div>
+      <div class="layer">
+        <svg class="glyph" viewBox="0 0 60 46" fill="none" aria-hidden="true">
+          <rect x="6" y="6" width="34" height="30" rx="4" stroke="#93A7BC" stroke-width="1.2"/>
+          <path d="M40 21h14" stroke="#FFB020" stroke-width="1.4"/>
+          <path d="M23 15v6m0 0l-4 4m4-4l4 4" stroke="#FFB020" stroke-width="1.4"/>
+        </svg>
+        <span class="tag">policy</span>
+        <h3>You decide what it may do alone</h3>
+        <p>Rules you write in version control sort every action into three buckets: runs unattended, waits for a person, never runs. The agent proposes. Policy is what actually consents.</p>
+      </div>
+      <div class="layer">
+        <svg class="glyph" viewBox="0 0 60 46" fill="none" aria-hidden="true">
+          <path d="M8 30a14 14 0 1 1 6 11" stroke="#93A7BC" stroke-width="1.2"/>
+          <path d="M8 22v9h9" stroke="#6FD3A8" stroke-width="1.4"/>
+          <circle cx="44" cy="14" r="3" fill="#6FD3A8"/>
+        </svg>
+        <span class="tag">transaction</span>
+        <h3>Every change lands on a snapshot</h3>
+        <p>Nothing is applied in place. Changes go to a new boot slot or a filesystem snapshot, health is checked, and a failed check reverts the node without anyone being paged.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WALKTHROUGH -->
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>One night, one change, one thing going wrong.</h2>
+      <p class="body">A kernel upgrade across 240 nodes, starting at 01:12. You will be asked to approve once. Something fails on purpose.</p>
+    </div>
+
+    <div class="run reveal">
+      <div class="steps" id="steps"></div>
+      <div class="stage">
+        <div class="tape" id="tape">
+          <p class="l-note line" style="opacity:1">Ready when you are.</p>
+        </div>
+        <div class="stage-foot">
+          <span class="clock" id="clock">01:12:04 IST · fleet mum-1</span>
+          <div style="display:flex;gap:10px;">
+            <button class="ghost" id="reset" hidden>Replay</button>
+            <button id="start">Start the run</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEDGER -->
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>Everything it did, in order, signed.</h2>
+      <p class="body">Each entry names the action, the policy that permitted it, and the person who approved it. The log is append-only, so the record of a bad night survives the instinct to tidy it up.</p>
+    </div>
+    <div class="ledger reveal">
+      <div class="led-row"><span>01:12:04</span><span class="who">Intent opened by Priya S.</span><span class="hash">9f2c·a41e</span></div>
+      <div class="led-row"><span>01:12:41</span><span class="who">Plan built · 240 nodes · 3 batches</span><span class="hash">3ba7·10dd</span></div>
+      <div class="led-row"><span>01:13:09</span><span class="who">Dry run on canary node mum-1-047</span><span class="hash">c518·77b2</span></div>
+      <div class="led-row"><span>01:14:22</span><span class="who">Batch 1 approved by Priya S. · rule kernel.requires_human</span><span class="hash">e0d4·9c31</span></div>
+      <div class="led-row"><span>01:31:58</span><span class="who">Health check failed on 2 nodes · nic driver</span><span class="hash">7712·bb05</span></div>
+      <div class="led-row"><span>01:32:17</span><span class="who">Auto-revert to snapshot · 2 nodes · batches 2–3 halted</span><span class="hash">aa93·5e6f</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- STACK -->
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>It is not a new operating system.</h2>
+      <p class="body">Nobody reinstalls a production fleet for a startup. Keel runs as a daemon beside the distro you already certified, and leans on what that OS already gives you: snapshots, transactional updates, signed packages.</p>
+    </div>
+    <div class="bands reveal">
+      <div class="band">
+        <span class="nm">Your workloads</span>
+        <span class="ds">Containers, databases, whatever was already running. Untouched.</span>
+      </div>
+      <div class="band keel">
+        <span class="nm">Keel</span>
+        <span class="ds">Intent, policy, transactions, ledger. One daemon per node, one control plane per fleet.</span>
+      </div>
+      <div class="band">
+        <span class="nm">Debian · RHEL · Ubuntu · SUSE</span>
+        <span class="ds">Your distro, your support contract, your compliance certifications. All still valid.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSE -->
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>What this demo does not answer yet.</h2>
+    </div>
+    <div class="questions reveal">
+      <div class="q">
+        <h3>Who holds the pager when the agent is wrong?</h3>
+        <p>Auto-revert covers the failures a health check can see. It does nothing for the quiet ones, where every check passes and something is subtly broken for nine hours. Accountability has to be designed, and it cannot be designed away.</p>
+      </div>
+      <div class="q">
+        <h3>What does policy look like to someone who has never written policy?</h3>
+        <p>The whole model rests on rules that a team writes honestly. If authoring them feels like writing firewall config in 2009, people will approve everything by default and the gate becomes decoration.</p>
+      </div>
+      <div class="q">
+        <h3>How does trust get earned?</h3>
+        <p>Probably one action class at a time. Log rotation before kernels. Read-only before write. The product may be less about capability and more about a ladder someone climbs over months.</p>
+      </div>
+    </div>
+    <footer>
+      <span>Keel is a working name for a concept. No product exists behind this page.</span>
+      <span>Interface and narrative demo · 2026</span>
+    </footer>
+  </div>
+</section>
+
+<script>
+(function(){
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- hero ---------- */
+  const sentence = "upgrade the fleet to the 6.12 kernel before sunday";
+  const typed = document.getElementById('typed');
+  const hold = document.getElementById('hold');
+  const lines = [document.getElementById('l1'), document.getElementById('l2')];
+  const lead = document.getElementById('lead');
+
+  lines.forEach((el,i)=> setTimeout(()=> el.classList.add('on'), 80 + i*120));
+  lead.classList.add('on');
+
+  if (reduced){
+    typed.textContent = sentence;
+    hold.classList.add('on');
+  } else {
+    let i = 0;
+    setTimeout(function tick(){
+      typed.textContent = sentence.slice(0, ++i);
+      if (i < sentence.length) setTimeout(tick, 34 + Math.random()*26);
+      else setTimeout(()=> hold.classList.add('on'), 520);
+    }, 900);
+  }
+
+  /* ---------- fleet grid ---------- */
+  const fleet = document.getElementById('fleet');
+  const NODES = 240;
+  for (let n=0; n<NODES; n++){
+    const d = document.createElement('div');
+    d.className = 'node';
+    fleet.appendChild(d);
+  }
+  const nodes = [...fleet.children];
+  const driftIdx = [13,27,58,94,101,139,177,190,206];
+  const downIdx = [72,221];
+
+  /* ---------- reveals ---------- */
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if (!e.isIntersecting) return;
+      e.target.classList.add('in');
+      if (e.target.contains(fleet)){
+        driftIdx.forEach((k,j)=> setTimeout(()=> nodes[k].classList.add('drift'), 500 + j*110));
+        downIdx.forEach((k,j)=> setTimeout(()=> nodes[k].classList.add('down'), 1500 + j*260));
+      }
+      io.unobserve(e.target);
+    });
+  }, {threshold:.22});
+  document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
+
+  /* ---------- walkthrough ---------- */
+  const STEPS = [
+    {key:'intent',  label:'Intent'},
+    {key:'plan',    label:'Plan'},
+    {key:'dry',     label:'Dry run'},
+    {key:'gate',    label:'Gate'},
+    {key:'apply',   label:'Apply'},
+    {key:'verify',  label:'Verify'},
+    {key:'revert',  label:'Revert'}
+  ];
+
+  const SCRIPT = {
+    intent: [
+      {t:'note', v:'Priya types the outcome she wants. No playbook, no ticket, no runbook page.'},
+      {t:'cmd',  v:'keel do "upgrade the fleet to the 6.12 kernel before sunday"'},
+      {t:'out',  v:'resolving fleet mum-1 … 240 nodes, 4 roles, 2 datacenters'},
+      {t:'ok',   v:'intent accepted · kernel.upgrade · window sat 01:00–05:00'}
+    ],
+    plan: [
+      {t:'note', v:'The plan names its own blast radius before anyone can agree to it.'},
+      {t:'out',  v:'batch 1  →  24 nodes   canary roles: web, cache\nbatch 2  →  96 nodes\nbatch 3  →  120 nodes\nreboot   →  required, rolling\nrollback →  boot slot B retained on every node'},
+      {t:'ok',   v:'snapshots created on 240/240 nodes'}
+    ],
+    dry: [
+      {t:'note', v:'One canary node gets the whole thing rehearsed against it first.'},
+      {t:'cmd',  v:'keel dry-run --node mum-1-047'},
+      {t:'diff', v:'  linux-image-generic  <span class="rem">6.8.0-51</span> → <span class="add">6.12.4-1</span>\n  nvidia-dkms          <span class="rem">550.90</span>   → <span class="add">rebuild required</span>\n  boot slot            <span class="add">B</span> (A retained, 14 days)'},
+      {t:'warn', v:'1 out-of-tree module will rebuild · nvidia-dkms'}
+    ],
+    gate: [
+      {t:'note', v:'Policy stops here. This is the part that makes the rest of it safe.'}
+    ],
+    apply: [
+      {t:'cmd',  v:'keel apply --batch 1'},
+      {t:'out',  v:'24 nodes · staged → rebooting → rejoining'},
+      {t:'ok',   v:'24/24 nodes booted on slot B in 6m 41s'}
+    ],
+    verify: [
+      {t:'note', v:'Health checks are written per role and run before the batch counts as done.'},
+      {t:'out',  v:'http 200 rate · packet loss · disk latency · service graph'},
+      {t:'ok',   v:'22 nodes healthy'},
+      {t:'fail', v:'2 nodes failing · mum-1-112, mum-1-118 · nic driver not loaded after reboot'}
+    ],
+    revert: [
+      {t:'out',  v:'rolling back to slot A on 2 nodes'},
+      {t:'ok',   v:'both nodes healthy on 6.8.0-51 · 19s'},
+      {t:'warn', v:'batches 2 and 3 halted · fleet left in a known state'},
+      {t:'note', v:'An incident record is written with the failing driver, the two node ids, and the diff that caused it. Priya reads it at 9am.'}
+    ]
+  };
+
+  const stepsEl = document.getElementById('steps');
+  const tape = document.getElementById('tape');
+  const startBtn = document.getElementById('start');
+  const resetBtn = document.getElementById('reset');
+  const clock = document.getElementById('clock');
+  let timers = [];
+  let running = false;
+
+  STEPS.forEach(s=>{
+    const el = document.createElement('div');
+    el.className = 'step';
+    el.id = 'step-' + s.key;
+    el.innerHTML = '<span class="pip"></span><span>' + s.label + '</span>';
+    stepsEl.appendChild(el);
+  });
+
+  function wait(ms){ return new Promise(r=> timers.push(setTimeout(r, reduced ? Math.min(ms,120) : ms))); }
+  function clearTimers(){ timers.forEach(clearTimeout); timers = []; }
+
+  function mark(key, state){
+    STEPS.forEach(s=>{
+      const el = document.getElementById('step-' + s.key);
+      if (s.key === key) el.className = 'step ' + state;
+    });
+  }
+  function complete(key, failed){
+    document.getElementById('step-' + key).className = 'step done' + (failed ? ' failed' : '');
+  }
+
+  function push(t, v){
+    const el = document.createElement(t === 'note' ? 'p' : 'div');
+    el.className = 'line ' + (t === 'diff' ? 'l-diff' : 'l-' + t);
+    if (t === 'diff') el.innerHTML = v; else el.textContent = v;
+    tape.appendChild(el);
+    tape.scrollTop = tape.scrollHeight;
+    return el;
+  }
+
+  function setClock(s){ clock.textContent = s + ' IST · fleet mum-1'; }
+
+  async function playBlock(key){
+    mark(key, 'active');
+    const block = SCRIPT[key];
+    for (const item of block){
+      push(item.t, item.v);
+      await wait(item.t === 'note' ? 900 : 700);
+    }
+  }
+
+  function approvalGate(){
+    return new Promise(resolve=>{
+      const g = document.createElement('div');
+      g.className = 'gate line';
+      g.innerHTML =
+        '<h3>Batch 1 needs a person</h3>' +
+        '<p>24 nodes will reboot. An out-of-tree driver rebuilds. Approving covers this batch only — batches 2 and 3 ask again.</p>' +
+        '<p class="policy">rule: kernel.upgrade requires human_approval when reboot == true</p>';
+      const row = document.createElement('div');
+      row.style.display = 'flex';
+      row.style.gap = '10px';
+      const yes = document.createElement('button');
+      yes.className = 'amber';
+      yes.textContent = 'Approve batch 1';
+      const no = document.createElement('button');
+      no.className = 'ghost';
+      no.textContent = 'Hold until morning';
+      row.appendChild(yes); row.appendChild(no);
+      g.appendChild(row);
+      tape.appendChild(g);
+      tape.scrollTop = tape.scrollHeight;
+
+      yes.addEventListener('click', ()=>{
+        row.remove();
+        push('ok', 'approved by priya.s at 01:14:22 · signed');
+        setClock('01:14:22');
+        resolve(true);
+      });
+      no.addEventListener('click', ()=>{
+        row.remove();
+        push('warn', 'held · nothing applied · intent parked until saturday 01:00');
+        resolve(false);
+      });
+    });
+  }
+
+  function verdict(applied){
+    const v = document.createElement('div');
+    v.className = 'verdict line';
+    if (applied){
+      v.innerHTML =
+        '<p class="big">24 nodes changed. 2 reverted in 19 seconds. 216 never touched.</p>' +
+        '<p class="sub">Nobody was woken up. The failure is waiting in a report, with the driver named and the fleet in one known state.</p>';
+    } else {
+      v.innerHTML =
+        '<p class="big">Nothing moved.</p>' +
+        '<p class="sub">Declining is a first-class outcome. The plan, the dry run, and the reason it was held are all kept for Saturday.</p>';
+    }
+    tape.appendChild(v);
+    tape.scrollTop = tape.scrollHeight;
+  }
+
+  async function run(){
+    if (running) return;
+    running = true;
+    tape.innerHTML = '';
+    startBtn.hidden = true;
+    resetBtn.hidden = true;
+
+    await playBlock('intent');  complete('intent'); setClock('01:12:41');
+    await playBlock('plan');    complete('plan');   setClock('01:13:09');
+    await playBlock('dry');     complete('dry');    setClock('01:13:55');
+
+    mark('gate', 'active');
+    push('note', SCRIPT.gate[0].v);
+    await wait(700);
+    const approved = await approvalGate();
+    complete('gate');
+
+    if (!approved){
+      verdict(false);
+      finish();
+      return;
+    }
+
+    await playBlock('apply');  complete('apply');  setClock('01:21:03');
+    await playBlock('verify'); complete('verify', true); setClock('01:31:58');
+    await playBlock('revert'); complete('revert'); setClock('01:32:17');
+    verdict(true);
+    finish();
+  }
+
+  function finish(){
+    running = false;
+    resetBtn.hidden = false;
+    tape.scrollTop = tape.scrollHeight;
+  }
+
+  startBtn.addEventListener('click', run);
+  resetBtn.addEventListener('click', ()=>{
+    clearTimers();
+    running = false;
+    STEPS.forEach(s=> document.getElementById('step-' + s.key).className = 'step');
+    tape.innerHTML = '<p class="l-note line" style="opacity:1">Ready when you are.</p>';
+    setClock('01:12:04');
+    resetBtn.hidden = true;
+    startBtn.hidden = false;
+  });
+})();
+</script>
+</body>
+</html>
