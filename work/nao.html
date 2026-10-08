@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400..800;1,400..800&family=EB+Garamond:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
 <script>document.documentElement.className += " js";</script>
-<link rel="stylesheet" href="../assets/css/style.css?v=20261006a">
+<link rel="stylesheet" href="../assets/css/style.css?v=20261008a">
 </head>
 <body>
 <a class="skip" href="#main">skip to content</a>
@@ -39,7 +39,7 @@
     <a class="back label-mono" href="../index.html#works">← works</a>
     <p class="cs-hero__eyebrow label-mono">Case study 01</p>
     <h1 class="display-lg">Upstox Native Account Opening (NAO) 2.0</h1>
-    <p class="lede-serif">Redesigning how people open an account at Upstox - A systems-level UX redesign and onboarding architecture overhaul. One of the country&rsquo;s largest retail broking platforms, with 10M+ registered users and about 3M active traders.</p>
+    <p class="lede-serif">Redesigning how people open an account at Upstox: a systems-level UX redesign and onboarding architecture overhaul, on one of India&rsquo;s largest retail broking platforms, with 10M+ registered users and about 3M active traders.</p>
 
     <dl class="meta">
       <div><dt>Role</dt><dd>Product designer, project owner</dd></div>
@@ -59,27 +59,36 @@
 
       <section class="glance" aria-labelledby="glance-t">
         <p class="glance__label label-mono" id="glance-t">at a glance</p>
-        <p class="glance__lede">Account opening was losing most of its leads to manual typing and checks that ran only after submission. I reframed the flow as backend-configured blocks, then redesigned the steps behind most drop-offs and rejections &mdash; signup, email, bank, selfie, signature and e-sign &mdash; so verification happens while the user is still there.</p>
+        <p class="glance__lede">Upstox is India&rsquo;s Robinhood equivalent, and every new investor starts by opening an account in the app. That flow was losing most of its leads: everything was typed by hand, and nothing was checked until a scrutiny team reviewed the application afterwards. I rebuilt it as blocks the team could reorder from a dashboard, and redesigned six of the steps where people dropped off or were rejected, so each one checks the input while the person is still on it.</p>
         <ul class="figures figures--glance">
           <li><b>21.47%</b><span>of leads became accounts before NAO 2.0; 35% of applications were rejected.</span></li>
           <li><b>+4.9<small>pts</small></b><span>email step conversion with Google / Apple sign-in, <span class="nowrap">85.0% &rarr; 89.9%</span>.</span></li>
           <li><b>+3.56<small>pts</small></b><span>PAN step conversion with an Equifax background check, <span class="nowrap">71.73% &rarr; 75.29%</span>.</span></li>
           <li><b>9</b><span>mandatory manual fields, against 12&ndash;15 at Zerodha, Angel One and Groww.</span></li>
         </ul>
-        <figure class="screens" style="--n:4">
-          <ol class="screens__row">
-            <li><img class="screens__img" src="../assets/img/nao/m/a-carousel.webp" alt="Landing carousel above the sign-up sheet with a mobile number field." width="540" height="1204" loading="lazy" decoding="async"><span class="screens__cap">sign up</span></li>
-            <li><img class="screens__img" src="../assets/img/nao/m/b-linking.webp" alt="Email step, linking with Google in one tap." width="540" height="1196" loading="lazy" decoding="async"><span class="screens__cap">email, one tap</span></li>
-            <li><img class="screens__img" src="../assets/img/nao/m/d-ring-ok.webp" alt="Selfie capture with the guide ring turned green." width="540" height="1200" loading="lazy" decoding="async"><span class="screens__cap">guided selfie</span></li>
-            <li><img class="screens__img" src="../assets/img/nao/m/e-guide.webp" alt="Landscape signature canvas with an example signature." width="540" height="1196" loading="lazy" decoding="async"><span class="screens__cap">landscape signature</span></li>
+        <figure class="sysmap">
+          <div class="sysmap__grid">
+          <div class="sysmap__cms"><b>CMS</b><span>reorder blocks</span><span>explainer videos on or off</span><span>match thresholds</span><span>a template per segment</span></div>
+          <p class="sysmap__arrow">json rules</p>
+          <ol class="sysmap__row">
+            <li><b>Signup</b><span>number suggested, OTP read for you</span></li>
+            <li><b>Email</b><span>Google or Apple, one tap</span></li>
+            <li><b>PAN</b><span>Equifax check in the background</span></li>
+            <li><b>Bank</b><span>&#8377;1 penny drop, name matched to PAN</span></li>
+            <li><b>Selfie</b><span>liveness checked during capture</span></li>
+            <li><b>Signature</b><span>landscape canvas, stroke check</span></li>
+            <li><b>E-sign</b><span>a Setu frame in place of the NSDL portal</span></li>
           </ol>
-          <figcaption>a few of the finished screens &mdash; each one is covered in section 5</figcaption>
+          </div>
+          <p class="sysmap__key"><i></i>checked inside the block, before the person moves on</p>
+          <figcaption>a template is an ordered set of blocks, run from the CMS; section 4 has the detail</figcaption>
         </figure>
+
       </section>
 
       <h2 id="summary">1. Executive summary &amp; overall business objective</h2>
 
-      <h3>The Challenge</h3>
+      <h3>The challenge</h3>
       <p>Opening a broking account in India means a Demat account, KYC and SEBI registration, and like most things with government paperwork behind them, it&rsquo;s slow. Upstox&rsquo;s old flow had users type their email, PAN, bank details and signature by hand, and checked none of it until a scrutiny team reviewed the application afterwards.</p>
       <p>Only 21.47% of leads ended up with an account. 35% of submitted applications were rejected, and 40% of the accounts that did get opened needed a sales call to get there.</p>
 
@@ -102,7 +111,7 @@
       </ol>
 
 
-      <h2 id="audit">2. Funnel audit &amp; drop-off mapping &mdash; Where people dropped off</h2>
+      <h2 id="audit">2. Funnel audit &amp; drop-off mapping: where people dropped off</h2>
       <p>To identify the structural bottlenecks, we conducted an audit of step-level drop-offs and rejections (June MTD data):</p>
 
       <div class="funnel" role="table" aria-label="Funnel audit, June MTD: drop-off and rejection weight for each onboarding step, with its friction point">
@@ -112,7 +121,7 @@
           <span role="columnheader"><i class="funnel__key funnel__key--rej"></i>rejection weight<em>share of all rejections</em></span>
         </div>
         <div class="funnel__row" role="row">
-          <div class="funnel__step" role="cell"><b>Email Verification</b><span>Email addresses up to 60 characters typed by hand; OTPs that arrived late or not at all.</span></div>
+          <div class="funnel__step" role="cell"><b>Email verification</b><span>Email addresses up to 60 characters typed by hand; OTPs that arrived late or not at all.</span></div>
           <div class="funnel__cell" role="cell"><span class="fm fm--drop" style="--v:24.19"><b>24.19%</b><i></i></span></div>
           <div class="funnel__cell" role="cell"><span class="fm fm--na">N/A</span></div>
         </div>
@@ -122,43 +131,43 @@
           <div class="funnel__cell" role="cell"><span class="fm fm--rej" style="--v:5.19"><b>5.19%<small>DOB</small></b><i></i></span><span class="fm fm--rej" style="--v:5.19"><b>5.19%<small>Name</small></b><i></i></span></div>
         </div>
         <div class="funnel__row" role="row">
-          <div class="funnel__step" role="cell"><b>Bank Details</b><span>Account number typed twice, plus an IFSC lookup.</span></div>
+          <div class="funnel__step" role="cell"><b>Bank details</b><span>Account number typed twice, plus an IFSC lookup.</span></div>
           <div class="funnel__cell" role="cell"><span class="fm fm--drop" style="--v:7.87"><b>7.87%</b><i></i></span></div>
           <div class="funnel__cell" role="cell"><span class="fm fm--rej" style="--v:15.53"><b>15.53%</b><i></i></span></div>
         </div>
         <div class="funnel__row" role="row">
-          <div class="funnel__step" role="cell"><b>Photo Upload</b><span>A plain camera capture with no guidance; bad lighting got rejected later.</span></div>
+          <div class="funnel__step" role="cell"><b>Photo upload</b><span>A plain camera capture with no guidance; bad lighting got rejected later.</span></div>
           <div class="funnel__cell" role="cell"><span class="fm fm--drop" style="--v:3.23"><b>3.23%</b><i></i></span></div>
           <div class="funnel__cell" role="cell"><span class="fm fm--rej" style="--v:18.45"><b>18.45%</b><i></i></span></div>
         </div>
         <div class="funnel__row" role="row">
-          <div class="funnel__step" role="cell"><b>Signature Upload</b><span>Drawing or photographing a signature; many came out cut off or illegible.</span></div>
+          <div class="funnel__step" role="cell"><b>Signature upload</b><span>Drawing or photographing a signature; many came out cut off or illegible.</span></div>
           <div class="funnel__cell" role="cell"><span class="fm fm--drop" style="--v:3.92"><b>3.92%</b><i></i></span></div>
           <div class="funnel__cell" role="cell"><span class="fm fm--rej" style="--v:21.32"><b>21.32%</b><i></i></span></div>
         </div>
         <div class="funnel__row" role="row">
-          <div class="funnel__step" role="cell"><b>E-Sign (NSDL)</b><span>High trust-barrier on third-party government portal; poor mobile responsiveness.</span></div>
+          <div class="funnel__step" role="cell"><b>E-sign (NSDL)</b><span>High trust-barrier on third-party government portal; poor mobile responsiveness.</span></div>
           <div class="funnel__cell" role="cell"><span class="fm fm--drop" style="--v:2.28"><b>2.28%</b><i></i></span></div>
           <div class="funnel__cell" role="cell"><span class="fm fm--rej" style="--v:3.91"><b>3.91%</b><i></i></span></div>
         </div>
         <div class="funnel__row" role="row">
-          <div class="funnel__step" role="cell"><b>Address Verification</b><span>High-friction manual document upload or Aadhaar XML flow.</span></div>
+          <div class="funnel__step" role="cell"><b>Address verification</b><span>High-friction manual document upload or Aadhaar XML flow.</span></div>
           <div class="funnel__cell" role="cell"><span class="fm fm--drop" style="--v:17.08"><b>17.08%</b><i></i></span></div>
           <div class="funnel__cell" role="cell"><span class="fm fm--na">N/A</span></div>
         </div>
         <div class="funnel__row" role="row">
-          <div class="funnel__step" role="cell"><b>Account Opening Plan</b><span>Complex pricing structures, PEP/disclaimer screens causing paralysis of choice.</span></div>
+          <div class="funnel__step" role="cell"><b>Account opening plan</b><span>Complex pricing structures, PEP/disclaimer screens causing paralysis of choice.</span></div>
           <div class="funnel__cell" role="cell"><span class="fm fm--drop" style="--v:51.12"><b>51.12%</b><i></i></span></div>
           <div class="funnel__cell" role="cell"><span class="fm fm--na">N/A</span></div>
         </div>
       </div>
 
-      <p>Every step was then worked through on its own board &mdash; what the customer feels, what the business needs from them, where the rejections and drop-offs actually come from, and the design pillars the step has to satisfy.</p>
+      <p>Every step was then worked through on its own board: what the customer feels, what the business needs from them, where the rejections and drop-offs actually come from, and the design pillars the step has to satisfy.</p>
 
       <div class="boards" data-zoom-group>
         <figure class="boards__item boards__item--lead">
           <img class="boards__img" src="../assets/img/nao/board-email.jpg" alt="Analysis board for the mobile number, biometrics and email verification step, covering customer sentiment, business needs, a 26.32% drop-off with its causes, and design pillars." loading="lazy" width="1384" height="756">
-          <figcaption>step board — mobile number, biometrics, email verification (26.32% drop-off)</figcaption>
+          <figcaption>step board: mobile number, biometrics, email verification (26.32% drop-off)</figcaption>
         </figure>
         <figure class="boards__item">
           <img class="boards__img" src="../assets/img/nao/board-personal.jpg" alt="Analysis board for the personal details step, covering customer sentiment, business needs, a 22.32% drop-off with its causes, and design pillars." loading="lazy" width="1800" height="1000">
@@ -180,7 +189,7 @@
       </div>
 
 
-      <h2 id="philosophy">3. Experience philosophy: the &ldquo;N-Star&rdquo; &amp; screen format frameworks</h2>
+      <h2 id="philosophy">3. Experience philosophy: the &ldquo;N-star&rdquo; &amp; screen format frameworks</h2>
       <p>We moved away from isolated, superficial UI updates, to framing our redesign around two strategic systems:</p>
 
       <h3>A. The N-star ladder</h3>
@@ -197,7 +206,7 @@
       <div class="compare" data-zoom-group>
         <figure>
           <img src="../assets/img/nao/nstar.jpg" alt="The N-Star experience ladder as presented internally, from a one-star experience where bugs block signup to a six-star experience where information is fetched in the background." loading="lazy" width="1440" height="810">
-          <figcaption>the ladder as it went to stakeholders — 1 to 6 stars</figcaption>
+          <figcaption>the ladder as it went to stakeholders, 1 to 6 stars</figcaption>
         </figure>
         <figure>
           <img src="../assets/img/nao/nstar-2.jpg" alt="The N-Star ladder continued, from a seven-star experience where bank accounts are linked in the background, through a welcome call and one-click transfer of existing investments, to a ten-star experience with founder calls and welcome merchandise delivered home." loading="lazy" width="1440" height="810">
@@ -216,7 +225,7 @@
           <li><strong>6 to 9:</strong> they stop doing the setup. Bank linked in the background, salary invested automatically, existing holdings moved in one click.</li>
           <li><strong>9 to 10:</strong> they stop doing it at all. Someone opens the account for them, and what is left is being looked after: calls from the founders, pro customers and support, and a welcome kit at home.</li>
         </ul>
-        <p>NAO 2.0 was aimed at making 4 and 5 stars the default, with the fetched data &mdash; SSO email, Equifax PAN, UPI bank details &mdash; as the first steps toward 6.</p>
+        <p>NAO 2.0 was aimed at making 4 and 5 stars the default, with the fetched data (SSO email, Equifax PAN, UPI bank details) as the first steps toward 6.</p>
       </div>
 
       <h3>B. The screen format framework</h3>
@@ -245,7 +254,7 @@
             <text x="588" y="112">Education</text>
           </g>
           <g font-family="EB Garamond, serif" font-size="14.5" fill="var(--muted-foreground)">
-            <text x="28" y="142"><tspan x="28" dy="0">Low cognitive-load steps.</tspan><tspan x="28" dy="20">Minimise actions — one tap,</tspan><tspan x="28" dy="20">clear SSO choices.</tspan></text>
+            <text x="28" y="142"><tspan x="28" dy="0">Low cognitive-load steps.</tspan><tspan x="28" dy="20">Minimise actions: one tap,</tspan><tspan x="28" dy="20">clear SSO choices.</tspan></text>
             <text x="308" y="142"><tspan x="308" dy="0">High-friction, error-prone</tspan><tspan x="308" dy="20">steps. In-context overlays,</tspan><tspan x="308" dy="20">GIFs or video.</tspan></text>
             <text x="588" y="142"><tspan x="588" dy="0">Where the user must retain</tspan><tspan x="588" dy="20">regulatory information, or</tspan><tspan x="588" dy="20">trust has to be built.</tspan></text>
           </g>
@@ -256,13 +265,13 @@
           </g>
         </svg>
         </div>
-        <figcaption>every onboarding screen sorted into one of three formats — one of each is tagged in the blocks below</figcaption>
+        <figcaption>every onboarding screen sorted into one of three formats; one of each is tagged in the blocks below</figcaption>
       </figure>
 
       <ol>
-        <li><strong>Simplified Format:</strong> Applied to low cognitive-load steps. Focuses on minimizing actions (easy steps = fewest possible taps). <em>Example: Email verification via one-tap Google/Apple SSO.</em></li>
-        <li><strong>Hand-Holding Format:</strong> Applied to high-friction, error-prone steps requiring external lookups. Features in-context instructional overlays, GIFs, or videos. <em>Example: Real-time interactive canvas for digital signatures with explicit boundary-rule cues.</em></li>
-        <li><strong>Education Format:</strong> Applied when we need the user to retain critical regulatory information or build trust in the platform&rsquo;s security. <em>Example: Front-loaded platform credibility carousel highlighting Upstox&rsquo;s 1Cr+ investor base.</em></li>
+        <li><strong>Simplified format:</strong> Applied to low cognitive-load steps. Focuses on minimizing actions (easy steps = fewest possible taps). <em>Example: Email verification via one-tap Google/Apple SSO.</em></li>
+        <li><strong>Hand-holding format:</strong> Applied to high-friction, error-prone steps requiring external lookups. Features in-context instructional overlays, GIFs, or videos. <em>Example: Real-time interactive canvas for digital signatures with explicit boundary-rule cues.</em></li>
+        <li><strong>Education format:</strong> Applied when we need the user to retain critical regulatory information or build trust in the platform&rsquo;s security. <em>Example: Front-loaded platform credibility carousel highlighting Upstox&rsquo;s 1Cr+ investor base.</em></li>
       </ol>
 
 
@@ -298,9 +307,9 @@
             <rect x="556" y="200" width="212" height="104" rx="4" fill="var(--card)" stroke="var(--border)"/>
           </g>
           <g font-family="Archivo, sans-serif" font-size="15" font-weight="600" fill="var(--foreground)">
-            <text x="52" y="236">Email — SSO</text>
-            <text x="314" y="236">PAN — Equifax</text>
-            <text x="576" y="236">Bank — penny drop</text>
+            <text x="52" y="236">Email: SSO</text>
+            <text x="314" y="236">PAN: Equifax</text>
+            <text x="576" y="236">Bank: penny drop</text>
           </g>
           <g font-family="EB Garamond, serif" font-size="13.5" fill="var(--muted-foreground)">
             <text x="52" y="262">one-tap google / apple</text>
@@ -317,125 +326,106 @@
           <path d="M510 252 H550" fill="none" stroke="var(--muted-foreground)" stroke-width="1" marker-end="url(#arrow)"/>
         </svg>
         </div>
-        <figcaption>templates and blocks — flows reconfigured without a code release</figcaption>
+        <figcaption>templates and blocks: flows reconfigured without a code release</figcaption>
       </figure>
 
       <h3>Key technical specs</h3>
       <ul>
         <li><strong>Blocks:</strong> Self-contained functional units (e.g. Email Verification Block, Liveness Block, Bank Verification Block) responsible for executing specific inputs, API integrations, and rule processing.</li>
         <li><strong>Templates:</strong> Compiled sequences of blocks.</li>
-        <li><strong>Operator Dashboard (CMS):</strong> Enables PMs and Engineering Managers to drag, drop, and configure onboarding flows dynamically without code releases.
+        <li><strong>Operator dashboard (CMS):</strong> Enables PMs and Engineering Managers to drag, drop, and configure onboarding flows dynamically without code releases.
           <ul>
-            <li><em>UX Toggles:</em> Toggling explanatory video overlays on/off per step.</li>
-            <li><em>System Thresholds:</em> Remotely updating backend rule variables (e.g. changing the fuzzy name match pass score from 80 to 90 via CMS).</li>
-            <li><em>Dynamic Template Assignment:</em> Segmenting users dynamically and serving custom onboarding flows (Templates) based on user demographic or intent.</li>
+            <li><em>UX toggles:</em> Toggling explanatory video overlays on/off per step.</li>
+            <li><em>System thresholds:</em> Remotely updating backend rule variables (e.g. changing the fuzzy name match pass score from 80 to 90 via CMS).</li>
+            <li><em>Dynamic template assignment:</em> Segmenting users dynamically and serving custom onboarding flows (Templates) based on user demographic or intent.</li>
           </ul>
         </li>
       </ul>
 
-      <figure class="screens screens--spec" style="--n:2">
+      
+
+
+      <h2 id="blocks">5. The blocks, redesigned</h2>
+      <p>Each block below starts with what went wrong for the person, then what changed.</p>
+      <nav class="block-index" aria-label="The six blocks"><a href="#block-a"><b>A</b>signup</a><a href="#block-b"><b>B</b>email</a><a href="#block-c"><b>C</b>bank</a><a href="#block-d"><b>D</b>selfie</a><a href="#block-e"><b>E</b>signature</a><a href="#block-f"><b>F</b>e-sign</a></nav>
+
+
+      <h3 id="block-a">Block A: Signup, splash, and carousel (the entry point)</h3>
+      <p><strong>The friction point:</strong> High latency in cold-app loading, static landing layouts, and manual typing of phone numbers on Android devices.</p>
+      <p><strong>The redesign solution:</strong></p>
+      <div class="point-row"><ol>
+        <li>Optimized asset pipeline to establish minimal splash screen time.</li>
+      </ol>
+      <figure class="screens screens--inline" style="--n:1">
+        <ol class="screens__row">
+          <li><img class="screens__img" src="../assets/img/nao/m/a-splash.webp" alt="Upstox splash screen: the upstox wordmark on purple with a loading indicator." width="540" height="1204" loading="lazy" decoding="async"><span class="screens__cap">splash</span></li>
+        </ol>
+      </figure></div>
+      <ol start="2" class="list-cont">
+        <li>Developed a remote-configured, auto-advancing <strong>Dynamic Media Carousel Space</strong> supporting images, GIFs, and videos. Carousel adjusts dynamically to 3-second intervals for photos, or matches video/GIF playback durations, with auto-adjustment patterns when the virtual keyboard opens.</li>
+      </ol>
+      <figure class="screens screens--spec screens--inline" style="--n:2">
         <ol class="screens__row">
           <li class="spec-anatomy">
             <span class="spec-pins" aria-hidden="true"><b style="--y:10.5%">1</b><b style="--y:24.5%">2</b><b style="--y:50%">3</b><b style="--y:84.5%">5</b><b style="--y:89.5%">4</b></span>
-            <img class="screens__img" src="../assets/img/nao/m/t-anatomy.webp" alt="The NAO screen template, annotated: numbered markers for the top bar, media area, content area, footer and progress bar, with green guides in the media area and purple spacing tokens." width="540" height="1140" loading="lazy" decoding="async">
-            <span class="screens__cap">the template, annotated</span>
+            <img class="screens__img" src="../assets/img/nao/m/t-anatomy.webp" alt="The NAO screen layout, annotated: numbered markers for the top bar, media area, content area, footer and progress bar, with green guides in the media area and purple spacing tokens." width="540" height="1140" loading="lazy" decoding="async">
+            <span class="screens__cap">the screen layout, annotated</span>
           </li>
-          <li>
-            <img class="screens__img" src="../assets/img/nao/m/t-example.webp" alt="The same template without a media area: a lilac top bar, a heading and subtext, two input fields, and a primary button in the footer." width="540" height="1196" loading="lazy" decoding="async">
-            <span class="screens__cap">the same template, no media area</span>
-          </li>
+          <li><img class="screens__img" src="../assets/img/nao/m/a-carousel-ph.webp" alt="Landing carousel reading your wealth journey starts here, trusted by 1 crore+ customers, above a sign up or log in sheet with a mobile number field." width="540" height="1204" loading="lazy" decoding="async"><span class="screens__cap"><b class="screens__tag">education</b>the carousel, in the media area</span></li>
         </ol>
-        <ol class="screens__legend">
-          <li><b>1</b>top bar</li>
-          <li><b>2</b>media area</li>
-          <li><b>3</b>content area</li>
-          <li><b>4</b>footer</li>
-          <li><b>5</b>progress bar</li>
-        </ol>
-        <figcaption>the one screen template every block is built on</figcaption>
+        <ol class="screens__legend"><li><b>1</b>top bar</li><li><b>2</b>media area</li><li><b>3</b>content area</li><li><b>4</b>footer</li><li><b>5</b>progress bar</li></ol>
+        <figcaption>every block is built on this one screen layout; the media area (2) is where the carousel plays</figcaption>
       </figure>
-
-
-      <h2 id="blocks">5. Granular component redesigns (six key blocks)</h2>
-
-
-      <h3>Block A: Signup, splash, and carousel (the entry point)</h3>
-      <p><strong>The friction point:</strong> High latency in cold-app loading, static landing layouts, and manual typing of phone numbers on Android devices.</p>
-      <p><strong>The redesign solution:</strong></p>
-      <ol>
-        <li>Optimized asset pipeline to establish minimal splash screen time.</li>
-        <li>Developed a remote-configured, auto-advancing <strong>Dynamic Media Carousel Space</strong> supporting images, GIFs, and videos. Carousel adjusts dynamically to 3-second intervals for photos, or matches video/GIF playback durations, with auto-adjustment patterns when the virtual keyboard opens.</li>
+      <div class="point-row"><ol start="3" class="list-cont">
         <li>Integrated the <strong>Android Hint Module API</strong> to auto-suggest active phone numbers stored on the device, allowing one-tap selection and automating OTP reading and autofill.</li>
       </ol>
-
-      <figure class="screens" style="--n:4">
+      <figure class="screens screens--inline" style="--n:2">
         <ol class="screens__row">
-          <li>
-            <img class="screens__img" src="../assets/img/nao/m/a-splash.webp" alt="Upstox splash screen: the upstox wordmark on purple with a loading indicator." width="540" height="1204" loading="lazy" decoding="async">
-            <span class="screens__cap">splash</span>
-          </li>
-          <li>
-            <img class="screens__img" src="../assets/img/nao/m/a-carousel.webp" alt="Landing carousel reading your wealth journey starts here, trusted by 1 crore+ customers, above a sign up or log in sheet with a mobile number field." width="540" height="1204" loading="lazy" decoding="async">
-            <span class="screens__cap"><b class="screens__tag">education</b>the carousel, over the sign-up sheet</span>
-          </li>
-          <li>
-            <img class="screens__img" src="../assets/img/nao/m/a-otp-auto.webp" alt="Verify your mobile number: an empty OTP field with the note attempting autofill, keypad open." width="544" height="1204" loading="lazy" decoding="async">
-            <span class="screens__cap">otp sent — already trying to read it</span>
-          </li>
-          <li>
-            <img class="screens__img" src="../assets/img/nao/m/a-otp-filled.webp" alt="The same screen with the OTP filled in from the SMS notification at the top, and continue enabled." width="544" height="1204" loading="lazy" decoding="async">
-            <span class="screens__cap">filled from the sms</span>
-          </li>
+          <li><img class="screens__img" src="../assets/img/nao/m/a-otp-auto.webp" alt="Verify your mobile number: an empty OTP field with the note attempting autofill, keypad open." width="544" height="1204" loading="lazy" decoding="async"><span class="screens__cap">otp sent, already trying to read it</span></li>
+          <li><img class="screens__img" src="../assets/img/nao/m/a-otp-filled.webp" alt="The same screen with the OTP filled in from the SMS notification at the top, and continue enabled." width="544" height="1204" loading="lazy" decoding="async"><span class="screens__cap">filled from the sms</span></li>
         </ol>
-        <figcaption>block a — splash, carousel, and an otp the app reads for you</figcaption>
-      </figure>
+      </figure></div>
 
-      <h3>Block B: SSO email verification</h3>
+      <h3 id="block-b">Block B: SSO email verification</h3>
       <p><strong>The friction point:</strong> Manual input of email addresses up to 60 characters long resulted in a 7.0% drop-off rate, primarily due to typographic errors, fake emails, or manual OTP entry friction.</p>
       <p><strong>The redesign solution:</strong></p>
       <ol>
         <li>Implemented native <strong>Google Sign-In</strong> and <strong>Apple Sign-In</strong> (exclusive to iOS), converting email verification into a single-tap action.</li>
+      </ol>
+      <figure class="screens screens--inline" style="--n:3">
+        <ol class="screens__row">
+          <li><img class="screens__img" src="../assets/img/nao/m/b-linking.webp" alt="Link an email address screen, dimmed behind a sheet reading linking with Google, this will take a few seconds." width="540" height="1196" loading="lazy" decoding="async"><span class="screens__cap"><b class="screens__tag">simplified</b>continue with google, one tap</span></li>
+          <li><img class="screens__img" src="../assets/img/nao/m/b-ios-apple.webp" alt="iOS version of the email step with continue with Google and continue with Apple, and a sheet reading linking with Apple." width="540" height="1165" loading="lazy" decoding="async"><span class="screens__cap">on ios, apple sits next to google</span></li>
+          <li><img class="screens__img" src="../assets/img/nao/m/b-linked.webp" alt="Sheet confirming email linked, with a green check." width="540" height="1196" loading="lazy" decoding="async"><span class="screens__cap">linked</span></li>
+        </ol>
+      </figure>
+      <div class="point-row"><ol start="2" class="list-cont">
         <li>Engineered a backend <strong>verified duplicate-checking routine</strong> that validates inputs against existing lead databases and active verified accounts in real time to prevent duplicate signups.</li>
+      </ol>
+      <figure class="screens screens--inline" style="--n:1">
+        <ol class="screens__row">
+          <li><img class="screens__img" src="../assets/img/nao/m/b-in-use.webp" alt="Sheet reading email address already in use, to continue, try another email address, with a dismiss button." width="540" height="1196" loading="lazy" decoding="async"><span class="screens__cap">already on another account: the duplicate check</span></li>
+        </ol>
+      </figure></div>
+      <ol start="3" class="list-cont">
         <li>Created a real-time <strong>auto-verification mechanism</strong> for SSO emails. These accounts bypass manual scrutiny check-queues entirely, dropping off the scrutiny officer&rsquo;s dashboard to save operational bandwidth.</li>
       </ol>
-
-      <figure class="screens" style="--n:4">
-        <ol class="screens__row">
-          <li>
-            <img class="screens__img" src="../assets/img/nao/m/b-linking.webp" alt="Link an email address screen, dimmed behind a sheet reading linking with Google, this will take a few seconds." width="540" height="1196" loading="lazy" decoding="async">
-            <span class="screens__cap"><b class="screens__tag">simplified</b>continue with google — one tap</span>
-          </li>
-          <li>
-            <img class="screens__img" src="../assets/img/nao/m/b-linked.webp" alt="Sheet confirming email linked, with a green check." width="540" height="1196" loading="lazy" decoding="async">
-            <span class="screens__cap">linked</span>
-          </li>
-          <li>
-            <img class="screens__img" src="../assets/img/nao/m/b-in-use.webp" alt="Sheet reading email address already in use, to continue, try another email address, with a dismiss button." width="540" height="1196" loading="lazy" decoding="async">
-            <span class="screens__cap">already on another account — the duplicate check</span>
-          </li>
-          <li>
-            <img class="screens__img" src="../assets/img/nao/m/b-ios-apple.webp" alt="iOS version of the email step with continue with Google and continue with Apple, and a sheet reading linking with Apple." width="540" height="1165" loading="lazy" decoding="async">
-            <span class="screens__cap">on ios, apple sits next to google</span>
-          </li>
-        </ol>
-        <figcaption>block b — sign-in with google or apple, and the duplicate check behind it</figcaption>
-      </figure>
 
       <figure class="wide wide--zoom lflow" data-flow="email">
         <div class="wide__scroll lflow__fallback">
           <img src="../assets/img/nao/flow-email.png" alt="Information flow for the email step: Google sign-in and manual entry branches, validation rules, duplicate checking against verified emails, OTP trigger, and the success and failure states." loading="lazy" width="1800" height="1245">
         </div>
-        <figcaption>email step — the flow as specced, including the validation rules and every failure branch</figcaption>
+        <figcaption>email step: the flow as specced, including the validation rules and every failure branch</figcaption>
       </figure>
 
 
-      <h3>Block C: Bank account verification</h3>
+      <h3 id="block-c">Block C: Bank account verification</h3>
       <p><strong>The friction point:</strong> Manually typing account numbers, re-entering them, searching for IFSC codes, and uploading cancelled cheques resulted in a 4.53% step-level drop-off and 15.53% of all rejections, due to typo mismatch.</p>
       <p><strong>The redesign solution:</strong></p>
       <ol>
-        <li>Introduced a <strong>Unified Payments Interface (UPI) Reverse Penny Drop</strong> (via Setu): The user initiates a nominal 1 Rupee transaction via whitelisted local UPI apps. Setu captures the account holder&rsquo;s name, account number, and IFSC directly from the UPI credit-alert webhook, then automatically refunds the 1 Rupee back to the user.</li>
-        <li><strong>Forward Penny Drop Automation (Backup Path):</strong> For manual entries, the system deposits 1 Rupee and triggers real-time checking via <strong>Digio API</strong> (processing transactions in 4 seconds compared to Razorpay&rsquo;s 16 seconds).</li>
-        <li>Implemented a <strong>Fuzzy Name Match Algorithm</strong>: Matches the fetched bank name with the Income Tax (PAN) record name. A matched score of &ge; 70 allows the user to proceed automatically. Any score below 70 is flagged for manual scrutiny.</li>
+        <li>Introduced a <strong>Unified Payments Interface (UPI) reverse penny drop</strong> (via Setu): The user initiates a nominal 1 Rupee transaction via whitelisted local UPI apps. Setu captures the account holder&rsquo;s name, account number, and IFSC directly from the UPI credit-alert webhook, then automatically refunds the 1 Rupee back to the user.</li>
+        <li><strong>Forward penny drop automation (backup path):</strong> For manual entries, the system deposits 1 Rupee and triggers real-time checking via <strong>Digio API</strong> (processing transactions in 4 seconds compared to Razorpay&rsquo;s 16 seconds).</li>
+        <li>Implemented a <strong>Fuzzy name match algorithm</strong>: Matches the fetched bank name with the Income Tax (PAN) record name. A matched score of &ge; 70 allows the user to proceed automatically. Any score below 70 is flagged for manual scrutiny.</li>
       </ol>
 
       <figure class="screens" style="--n:3">
@@ -450,10 +440,10 @@
           </li>
           <li>
             <img class="screens__img" src="../assets/img/nao/m/c-verified.webp" alt="Sheet reading bank account verified, ₹1 will be refunded within 24 hours." width="544" height="1204" loading="lazy" decoding="async">
-            <span class="screens__cap">verified — the ₹1 comes back</span>
+            <span class="screens__cap">verified, and the ₹1 comes back</span>
           </li>
         </ol>
-        <figcaption>block c — the manual path: find the branch, and the account is checked while you wait</figcaption>
+        <figcaption>block c, the manual path: find the branch, and the account is checked while you wait</figcaption>
       </figure>
 
       <figure class="figure-block">
@@ -466,7 +456,7 @@
             </marker>
           </defs>
 
-          <text x="8" y="18" font-family="JetBrains Mono, monospace" font-size="10.5" letter-spacing="1.6" fill="var(--muted-foreground)">path a — upi reverse penny drop (setu)</text>
+          <text x="8" y="18" font-family="JetBrains Mono, monospace" font-size="10.5" letter-spacing="1.6" fill="var(--muted-foreground)">path a: upi reverse penny drop (setu)</text>
           <g>
             <rect x="8" y="32" width="230" height="58" rx="4" fill="var(--card)" stroke="var(--border)"/>
             <rect x="285" y="32" width="230" height="58" rx="4" fill="var(--card)" stroke="var(--border)"/>
@@ -483,7 +473,7 @@
 
           <path d="M8 118 H792" stroke="var(--border)" stroke-width="1"/>
 
-          <text x="8" y="148" font-family="JetBrains Mono, monospace" font-size="10.5" letter-spacing="1.6" fill="var(--muted-foreground)">path b — forward penny drop (digio, 4s)</text>
+          <text x="8" y="148" font-family="JetBrains Mono, monospace" font-size="10.5" letter-spacing="1.6" fill="var(--muted-foreground)">path b: forward penny drop (digio, 4s)</text>
           <g>
             <rect x="8" y="162" width="230" height="58" rx="4" fill="var(--card)" stroke="var(--border)"/>
             <rect x="285" y="162" width="230" height="58" rx="4" fill="var(--card)" stroke="var(--border)"/>
@@ -511,14 +501,14 @@
           <text x="600" y="336" font-family="JetBrains Mono, monospace" font-size="10.5" letter-spacing="1.2" fill="var(--muted-foreground)">score &lt; 70</text>
         </svg>
         </div>
-        <figcaption>bank verification — the automatic path, and the one that needs a human</figcaption>
+        <figcaption>bank verification: the automatic path, and the one that needs a human</figcaption>
       </figure>
 
       <figure class="wide wide--zoom lflow" data-flow="segment">
         <div class="wide__scroll lflow__fallback">
           <img src="../assets/img/nao/flow-segment.png" alt="Routing map from segment selection: stocks and mutual funds go through bank validation and an account aggregator; stocks, mutual funds and futures and options go through bank validation and PAN via Equifax." loading="lazy" width="1800" height="800">
         </div>
-        <figcaption>segment selection decides the route — account aggregator on one branch, equifax on the other</figcaption>
+        <figcaption>segment selection decides the route: account aggregator on one branch, equifax on the other</figcaption>
       </figure>
 
       <figure class="screens" style="--n:4">
@@ -529,91 +519,88 @@
           </li>
           <li>
             <img class="screens__img" src="../assets/img/nao/m/c2-income.webp" alt="Upload income proof, select one: bank statement, salary slip, ITR acknowledgement, or get directly from bank." width="360" height="804" loading="lazy" decoding="async">
-            <span class="screens__cap">income proof — four ways, one of them fetched from the bank</span>
+            <span class="screens__cap">income proof in four ways, one of them fetched from the bank</span>
           </li>
           <li>
             <img class="screens__img" src="../assets/img/nao/m/c2-aa-accounts.webp" alt="Setu account aggregator web view, step 1 of 2: select accounts to connect, discovered automatically from the mobile number, with HDFC, Axis and ICICI savings accounts listed." width="544" height="1204" loading="lazy" decoding="async">
-            <span class="screens__cap">account aggregator — accounts found from the mobile number</span>
+            <span class="screens__cap">account aggregator: accounts found from the mobile number</span>
           </li>
           <li>
             <img class="screens__img" src="../assets/img/nao/m/c2-aa-approve.webp" alt="Step 2 of 2: approve bank statement sharing for the selected Axis Bank account, six months of profile and transaction data, with an approve button." width="544" height="1204" loading="lazy" decoding="async">
             <span class="screens__cap">approve six months of statements</span>
           </li>
         </ol>
-        <figcaption>the aggregator branch — f&amp;o and commodities need income proof, fetched once the user approves</figcaption>
+        <figcaption>the aggregator branch: f&amp;o and commodities need income proof, fetched once the user approves</figcaption>
       </figure>
 
 
-      <h3>Block D: Digital identity &amp; liveness verification</h3>
+      <h3 id="block-d">Block D: Digital identity &amp; liveness verification</h3>
       <p><strong>The friction point:</strong> Static live photo submission checks took place post-form submission, introducing high processing delays. Poor camera angles or lighting led to 18.45% of all rejections.</p>
       <p><strong>The redesign solution:</strong></p>
-      <ol>
+      <div class="point-row"><ol>
         <li>Integrated <strong>HyperVerge Liveness SDK</strong> directly into the front-end capture flow, shifting photo verification to a real-time step.</li>
-        <li>Implemented front-end photo capture guidelines (lighting cues, head centering circle overlay) and dynamic edge-assessment to verify image clarity prior to capture.</li>
-        <li>Backend performs <strong>real-time liveness threshold check</strong> (currently configured at an AI confidence score of &gt; 75).</li>
-        <li><strong>Facial Matching Confidence Score:</strong> For non-KRA users, the system compares the live capture against official government records in real time, automatically routing failed matches or low-confidence scores to the scrutiny desk.</li>
       </ol>
-
-      <figure class="screens" style="--n:4">
+      <figure class="screens screens--inline" style="--n:1">
         <ol class="screens__row">
-          <li>
-            <img class="screens__img" src="../assets/img/nao/m/d-selfie.webp" alt="Take a selfie: grant us one-time access to your camera to take a live selfie, with a continue button." width="540" height="1203" loading="lazy" decoding="async">
-            <span class="screens__cap">why the camera is needed, up front</span>
-          </li>
-          <li>
-            <img class="screens__img" src="../assets/img/nao/m/d-ring.webp" alt="Camera view with a red guide ring for the face." width="540" height="1203" loading="lazy" decoding="async">
-            <span class="screens__cap">a ring to line the face up</span>
-          </li>
-          <li>
-            <img class="screens__img" src="../assets/img/nao/m/d-ring-ok.webp" alt="The guide ring turned green, with the message looking good, let's click." width="540" height="1200" loading="lazy" decoding="async">
-            <span class="screens__cap">green when it&rsquo;s good to click</span>
-          </li>
-          <li>
-            <img class="screens__img" src="../assets/img/nao/m/d-errors.webp" alt="We found some errors in your photo: check the following and retake your photo, listing face size is too small with advice to hold the camera at arm's length, and a retake photo button." width="540" height="1200" loading="lazy" decoding="async">
-            <span class="screens__cap">a rejection that says why</span>
-          </li>
+          <li><img class="screens__img" src="../assets/img/nao/m/d-selfie-ph.webp" alt="Take a selfie: grant us one-time access to your camera to take a live selfie, with a continue button." width="540" height="1203" loading="lazy" decoding="async"><span class="screens__cap">why the camera is needed, up front</span></li>
         </ol>
-        <figcaption>block d — guided capture, and a rejection that explains itself</figcaption>
-      </figure>
+      </figure></div>
+      <div class="point-row"><ol start="2" class="list-cont">
+        <li>Implemented front-end photo capture guidelines (lighting cues, head centering circle overlay) and dynamic edge-assessment to verify image clarity prior to capture.</li>
+      </ol>
+      <figure class="screens screens--inline" style="--n:2">
+        <ol class="screens__row">
+          <li><img class="screens__img" src="../assets/img/nao/m/d-ring-ph.webp" alt="Camera view with a red guide ring for the face." width="540" height="1203" loading="lazy" decoding="async"><span class="screens__cap">a ring to line the face up</span></li>
+          <li><img class="screens__img" src="../assets/img/nao/m/d-ring-ok-ph.webp" alt="The guide ring turned green, with the message looking good, let&#39;s click." width="540" height="1200" loading="lazy" decoding="async"><span class="screens__cap">green when it&rsquo;s good to click</span></li>
+        </ol>
+      </figure></div>
+      <div class="point-row"><ol start="3" class="list-cont">
+        <li>Backend performs <strong>real-time liveness threshold check</strong> (currently configured at an AI confidence score of &gt; 75).</li>
+      </ol>
+      <figure class="screens screens--inline" style="--n:1">
+        <ol class="screens__row">
+          <li><img class="screens__img" src="../assets/img/nao/m/d-errors.webp" alt="We found some errors in your photo: check the following and retake your photo, listing face size is too small with advice to hold the camera at arm&#39;s length, and a retake photo button." width="540" height="1200" loading="lazy" decoding="async"><span class="screens__cap">a rejection that says why</span></li>
+        </ol>
+      </figure></div>
+      <ol start="4" class="list-cont">
+        <li><strong>Facial matching confidence score:</strong> For non-KRA users, the system compares the live capture against official government records in real time, automatically routing failed matches or low-confidence scores to the scrutiny desk.</li>
+      </ol>
 
       <figure class="wide wide--zoom lflow" data-flow="liveness">
         <div class="wide__scroll lflow__fallback">
           <img src="../assets/img/nao/flow-liveness.png" alt="Information flow for the live photo step: camera and storage permissions, KRA and non-KRA branches, liveness score thresholds, face match against Aadhaar, and the rejection path that shows the reason." loading="lazy" width="1800" height="736">
         </div>
-        <figcaption>live photo — permissions, the kra split, and where a rejection has to explain itself</figcaption>
+        <figcaption>live photo: permissions, the kra split, and where a rejection has to explain itself</figcaption>
       </figure>
 
 
-      <h3>Block E: Digital signature canvas</h3>
+      <h3 id="block-e">Block E: Digital signature canvas</h3>
       <p><strong>The friction point:</strong> Signature rejections accounted for 21.32% of total onboarding rejections, primarily due to signature cropping, illegible scribbles, or users drawing signatures inside a portrait container with restricted width.</p>
       <p><strong>The redesign solution:</strong></p>
-      <ol>
+      <div class="point-row"><ol>
         <li>Designed a <strong>GIF/Media-driven priming module</strong> showing animated, language-agnostic instructions on how to sign within the boundaries.</li>
+      </ol>
+      <figure class="screens screens--inline" style="--n:1">
+        <ol class="screens__row">
+          <li><img class="screens__img" src="../assets/img/nao/m/e-prime-ph.webp" alt="Autograph, please: draw your signature on the next screen and ensure it matches with the one on your PAN card." width="540" height="1196" loading="lazy" decoding="async"><span class="screens__cap">primed before the canvas opens</span></li>
+        </ol>
+      </figure></div>
+      <div class="point-row"><ol start="2" class="list-cont">
         <li>Constructed a <strong>landscape-oriented digital signature canvas</strong> that automatically opens in landscape mode upon interaction, maximizing canvas area and preventing stroke-clipping.</li>
-        <li>Signatures caused 21.32% of all rejections, mostly strokes cut off by a narrow portrait box. The canvas now opens in landscape with a faint example to follow.</li>
+        <li>A faint example signature to follow inside the canvas.</li>
+      </ol>
+      <figure class="screens screens--inline" style="--n:2">
+        <ol class="screens__row">
+          <li><img class="screens__img" src="../assets/img/nao/m/e-guide.webp" alt="Signature canvas in landscape, with an example signature shown faintly and the hint sign here using your finger." width="540" height="1196" loading="lazy" decoding="async"><span class="screens__cap"><b class="screens__tag">hand-holding</b>landscape canvas, an example to follow</span></li>
+          <li><img class="screens__img" src="../assets/img/nao/m/e-signed.webp" alt="The landscape canvas with a signature drawn, and erase and continue buttons along the edge." width="540" height="1196" loading="lazy" decoding="async"><span class="screens__cap">signed: erase, or continue</span></li>
+        </ol>
+      </figure></div>
+      <ol start="4" class="list-cont">
         <li>Two guards back it up: a minimum-stroke check before submitting, and a blank canvas after a rejection, so the same failed signature can&rsquo;t be sent twice.</li>
       </ol>
 
-      <figure class="screens" style="--n:3">
-        <ol class="screens__row">
-          <li>
-            <img class="screens__img" src="../assets/img/nao/m/e-prime.webp" alt="Autograph, please: draw your signature on the next screen and ensure it matches with the one on your PAN card." width="540" height="1196" loading="lazy" decoding="async">
-            <span class="screens__cap">primed before the canvas opens</span>
-          </li>
-          <li>
-            <img class="screens__img" src="../assets/img/nao/m/e-guide.webp" alt="Signature canvas in landscape, with an example signature shown faintly and the hint sign here using your finger." width="540" height="1196" loading="lazy" decoding="async">
-            <span class="screens__cap"><b class="screens__tag">hand-holding</b>landscape canvas, an example to follow</span>
-          </li>
-          <li>
-            <img class="screens__img" src="../assets/img/nao/m/e-signed.webp" alt="The landscape canvas with a signature drawn, and erase and continue buttons along the edge." width="540" height="1196" loading="lazy" decoding="async">
-            <span class="screens__cap">signed — erase, or continue</span>
-          </li>
-        </ol>
-        <figcaption>block e — the signature, primed first, then drawn on a landscape canvas</figcaption>
-      </figure>
 
-
-      <h3>Block F: E-Sign custom UI integration</h3>
+      <h3 id="block-f">Block F: E-sign custom UI integration</h3>
       <p><strong>The friction point:</strong> The standard NSDL/UIDAI interface was complex, cluttered, and highly drop-off prone (~10.0% overall drop-off on E-Sign), heavily damaging mobile user trust.</p>
       <p><strong>The redesign solution:</strong></p>
       <ol>
@@ -624,7 +611,7 @@
 
       <figure class="wide">
         <img src="../assets/img/nao/esign-setu.jpg" alt="Side by side comparison: the market-standard NSDL electronic signature portal against Setu's customisable Aadhaar e-sign interface, with an Aadhaar number field, a consent checkbox and a send OTP button." loading="lazy" width="1448" height="1086">
-        <figcaption>e-sign — the market-standard portal, and the customisable frame that replaced it</figcaption>
+        <figcaption>e-sign: the market-standard portal, and the customisable frame that replaced it</figcaption>
       </figure>
 
       <figure class="screens" style="--n:4">
@@ -646,12 +633,12 @@
             <span class="screens__cap">fixed in place, then submit</span>
           </li>
         </ol>
-        <figcaption>before the application goes in — nominee shares, then a final check</figcaption>
+        <figcaption>before the application goes in: nominee shares, then a final check</figcaption>
       </figure>
 
 
       <aside class="webframes" aria-label="Web desktop version">
-        <p class="webframes__label label-mono">also designed for web desktop &mdash; tap a frame for the full flow</p>
+        <p class="webframes__label label-mono">also designed for web desktop: tap a frame for the full flow</p>
         <ul class="webframes__grid">
           <li><a href="../assets/img/nao/web-pan.jpg" target="_blank" rel="noopener">
             <span class="webframes__crop"><span class="webframes__win" style="--l:.639;--w:.1985;--t:0;--h:1;aspect-ratio:1.62"><img src="../assets/img/nao/web-pan.jpg" alt="Desktop PAN step with an inline name validation error." loading="lazy"></span></span>
@@ -682,24 +669,24 @@
 
 
       <h2 id="benchmark">6. Competitive analysis &amp; benchmark</h2>
-      <p>Our architectural decisions were also validated against a technical competitive benchmark comparing Upstox NAO 2.0 with leading market players:</p>
-
+      <p>How NAO 2.0 compared with the onboarding at Zerodha, Angel One and Groww:</p>
+      <p class="bench-lead"><strong>In short:</strong> NAO 2.0 asked for the fewest fields typed by hand (9, against 12&ndash;15), no document uploads, and let people look around the app before doing KYC.</p>
       <div class="tablewrap">
         <table class="bench">
-          <caption class="visually-hidden">Onboarding compared: Zerodha, Angel One, Groww and Upstox NAO 2.0</caption>
+          <caption class="visually-hidden">Onboarding compared: Upstox NAO 2.0, Zerodha, Angel One and Groww</caption>
           <thead>
-            <tr><th scope="col">Parameter</th><th scope="col" class="num">Zerodha</th><th scope="col" class="num">Angel One</th><th scope="col" class="num">Groww</th><th scope="col" class="num us">Upstox NAO 2.0</th></tr>
+            <tr><th scope="col"><span class="visually-hidden">Measure</span></th><th scope="col" class="num us">Upstox NAO 2.0</th><th scope="col" class="num">Zerodha</th><th scope="col" class="num">Angel One</th><th scope="col" class="num">Groww</th></tr>
           </thead>
           <tbody>
-            <tr><th scope="row"><strong>Mandatory Manual Fields</strong></th><td class="num">15</td><td class="num">15</td><td class="num">12</td><td class="num us"><strong>9</strong></td></tr>
-            <tr><th scope="row"><strong>Easily Recalled Inputs</strong> (e.g. OTP/Mobile)</th><td class="num">9</td><td class="num">11</td><td class="num">8</td><td class="num us"><strong>7</strong></td></tr>
-            <tr><th scope="row"><strong>Complex Inputs</strong> (e.g. Aadhaar/PAN)</th><td class="num">6</td><td class="num">4</td><td class="num">4</td><td class="num us"><strong>2</strong> (Aadhaar Only)</td></tr>
-            <tr><th scope="row"><strong>Mandatory Document Uploads</strong></th><td class="num">3</td><td class="num">0</td><td class="num">0</td><td class="num us"><strong>0</strong></td></tr>
-            <tr><th scope="row"><strong>Explore the app before KYC</strong></th><td class="num">No</td><td class="num">No (Force KYC)</td><td class="num">Yes (KYC first, fallback to explore)</td><td class="num us"><strong>Yes</strong> (Explore app first; contextually nudged KYC)</td></tr>
-            <tr><th scope="row"><strong>Turnaround Time (TAT)</strong></th><td class="num"><span class="nowrap">48 Hours</span></td><td class="num">N/A</td><td class="num"><span class="nowrap">&gt;48 Hours</span></td><td class="num us"><strong class="nowrap">&lt;24 Hours</strong> (Targeting <span class="nowrap">&lt;2 Hours</span>)</td></tr>
+            <tr><th scope="row">Fields typed by hand<small>fewer is better</small></th><td class="num us"><strong>9</strong></td><td class="num">15</td><td class="num">15</td><td class="num">12</td></tr>
+            <tr><th scope="row">Complex inputs, like Aadhaar or PAN<small>fewer is better</small></th><td class="num us"><strong>2</strong><small>Aadhaar only</small></td><td class="num">6</td><td class="num">4</td><td class="num">4</td></tr>
+            <tr><th scope="row">Documents to upload<small>fewer is better</small></th><td class="num us"><strong>0</strong></td><td class="num">3</td><td class="num">0</td><td class="num">0</td></tr>
+            <tr><th scope="row">Explore the app before KYC</th><td class="num us"><strong>Yes</strong><small>KYC nudged in context</small></td><td class="num">No</td><td class="num">No<small>KYC forced first</small></td><td class="num">Yes<small>KYC first, explore as a fallback</small></td></tr>
+            <tr><th scope="row">Turnaround time<small>shorter is better</small></th><td class="num us"><strong class="nowrap">&lt;24 hours</strong><small>aiming for &lt;2 hours</small></td><td class="num"><span class="nowrap">48 hours</span></td><td class="num">N/A</td><td class="num"><span class="nowrap">&gt;48 hours</span></td></tr>
           </tbody>
         </table>
       </div>
+
 
 
       <h2 id="impact">7. Business impact &amp; metric validation</h2>
@@ -741,20 +728,20 @@
         <div class="dumbbell__axis" aria-hidden="true">
           <span style="--xn:.16667">70%</span><span style="--xn:.33333">75%</span><span style="--xn:.5">80%</span><span style="--xn:.66667">85%</span><span style="--xn:.83333">90%</span>
         </div>
-        <figcaption>measured on organic cohorts — exact figures in the list below</figcaption>
+        <figcaption>measured on organic cohorts; exact figures in the list below</figcaption>
       </figure>
 
       <h3>Measured cohort performance</h3>
       <ol>
-        <li><strong>PAN Verification Block (Equifax):</strong> Shifting to automated Equifax background verification raised step-level conversion from <strong>71.73% to 75.29% (+3.56 percentage points)</strong>.</li>
-        <li><strong>Email Verification Block (SSO):</strong> Incorporating Google/Apple SSO elevated conversion from <strong>85.0% to 89.9% (+4.90 percentage points)</strong>.</li>
-        <li><strong>Liveness Verification Block (HyperVerge):</strong> Transitioning to real-time image analysis predicted an <strong>overall conversion lift of +2.19%</strong> by reducing photo drop-offs to 1.0%.</li>
-        <li><strong>Overall NAO Conversion Lift:</strong> Replaced manual entry pipelines across PAN, Email, Bank, and Liveness checks to eliminate a potential <strong>33.72% drop-off overhead</strong>, achieving a <strong>+7.8% overall conversion increase</strong>.</li>
+        <li><strong>PAN verification block (Equifax):</strong> Shifting to automated Equifax background verification raised step-level conversion from <strong>71.73% to 75.29% (+3.56 percentage points)</strong>.</li>
+        <li><strong>Email verification block (SSO):</strong> Incorporating Google/Apple SSO elevated conversion from <strong>85.0% to 89.9% (+4.90 percentage points)</strong>.</li>
+        <li><strong>Liveness verification block (HyperVerge):</strong> Transitioning to real-time image analysis predicted an <strong>overall conversion lift of +2.19%</strong> by reducing photo drop-offs to 1.0%.</li>
+        <li><strong>Overall NAO conversion lift:</strong> Replaced manual entry pipelines across PAN, Email, Bank, and Liveness checks to eliminate a potential <strong>33.72% drop-off overhead</strong>, achieving a <strong>+7.8% overall conversion increase</strong>.</li>
       </ol>
 
       <div class="callout">
         <h3>Key product takeaway</h3>
-        <p>By combining systems engineering (modular Templates &amp; Blocks backend architecture) with contextual, empathetic UI designs, it removed the typical trade-off between rigorous regulatory compliance (KYC) and a frictionless user experience. Signatures, photos and bank details alone caused 55% of all rejections, and all three could be caught while the user was still on the screen.</p>
+        <p>By combining systems engineering (modular Templates &amp; Blocks backend architecture) with contextual, empathetic UI designs, NAO 2.0 removed the typical trade-off between rigorous regulatory compliance (KYC) and a frictionless user experience. Signatures, photos and bank details alone caused 55% of all rejections, and all three could now be caught while the user was still on the screen.</p>
       </div>
 
       </article>
@@ -792,7 +779,8 @@
   </div>
 </footer>
 
-<script src="../assets/js/main.js?v=20261006a"></script>
-<script src="../assets/js/nao-flows.js?v=20261006a"></script>
+
+<script src="../assets/js/main.js?v=20261008a"></script>
+<script src="../assets/js/nao-flows.js?v=20261008a"></script>
 </body>
 </html>

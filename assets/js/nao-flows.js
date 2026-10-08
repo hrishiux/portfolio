@@ -35,7 +35,7 @@
         { id: 'm_otp', x: 708, y: 320, kind: 'step', lines: ['Trigger OTP'], d: 'An OTP goes to the typed address.' },
         { id: 'm_otp_ok', x: 884, y: 280, kind: 'step', lines: ['OTP success'], d: 'The right code came back.' },
         { id: 'm_otp_fail', x: 884, y: 390, kind: 'fail', fs: 1, lines: ['OTP failure'], d: 'Wrong or expired code.' },
-        { id: 'done', x: 1050, y: 170, w: 124, kind: 'ok', lines: ['Email verified', 'successfully'], pin: 3, d: 'Both paths end here. SSO emails arrive already verified — no OTP, and they skip the scrutiny queue.' }
+        { id: 'done', x: 1050, y: 170, w: 124, kind: 'ok', lines: ['Email verified', 'successfully'], pin: 3, d: 'Both paths end here. SSO emails arrive already verified: no OTP, and they skip the scrutiny queue.' }
       ],
       edges: [
         ['start', 'g_sign'], ['start', 'm_input'],
@@ -58,10 +58,10 @@
       ],
       chips: [['out', 'start', 'entry paths'], ['rules', 'm_valid', 'validation rules'], ['n', 2, 'duplicate checks'], ['fs', null, 'failure states'], ['paths', null, 'paths to trace']],
       key: [
-        { n: 1, sol: 1, t: 'Google sign-in — one tap, nothing typed', s: '→ solution 1' },
+        { n: 1, sol: 1, t: 'Google sign-in: one tap, nothing typed', s: '→ solution 1' },
         { n: 2, sol: 2, t: 'Duplicate check on both paths, against verified emails', s: '→ solution 2' },
-        { n: 3, sol: 3, t: 'SSO emails arrive verified — no OTP, no scrutiny queue', s: '→ solution 3' },
-        { n: 4, t: 'Six format rules checked before an OTP is ever sent — tap the box to read them' }
+        { n: 3, sol: 3, t: 'SSO emails arrive verified: no OTP, no scrutiny queue', s: '→ solution 3' },
+        { n: 4, t: 'Six format rules checked before an OTP is ever sent; tap the box to read them' }
       ]
     },
 
@@ -101,9 +101,9 @@
       nodes: [
         { id: 'l_land', x: 10, y: 110, w: 180, kind: 'start', lines: ['Live photo step', 'primed with all the rules'], d: 'The user lands on the step with the rules shown first.' },
         { id: 'l_perm', x: 250, y: 110, kind: 'check', lines: ['Permissions card', 'camera · storage'], pin: 1, d: 'Asks for camera and storage access up front.' },
-        { id: 'l_denied', x: 250, y: 270, kind: 'fail', fs: 1, lines: ['Permission', 'not granted'], d: 'Refused — the card asks again.' },
+        { id: 'l_denied', x: 250, y: 270, kind: 'fail', fs: 1, lines: ['Permission', 'not granted'], d: 'Refused, so the card asks again.' },
         { id: 'l_photo', x: 450, y: 110, w: 130, kind: 'step', lines: ['Take photo'], pin: 2, d: 'Taken inside the flow (HyperVerge SDK), then split by KRA status.' },
-        { id: 'l_kra_live', x: 665, y: 20, w: 165, kind: 'check', lines: ['Liveness score', 'KRA user'], pin: 3, d: 'Real-time liveness check — currently an AI confidence score of > 75.' },
+        { id: 'l_kra_live', x: 665, y: 20, w: 165, kind: 'check', lines: ['Liveness score', 'KRA user'], pin: 3, d: 'Real-time liveness check: currently an AI confidence score of > 75.' },
         { id: 'l_kra_ok', x: 890, y: 20, kind: 'ok', lines: ['Verification', 'success'], d: 'KRA users are through.' },
         { id: 'l_nk_live', x: 665, y: 200, w: 165, kind: 'check', lines: ['Liveness score', 'non-KRA · modified KRA'], pin: 3, d: 'Same real-time liveness check.' },
         { id: 'l_face', x: 890, y: 200, kind: 'check', lines: ['Face match', 'vs Aadhaar'], pin: 4, d: 'For non-KRA users, the live capture is matched against official records; failed or low-confidence matches go to the scrutiny desk.' },
