@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Air–Fuel Mixture and E20 Petrol in Three Vehicles · Full study</title>
+<meta name="description" content="Air, fuel and three engines: a turbo Octavia, a Suzuki SY416 and a Honda CBR250R, read through lambda and through India's switch to E20 petrol. Every number is sourced.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%230c181b%22/%3E%3Ctext x=%2232%22 y=%2246%22 font-family=%22Georgia,serif%22 font-style=%22italic%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22%2346c2d6%22%3E%CE%BB%3C/text%3E%3C/svg%3E">
+<meta property="og:title" content="Air–Fuel Mixture and E20 Petrol in Three Vehicles">
+<meta property="og:description" content="A study of air–fuel mixture in an Octavia Mk2 1.8 TSI, a Suzuki SY416 and a Honda CBR250R, and of India's move to E20 petrol. By Hrishikesh Nanda.">
+<meta property="og:image" content="https://hrishiux.github.io/portfolio/assets/img/cards/e20-afr-share.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400..800;1,400..800&amp;family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<link rel="stylesheet" href="assets/style.css?v=20261012e">
+<script>
+  /* Apply a saved theme before first paint; shared with the short story. ?theme= in the link wins. */
+  (function () {
+    var d = document.documentElement, q = null, t = null;
+    try { q = new URLSearchParams(location.search); } catch (e) {}
+    try { t = localStorage.getItem("afr-theme"); } catch (e) {}
+    if (q && (q.get("theme") === "light" || q.get("theme") === "dark")) t = q.get("theme");
+    if (t === "light" || t === "dark") d.setAttribute("data-theme", t);
+  })();
+</script>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to the content</a>
+
+<header class="topbar">
+  <a class="topbar__name" href="../../index.html"><span class="nowrap">Hrishikesh</span> Nanda</a>
+  <nav class="topbar__nav" aria-label="Sections">
+    <a href="#lambda">Lambda</a>
+    <a href="#engines">Engines</a>
+    <a href="#evidence">Evidence</a>
+    <a href="#relatives">Relatives</a>
+    <a href="#explore">Explore</a>
+    <a href="#e20">E20</a>
+    <a href="#lineage">Lineage</a>
+    <a href="#sources">Sources</a>
+  </nav>
+  <nav class="switch" aria-label="Version"><a href="index.html">Short story</a><a href="full.html" aria-current="page">Full study</a></nav>
+  <button class="theme-btn" id="theme-btn" type="button" aria-label="Colour theme: follows system">Theme · system</button>
+  <div class="progress" aria-hidden="true"><span id="progress-bar"></span></div>
+</header>
+
+<main id="main">
+
+  <!-- Hero: the thesis as an instrument -->
+  <section class="hero wrap" aria-labelledby="hero-title">
+    <p class="eyebrow">Full study · 2026 · 14 min</p>
+    <h1 id="hero-title" class="hero__title hero__title--long">Air–Fuel Mixture and E20 Petrol in Three Vehicles</h1>
+    <p class="hero__dek">A study of air–fuel mixture in the three vehicles I own: a turbocharged Octavia Mk2 1.8 TSI, a Suzuki SY416 and a Honda CBR250R. It covers how each engine controls its mixture, the public evidence and logs from closely related engines, and the effect of India's move to E20 petrol. Every figure is sourced; where no source exists, the gap is shown.</p>
+
+    <div class="gauge" role="group" aria-labelledby="gauge-label">
+      <p class="gauge__label" id="gauge-label">Stoichiometric mixture, by fuel</p>
+      <div class="gauge__read" aria-live="polite">
+        <span class="gauge__lambda"><span class="lambda-glyph">λ</span> 1.00</span>
+        <span class="gauge__eq" aria-hidden="true">=</span>
+        <span class="gauge__afr"><span id="gauge-afr">13.5</span><span class="gauge__unit"> : 1</span></span>
+        <span class="tag" id="gauge-tag">calculated</span>
+      </div>
+      <p class="gauge__sub">kilograms of air per kilogram of <span id="gauge-fuel">E20</span></p>
+      <fieldset class="seg" id="fuel-seg-hero">
+        <legend class="sr-only">Fuel</legend>
+      </fieldset>
+      <p class="gauge__note">Lambda stays at 1.00 whatever the fuel. The air-fuel ratio it stands for falls from 14.7 : 1 on petrol to about 13.5 : 1 on E20, because ethanol brings some of its own oxygen.</p>
+    </div>
+
+    <h2 class="sr-only" id="findings-title">Key findings</h2>
+    <ul class="findings" aria-labelledby="findings-title">
+      <li><a href="#lambda"><span class="finding__v">13.5 : 1</span><span class="finding__l">Air needed per kilogram of E20, against 14.7 for petrol</span><span class="chip chip--calculated">calculated</span></a></li>
+      <li><a href="#e20"><span class="finding__v">20%</span><span class="finding__l">Average ethanol in Indian petrol in 2025-26, up from 1.53% in 2013-14</span><span class="chip chip--statement">statement</span></a></li>
+      <li><a href="#e20"><span class="finding__v">6.8–7.0%</span><span class="finding__l">Less energy in a litre of E20 than in a litre of petrol</span><span class="chip chip--calculated">calculated</span></a></li>
+      <li><a href="#relatives"><span class="finding__v">920 °C</span><span class="finding__l">Exhaust temperature at which a 1.8T engine starts adding fuel to cool itself</span><span class="chip chip--relative">close relative</span></a></li>
+      <li><a href="#evidence"><span class="finding__v"><span class="lambda-glyph">λ</span> 0.95</span><span class="finding__l">The stock CBR250R at full throttle, leaner than the usual target band</span><span class="chip chip--measured">measured</span></a></li>
+    </ul>
+  </section>
+
+  <!-- 1. Lambda -->
+  <section class="chapter wrap" id="lambda" aria-labelledby="lambda-title">
+    <p class="eyebrow">01</p>
+    <h2 id="lambda-title">Stoichiometry and lambda</h2>
+    <div class="prose">
+      <p>Air-fuel ratio, or AFR, is the mass of air an engine burns for each unit mass of fuel. Petrol burns completely at about 14.7 kilograms of air per kilogram of fuel, the stoichiometric point. Ethanol carries oxygen in its own molecule, so it needs less air, about 9.0.</p>
+      <p>Lambda (<span class="lambda-glyph">λ</span>) divides the actual ratio by the stoichiometric one. At <span class="lambda-glyph">λ</span> 1.00 there is exactly enough air for the fuel, whatever the fuel is. Below 1 the mixture is rich, above 1 it is lean. Engine computers and tuners work in lambda for this reason.</p>
+    </div>
+
+    <figure class="fig" id="fig-stoich" aria-labelledby="fig-stoich-t" aria-describedby="fig-stoich-d">
+      <figcaption class="fig__head">
+        <h3 class="fig__title" id="fig-stoich-t">Stoichiometric air-fuel ratio by ethanol content</h3>
+        <p class="fig__sub" id="fig-stoich-d">Published values as dots. The line between them is the mass-weighted blend, calculated; it reproduces the published E10 value. Move along the line for any blend.</p>
+        <ul class="legend" aria-label="Legend">
+          <li><span class="key key--line key--ink"></span>Mass-weighted blend, calculated</li>
+          <li><span class="key key--dot key--ink"></span>Published value</li>
+          <li><span class="key key--ring key--accent"></span>Selected fuel</li>
+        </ul>
+      </figcaption>
+      <div class="chart" id="chart-stoich"></div>
+      <p class="readout" id="chart-stoich-read" aria-live="polite"></p>
+      <details class="tableview"><summary>Show the numbers</summary><div class="tableview__body" id="table-stoich"></div></details>
+      <p class="fig__src">Sources: <a href="#src-hpt">HP Tuners</a> for published values; ethanol density from <a href="#src-wiki-eth">Wikipedia</a>; petrol density from the <a href="#src-ornl">US DOE test fuels</a>.</p>
+    </figure>
+
+    <div class="prose">
+      <p>A wideband sensor measures oxygen, and most gauges report it on a petrol scale by default, so a gauge reading of 14.7 means <span class="lambda-glyph">λ</span> 1.00 on any fuel. On E20 that same reading is about 13.5 kilograms of air per kilogram of fuel. The ruler below shows where engines are usually aimed, with the AFR scale redrawn for the fuel you pick.</p>
+    </div>
+
+    <figure class="fig" id="fig-ruler" aria-labelledby="fig-ruler-t" aria-describedby="fig-ruler-d">
+      <figcaption class="fig__head">
+        <div class="fig__headrow">
+          <div>
+            <h3 class="fig__title" id="fig-ruler-t">Reference lambda targets by operating condition</h3>
+            <p class="fig__sub" id="fig-ruler-d">Reference lambda targets used by tuners. The lower scale converts lambda to AFR for the chosen fuel.</p>
+          </div>
+          <fieldset class="seg seg--small" id="fuel-seg-ruler">
+            <legend class="seg__legend">AFR scale for</legend>
+          </fieldset>
+        </div>
+      </figcaption>
+      <div class="chart" id="chart-ruler"></div>
+      <p class="readout" id="chart-ruler-read" aria-live="polite"></p>
+      <details class="tableview"><summary>Show the numbers</summary><div class="tableview__body" id="table-ruler"></div></details>
+      <p class="fig__src">Source: <a href="#src-hpa">HP Academy, EFI Tuning Fundamentals</a>. Best economy is given there as approximately 1.05.</p>
+    </figure>
+  </section>
+
+  <!-- 2. Engines -->
+  <section class="chapter wrap" id="engines" aria-labelledby="engines-title">
+    <p class="eyebrow">02</p>
+    <h2 id="engines-title">The three vehicles</h2>
+    <div class="prose">
+      <p>My three vehicles cover the main ways a petrol engine gets its air and fuel: a turbocharger with fuel sprayed straight into the cylinder, a non-turbo engine with an injector in each intake port, and a single cylinder that revs past 10,000 rpm. They are parked in Palakkad and I am in Bengaluru, so this first version is built from public data on the same engines and, where those run out, their closest relatives.</p>
+    </div>
+
+    <div class="cards" id="vehicle-cards"></div>
+
+    <figure class="fig" id="fig-dyno" aria-labelledby="fig-dyno-t" aria-describedby="fig-dyno-d">
+      <figcaption class="fig__head">
+        <h3 class="fig__title" id="fig-dyno-t">Suzuki SY416, stock: chassis dyno run (Race Dynamics, Bengaluru)</h3>
+        <p class="fig__sub" id="fig-dyno-d">Torque and power at the wheels, SAE corrected, Race Dynamics, 2015. Digitised from the published chart; its peaks land within 0.2 of the values printed on it. No air-fuel channel was published with this run.</p>
+      </figcaption>
+      <div class="chart" id="chart-dyno"></div>
+      <p class="readout" id="chart-dyno-read" aria-live="polite"></p>
+      <details class="tableview"><summary>Show the numbers</summary><div class="tableview__body" id="table-dyno"></div></details>
+      <p class="fig__src">Source: <a href="#src-rd">Race Dynamics dyno database of stock cars, Team-BHP</a>. Their notes: inertial dyno, wheel figures, owners declared the cars stock.</p>
+    </figure>
+  </section>
+
+  <!-- 3. Evidence -->
+  <section class="chapter wrap" id="evidence" aria-labelledby="evidence-title">
+    <p class="eyebrow">03</p>
+    <h2 id="evidence-title">Published evidence on mixture control</h2>
+    <div class="prose">
+      <p>This is everything I could find on how these three engines meter fuel, sorted by what the engine is doing. Each cell says what kind of evidence it rests on. Cells marked "not found" are gaps I could not fill from public sources.</p>
+    </div>
+
+    <div class="matrix-wrap">
+      <table class="matrix" id="matrix">
+        <caption class="sr-only">Evidence on mixture control for each vehicle by operating region</caption>
+      </table>
+    </div>
+    <ul class="legend legend--chips" aria-label="Evidence types">
+      <li><span class="chip chip--measured">Measured</span>a dyno or lab reading of this model</li>
+      <li><span class="chip chip--oem">Manufacturer</span>the maker's own technical document</li>
+      <li><span class="chip chip--relative">Close relative</span>a log from the nearest engine with public data</li>
+      <li><span class="chip chip--gap">Not found</span>no public source located</li>
+    </ul>
+
+    <figure class="fig" id="fig-wot" aria-labelledby="fig-wot-t" aria-describedby="fig-wot-d">
+      <figcaption class="fig__head">
+        <h3 class="fig__title" id="fig-wot-t">Full-throttle lambda: published values and close relatives</h3>
+        <p class="fig__sub" id="fig-wot-d">Lambda at full throttle for each vehicle and its closest relative, against the reference targets. Filled marks are measurements, an outlined mark is a manufacturer's statement, and a bar spans a whole full-throttle pull on a relative.</p>
+        <ul class="legend" aria-label="Legend">
+          <li><span class="key key--shape key--s1" data-shape="circle"></span>Octavia Mk2 1.8 TSI</li>
+          <li><span class="key key--shape key--s2" data-shape="square"></span>Suzuki SY416</li>
+          <li><span class="key key--shape key--s3" data-shape="triangle"></span>Honda CBR250R</li>
+        </ul>
+      </figcaption>
+      <div class="chart" id="chart-wot"></div>
+      <p class="readout" id="chart-wot-read" aria-live="polite"></p>
+      <details class="tableview"><summary>Show the numbers</summary><div class="tableview__body" id="table-wot"></div></details>
+      <p class="fig__src">Sources: <a href="#src-mp">Motor Plus dyno test, 2012</a>; <a href="#src-ssp384">Audi SSP 384</a>; <a href="#src-audizine">Audizine, 2017</a>; <a href="#src-rs246">RS246 forum, 2005</a>; <a href="#src-aet-stock">AET Motorsport logs, 2023</a>; <a href="#src-sc16">SEATCupra.net, 2012</a>; <a href="#src-ornl11">ORNL, 2012</a>; <a href="#src-nasa">NASA Speed News, 2013</a>; targets from <a href="#src-hpa">HP Academy</a>. Wideband AFR is on the petrol scale, so <span class="lambda-glyph">λ</span> = AFR ÷ 14.7.</p>
+    </figure>
+
+    <div class="prose">
+      <p>The CBR is the only one of my three with a measured full-throttle mixture: about 14 : 1 on the stock ECU, <span class="lambda-glyph">λ</span> 0.95, leaner than the 0.85 to 0.92 band tuners aim for on non-turbo engines. A replacement ECU took it to about 12 : 1, added 0.53 hp at the peak and moved the rev limit from 10,500 to 12,300 rpm.</p>
+      <p>Audi's training manual for the EA888 says the mixture is set to <span class="lambda-glyph">λ</span> 1 in all operating ranges except just after a start. Audi's 2011 text on the third generation says its water-cooled exhaust manifold removes the need for a richer mixture at full load. Two owners of the 2.0-litre from the same second-generation family report full-throttle readings: λ 0.82 on a stock fuel map with a bigger turbo, and AFR 13.4 falling to 11.7 at 6,000 rpm on a stage 2 file. No full log was posted, so the next section goes to the closest relatives that were.</p>
+    </div>
+  </section>
+
+  <!-- 3b. Close relatives -->
+  <section class="chapter wrap" id="relatives" aria-labelledby="relatives-title">
+    <p class="eyebrow">04</p>
+    <h2 id="relatives-title">Logs from closely related engines</h2>
+    <div class="prose">
+      <p>Where my own engines had no public logs, I went one step out: to the 1.8-litre turbo the EA888 replaced and to the EA888's third generation, to a G16B sibling, and to non-turbo engines built the way the G16B is, a VW 1.6 here and a Honda 1.8 in the E20 section. Every chart names exactly which engine it shows. They show how engines of each kind behave; they are not readings from my vehicles.</p>
+    </div>
+
+    <figure class="fig" id="fig-curves" aria-labelledby="fig-curves-t" aria-describedby="fig-curves-d">
+      <figcaption class="fig__head">
+        <h3 class="fig__title" id="fig-curves-t">Full-throttle lambda against engine speed: 1.8T 20V and VW 1.6</h3>
+        <p class="fig__sub" id="fig-curves-d">Two VW Group engines logged with VCDS in fourth gear. The 1.8T 20-valve that preceded the EA888, on its stock map and on a chip, both on the same Audi S3; and a stock non-turbo 1.6 in a SEAT Leon, standing in for the G16B.</p>
+        <ul class="legend" aria-label="Legend">
+          <li><span class="key key--line key--s1"></span>1.8T 20V, stock map</li>
+          <li><span class="key key--line key--dash key--s1"></span>1.8T 20V, chipped</li>
+          <li><span class="key key--line key--s2"></span>VW 1.6 non-turbo, stock</li>
+          <li><span class="key key--ring key--ink"></span>VW 1.6, lambda requested</li>
+          <li><span class="key key--band"></span>Reference targets</li>
+        </ul>
+      </figcaption>
+      <div class="chart" id="chart-curves"></div>
+      <p class="readout" id="chart-curves-read" aria-live="polite"></p>
+      <details class="tableview"><summary>Show the numbers</summary><div class="tableview__body" id="table-curves"></div></details>
+      <p class="fig__src">Sources: <a href="#src-rs246">RS246 forum, 2005</a> (Audi S3, ECU 8N0 906 018 BH, wideband block 031); <a href="#src-sc16">SEATCupra.net, 2012</a> (second full-throttle pull of the logged drive).</p>
+    </figure>
+
+    <div class="prose">
+      <p>On its stock map the 1.8T held <span class="lambda-glyph">λ</span> 0.87 to 0.91 from 3,800 to 6,300 rpm, then dropped to 0.79 near 6,700. The chip took it to 0.75 by 6,200. The non-turbo 1.6 asked for 0.90 from 2,000 to 5,200 rpm and 0.75 to 0.76 above 5,500, where its sensor read 0.80.</p>
+    </div>
+
+    <figure class="fig" id="fig-gen3" aria-labelledby="fig-gen3-t" aria-describedby="fig-gen3-d">
+      <figcaption class="fig__head">
+        <h3 class="fig__title" id="fig-gen3-t">EA888 Gen 3 2.0 TFSI at full throttle: stock and Stage 1</h3>
+        <p class="fig__sub" id="fig-gen3-d">Two full-throttle pulls posted by a tuner, AET Motorsport, on 9 June 2023: one on the factory calibration at 10:54 and one on a Stage 1 file at 11:24, both on ECU 5G0 906 259 E, a 2.0 TFSI. Lambda on top, charge pressure below.</p>
+        <ul class="legend" aria-label="Legend">
+          <li><span class="key key--line key--s1"></span>Stock</li>
+          <li><span class="key key--line key--dash key--s1"></span>Stage 1</li>
+          <li><span class="key key--line key--accent"></span><span class="lambda-glyph">λ</span> 1</li>
+          <li><span class="key key--band"></span>Turbo target</li>
+        </ul>
+      </figcaption>
+      <div class="chart" id="chart-gen3"></div>
+      <p class="readout" id="chart-gen3-read" aria-live="polite"></p>
+      <details class="tableview"><summary>Show the numbers</summary><div class="tableview__body" id="table-gen3"></div></details>
+      <p class="fig__src">Sources: <a href="#src-aet-stock">AET Motorsport, stock log</a> and <a href="#src-aet-stg1">Stage 1 log</a>, public on Datazap, VCDS 23.3; set point from <a href="#src-ecutek">EcuTek's EA888 notes</a>. The ECU part number and software version match across the two logs. The interface ID in each file belongs to the tuner's cable, so the files alone do not prove both pulls are the same car.</p>
+    </figure>
+
+    <div class="prose">
+      <p>The third-generation EA888 is the one with public logs. On the factory calibration this 2.0 read <span class="lambda-glyph">λ</span> 0.98 to 1.02 from 2,000 to 4,300 rpm at full throttle. That is the set point EcuTek's tuning notes give for the third generation, "a lambda set point of 1 is targeted for the entire operating range", and Audi's 2011 text says its water-cooled exhaust manifold removes the need for a richer mixture at full load. Above 5,000 rpm it eased to 0.92 to 0.96. EcuTek lists what can move the set point richer: high intake or catalyst temperature and turbo protection. This log has no exhaust-temperature channel, so it does not show which one acted.</p>
+      <p>The Stage 1 file raised charge pressure from 2.2 to 2.9 bar absolute and ran 0.80 to 0.86 from 2,050 rpm to the limiter, inside the usual turbo target. A 1.8 TFSI of the same generation on a Stage 1 file from the same tuner ran 0.80 to 0.85.</p>
+    </div>
+
+    <figure class="fig" id="fig-egt" aria-labelledby="fig-egt-t" aria-describedby="fig-egt-d">
+      <figcaption class="fig__head">
+        <h3 class="fig__title" id="fig-egt-t">Exhaust-temperature protection on a remapped 1.8T</h3>
+        <p class="fig__sub" id="fig-egt-d">A remapped SEAT Leon Cupra R 1.8T, two back-to-back fourth-gear pulls. The engine computer keeps a model of exhaust temperature; above 920 °C it adds fuel to cool the exhaust.</p>
+        <ul class="legend" aria-label="Legend">
+          <li><span class="key key--line key--s1"></span>Measured</li>
+          <li><span class="key key--line key--ink"></span>Requested by the engine computer</li>
+          <li><span class="key key--line key--accent"></span>920 °C protection limit</li>
+        </ul>
+      </figcaption>
+      <div class="chart" id="chart-egt"></div>
+      <p class="readout" id="chart-egt-read" aria-live="polite"></p>
+      <details class="tableview"><summary>Show the numbers</summary><div class="tableview__body" id="table-egt"></div></details>
+      <p class="fig__src">Source: <a href="#src-sc18t">SEATCupra.net, 2013</a>, ECU 1ML 906 032 A. Lambda from one pull, exhaust temperature and enrichment from the next. Readings of 0.75 sit at the richest value this ECU family reports (<a href="#src-sc18t-floor">SEATCupra.net, 2010</a>).</p>
+    </figure>
+
+    <div class="prose">
+      <p>The modelled exhaust temperature crossed 920 °C at about 5,200 rpm, and the enrichment factor climbed to 15 to 17%. Lambda fell from 0.875 to 0.75 between 5,500 and 5,900 rpm. A forum member describes the stock 1.8T as running <span class="lambda-glyph">λ</span> 0.953 until this protection steps in, and MRC Tuning put it this way: in stock mode the computer runs as lean as it can without hitting the limit.</p>
+    </div>
+
+    <figure class="fig" id="fig-drive" aria-labelledby="fig-drive-t" aria-describedby="fig-drive-d">
+      <figcaption class="fig__head">
+        <h3 class="fig__title" id="fig-drive-t">Lambda over a six-minute drive: VW 1.6 non-turbo</h3>
+        <p class="fig__sub" id="fig-drive-d">A stock SEAT Leon 1.6 logged from engine start on an ordinary drive in 2012: the lambda the computer asked for, the lambda its sensor read, and engine speed.</p>
+        <ul class="legend" aria-label="Legend">
+          <li><span class="key key--line key--s2"></span>Measured</li>
+          <li><span class="key key--line key--ink"></span>Requested</li>
+          <li><span class="key key--band"></span>Full throttle</li>
+        </ul>
+      </figcaption>
+      <div class="chart" id="chart-drive"></div>
+      <p class="readout" id="chart-drive-read" aria-live="polite"></p>
+      <details class="tableview"><summary>Show the numbers</summary><div class="tableview__body" id="table-drive"></div></details>
+      <p class="fig__src">Source: <a href="#src-sc16">SEATCupra.net, 2012</a>, VCDS blocks 031, 001 and 002. Engine speed is the mean of the two speed readings either side of each lambda sample.</p>
+    </figure>
+
+    <div class="prose">
+      <p>Right after the start the computer asked for <span class="lambda-glyph">λ</span> 0.85 and eased up to 1.00 over about 20 seconds. Most of the drive then sits on 1.00 with the sensor wandering a few hundredths either side, which is closed-loop control at work. Both full-throttle pulls step down to the requested 0.90. Lift-offs pin the reading at 1.20, mostly with the logged injection time at zero: the injectors shut off on the overrun.</p>
+    </div>
+
+    <figure class="fig" id="fig-o2" aria-labelledby="fig-o2-t" aria-describedby="fig-o2-d">
+      <figcaption class="fig__head">
+        <h3 class="fig__title" id="fig-o2-t">Narrowband oxygen sensor signal: Suzuki G13B</h3>
+        <p class="fig__sub" id="fig-o2-d">The narrowband oxygen sensor of a Swift's Suzuki G13B on an oscilloscope, captured by a Coimbatore tuning shop. The scope's volt and time scales are not readable in the image, so it is shown in screen divisions.</p>
+      </figcaption>
+      <div class="chart" id="chart-o2"></div>
+      <p class="readout" id="chart-o2-read" aria-live="polite"></p>
+      <details class="tableview"><summary>Show the numbers</summary><div class="tableview__body" id="table-o2"></div></details>
+      <p class="fig__src">Source: <a href="#src-tbhp-unichip">Team-BHP, 2010</a>, posts by sapl. Digitised from a 320 × 234 px capture, 25 px per division.</p>
+    </figure>
+
+    <div class="prose">
+      <p>A narrowband sensor can only tell rich from lean. The tuner who posted this trace describes it as sitting near 0 volts when lean and around 0.8 volts when rich, and puts the cycle at about once a second. The computer keeps nudging fuel back across the line, which is how an engine with this kind of sensor holds <span class="lambda-glyph">λ</span> 1 on average. My SY416 uses the same kind: a narrowband sensor I replaced myself.</p>
+    </div>
+  </section>
+
+  <!-- 3c. Explore: the drive log as telemetry -->
+  <section class="chapter wrap" id="explore" aria-labelledby="explore-title">
+    <p class="eyebrow">05</p>
+    <h2 id="explore-title">Drive log analysis</h2>
+    <div class="prose">
+      <p>The six-minute log from the VW 1.6 is the richest dataset on this page: 185 samples of lambda, engine speed, load and injection time. These three tools treat it the way an operations team treats a sensor feed. Turn it in three dimensions, select any stretch of the drive to get its statistics, and plot any field of any dataset against any other.</p>
+    </div>
+
+    <figure class="fig" id="fig-3d" aria-labelledby="fig-3d-t" aria-describedby="fig-3d-d">
+      <figcaption class="fig__head">
+        <div class="fig__headrow">
+          <div>
+            <h3 class="fig__title" id="fig-3d-t">Drive samples in engine-map space (3D)</h3>
+            <p class="fig__sub" id="fig-3d-d">Engine speed across, load into the page, lambda up. Drag to turn it, or pick a view. Colour shows which side of λ 1 each sample sits on.</p>
+          </div>
+          <div class="views" role="group" aria-label="Camera view">
+            <button class="btn" type="button" data-view="iso" aria-pressed="true">3D</button>
+            <button class="btn" type="button" data-view="map" aria-pressed="false">Operating map</button>
+            <button class="btn" type="button" data-view="side" aria-pressed="false">Lambda by rpm</button>
+          </div>
+        </div>
+        <ul class="legend" aria-label="Legend">
+          <li><span class="key key--dot" style="background:var(--rich)"></span>Richer than λ 0.97</li>
+          <li><span class="key key--dot" style="background:var(--axis)"></span>λ 0.97–1.03</li>
+          <li><span class="key key--dot" style="background:var(--lean)"></span>Leaner than λ 1.03</li>
+        </ul>
+      </figcaption>
+      <div class="three" id="three-wrap" tabindex="0" role="img" aria-label="Three-dimensional scatter of 185 drive-log samples. Samples at full load sit at high rpm and λ 0.80 to 0.93; lift-off samples sit at λ 1.20 and low load; the rest cluster around λ 1.00 at low to mid load." aria-describedby="three-read">
+        <canvas id="three-canvas"></canvas>
+        <div class="three__labels" id="three-labels" aria-hidden="true"></div>
+        <p class="three__fallback" id="three-fallback" hidden>This view needs WebGL, which this browser has turned off. The same samples are in the table below and in the drive chart above.</p>
+      </div>
+      <p class="readout" id="three-read" aria-live="polite">Arrow keys turn the view when it has focus.</p>
+      <details class="tableview"><summary>Show the numbers</summary><div class="tableview__body" id="table-3d"></div></details>
+      <p class="fig__src">Source: <a href="#src-sc16">SEATCupra.net, 2012</a>. Drawn with three.js. Selecting a stretch in the monitor below highlights the same samples here.</p>
+    </figure>
+
+    <figure class="fig" id="fig-monitor" aria-labelledby="fig-monitor-t" aria-describedby="fig-monitor-d">
+      <figcaption class="fig__head">
+        <h3 class="fig__title" id="fig-monitor-t">Engine computer state over the drive</h3>
+        <p class="fig__sub" id="fig-monitor-d">Each sample is classed by the rule shown under the strip. Drag across the strip to select a stretch; the statistics, histogram and the 3D view follow your selection.</p>
+        <ul class="legend" aria-label="Legend">
+          <li><span class="key key--swatch" style="background:var(--mode-closed)"></span>Closed loop at λ 1</li>
+          <li><span class="key key--swatch" style="background:var(--mode-rich)"></span>Enrichment requested</li>
+          <li><span class="key key--swatch" style="background:var(--mode-cut)"></span>Fuel cut on lift-off</li>
+        </ul>
+      </figcaption>
+      <div class="chart" id="chart-monitor"></div>
+      <div class="monitor">
+        <div class="tiles" id="monitor-tiles" aria-live="polite"></div>
+        <div class="chart" id="chart-hist"></div>
+      </div>
+      <div class="monitor__actions">
+        <button class="btn" type="button" id="monitor-reset">Select the whole drive</button>
+        <button class="btn" type="button" id="monitor-pulls">Select the full-throttle pulls</button>
+        <button class="btn" type="button" id="monitor-idle">Select the final idle</button>
+      </div>
+      <details class="tableview"><summary>Show the code that computes these numbers</summary><pre class="code" id="monitor-code"></pre></details>
+      <p class="fig__src">Source: <a href="#src-sc16">SEATCupra.net, 2012</a>. The 0.97–1.03 band is the UK MOT fast-idle lambda limit quoted in the same thread. Classes: fuel cut where λ reads 1.20; enrichment where the requested λ is below 0.98; closed loop otherwise.</p>
+    </figure>
+
+    <figure class="fig" id="fig-explorer" aria-labelledby="fig-explorer-t" aria-describedby="fig-explorer-d">
+      <figcaption class="fig__head">
+        <h3 class="fig__title" id="fig-explorer-t">Dataset explorer</h3>
+        <p class="fig__sub" id="fig-explorer-d">Every dataset on this page, one scatter. The query line underneath states exactly what is plotted, and the correlation is computed on the points you see.</p>
+      </figcaption>
+      <div class="explorer__controls">
+        <label class="field"><span>Dataset</span><select id="ex-ds"></select></label>
+        <label class="field"><span>Across</span><select id="ex-x"></select></label>
+        <label class="field"><span>Up</span><select id="ex-y"></select></label>
+        <label class="field"><span>Rows</span><select id="ex-filter"></select></label>
+      </div>
+      <pre class="code code--query" id="ex-query" aria-label="Query for the plotted data"></pre>
+      <div class="chart" id="chart-explorer"></div>
+      <p class="readout" id="ex-read" aria-live="polite"></p>
+      <details class="tableview"><summary>Show the numbers</summary><div class="tableview__body" id="table-explorer"></div></details>
+      <p class="fig__src">Every dataset here is listed with its source in the lineage diagram and the sources table below. Pearson's r is a measure of straight-line association, nothing more.</p>
+    </figure>
+  </section>
+
+  <!-- 4. E20 -->
+  <section class="chapter wrap" id="e20" aria-labelledby="e20-title">
+    <p class="eyebrow">06</p>
+    <h2 id="e20-title">India's move to E20</h2>
+    <div class="prose">
+      <p>India blended 1.53% ethanol into its petrol in 2013-14. By the 2025-26 supply year the average reached 20%, and from April 2026 all petrol sold is E20 with a minimum research octane number of 95.</p>
+    </div>
+
+    <figure class="fig" id="fig-blend" aria-labelledby="fig-blend-t" aria-describedby="fig-blend-d">
+      <figcaption class="fig__head">
+        <h3 class="fig__title" id="fig-blend-t">Average ethanol in Indian petrol, by supply year</h3>
+        <p class="fig__sub" id="fig-blend-d">Government figures. Years marked with a dot have no official figure in the sources collected here.</p>
+      </figcaption>
+      <div class="chart" id="chart-blend"></div>
+      <p class="readout" id="chart-blend-read" aria-live="polite"></p>
+      <ol class="milestones" id="milestones" aria-label="Milestones"></ol>
+      <details class="tableview"><summary>Show the numbers</summary><div class="tableview__body" id="table-blend"></div></details>
+      <p class="fig__src">Sources: <a href="#src-ls24">Lok Sabha reply, 2024</a>; <a href="#src-mopng">MoPNG</a>; <a href="#src-rs25">Rajya Sabha data, 2025</a>; <a href="#src-pib26">PIB, July 2026</a>; <a href="#src-pib22">PIB, 2022</a>; <a href="#src-mopng25">Petroleum Ministry, 2025</a>.</p>
+    </figure>
+
+    <figure class="fig" id="fig-pump" aria-labelledby="fig-pump-t" aria-describedby="fig-pump-d">
+      <figcaption class="fig__head">
+        <h3 class="fig__title" id="fig-pump-t">Ethanol content at Indian pumps, August 2025</h3>
+        <p class="fig__sub" id="fig-pump-d">Ethanol share measured with test bottles by Harmonixx Tuning, a tuning shop, eight months before E20 became universal.</p>
+      </figcaption>
+      <div class="chart" id="chart-pump"></div>
+      <p class="readout" id="chart-pump-read" aria-live="polite"></p>
+      <ol class="milestones milestones--small" id="pump-earlier" aria-label="Earlier readings"></ol>
+      <details class="tableview"><summary>Show the numbers</summary><div class="tableview__body" id="table-pump"></div></details>
+      <p class="fig__src">Source: <a href="#src-harm">Harmonixx Tuning via Team-BHP News, 14 August 2025</a>. Test-bottle readings, reported as ranges.</p>
+    </figure>
+
+    <h3 class="subhead">Effect of E20 on fuelling</h3>
+    <div class="prose">
+      <p>The US Department of Energy's test E20 fuels carried 6.8% to 7.2% oxygen by mass. For the same mass of fuel, that oxygen leans the mixture. At light load an engine computer holding <span class="lambda-glyph">λ</span> 1 sees this through its oxygen sensor and adds fuel. At full throttle it typically switches to an open-loop enrichment map. The US researchers' explanation for what happens next is whether the computer carries its learned correction into that map.</p>
+    </div>
+
+    <figure class="fig" id="fig-ornl" aria-labelledby="fig-ornl-t" aria-describedby="fig-ornl-d">
+      <figcaption class="fig__head">
+        <h3 class="fig__title" id="fig-ornl-t">Full-throttle mixture on E20: sixteen US vehicles</h3>
+        <p class="fig__sub" id="fig-ornl-d">US Department of Energy tests of 1999–2007 cars, measured with a wideband sensor and catalyst thermocouples.</p>
+      </figcaption>
+      <div class="ornl" id="chart-ornl"></div>
+      <p class="readout" id="chart-ornl-read" aria-live="polite"></p>
+      <details class="tableview"><summary>Show the numbers</summary><div class="tableview__body" id="table-ornl"></div></details>
+      <p class="fig__src">Source: <a href="#src-ornl">Knoll et al., NREL/TP-540-43543, 2009</a>, sections 3.1.5.1–3.1.5.2 and Figure 3.5.</p>
+    </figure>
+
+    <figure class="fig" id="fig-civic" aria-labelledby="fig-civic-t" aria-describedby="fig-civic-d">
+      <figcaption class="fig__head">
+        <h3 class="fig__title" id="fig-civic-t">Full-throttle lambda distribution on E0 and E20: Honda R18 1.8</h3>
+        <p class="fig__sub" id="fig-civic-d">How often each lambda value turned up during a US lab's full-throttle test of a 2009 Honda Civic, accelerations plus the cruise and idle between them. Its R18 is a non-turbo 1.8 with one camshaft and 16 valves, the layout of the G16B. The scale stops at 400 samples so the full-throttle cluster shows.</p>
+        <ul class="legend" aria-label="Legend">
+          <li><span class="key key--line key--e0"></span>E0, petrol</li>
+          <li><span class="key key--line key--e20"></span>E20</li>
+          <li><span class="key key--line key--accent"></span>Average under enrichment, as the report states it</li>
+        </ul>
+      </figcaption>
+      <div class="chart" id="chart-civic"></div>
+      <p class="readout" id="chart-civic-read" aria-live="polite"></p>
+      <details class="tableview"><summary>Show the numbers</summary><div class="tableview__body" id="table-civic"></div></details>
+      <p class="fig__src">Source: <a href="#src-ornl11">West et al., ORNL/TM-2011/234, 2012</a>, Figure 3.3 and Table 3.1; engine from <a href="#src-wiki-r">Wikipedia: Honda R engine</a>. The curves were read from the figure's vector paths in the PDF and calibrated on its axes. As a check, the samples below 0.95 average 0.822 on E0 and 0.876 on E20.</p>
+    </figure>
+
+    <div class="prose">
+      <p>On petrol the Civic's full-throttle samples bunch around <span class="lambda-glyph">λ</span> 0.81, and the report puts the average at about 0.82. On E20 the bunch moves to about 0.87: still rich, about 6% leaner. The report says lambda typically runs 6% to 8% leaner on E20 when an engine does not apply its learned fuel trim at full throttle. It classed 19 of its 27 models that way, this Civic and a 2009 Corolla 1.8 among them.</p>
+    </div>
+
+    <figure class="fig" id="fig-props" aria-labelledby="fig-props-t" aria-describedby="fig-props-d">
+      <figcaption class="fig__head">
+        <h3 class="fig__title" id="fig-props-t">Oxygen content and energy per litre: twelve test fuels</h3>
+        <p class="fig__sub" id="fig-props-d">Oxygen content as measured, and energy per litre calculated as heating value × specific gravity, indexed to each lab's E0. The lines are least-squares fits through the twelve fuels, with slope and R² beside them.</p>
+      </figcaption>
+      <div class="pair" id="chart-props"></div>
+      <p class="readout" id="chart-props-read" aria-live="polite"></p>
+      <details class="tableview"><summary>Show the numbers</summary><div class="tableview__body" id="table-props"></div></details>
+      <p class="fig__src">Source: <a href="#src-ornl">US DOE report, Table 2.2</a>; fuels from three labs (NREL, ORNL, ANL).</p>
+    </figure>
+
+    <h3 class="subhead">Fuel economy on E20</h3>
+    <div class="prose">
+      <p>Every source agrees E20 gives fewer kilometres per litre. They disagree on how many, partly because they compare it against different fuels. Calculated from the US lab's measured fuels, a litre of E20 holds 6.8% to 7.0% less energy than a litre of E0, and 3.7% to 3.9% less than a litre of E10.</p>
+    </div>
+
+    <figure class="fig" id="fig-miles" aria-labelledby="fig-miles-t" aria-describedby="fig-miles-d">
+      <figcaption class="fig__head">
+        <h3 class="fig__title" id="fig-miles-t">Reported fuel economy loss on E20, by source</h3>
+        <p class="fig__sub" id="fig-miles-d">Grouped by what E20 is compared with. Filled marks are measurements; outlined marks are estimates or statements. The shaded column is the drop in energy per litre for that comparison.</p>
+        <ul class="legend" aria-label="Legend">
+          <li><span class="key key--dot key--ink"></span>Measured</li>
+          <li><span class="key key--ring key--ink"></span>Estimate or statement</li>
+          <li><span class="key key--band"></span>Energy per litre lost</li>
+        </ul>
+      </figcaption>
+      <div class="chart" id="chart-miles"></div>
+      <p class="readout" id="chart-miles-read" aria-live="polite"></p>
+      <details class="tableview"><summary>Show the numbers</summary><div class="tableview__body" id="table-miles"></div></details>
+      <p class="fig__src">Sources: <a href="#src-ornl">US DOE</a>, <a href="#src-harm">Harmonixx Tuning</a>, <a href="#src-niti">NITI Aayog via Business Today</a>, <a href="#src-mopng25">Petroleum Ministry via The Tribune</a>, <a href="#src-pib26">PIB</a>, <a href="#src-arai">ARAI via The Tribune</a>.</p>
+    </figure>
+
+    <h3 class="subhead">Expected effect on the three vehicles</h3>
+    <div class="notes" id="e20-notes"></div>
+  </section>
+
+  <!-- 4b. Lineage -->
+  <section class="chapter wrap" id="lineage" aria-labelledby="lineage-title">
+    <p class="eyebrow">07</p>
+    <h2 id="lineage-title">Data lineage</h2>
+    <div class="prose">
+      <p>A chart is only as trustworthy as the trail behind it. This map links every source to every chart and table it feeds, grouped by the kind of evidence. Pick a source to see where it is used, or a chart to see what it rests on.</p>
+    </div>
+    <figure class="fig" id="fig-lineage" aria-labelledby="fig-lineage-t" aria-describedby="fig-lineage-d">
+      <figcaption class="fig__head">
+        <h3 class="fig__title" id="fig-lineage-t">Sources to charts</h3>
+        <p class="fig__sub" id="fig-lineage-d">Sources on the left, grouped by kind of evidence; the page's charts and tables on the right. Hover or focus either side to trace the links.</p>
+      </figcaption>
+      <div class="chart" id="chart-lineage"></div>
+      <p class="readout" id="lineage-read" aria-live="polite"></p>
+      <details class="tableview"><summary>Show the links as a table</summary><div class="tableview__body" id="table-lineage"></div></details>
+    </figure>
+  </section>
+
+  <!-- 4c. How it's built -->
+  <section class="chapter wrap" id="built" aria-labelledby="built-title">
+    <p class="eyebrow">08</p>
+    <h2 id="built-title">Accessibility and design tokens</h2>
+    <div class="built">
+      <div class="prose">
+        <h3 class="subhead subhead--prose">Accessibility</h3>
+        <ul class="plain">
+          <li>Every chart has a table with the same numbers, under "Show the numbers".</li>
+          <li>Charts with a cursor take keyboard focus; arrow keys move it and a live line of text reads the values out.</li>
+          <li>Vehicles are told apart by shape and by direct labels as well as by colour.</li>
+          <li>The three series colours pass colour-blindness separation checks in both themes. The lightest one sits below 3 : 1 contrast on white, so it always carries a visible label.</li>
+          <li>Light and dark themes follow the system, with a manual switch; motion stops when the system asks for reduced motion.</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="subhead subhead--prose">Tokens</h3>
+        <div class="swatches" id="swatches"></div>
+        <p class="fig__src">Values read live from the stylesheet, so they change with the theme. Type: Archivo for headings and controls, EB Garamond for reading, JetBrains Mono for data.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Next -->
+  <section class="chapter wrap" id="next" aria-labelledby="next-title">
+    <p class="eyebrow">09</p>
+    <h2 id="next-title">Further work</h2>
+    <div class="prose">
+      <ul class="plain">
+        <li><strong>Octavia.</strong> A VCDS log of lambda specified against lambda actual at full throttle, with fuel trims, on today's E20.</li>
+        <li><strong>All three.</strong> Fill-up logs on E20, kilometres per litre, to set beside the claims above.</li>
+        <li><strong>SY416 and CBR250R.</strong> A wideband sensor in the exhaust, the only way to put a measured full-throttle number on either.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 6. Sources -->
+  <section class="chapter wrap" id="sources" aria-labelledby="sources-title">
+    <p class="eyebrow">10</p>
+    <h2 id="sources-title">Sources and method</h2>
+
+    <div class="prose">
+      <h3 class="subhead subhead--prose">Method</h3>
+      <ul class="plain">
+        <li><strong>Units.</strong> Wideband AFR readings are on the petrol scale, so <span class="lambda-glyph">λ</span> = AFR ÷ 14.7.</li>
+        <li><strong>Stoichiometric blends.</strong> AFR = w × 9.0 + (1 − w) × 14.7, with w the ethanol mass fraction from densities of 0.789 (ethanol) and 0.746 (petrol). At 10% ethanol by volume it returns 14.10 against a published 14.1. At 20% it returns 13.51.</li>
+        <li><strong>Energy per litre.</strong> Lower heating value × specific gravity for each of the twelve US DOE test fuels, indexed to the same lab's E0.</li>
+        <li><strong>Digitising.</strong> The SY416 curve was read off the 800 × 562 px chart by colour, calibrated on its gridlines (115 px per 1,000 rpm; 3.94 px per unit). Peaks came out at 106.6 N·m and 71.1 hp against 106.79 and 71.24 printed on the chart. The entry is labelled only "Maruti Suzuki Baleno"; it was posted in September 2015 and quotes 94 bhp and 130 N·m, figures that fit the 1.6-litre SY416.</li>
+        <li><strong>Reading a PDF figure.</strong> The Honda Civic histogram is drawn as vector lines in the ORNL report, so its points were read from the PDF's drawing commands and scaled with the figure's own axis ticks (0.70 to 1.10; 0 to 3,500). The samples below 0.95 average 0.822 on E0 and 0.876 on E20; the report's text says about 0.82 and 0.87.</li>
+        <li><strong>Third-generation logs.</strong> Rows are the VCDS samples inside each full-throttle pull, about 9 per second, as posted. Charge pressure is absolute, so about 1 bar is atmosphere.</li>
+        <li><strong>Conflicting figures.</strong> For 2020-21 and 2022-23 the blend chart uses the 2025 Rajya Sabha series (8.5% and 12%); the 2024 Lok Sabha reply gives 8.17% and 12.06%.</li>
+      </ul>
+
+      <h3 class="subhead subhead--prose">Limitations</h3>
+      <ul class="plain">
+        <li>None of the measurements come from my own vehicles. They come from the same models or, where marked, from close relatives.</li>
+        <li>No full lambda log turned up for the EA888 Gen 1 or Gen 2, only two Gen 2 owners' stated readings, and nothing for the G16B. The curves come from the 1.8T 20-valve that preceded the EA888, the EA888's third generation, a G13B sibling, a VW 1.6 non-turbo and a Honda 1.8 non-turbo. A relative shows how that kind of engine behaves; it can differ from mine in calibration, sensors and hardware.</li>
+        <li>The third-generation logs were posted by a tuner without notes. The file names say "stock" and "STG1"; the car's model and mileage are not given. No readable fourth-generation (EA888 evo4) log turned up.</li>
+        <li>The Miata.net and FitFreak forums sit behind a bot check, so they were not read.</li>
+        <li>Several of the largest owner forums, including VWVortex, CBR250.net and TTForum, restrict automated access, so they were not searched for this version.</li>
+        <li>The 2012 CBR250R dyno charts are no longer online. The figures used are the magazine's own summary of them, "about 14 : 1" and "about 12 : 1".</li>
+        <li>Pump-fuel readings are a tuning shop's test-bottle measurements, not laboratory analysis.</li>
+        <li>The US Department of Energy cars are 1999–2007 American models. None of them is one of mine.</li>
+        <li>The E20 source for April 2026 onward is a summary of the PIB release, not the release itself.</li>
+      </ul>
+    </div>
+
+    <div class="downloads" id="downloads" aria-label="Download the data"></div>
+
+    <div class="sources-wrap">
+      <table class="sources" id="sources-table">
+        <caption class="sr-only">All sources</caption>
+      </table>
+    </div>
+  </section>
+</main>
+
+<footer class="footer wrap">
+  <p>Built by <a href="../../index.html"><span class="nowrap">Hrishikesh</span> Nanda</a>. Sources accessed 7 October 2026. Charts drawn with D3.</p>
+</footer>
+
+<noscript><p class="noscript wrap">The charts on this page need JavaScript. Every number is also listed in the sources section.</p></noscript>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="data/afr-data.js?v=20261012a"></script>
+<script src="assets/app.js?v=20261012e"></script>
+<script src="assets/explore.js?v=20261012e"></script>
+</body>
+</html>

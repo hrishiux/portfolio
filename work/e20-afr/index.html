@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>E20 and AFR (engine air–fuel mixture)</title>
+<meta name="description" content="India moved all its petrol to E20. Ethanol needs less air, so every engine's target moved. A four-minute data story about what that does to engines, and to three of mine.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%230c181b%22/%3E%3Ctext x=%2232%22 y=%2246%22 font-family=%22Georgia,serif%22 font-style=%22italic%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22%2346c2d6%22%3E%CE%BB%3C/text%3E%3C/svg%3E">
+<meta property="og:title" content="E20 and AFR (engine air–fuel mixture)">
+<meta property="og:description" content="India changed its petrol. Did its engines notice? A data story by Hrishikesh Nanda.">
+<meta property="og:image" content="https://hrishiux.github.io/portfolio/assets/img/cards/e20-afr-share.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400..800;1,400..800&amp;family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<link rel="stylesheet" href="assets/short.css?v=20261012a">
+<script>
+  /* Shares the full study's saved theme, so switching versions keeps it. */
+  (function () {
+    var d = document.documentElement, t = null, q = null;
+    try { q = new URLSearchParams(location.search); } catch (e) {}
+    try { t = localStorage.getItem("afr-theme"); } catch (e) {}
+    if (q && (q.get("theme") === "light" || q.get("theme") === "dark")) t = q.get("theme");
+    if (t === "light" || t === "dark") d.setAttribute("data-theme", t);
+  })();
+</script>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to the content</a>
+
+<header class="topbar">
+  <a class="topbar__name" href="../../index.html">Hrishikesh Nanda</a>
+  <nav class="switch" aria-label="Version">
+    <a href="index.html" aria-current="page">Short story</a>
+    <a href="full.html">Full study</a>
+  </nav>
+  <button class="theme-btn" id="theme-btn" type="button">Theme · system</button>
+</header>
+
+<main id="main">
+
+  <!-- Hero -->
+  <section class="hero wrap" aria-labelledby="hero-title">
+    <p class="eyebrow">A data story · 2026 · 4 min</p>
+    <h1 id="hero-title">E20 and AFR <span class="nowrap">(engine air–fuel</span> mixture)</h1>
+    <p class="dek">In seven years the ethanol in Indian petrol went from 5% to 20%. Ethanol burns with less air, so every engine’s target mixture moved. This is what that does to an engine, and to the three I own.</p>
+
+    <figure class="fig fig--hero" id="fig-blend">
+      <figcaption>
+        <span class="fig__title" id="t-blend">Average ethanol in Indian petrol, by supply year</span>
+        <span class="fig__sub">Dashed where no official figure was collected.</span>
+      </figcaption>
+      <div class="chart" id="c-blend" aria-labelledby="t-blend"></div>
+      <details class="numbers" id="n-blend"><summary>Show the numbers</summary></details>
+    </figure>
+  </section>
+
+  <!-- 01 -->
+  <section class="chapter chapter--split wrap" aria-labelledby="h1">
+    <p class="kicker">01</p>
+    <h2 id="h1">The target moved</h2>
+    <p class="lede">Engines don’t aim for a fixed air–fuel ratio. They aim for <b class="lam">λ</b>&nbsp;1, exactly enough air to burn the fuel. Ethanol carries oxygen of its own, so the more of it in the tank, the less air the engine needs.</p>
+
+    <figure class="fig" id="fig-stoich">
+      <figcaption>
+        <span class="fig__title" id="t-stoich">Kilograms of air to burn one kilogram of fuel, by ethanol content</span>
+        <span class="fig__sub">Hover along the line for any blend. Rings are published values; the line is the mass-weighted blend.</span>
+      </figcaption>
+      <div class="chart" id="c-stoich" aria-labelledby="t-stoich"></div>
+      <details class="numbers" id="n-stoich"><summary>Show the numbers</summary></details>
+    </figure>
+  </section>
+
+  <!-- 02 -->
+  <section class="chapter wrap" aria-labelledby="h2">
+    <p class="kicker">02</p>
+    <h2 id="h2">An engine that doesn’t adapt runs leaner</h2>
+    <p class="lede">While cruising, an oxygen sensor lets the engine computer correct for the new fuel. At full throttle many engines stop listening and run a fixed, rich recipe. A US lab caught this on a 2009 Honda Civic 1.8: the same engine and the same test, on two fuels.</p>
+
+    <figure class="fig" id="fig-civic">
+      <figcaption>
+        <span class="fig__title" id="t-civic">Where the Civic’s mixture sat during a full-throttle test</span>
+        <span class="fig__sub">Samples logged at each <span class="lam">λ</span>. The strip shows the whole test; the main chart zooms into full-throttle enrichment.</span>
+      </figcaption>
+      <ul class="legend" aria-label="Legend">
+        <li><i class="key key--e0"></i>E0 · petrol</li>
+        <li><i class="key key--e20"></i>E20</li>
+      </ul>
+      <div class="chart chart--strip" id="c-civic-ov" aria-hidden="true"></div>
+      <div class="chart" id="c-civic" aria-labelledby="t-civic"></div>
+      <details class="numbers" id="n-civic"><summary>Show the numbers</summary></details>
+    </figure>
+  </section>
+
+  <!-- 03 -->
+  <section class="chapter wrap" aria-labelledby="h3">
+    <p class="kicker">03</p>
+    <h2 id="h3">It isn’t just one car</h2>
+    <p class="lede">The US Department of Energy ran sixteen cars at full throttle on E0 and E20. Nine kept their mixture. Seven ran leaner, and their catalytic converters ran hotter for it.</p>
+
+    <figure class="fig" id="fig-fleet">
+      <figcaption>
+        <span class="fig__title" id="t-fleet">Sixteen cars on E20, and the change in peak catalyst temperature</span>
+        <span class="fig__sub">Model years 1999–2007, against the same cars on E0.</span>
+      </figcaption>
+      <div class="fleet">
+        <div class="units" id="c-units" aria-labelledby="t-fleet"></div>
+        <div class="chart" id="c-cat"></div>
+      </div>
+      <details class="numbers" id="n-fleet"><summary>Show the numbers</summary></details>
+    </figure>
+  </section>
+
+  <!-- 04 -->
+  <section class="chapter wrap" aria-labelledby="h4">
+    <p class="kicker">04</p>
+    <h2 id="h4">So how much mileage do you lose?</h2>
+    <p class="lede">Every source agrees E20 gives fewer kilometres per litre. They disagree on how many, partly because they compare it with different fuels. Physics gives a reference: a litre of E20 holds about 7% less energy than petrol, and about 3.8% less than E10.</p>
+
+    <figure class="fig" id="fig-miles">
+      <figcaption>
+        <span class="fig__title" id="t-miles">Fuel economy lost on E20, as each source puts it</span>
+        <span class="fig__sub">Grouped by what E20 is compared with. The shaded column is the energy lost per litre for that comparison.</span>
+      </figcaption>
+      <ul class="legend" aria-label="Legend">
+        <li><i class="key key--meas"></i>Measured</li>
+        <li><i class="key key--stmt"></i>Estimate or statement</li>
+        <li><i class="key key--phys"></i>Energy per litre lost</li>
+      </ul>
+      <div class="chart" id="c-miles" aria-labelledby="t-miles"></div>
+      <details class="numbers" id="n-miles"><summary>Show the numbers</summary></details>
+    </figure>
+  </section>
+
+  <!-- 05 -->
+  <section class="chapter wrap" aria-labelledby="h5">
+    <p class="kicker">05</p>
+    <h2 id="h5">My three on E20</h2>
+    <p class="lede">No public mixture logs exist for my exact engines. Here is what can honestly be said about each.</p>
+
+    <div class="cards" id="fig-cards">
+      <article class="card">
+        <p class="card__type">Turbo · direct injection</p>
+        <h3>Octavia Mk2 1.8 TSI</h3>
+        <p class="card__big">λ 1</p>
+        <p class="card__cap">Audi’s stated target for the EA888, from its first-generation manual</p>
+        <p class="card__big card__big--2">0.98–1.02</p>
+        <p class="card__cap">λ of a stock third-generation EA888 at full throttle, up to 4,300 rpm</p>
+        <p>Closed-loop control is where an engine absorbs E20’s extra oxygen. My own VCDS scans, taken while the car ran E20, hold no lean, rich or fuel-trim faults.</p>
+      </article>
+      <article class="card">
+        <p class="card__type">Non-turbo · port injection</p>
+        <h3>Suzuki SY416 (Baleno)</h3>
+        <p class="card__big">1995</p>
+        <p class="card__cap">Year its G16B engine went into the Baleno</p>
+        <p>Designed before India sold any blend. Whether it carries fuel trim into full throttle, as the Civic doesn’t, is undocumented. ARAI found some older rubber parts may age faster on E20.</p>
+      </article>
+      <article class="card">
+        <p class="card__type">Single cylinder · fuel injection</p>
+        <h3>Honda CBR250R</h3>
+        <p class="card__big">3–4%</p>
+        <p class="card__cap">Economy drop NITI Aayog gives two-wheelers</p>
+        <p>On a dyno the stock bike already runs about λ 0.95 (14&nbsp;:&nbsp;1) at full throttle, leaner than the usual band. How it behaves on E20 hasn’t been measured in public.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Part two: the same data as working tools -->
+  <section class="part wrap" id="tools" aria-labelledby="h-tools">
+    <p class="kicker">Part two</p>
+    <h2 id="h-tools">The same data, as a working tool</h2>
+    <p class="lede">A story answers one question. The people who run engines, test cells or production lines need to ask their own. These tools take the data behind the story and hand the questions to the reader: watch a sensor feed, query any dataset, trace any number to where it came from.</p>
+  </section>
+
+  <!-- 06 Monitor -->
+  <section class="chapter chapter--tool wrap" aria-labelledby="h6">
+    <p class="kicker">06 · Monitor</p>
+    <h2 id="h6">Watch a sensor feed</h2>
+    <p class="lede">Six minutes of a stock VW 1.6 logged from its engine computer: 185 samples of <span class="lam">λ</span>, engine speed, load and injection time. Each sample is classed by a rule you can read. Drag across the strip to select any stretch; the statistics and histogram follow.</p>
+
+    <figure class="fig" id="fig-monitor">
+      <figcaption>
+        <span class="fig__title" id="t-monitor">What the engine computer was doing, second by second</span>
+        <span class="fig__sub">Line: <span class="lam">λ</span> measured. Strip: the class of each sample. Shaded band: 0.97–1.03, the MOT fast-idle limit.</span>
+      </figcaption>
+      <ul class="legend" aria-label="Legend">
+        <li><i class="key key--swatch" style="background:var(--mode-closed)"></i>Closed loop at <span class="lam">λ</span>&nbsp;1</li>
+        <li><i class="key key--swatch" style="background:var(--mode-rich)"></i>Enrichment requested</li>
+        <li><i class="key key--swatch" style="background:var(--mode-cut)"></i>Fuel cut on lift-off</li>
+      </ul>
+      <div class="chart" id="chart-monitor"></div>
+      <div class="monitor__actions" role="group" aria-label="Select a stretch">
+        <button class="btn" type="button" id="monitor-reset">Whole drive</button>
+        <button class="btn" type="button" id="monitor-pulls">Full-throttle pulls</button>
+        <button class="btn" type="button" id="monitor-idle">Final idle</button>
+      </div>
+      <div class="monitor">
+        <div class="tiles" id="monitor-tiles" aria-live="polite"></div>
+        <div class="chart" id="chart-hist"></div>
+      </div>
+      <details class="numbers"><summary>Show the code that computes these numbers</summary><pre class="code" id="monitor-code"></pre></details>
+    </figure>
+  </section>
+
+  <!-- 07 Explorer -->
+  <section class="chapter chapter--tool wrap" aria-labelledby="h7">
+    <p class="kicker">07 · Explorer</p>
+    <h2 id="h7">Ask your own question</h2>
+    <p class="lede">Eight datasets from the study, one scatter. Pick any two fields and a filter. The query line states exactly what is plotted, and the correlation is computed on the points you see.</p>
+
+    <figure class="fig" id="fig-explorer">
+      <figcaption>
+        <span class="fig__title" id="t-explorer">Plot any field against any other</span>
+        <span class="fig__sub">Hover a point for its values. Pearson’s r measures straight-line association, nothing more.</span>
+      </figcaption>
+      <div class="explorer__controls">
+        <label class="field"><span>Dataset</span><select id="ex-ds"></select></label>
+        <label class="field"><span>Across</span><select id="ex-x"></select></label>
+        <label class="field"><span>Up</span><select id="ex-y"></select></label>
+        <label class="field"><span>Rows</span><select id="ex-filter"></select></label>
+      </div>
+      <pre class="code code--query" id="ex-query" aria-label="Query for the plotted data"></pre>
+      <div class="chart" id="chart-explorer"></div>
+      <p class="readout" id="ex-read" aria-live="polite"></p>
+      <details class="numbers"><summary>Show the numbers</summary><div class="tw" id="table-explorer"></div></details>
+    </figure>
+  </section>
+
+  <!-- 08 Lineage -->
+  <section class="chapter chapter--tool wrap" aria-labelledby="h8">
+    <p class="kicker">08 · Lineage</p>
+    <h2 id="h8">Trace every number</h2>
+    <p class="lede">A chart is only as trustworthy as the trail behind it. Every source on the left, grouped by the kind of evidence, linked to every chart on this page it feeds. Hover either side to trace the links; click to jump.</p>
+
+    <figure class="fig" id="fig-lineage">
+      <figcaption>
+        <span class="fig__title" id="t-lineage">Sources to charts</span>
+        <span class="fig__sub">Measured data first, then manufacturer documents, published references and official statements.</span>
+      </figcaption>
+      <div class="chart" id="chart-lineage"></div>
+      <p class="readout" id="lineage-read" aria-live="polite"></p>
+      <details class="numbers"><summary>Show the links as a table</summary><div class="tw" id="table-lineage"></div></details>
+    </figure>
+  </section>
+
+  <!-- 09 Handoff -->
+  <section class="chapter chapter--tool wrap" aria-labelledby="h9">
+    <p class="kicker">09 · Handoff</p>
+    <h2 id="h9">Specified for the engineers who build it</h2>
+    <div class="handoff">
+      <div class="fig">
+        <p class="fig__title">Accessibility</p>
+        <ul class="plain">
+          <li>Every chart has a table with the same numbers.</li>
+          <li>Marks with tooltips take keyboard focus; the monitor’s selections have buttons as well as dragging.</li>
+          <li>Fuels are labelled directly on each chart, not told apart by colour alone. Measured and stated figures differ by fill, not hue.</li>
+          <li>Dark mode is its own set of tokens, not an inversion. The opening animation stops when the system asks for reduced motion.</li>
+        </ul>
+      </div>
+      <div class="fig">
+        <p class="fig__title">Tokens</p>
+        <div class="swatches" id="tokens"></div>
+        <p class="fig__sub">Read live from the stylesheet, so they change with the theme. Type: Archivo for headings and controls, EB Garamond for reading, JetBrains Mono for data.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Outro -->
+  <section class="outro wrap" aria-labelledby="h-full">
+    <div class="cta">
+      <div>
+        <p class="kicker">The full study</p>
+        <h2 id="h-full">Want the engine logs behind this?</h2>
+        <p>The long version has the full evidence: lambda logs from close relatives of each engine, a turbo’s exhaust-temperature protection, a 3D engine map of the drive, and all 38 sources with what each one said.</p>
+      </div>
+      <a class="cta__btn" href="full.html">Open the full study <span aria-hidden="true">→</span></a>
+    </div>
+
+    <div class="sources">
+      <h2 class="sources__title">Sources</h2>
+      <ul id="src-list"></ul>
+      <p class="method">Stoichiometric ratio of a blend: mass-weighted between petrol (14.7) and ethanol (9.0), which reproduces the published E10 value. Energy per litre: lower heating value × specific gravity of the US lab’s twelve measured test fuels. All sources accessed October 2026.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot wrap">
+  <p>Hrishikesh Nanda · 2026</p>
+  <a href="full.html">Full study →</a>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script src="data/afr-data.js?v=20261012a"></script>
+<script>
+  /* This page's own lineage: its charts, and only the sources they rest on. The data file is untouched. */
+  (function () {
+    var A = window.AFR;
+    A.lineage = [
+      { anchor: "fig-blend",    label: "Ethanol in Indian petrol",  src: "ls24 mopng rs25 pib26" },
+      { anchor: "fig-stoich",   label: "Air needed per fuel",       src: "hpt wiki-eth ornl" },
+      { anchor: "fig-civic",    label: "Honda Civic, E0 and E20",   src: "ornl11" },
+      { anchor: "fig-fleet",    label: "Sixteen cars on E20",       src: "ornl" },
+      { anchor: "fig-miles",    label: "Mileage claims",            src: "ornl harm niti mopng25 pib26 arai" },
+      { anchor: "fig-cards",    label: "My three on E20",           src: "ssp384 aet-stock owner-scan wiki-g arai-bt niti mp" },
+      { anchor: "fig-monitor",  label: "Monitor",                   src: "sc16" },
+      { anchor: "fig-explorer", label: "Explorer",                  src: "sc16 rs246 aet-stock aet-stg1 sc18t ornl rd ls24 mopng rs25 pib26" }
+    ];
+    var used = {};
+    A.lineage.forEach(function (o) { o.src.split(" ").forEach(function (id) { used[id] = true; }); });
+    A.sources = A.sources.filter(function (s) { return used[s.id]; });
+  })();
+</script>
+<script src="assets/short.js?v=20261012c"></script>
+<script src="assets/explore.js?v=20261012e"></script>
+</body>
+</html>
