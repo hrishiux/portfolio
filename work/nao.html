@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400..800;1,400..800&family=EB+Garamond:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
 <script>document.documentElement.className += " js";</script>
-<link rel="stylesheet" href="../assets/css/style.css?v=20261008a">
+<link rel="stylesheet" href="../assets/css/style.css?v=20261008f">
 </head>
 <body>
 <a class="skip" href="#main">skip to content</a>
@@ -345,6 +345,8 @@
       
 
 
+      
+
       <h2 id="blocks">5. The blocks, redesigned</h2>
       <p>Each block below starts with what went wrong for the person, then what changed.</p>
       <nav class="block-index" aria-label="The six blocks"><a href="#block-a"><b>A</b>signup</a><a href="#block-b"><b>B</b>email</a><a href="#block-c"><b>C</b>bank</a><a href="#block-d"><b>D</b>selfie</a><a href="#block-e"><b>E</b>signature</a><a href="#block-f"><b>F</b>e-sign</a></nav>
@@ -354,11 +356,12 @@
       <p><strong>The friction point:</strong> High latency in cold-app loading, static landing layouts, and manual typing of phone numbers on Android devices.</p>
       <p><strong>The redesign solution:</strong></p>
       <div class="point-row"><ol>
-        <li>Optimized asset pipeline to establish minimal splash screen time.</li>
+        <li>Optimized asset pipeline to establish minimal splash screen time. If start-up ran long, an animated loader appeared at the bottom so the app never looked stuck; if the network dropped, a notice took its place.</li>
       </ol>
-      <figure class="screens screens--inline" style="--n:1">
+      <figure class="screens screens--inline" style="--n:2">
         <ol class="screens__row">
-          <li><img class="screens__img" src="../assets/img/nao/m/a-splash.webp" alt="Upstox splash screen: the upstox wordmark on purple with a loading indicator." width="540" height="1204" loading="lazy" decoding="async"><span class="screens__cap">splash</span></li>
+          <li><img class="screens__img" src="../assets/img/nao/m/a-launch.webp" alt="App launch: the up logo on black, as the app starts." width="540" height="1200" loading="lazy" decoding="async"><span class="screens__cap">the logo, as the app starts</span></li>
+          <li><img class="screens__img" src="../assets/img/nao/m/a-splash.webp" alt="Upstox splash screen: the upstox wordmark on purple with a loading indicator." width="540" height="1204" loading="lazy" decoding="async"><span class="screens__cap">splash, with the loader at the bottom</span></li>
         </ol>
       </figure></div>
       <ol start="2" class="list-cont">
@@ -373,9 +376,17 @@
           </li>
           <li><img class="screens__img" src="../assets/img/nao/m/a-carousel-ph.webp" alt="Landing carousel reading your wealth journey starts here, trusted by 1 crore+ customers, above a sign up or log in sheet with a mobile number field." width="540" height="1204" loading="lazy" decoding="async"><span class="screens__cap"><b class="screens__tag">education</b>the carousel, in the media area</span></li>
         </ol>
-        <ol class="screens__legend"><li><b>1</b>top bar</li><li><b>2</b>media area</li><li><b>3</b>content area</li><li><b>4</b>footer</li><li><b>5</b>progress bar</li></ol>
+        <ol class="spec-notes"><li><b><i>1</i>Top bar</b><span>The top bar component will be always sticky on top. It&rsquo;s visual treatment will change according to the interactions &hellip; On scroll/Input from keyboard: The background colour will change to Link/2 and the icon/buttons will NOT have an overlay background.</span></li><li><b><i>2</i>Media area</b><span>The media area will comprise static illustration, gifs and videos in 1:1 media container. The gifs and videos must be under the guidelines (green outlines 4:3) of the safe area. The expand icon on the media below will open the media in the full screen view.</span></li><li><b><i>3</i>Content area</b><span>The content area bottom sheet + footer (with media) will be 12px overlay on top of media component. The content area will be divided into header &amp; components area which are separated by 24px.</span></li><li><b><i>4</i>Footer</b><span>The footer comprises of two components: 1. Progress bar &hellip; 2. Button section &hellip; Loading: When the button is in loading state all of the media + content area will be in disabled mode.</span></li><li><b><i>5</i>Progress bar</b><span>The bar progresses as you keep completing the steps of the journey. Each major segments of the account opening process fills up segments of the bar. And upon the completion of the entire NAO process, the bar gets completely filled.</span></li></ol>
         <figcaption>every block is built on this one screen layout; the media area (2) is where the carousel plays</figcaption>
       </figure>
+      <figure class="media-rules media-rules--figma">
+        <div class="media-rules__shots">
+          <img src="../assets/img/nao/spec-lottie.webp" alt="Figma spec for full-screen lottie assets: 9:20 largest supported aspect ratio, 9:16 most common, art safe area 90% and text safe area 80% of 9:16, shown empty and on two phone sizes." width="1400" height="1003" loading="lazy" decoding="async">
+          <img src="../assets/img/nao/spec-video.webp" alt="Figma spec for contained video: 1:1 largest supported aspect ratio, 4:3 most common, and the video safe area." width="684" height="684" loading="lazy" decoding="async">
+        </div>
+        <figcaption>media specs from the figma file: full-screen lottie (9:16, art inside 90%, text inside 80%) and contained video (1:1, 4:3 most common)</figcaption>
+      </figure>
+
       <div class="point-row"><ol start="3" class="list-cont">
         <li>Integrated the <strong>Android Hint Module API</strong> to auto-suggest active phone numbers stored on the device, allowing one-tap selection and automating OTP reading and autofill.</li>
       </ol>
@@ -780,7 +791,9 @@
 </footer>
 
 
-<script src="../assets/js/main.js?v=20261008a"></script>
-<script src="../assets/js/nao-flows.js?v=20261008a"></script>
+
+
+<script src="../assets/js/main.js?v=20261008f"></script>
+<script src="../assets/js/nao-flows.js?v=20261008f"></script>
 </body>
 </html>
