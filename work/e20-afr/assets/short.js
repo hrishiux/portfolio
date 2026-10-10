@@ -11,15 +11,15 @@
 
   /* ---------- theme ---------- */
   var themeBtn = document.getElementById("theme-btn");
-  var MODES = ["system", "light", "dark"];
-  var mode = document.documentElement.getAttribute("data-theme") || "system";
+  var MODES = ["light", "dark"];
+  var mode = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
   function applyTheme() {
     var d = document.documentElement;
-    if (mode === "system") d.removeAttribute("data-theme"); else d.setAttribute("data-theme", mode);
-    try { if (mode === "system") localStorage.removeItem("afr-theme"); else localStorage.setItem("afr-theme", mode); } catch (e) {}
+    d.setAttribute("data-theme", mode);
+    try { localStorage.setItem("afr-theme", mode); } catch (e) {}
     themeBtn.innerHTML = '<span class="tl">Theme · </span>' + mode;
   }
-  themeBtn.addEventListener("click", function () { mode = MODES[(MODES.indexOf(mode) + 1) % 3]; applyTheme(); });
+  themeBtn.addEventListener("click", function () { mode = MODES[(MODES.indexOf(mode) + 1) % MODES.length]; applyTheme(); });
   themeBtn.innerHTML = '<span class="tl">Theme · </span>' + mode;
 
   /* ---------- tooltip ---------- */

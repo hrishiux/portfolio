@@ -3001,3 +3001,13 @@ table.bench td small{ display:block; margin-top:.2rem; font:400 .6875rem/1.4 var
 .card--dark .card__go{ color:color-mix(in oklab, var(--primary) 45%, var(--cream)) }
 .card--dark .card__badge{ background-color:var(--cream); color:var(--foreground) }
 .card--dark .card__media{ border-bottom-color:rgb(255 255 255 / .06) }
+
+/* ---------- card badges (2026-10-09): a row of them; outlined ones say there's something to click through ---------- */
+.card__badges{ display:flex; flex-wrap:wrap; align-self:flex-start; gap:.4rem; margin:0 0 1.25rem }
+.card__badges .card__badge{ margin:0 }
+.card__badge--try{
+  display:inline-flex; align-items:center; gap:.35rem;
+  background-color:transparent; color:var(--foreground);
+  box-shadow:inset 0 0 0 1px color-mix(in oklab, var(--foreground) 32%, transparent);
+}
+.card__badge--try svg{ width:.75rem; height:.75rem; margin:-.15rem 0 -.1rem -.15rem; fill:currentColor }

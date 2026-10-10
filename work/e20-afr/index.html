@@ -9,20 +9,20 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%230c181b%22/%3E%3Ctext x=%2232%22 y=%2246%22 font-family=%22Georgia,serif%22 font-style=%22italic%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22%2346c2d6%22%3E%CE%BB%3C/text%3E%3C/svg%3E">
 <meta property="og:title" content="E20 and AFR (engine air–fuel mixture)">
 <meta property="og:description" content="India changed its petrol. Did its engines notice? A data story by Hrishikesh Nanda.">
-<meta property="og:image" content="https://hrishiux.github.io/portfolio/assets/img/cards/e20-afr-share.jpg">
+<meta property="og:image" content="https://hrishiux.github.io/portfolio/assets/img/cards/e20-afr-share.jpg?v=2">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400..800;1,400..800&amp;family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
-<link rel="stylesheet" href="assets/short.css?v=20261012a">
+<link rel="stylesheet" href="assets/short.css?v=20261012c">
 <script>
-  /* Shares the full study's saved theme, so switching versions keeps it. */
+  /* Opens light, like the rest of the portfolio; a saved "dark" from either page wins. */
   (function () {
     var d = document.documentElement, t = null, q = null;
     try { q = new URLSearchParams(location.search); } catch (e) {}
     try { t = localStorage.getItem("afr-theme"); } catch (e) {}
     if (q && (q.get("theme") === "light" || q.get("theme") === "dark")) t = q.get("theme");
-    if (t === "light" || t === "dark") d.setAttribute("data-theme", t);
+    d.setAttribute("data-theme", t === "dark" ? "dark" : "light");
   })();
 </script>
 </head>
@@ -31,12 +31,13 @@
 <a class="skip" href="#main">Skip to the content</a>
 
 <header class="topbar">
-  <a class="topbar__name" href="../../index.html">Hrishikesh Nanda</a>
+  <a class="topbar__name site-mark" href="../../index.html">hrishikesh</a>
   <nav class="switch" aria-label="Version">
     <a href="index.html" aria-current="page">Short story</a>
     <a href="full.html">Full study</a>
   </nav>
-  <button class="theme-btn" id="theme-btn" type="button">Theme · system</button>
+  <button class="theme-btn" id="theme-btn" type="button">Theme · light</button>
+  <nav class="site-links" aria-label="Site"><a href="../../index.html#works">works</a><a href="../../about.html">about</a><a href="../../index.html#contact">contact</a></nav>
 </header>
 
 <main id="main">
@@ -313,7 +314,7 @@
     A.sources = A.sources.filter(function (s) { return used[s.id]; });
   })();
 </script>
-<script src="assets/short.js?v=20261012c"></script>
+<script src="assets/short.js?v=20261012d"></script>
 <script src="assets/explore.js?v=20261012e"></script>
 </body>
 </html>

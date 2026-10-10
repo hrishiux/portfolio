@@ -1467,14 +1467,13 @@
   /* ---------- theme ---------- */
   function initTheme() {
     const btn = $("#theme-btn");
-    const order = ["system", "light", "dark"];
-    let mode = document.documentElement.getAttribute("data-theme") || "system";
+    const order = ["light", "dark"];
+    let mode = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
     function apply() {
-      if (mode === "system") document.documentElement.removeAttribute("data-theme");
-      else document.documentElement.setAttribute("data-theme", mode);
+      document.documentElement.setAttribute("data-theme", mode);
       btn.replaceChildren(h("span", { class: "btn-extra", text: "Theme · " }), mode);
-      btn.setAttribute("aria-label", "Colour theme: " + (mode === "system" ? "follows system" : mode) + ". Change theme");
-      try { if (mode === "system") localStorage.removeItem("afr-theme"); else localStorage.setItem("afr-theme", mode); } catch (e) { /* storage unavailable */ }
+      btn.setAttribute("aria-label", "Colour theme: " + mode + ". Change theme");
+      try { localStorage.setItem("afr-theme", mode); } catch (e) { /* storage unavailable */ }
     }
     btn.addEventListener("click", () => { mode = order[(order.indexOf(mode) + 1) % order.length]; apply(); });
     apply();
