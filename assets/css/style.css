@@ -3011,3 +3011,29 @@ table.bench td small{ display:block; margin-top:.2rem; font:400 .6875rem/1.4 var
   box-shadow:inset 0 0 0 1px color-mix(in oklab, var(--foreground) 32%, transparent);
 }
 .card__badge--try svg{ width:.75rem; height:.75rem; margin:-.15rem 0 -.1rem -.15rem; fill:currentColor }
+
+/* ---------- works layout (W7, his pick 2026-10-10) ----------
+   NAO wide; the next three (E20 and AFR, Up.alert, Trophee) three across with shorter artwork;
+   Dev API, Invest Logos, Ani! and Explorations as compact rows, two to a row, inside the usual margins. */
+html:not([data-w]) .section--works .card__body{ padding:1.375rem 1.5rem 1.25rem }
+html:not([data-w]) .section--works .card--text .card__body{ min-height:0 }
+html:not([data-w]) .section--works .card__go{ padding-top:1rem }
+html:not([data-w]) .section--works .card--half .card__media, html:not([data-w]) .section--works .card--third .card__media{ aspect-ratio:2 / 1 }
+@media (min-width:768px){ html:not([data-w]) .section--works .card--feature .card__link{ min-height:21rem } }
+@media (min-width:1080px){
+  html:not([data-w]) .section--works .cards > li:nth-child(-n+4):not(.card--feature){ grid-column:span 2 }
+  html:not([data-w]) .section--works .cards > li:nth-child(-n+4) .card__name{ font-size:1.375rem }
+  html:not([data-w]) .section--works .cards > li:nth-child(-n+4) .card__note{ font-size:1rem }
+}
+@media (min-width:900px){ html:not([data-w]) .section--works .cards > li:nth-child(n+5){ grid-column:span 3 } }
+html:not([data-w]) .section--works .cards > li:nth-child(n+5) .card__link{ flex-direction:row; align-items:stretch; border-radius:14px }
+html:not([data-w]) .section--works .cards > li:nth-child(n+5) .card__media{ flex:0 0 9rem; aspect-ratio:auto; border-bottom:0; border-right:1px solid rgb(16 35 41 / .06) }
+html:not([data-w]) .section--works .cards > li:nth-child(n+5) .card__body{ padding:1.1rem 1.25rem }
+html:not([data-w]) .section--works .cards > li:nth-child(n+5) .card__name{ font-size:1.25rem }
+html:not([data-w]) .section--works .cards > li:nth-child(n+5) .card__note{ margin-top:.5rem; font-size:.95rem; line-height:1.45 }
+html:not([data-w]) .section--works .cards > li:nth-child(n+5) .card__go{ display:none }
+html:not([data-w]) .section--works .cards > li.card--text:nth-child(n+5) .card__link::before{ opacity:.55 }
+html:not([data-w]) .section--works .card--group .card__subs{ margin-top:.6rem }
+html:not([data-w]) .section--works .card--group .card__subs a{ padding:.55rem 0 .35rem }
+@media (max-width:599px){ html:not([data-w]) .section--works .cards > li:nth-child(n+5) .card__media{ flex-basis:6.5rem } }
+@media (min-width:900px){ html:not([data-w]) .section--works .card--group .card__subs{ grid-template-columns:1fr 1fr; column-gap:1.5rem } html:not([data-w]) .section--works .card--group .card__subs span{ font-size:.9rem; line-height:1.4 } }
