@@ -3039,5 +3039,5 @@ html:not([data-w]) .section--works .card--group .card__subs a{ padding:.55rem 0 
 @media (min-width:900px){ html:not([data-w]) .section--works .card--group .card__subs{ grid-template-columns:1fr 1fr; column-gap:1.5rem } html:not([data-w]) .section--works .card--group .card__subs span{ font-size:.9rem; line-height:1.4 } }
 
 /* 2026-10-16: credit for the hero artwork, bottom-left opposite "scroll" */
-.hero__credit{ color:color-mix(in oklab, var(--cream) 72%, transparent); font-size:.6875rem; letter-spacing:.12em; text-shadow:0 1px 8px rgb(0 0 0 / .25) }
-@media (max-width:640px){ .hero__credit{ font-size:.625rem; letter-spacing:.08em; max-width:11rem } }
+.hero__credit{ color:var(--cream); opacity:.3; font-size:.5625rem; letter-spacing:.1em }
+@media (max-width:640px){ .hero__credit{ font-size:.5rem; letter-spacing:.06em; max-width:10rem } }
