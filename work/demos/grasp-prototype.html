@@ -24,6 +24,8 @@ body{
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 .page{max-width:1080px;margin:0 auto;padding:36px 24px 72px}
+html.is-embed .masthead, html.is-embed h1, html.is-embed .sub{display:none}
+html.is-embed .page{padding:16px 20px 24px;max-width:100%}
 .masthead{display:flex;align-items:center;gap:14px;margin-bottom:10px}
 .masthead b{font-size:22px}
 .masthead p{margin:0;color:var(--grey);font-size:15px}
@@ -574,6 +576,10 @@ select,.btn{
   });
 
   $('failSel').addEventListener('change', reset);
+
+  if (new URLSearchParams(window.location.search).has('embed')) {
+    document.documentElement.classList.add('is-embed');
+  }
 
   resetScreen();
 })();
