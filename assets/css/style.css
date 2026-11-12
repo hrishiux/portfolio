@@ -441,54 +441,52 @@ html.nav-near .nav:not([data-tone="dark"]){
 .stack a{ color:var(--primary); text-decoration:none }
 .stack a:hover{ text-decoration:underline }
 
-/* ---------- case study masthead ----------
-   A dark band so a case study opens on something, instead of pale text on a
-   pale field. */
+/* ---------- case study masthead: M5, his pick on the desk (5 Nov 2026) ----------
+   No band. Centred, like a product page: back, eyebrow, title, lede, the facts on one
+   mono line, then the work large underneath (.cs-work). The nav is ink from the top. */
 .cs-hero{
-  background-color:var(--foreground); color:var(--cream);
-  padding:7.5rem var(--gutter) 3rem;
+  color:var(--foreground); text-align:center;
+  padding:7.5rem var(--edge) 2rem;
 }
-.cs-hero .back{ color:color-mix(in oklab, var(--cream) 70%, transparent) }
-.cs-hero .back:hover{ color:var(--cream) }
-.cs-hero__eyebrow{ color:color-mix(in oklab, var(--cream) 62%, transparent); margin:0 }
+.cs-hero .back{ color:var(--muted-foreground) }
+.cs-hero .back:hover{ color:var(--foreground) }
+.cs-hero__eyebrow{ color:var(--muted-foreground); margin:0 }
 .cs-hero h1{
-  margin:1rem 0 0; color:var(--cream);
+  margin:1rem auto 0; color:var(--foreground);
   font-family:var(--font-display); font-weight:800; font-style:italic;
   font-size:clamp(2.125rem, 5.2vw, 3.75rem); letter-spacing:-0.035em; line-height:1.02;
-  max-width:18ch;
+  max-width:22ch;
 }
 .cs-hero .lede-serif{
-  color:color-mix(in oklab, var(--cream) 88%, transparent);
-  max-width:46rem;
+  color:color-mix(in oklab, var(--foreground) 80%, transparent);
+  max-width:46rem; margin-inline:auto;
 }
 
-/* Case studies share the home page's centred column. The dark masthead stays
-   full width; its text lines up with the column below it. */
-.cs-hero{ padding-inline:var(--edge) }
+/* Case studies share the home page's centred column. */
 .cs-hero ~ .section > .gutter{ max-width:var(--wrap); margin-inline:auto }
 .back{ display:inline-block; margin-bottom:2.5rem; color:var(--primary); text-decoration:none }
 .back:hover{ text-decoration:underline }
 
-.meta{
-  display:grid; gap:0; margin:3rem 0 0; padding:0;
-  border-top:1px solid color-mix(in oklab, var(--cream) 22%, transparent);
-}
-@media (min-width:700px){ .meta{ grid-template-columns:repeat(4,minmax(0,1fr)) } }
-.meta div{
-  padding:1.25rem 0;
-  border-bottom:1px solid color-mix(in oklab, var(--cream) 14%, transparent);
-}
-@media (min-width:700px){
-  .meta div{ padding-right:1.5rem; border-bottom:0 }
-}
-.meta dt{
-  margin:0; font-family:var(--font-mono); font-size:.75rem; letter-spacing:.18em;
-  text-transform:lowercase; color:color-mix(in oklab, var(--cream) 55%, transparent);
-}
-.meta dd{
-  margin:.75rem 0 0; font-family:var(--font-serif); font-size:1.0625rem;
-  line-height:1.5; color:var(--cream);
-}
+/* the facts: one centred line, labels kept for screen readers */
+.meta{ display:flex; flex-wrap:wrap; justify-content:center; gap:.25rem 0; margin:1.75rem auto 0; padding:0; max-width:72rem }
+.meta div{ padding:0; border:0 }
+.meta dt{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap }
+.meta dd{ margin:0; font:400 .78rem/1.6 var(--font-mono); letter-spacing:.06em; color:var(--foreground) }
+.meta div + div dd::before{ content:"\00b7"; margin:0 .7rem; opacity:.5 }
+@media (max-width:900px){ .meta{ flex-direction:column; align-items:center; gap:.35rem } .meta div + div dd::before{ content:none } }
+
+/* the work, large and centred under the masthead */
+.cs-work{ max-width:64rem; margin:3rem auto 0; text-align:left }
+.cs-phones{ display:flex; justify-content:center; align-items:flex-end; gap:1rem }
+.cs-phones img{ width:31%; max-width:15rem; height:auto; border-radius:1.4rem; border:5px solid #0b1517; box-shadow:0 30px 60px -30px rgb(0 0 0 / .6); background:#fff }
+.cs-phones img:nth-child(2){ transform:translateY(-1.5rem) }
+.cs-stack{ position:relative; padding:0 0 2rem }
+.cs-browser{ border-radius:12px; overflow:hidden; background:#fff; box-shadow:0 30px 70px -30px rgb(0 0 0 / .55) }
+.cs-browser::before{ content:""; display:block; height:1.6rem; background:linear-gradient(90deg, rgb(16 35 41 / .08), rgb(16 35 41 / .04)); border-bottom:1px solid rgb(16 35 41 / .08) }
+.cs-browser img{ display:block; width:100%; height:auto }
+.cs-stack .cs-ph{ position:absolute; right:-1rem; bottom:0; width:24%; height:auto; border-radius:1.2rem; border:5px solid #0b1517; box-shadow:0 24px 50px -20px rgb(0 0 0 / .6); background:#fff }
+.cs-art{ display:block; width:100%; height:auto; border-radius:1.25rem; box-shadow:0 30px 70px -34px rgb(0 0 0 / .5) }
+@media (max-width:640px){ .cs-stack .cs-ph{ right:-.25rem; width:30% } .cs-phones{ gap:.5rem } .cs-phones img{ border-width:3px; border-radius:1rem } }
 
 /* ---------- case study visual components ---------- */
 .keyfigures{
@@ -1258,7 +1256,6 @@ pre code{ background:none; padding:0; font-size:inherit; color:inherit }
   .prose h2{ margin-top:3rem; padding-top:1.5rem }
   .prose p,.prose li{ font-size:1.0625rem }
 
-  .meta div{ padding:1rem 0 }
   .foot{ padding-block:4.5rem 2rem }
   .foot__bar{ margin-top:3.5rem }
 }
@@ -1815,10 +1812,11 @@ fieldset.ua-card{ display:flex; flex-direction:column; gap:2px }
 
 /* case study masthead: one quiet line under the meta */
 .cs-hero__note{
-  display:flex; align-items:center; gap:.6rem; margin:1.5rem 0 0;
-  font-size:.6875rem; letter-spacing:.08em; color:color-mix(in oklab, var(--cream) 62%, transparent);
+  display:flex; align-items:center; justify-content:center; gap:.6rem; margin:1.5rem 0 0;
+  font-size:.6875rem; letter-spacing:.08em; color:var(--muted-foreground);
 }
 .cs-hero__note i{ flex:none; width:.45rem; height:.45rem; border-radius:50%; background:var(--meadow, #6fcf97) }
+@media (max-width:640px){ .cs-hero__note{ display:block; text-align:center; line-height:1.7 } .cs-hero__note i{ display:inline-block; margin-right:.5rem; vertical-align:1px } }
 
 /* ---------------------------------------------------------------------------
    Trophee Manga Reader, rebuilt as a working phone prototype
@@ -3012,31 +3010,45 @@ table.bench td small{ display:block; margin-top:.2rem; font:400 .6875rem/1.4 var
 }
 .card__badge--try svg{ width:.75rem; height:.75rem; margin:-.15rem 0 -.1rem -.15rem; fill:currentColor }
 
-/* ---------- works layout (W7, his pick 2026-10-10) ----------
-   NAO wide; the next three (E20 and AFR, Up.alert, Trophee) three across with shorter artwork;
-   Dev API, Invest Logos, Ani! and Explorations as compact rows, two to a row, inside the usual margins. */
+/* ---------- works layout E (his pick for now, 12 Nov; the W7 rules of 10 Oct before it are in _build/before-1112-cards/style.css) ----------
+   NAO (its wide card, two thirds) and Up.alert (the last third) on top; E20 and AFR, Trophee, Ani! three across;
+   Other Upstox work and Explorations as compact rows, two to a row. html[data-w] test pages switch these off. */
 html:not([data-w]) .section--works .card__body{ padding:1.375rem 1.5rem 1.25rem }
 html:not([data-w]) .section--works .card--text .card__body{ min-height:0 }
 html:not([data-w]) .section--works .card__go{ padding-top:1rem }
 html:not([data-w]) .section--works .card--half .card__media, html:not([data-w]) .section--works .card--third .card__media{ aspect-ratio:2 / 1 }
-@media (min-width:768px){ html:not([data-w]) .section--works .card--feature .card__link{ min-height:21rem } }
+@media (min-width:768px){ html:not([data-w]) .section--works .cards > li:nth-child(-n+2){ grid-column:span 3 } }
 @media (min-width:1080px){
-  html:not([data-w]) .section--works .cards > li:nth-child(-n+4):not(.card--feature){ grid-column:span 2 }
-  html:not([data-w]) .section--works .cards > li:nth-child(-n+4) .card__name{ font-size:1.375rem }
-  html:not([data-w]) .section--works .cards > li:nth-child(-n+4) .card__note{ font-size:1rem }
+  html:not([data-w]) .section--works .cards > li:nth-child(1){ grid-column:span 4 }
+  html:not([data-w]) .section--works .cards > li:nth-child(2){ grid-column:span 2 }
+  html:not([data-w]) .section--works .cards > li:nth-child(2) .card__name{ font-size:1.375rem }
+  html:not([data-w]) .section--works .card--feature .card__body{ width:min(44%, 22rem); padding:2rem 1.75rem 1.75rem }
+  html:not([data-w]) .section--works .card--feature .card__media{ width:58% }
+  html:not([data-w]) .section--works .card--feature .card__name{ font-size:2rem }
+  html:not([data-w]) .section--works .cards > li:nth-child(n+3):nth-child(-n+5){ grid-column:span 2 }
+  html:not([data-w]) .section--works .cards > li:nth-child(n+3):nth-child(-n+5) .card__name{ font-size:1.375rem }
+  html:not([data-w]) .section--works .cards > li:nth-child(n+3):nth-child(-n+5) .card__note{ font-size:1rem }
 }
-@media (min-width:900px){ html:not([data-w]) .section--works .cards > li:nth-child(n+5){ grid-column:span 3 } }
-html:not([data-w]) .section--works .cards > li:nth-child(n+5) .card__link{ flex-direction:row; align-items:stretch; border-radius:14px }
-html:not([data-w]) .section--works .cards > li:nth-child(n+5) .card__media{ flex:0 0 9rem; aspect-ratio:auto; border-bottom:0; border-right:1px solid rgb(16 35 41 / .06) }
-html:not([data-w]) .section--works .cards > li:nth-child(n+5) .card__body{ padding:1.1rem 1.25rem }
-html:not([data-w]) .section--works .cards > li:nth-child(n+5) .card__name{ font-size:1.25rem }
-html:not([data-w]) .section--works .cards > li:nth-child(n+5) .card__note{ margin-top:.5rem; font-size:.95rem; line-height:1.45 }
-html:not([data-w]) .section--works .cards > li:nth-child(n+5) .card__go{ display:none }
-html:not([data-w]) .section--works .cards > li.card--text:nth-child(n+5) .card__link::before{ opacity:.55 }
+@media (min-width:900px){ html:not([data-w]) .section--works .cards > li:nth-child(n+6){ grid-column:span 3 } }
+html:not([data-w]) .section--works .cards > li:nth-child(n+6) .card__link{ flex-direction:row; align-items:stretch; border-radius:14px }
+html:not([data-w]) .section--works .cards > li:nth-child(n+6) .card__media{ flex:0 0 9rem; aspect-ratio:auto; border-bottom:0; border-right:1px solid rgb(16 35 41 / .06) }
+html:not([data-w]) .section--works .cards > li:nth-child(n+6) .card__body{ padding:1.1rem 1.25rem }
+html:not([data-w]) .section--works .cards > li:nth-child(n+6) .card__name{ font-size:1.25rem }
+html:not([data-w]) .section--works .cards > li:nth-child(n+6) .card__note{ margin-top:.5rem; font-size:.95rem; line-height:1.45 }
+html:not([data-w]) .section--works .cards > li:nth-child(n+6) .card__go{ display:none }
+html:not([data-w]) .section--works .cards > li.card--text:nth-child(n+6) .card__link::before{ opacity:.55 }
 html:not([data-w]) .section--works .card--group .card__subs{ margin-top:.6rem }
 html:not([data-w]) .section--works .card--group .card__subs a{ padding:.55rem 0 .35rem }
-@media (max-width:599px){ html:not([data-w]) .section--works .cards > li:nth-child(n+5) .card__media{ flex-basis:6.5rem } }
+@media (max-width:599px){ html:not([data-w]) .section--works .cards > li:nth-child(n+6) .card__media{ flex-basis:6.5rem } }
 @media (min-width:900px){ html:not([data-w]) .section--works .card--group .card__subs{ grid-template-columns:1fr 1fr; column-gap:1.5rem } html:not([data-w]) .section--works .card--group .card__subs span{ font-size:.9rem; line-height:1.4 } }
+/* Other Upstox work: its two pictures stacked */
+.card__media--pair{ display:grid !important; grid-template-rows:1fr 1fr; gap:2px; background:rgb(16 35 41 / .08) }
+.card__media--pair img{ position:static !important; width:100% !important; height:100% !important; object-fit:cover; object-position:var(--pos, 50% 50%) }
+/* the featured pill (12 Nov, his note: it shouldn't look like a category pill such as web3): the site's accent, a star */
+.card__badge--feat{ display:inline-flex; align-items:center; gap:.35rem; background-color:color-mix(in oklab, var(--primary) 14%, var(--background)); color:var(--primary);
+  box-shadow:inset 0 0 0 1px color-mix(in oklab, var(--primary) 35%, transparent) }
+.card__badge--feat svg{ width:.75rem; height:.75rem; margin:-.15rem 0 -.1rem -.15rem; fill:currentColor }
+
 
 /* 2026-10-16: credit for the hero artwork, bottom-left opposite "scroll" */
 .hero__credit{ color:var(--cream); opacity:.3; font-size:.5625rem; letter-spacing:.1em }
@@ -3055,11 +3067,18 @@ html:not([data-w]) .section--works .card--group .card__subs a{ padding:.55rem 0 
 .an-tour{ position:relative; display:grid; grid-template-columns:auto minmax(0, 1fr); gap:0 clamp(1.75rem, 4vw, 3.5rem); margin:2.25rem 0 0; width:100%; max-width:none }
 .an-tour__phone{ position:sticky; top:84px; align-self:start; display:flex; flex-direction:column; align-items:center; gap:.9rem; padding-bottom:1rem }
 .an-stage{ position:relative }
+/* a badge on the phone says it is a working app: "live" while it plays itself, "try it" after */
+.an-live{ position:absolute; z-index:3; right:-.6rem; top:1.6rem; display:inline-flex; align-items:center; gap:.35rem; padding:.3rem .6rem .3rem .5rem; border-radius:999px; background:#e01b1b; color:#fff; font:600 .62rem/1 var(--font-mono); letter-spacing:.1em; text-transform:uppercase; box-shadow:0 6px 16px -6px rgb(160 0 0 / .6); pointer-events:none; transition:background-color .25s, color .25s }
+.an-live:empty{ display:none }
+.an-live::before{ content:""; width:.42rem; height:.42rem; border-radius:50%; background:currentColor }
+.an-live[data-state="play"]::before{ animation:an-blink 1.1s ease-in-out infinite }
+@keyframes an-blink{ 50%{ opacity:.25 } }
+.an-live:not([data-state="play"]){ background:var(--foreground); color:var(--cream); box-shadow:0 6px 16px -8px rgb(0 0 0 / .5) }
 .an-phone{ position:absolute; left:0; top:0; width:414px; height:868px; padding:12px; border-radius:58px; transform-origin:0 0; background:#141414;
   box-shadow:0 0 0 2px #2a2a2a inset, 0 0 0 1px rgb(0 0 0 / .5), 0 30px 60px -30px rgb(90 0 0 / .45), 0 12px 24px -16px rgb(0 0 0 / .4) }
 .an-phone::before{ content:""; position:absolute; left:-3px; top:178px; width:3px; height:62px; border-radius:2px 0 0 2px; background:#2b2b2b; box-shadow:0 80px 0 #2b2b2b }
-.an-ctl{ display:flex; flex-wrap:wrap; align-items:center; gap:.5rem .55rem; width:100%; max-width:22rem; font-family:var(--font-mono); font-size:.66rem; letter-spacing:.04em; line-height:1.45; color:var(--muted-foreground) }
-.an-ctl__dot{ flex:none; width:.5rem; height:.5rem; border-radius:50%; background:#c9c9c9 }
+.an-ctl{ display:flex; flex-wrap:wrap; align-items:center; gap:.5rem .55rem; width:100%; max-width:22rem; font-family:var(--font-mono); font-size:.7rem; letter-spacing:.03em; line-height:1.45; color:var(--foreground) }
+.an-ctl__dot{ flex:none; width:.55rem; height:.55rem; border-radius:50%; background:#c9c9c9 }
 .an-ctl[data-state="play"] .an-ctl__dot{ background:#e01b1b; box-shadow:0 0 0 0 rgb(224 27 27 / .5); animation:an-pulse 1.6s infinite }
 @keyframes an-pulse{ 70%{ box-shadow:0 0 0 7px rgb(224 27 27 / 0) } 100%{ box-shadow:0 0 0 0 rgb(224 27 27 / 0) } }
 .an-ctl__t{ flex:1 1 calc(100% - 1.2rem); min-width:0 }
@@ -3096,10 +3115,10 @@ html:not([data-w]) .section--works .card--group .card__subs a{ padding:.55rem 0 
   .prose .an-tour__hint{ display:block; margin:.6rem 0 0; text-align:center; font-family:var(--font-mono); font-size:.66rem; letter-spacing:.04em; color:var(--muted-foreground) }
 }
 .an-touch{ position:absolute; left:0; top:0; z-index:60; width:46px; height:46px; margin:-23px 0 0 -23px; border-radius:50%; pointer-events:none; opacity:0;
-  background:rgb(255 255 255 / .38); border:2px solid rgb(255 255 255 / .95); box-shadow:0 0 0 1px rgb(0 0 0 / .12), 0 4px 14px rgb(0 0 0 / .3);
-  transition:transform .55s cubic-bezier(.3,.7,.25,1), opacity .25s }
+  background:rgb(40 40 52 / .26); border:2.5px solid #fff; box-shadow:0 0 0 1.5px rgb(0 0 0 / .28), 0 4px 14px rgb(0 0 0 / .32);
+  transition:transform .44s cubic-bezier(.3,.7,.25,1), opacity .2s }
 .an-touch.is-on{ opacity:1 }
-.an-touch.is-drag{ background:rgb(255 255 255 / .5) }
+.an-touch.is-drag{ background:rgb(40 40 52 / .38) }
 .an-touch.is-tap::after{ content:""; position:absolute; inset:-3px; border-radius:50%; border:3px solid #fff; animation:an-ripple .5s ease-out forwards }
 @keyframes an-ripple{ from{ transform:scale(.6); opacity:1 } to{ transform:scale(1.9); opacity:0 } }
 
@@ -3360,6 +3379,151 @@ html:not([data-w]) .section--works .card--group .card__subs a{ padding:.55rem 0 
 .an-app .an-posters.is-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:10px 8px; animation:an-fade-in .3s ease-out }
 .an-app .an-posters.is-grid .an-poster{ width:auto; height:auto; aspect-ratio:126 / 178 }
 
+/* title page (from the 2021 MAL anime page): blurred art, a wave, the cover beside title + score */
+.an-app .an-ap__hero{ position:relative; height:322px }
+.an-app .an-ap__bg{ position:absolute; inset:0 0 18px; overflow:hidden; background:#222 }
+.an-app .an-ap__bg img{ width:100%; height:100%; object-fit:cover; filter:blur(42px) saturate(1.3) brightness(.7); transform:scale(1.6) }
+.an-app .an-ap__bg::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgb(10 10 16 / .5), rgb(10 10 16 / .28) 60%, rgb(10 10 16 / .1)) }
+.an-app .an-ap__wave{ position:absolute; left:0; right:0; bottom:0; width:100%; height:120px; fill:var(--bg); stroke:none }
+.an-app .an-ap__cover{ position:absolute; left:24px; top:100px; width:138px; height:198px; border-radius:16px; overflow:hidden; background:#333; box-shadow:0 18px 34px -14px rgb(0 0 0 / .55) }
+.an-app .an-ap__cover img{ width:100%; height:100%; object-fit:cover }
+.an-app .an-ap__side{ position:absolute; left:180px; right:20px; top:108px; display:flex; flex-direction:column; align-items:flex-end; gap:8px; text-align:right; color:#fff }
+.an-app .an-ap__side h3{ font-weight:700; font-size:24px; line-height:1.15; letter-spacing:-.01em; text-shadow:0 2px 12px rgb(0 0 0 / .3); display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden }
+.an-app .an-ap__score{ display:flex; align-items:center; gap:6px; font-size:21px }
+.an-app .an-ap__score svg{ width:21px; height:21px; color:#ffd24a }
+.an-app .an-ap__score b{ font-weight:600 }
+.an-app .an-ap__list{ display:inline-flex; align-items:center; gap:5px; margin-top:2px; padding:5px 10px; border-radius:999px; background:rgb(255 255 255 / .16); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); font-size:11.5px; font-weight:500; white-space:nowrap }
+.an-app .an-ap__list.is-on{ background:var(--red); animation:an-pop .3s cubic-bezier(.3,1.6,.5,1) }
+.an-app .an-ap__list svg{ width:14px; height:14px; stroke-width:2.6 }
+.an-app .an-ap__facts{ display:flex; flex-wrap:wrap; align-items:center; gap:4px 9px; padding:6px 24px 0; font-size:13.5px; color:var(--ink2) }
+.an-app .an-ap__facts i{ width:3px; height:3px; border-radius:50%; background:var(--mute2) }
+.an-app .an-ap__genres{ display:flex; gap:8px; padding:14px 24px 2px; overflow-x:auto; scrollbar-width:none }
+.an-app .an-ap__genres span{ flex:none; padding:6px 14px; border-radius:999px; background:var(--card); color:var(--red); font-size:12.5px; font-weight:500; box-shadow:0 2px 10px rgb(0 0 0 / .07), inset 0 0 0 1px var(--line) }
+.an-app.is-dark .an-ap__genres span{ color:#ff6b6b }
+.an-app .an-ap__desc{ padding:0 24px; font-size:13.5px; line-height:1.65; color:var(--ink2); display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden }
+.an-app .an-ap__desc.is-open{ display:block }
+.an-app .an-ap__more{ display:grid; place-items:center; width:30px; height:30px; margin:6px auto 0; border-radius:50%; background:var(--chip); color:var(--mute) }
+.an-app .an-ap__more svg{ width:18px; height:18px; transition:transform .25s }
+.an-app .an-ap__more.is-open svg{ transform:rotate(180deg) }
+.an-app .an-ap__ib{ position:absolute; z-index:3; top:56px; width:42px; height:42px; display:grid; place-items:center; border-radius:50%; background:rgb(0 0 0 / .22); color:#fff; -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px) }
+.an-app .an-ap__ib svg{ width:21px; height:21px; stroke-width:2 }
+.an-app .an-ap__ib.is-back{ left:16px } .an-app .an-ap__ib.is-share{ right:16px }
+/* the edit button follows the page; open, it turns into a close and the card grows out of it */
+.an-app .an-ap__fab{ position:absolute; z-index:42; right:22px; bottom:44px; width:58px; height:58px; display:grid; place-items:center; border-radius:50%; background:var(--red); color:#fff; box-shadow:0 10px 24px -6px rgb(160 0 0 / .55); transition:transform .2s ease, background-color .2s }
+.an-app .an-ap__fab svg{ grid-area:1 / 1; width:24px; height:24px; stroke-width:2; transition:transform .25s cubic-bezier(.3,1.4,.5,1), opacity .2s }
+.an-app .an-ap__fab svg + svg{ opacity:0; transform:rotate(-90deg) scale(.5) }
+.an-app .an-ap__fab.is-open svg:first-child{ opacity:0; transform:rotate(90deg) scale(.5) }
+.an-app .an-ap__fab.is-open svg + svg{ opacity:1; transform:none }
+.an-app .an-ap__fab.is-open{ background:var(--ink); box-shadow:0 10px 24px -8px rgb(0 0 0 / .5) }
+.an-app.is-dark .an-ap__fab.is-open{ background:#f2f2f5; color:#16161e }
+.an-app .an-ap__fab:active{ transform:scale(.92) }
+.an-app .an-dimmer.is-edit{ z-index:41 }
+.an-app .an-edit{ position:absolute; left:16px; right:16px; bottom:118px; padding:16px 16px 14px; border-radius:24px; background:var(--card); box-shadow:0 24px 50px -16px rgb(0 0 0 / .45);
+  transform-origin:calc(100% - 37px) calc(100% + 45px); animation:an-grow .3s cubic-bezier(.25,1.2,.4,1) }
+@keyframes an-grow{ from{ transform:scale(.12); opacity:0 } 40%{ opacity:1 } }
+.an-app .an-dimmer.is-closing .an-edit{ animation:an-shrink .22s cubic-bezier(.5,0,.8,.4) forwards }
+@keyframes an-shrink{ to{ transform:scale(.12); opacity:0 } }
+.an-app .an-edit__top{ display:flex; align-items:center; gap:10px; margin-bottom:4px }
+.an-app .an-edit__top b{ flex:1; min-width:0; font-weight:600; font-size:15px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
+.an-app .an-edit__x{ flex:none; width:32px; height:32px; display:grid; place-items:center; border-radius:10px; background:var(--chip) }
+.an-app .an-edit__x svg{ width:17px; height:17px; stroke-width:2.2 }
+.an-app .an-edit__save{ flex:none; padding:8px 18px; border-radius:11px; background:var(--red); color:#fff; font-weight:600; font-size:13.5px }
+.an-app .an-edit__l{ display:flex; justify-content:space-between; align-items:baseline; margin-top:14px; font-weight:600; font-size:13px }
+.an-app .an-edit__l span{ font-weight:400; font-size:12px; color:var(--mute) }
+.an-app .an-edit__chips{ display:flex; flex-wrap:wrap; gap:7px; margin-top:9px }
+.an-app .an-edit__chips button,.an-app .an-edit__row button{ padding:7px 12px; border-radius:10px; box-shadow:inset 0 0 0 1px var(--line); font-size:12.5px; color:var(--ink2); transition:background-color .15s, color .15s, box-shadow .15s, transform .15s }
+.an-app .an-edit__chips button.is-on,.an-app .an-edit__row button.is-on{ background:var(--red); color:#fff; box-shadow:0 6px 14px -6px rgb(200 0 0 / .6) }
+.an-app .an-edit__chips button:active,.an-app .an-edit__row button:active{ transform:scale(.92) }
+.an-app .an-edit__row{ display:flex; gap:6px; margin:9px -16px 0; padding:2px 16px 4px; overflow-x:auto; scrollbar-width:none; scroll-behavior:smooth }
+.an-app .an-edit__row button{ flex:none; min-width:38px; height:38px; padding:0 8px; text-align:center }
+.an-app .an-edit__rem{ display:flex; align-items:center; gap:7px; margin-top:16px; color:#e0352b; font-size:13px; font-weight:500 }
+.an-app .an-edit__rem svg{ width:19px; height:19px }
+
+/* screens the design file didn't draw: search, new post, activity, lists, settings, menus */
+.an-app .an-head__t{ flex:1; text-align:center; font-weight:600; font-size:17px }
+.an-app .an-head__t.is-left{ text-align:left; font-size:25px; letter-spacing:-.01em }
+.an-app .an-shead{ gap:8px; padding-left:16px }
+.an-app .an-field.is-search{ height:44px; padding:0 14px; gap:8px; border-radius:14px; color:var(--mute) }
+.an-app .an-field.is-search svg{ width:20px; height:20px }
+.an-app .an-list{ padding:4px 24px 0 }
+.an-app .an-sheet.is-auto{ height:auto; max-height:640px; padding-bottom:34px }
+.an-app .an-mrow{ display:flex; align-items:center; gap:14px; width:100%; padding:13px 26px; font-size:15px }
+.an-app .an-mrow svg,.an-app .an-mrow > i{ width:22px; height:22px; color:var(--ink2) }
+.an-app .an-mrow:active{ background:var(--chip) }
+.an-app .an-np__pics{ display:flex; gap:8px; padding:4px 24px 14px; overflow-x:auto; scrollbar-width:none }
+.an-app .an-np__pic{ position:relative; flex:none; width:78px; height:104px; border-radius:12px; overflow:hidden; background:var(--chip); transition:transform .15s, box-shadow .15s }
+.an-app .an-np__pic img{ width:100%; height:100%; object-fit:cover }
+.an-app .an-np__pic.is-text{ display:grid; place-items:center; color:var(--mute) }
+.an-app .an-np__pic.is-on{ box-shadow:0 0 0 3px var(--card), 0 0 0 5px var(--red) }
+.an-app .an-np__row{ display:flex; align-items:center; gap:10px; padding:0 20px 0 24px }
+.an-app .an-np__go{ flex:none; height:44px; padding:0 20px; border-radius:14px; background:var(--red); color:#fff; font-weight:600; font-size:14px; transition:opacity .2s, transform .15s }
+.an-app .an-np__go:disabled{ opacity:.35; cursor:default }
+.an-app .an-np__go:not(:disabled):active{ transform:scale(.94) }
+.an-app .an-ep__f{ display:block; padding:4px 24px 8px }
+.an-app .an-ep__f > span:first-child{ display:block; margin-bottom:6px; font-size:12px; color:var(--mute) }
+.an-app .an-ep__f .an-field{ height:46px }
+.an-app .an-ep__go{ display:flex; justify-content:flex-end; padding:10px 24px 0 }
+.an-app .an-acts .an-compose__l{ padding-top:14px }
+.an-app .an-act{ position:relative }
+.an-app .an-act.is-new::before{ content:""; position:absolute; left:10px; top:50%; width:6px; height:6px; margin-top:-3px; border-radius:50%; background:#ff1744 }
+.an-app .an-act__b{ display:flex; align-items:center; gap:12px; width:100%; padding:10px 22px 10px 24px; text-align:left }
+.an-app button.an-act__b:active{ background:var(--chip) }
+.an-app .an-act__b .an-av{ flex:none; width:44px; height:44px }
+.an-app .an-act__x{ flex:1; min-width:0; font-size:13.5px; line-height:1.4; color:var(--ink2) }
+.an-app .an-act__x b{ font-weight:600; color:var(--ink) }
+.an-app .an-act__x small{ font-size:12px; color:var(--mute) }
+.an-app .an-act__th{ flex:none; width:44px; height:44px; border-radius:8px; overflow:hidden }
+.an-app .an-act__th img{ width:100%; height:100%; object-fit:cover }
+.an-app .an-act__go svg{ width:18px; height:18px; color:var(--mute2); transform:rotate(180deg) }
+.an-app .an-act__f{ flex:none; padding:8px 14px; border-radius:11px; background:var(--red); color:#fff; font-weight:600; font-size:12.5px; transition:background-color .2s, color .2s }
+.an-app .an-act__f.is-on{ background:var(--chip); color:var(--ink) }
+.an-app .an-set{ margin:4px 16px; border-radius:18px; background:var(--card); overflow:hidden; box-shadow:0 0 0 1px var(--line) }
+.an-app .an-set__r{ display:flex; align-items:center; justify-content:space-between; gap:12px; width:100%; padding:15px 18px; font-size:15px }
+.an-app .an-set__r + .an-set__r{ border-top:1px solid var(--line) }
+.an-app .an-switch{ position:relative; flex:none; width:48px; height:29px; border-radius:15px; background:var(--mute2); transition:background-color .2s }
+.an-app .an-switch::after{ content:""; position:absolute; left:2px; top:2px; width:25px; height:25px; border-radius:50%; background:#fff; box-shadow:0 2px 5px rgb(0 0 0 / .25); transition:transform .22s cubic-bezier(.3,1.3,.5,1) }
+.an-app .an-set__r.is-on .an-switch{ background:#1fc35c }
+.an-app .an-set__r.is-on .an-switch::after{ transform:translateX(19px) }
+.an-app .an-ins{ display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; padding:4px 24px 14px }
+.an-app .an-ins div{ padding:12px 10px; border-radius:14px; background:var(--chip); text-align:center }
+.an-app .an-ins b{ display:block; font-weight:600; font-size:20px }
+.an-app .an-ins span{ font-size:11.5px; color:var(--mute) }
+
+/* quick add: press and hold a poster (from the 2021 MAL redesign) */
+.an-app :is(.an-poster,.an-feat__c){ -webkit-touch-callout:none; -webkit-user-select:none; user-select:none }
+.an-app :is(.an-poster,.an-feat__c) img{ -webkit-user-drag:none; pointer-events:none }
+.an-app .an-hold__ring{ position:absolute; z-index:44; width:58px; height:58px; margin:-29px 0 0 -29px; border-radius:50%; pointer-events:none;
+  background:conic-gradient(var(--red) calc(var(--p, 0) * 1turn), transparent 0); -webkit-mask:radial-gradient(closest-side, transparent 84%, #000 86%); mask:radial-gradient(closest-side, transparent 84%, #000 86%);
+  opacity:0; animation:an-ring .35s linear .1s forwards }
+@property --p{ syntax:"<number>"; inherits:false; initial-value:0 }
+@keyframes an-ring{ from{ --p:0; opacity:1 } to{ --p:1; opacity:1 } }
+.an-app .an-hold{ position:absolute; inset:0; z-index:46 }
+.an-app .an-hold__scrim{ position:absolute; inset:0; background:rgb(14 14 24 / .5); animation:an-fade-in .2s ease-out }
+.an-app .an-hold__lift{ position:absolute; margin:0; pointer-events:none; box-shadow:0 18px 40px -10px rgb(0 0 0 / .55); animation:an-lift .22s cubic-bezier(.3,1.4,.5,1) forwards }
+@keyframes an-lift{ to{ transform:scale(1.04) } }
+.an-app .an-hold__b{ position:absolute; z-index:2; width:46px; height:46px; margin:-23px 0 0 -23px; display:grid; place-items:center; border-radius:50%; background:#fff; color:#16161e;
+  box-shadow:0 6px 18px rgb(0 0 0 / .32); transform:translate(var(--tx), var(--ty)); transition:transform .16s ease, background .16s, color .16s;
+  animation:an-fan .32s cubic-bezier(.3,1.45,.5,1) calc(var(--i) * 40ms) backwards }
+@keyframes an-fan{ from{ transform:translate(0, 0) scale(.3); opacity:0 } }
+.an-app .an-hold__b svg{ width:21px; height:21px }
+.an-app .an-hold__b.is-hot{ transform:translate(var(--tx), var(--ty)) scale(1.24); background:#16161e; color:#fff }
+.an-app .an-hold__b.is-add.is-hot{ background:var(--red) }
+.an-app .an-hold__b.is-on:not(.is-hot){ color:var(--red) }
+.an-app .an-hold__b:focus-visible{ outline:2.5px solid var(--red); outline-offset:3px }
+.an-app .an-hold__tip{ position:absolute; z-index:2; margin:0; padding:6px 12px; border-radius:10px; background:#fff; color:#16161e; font-size:12.5px; font-weight:600; white-space:nowrap; pointer-events:none;
+  transform:translate(-50%, 4px); opacity:0; transition:opacity .14s, transform .14s }
+.an-app .an-hold__tip.is-on{ opacity:1; transform:translate(-50%, 0) }
+.an-app .an-hold.is-out{ pointer-events:none }
+.an-app .an-hold.is-out .an-hold__scrim{ animation:an-fade-out .2s ease-in forwards }
+.an-app .an-hold.is-out :is(.an-hold__b,.an-hold__tip){ animation:an-fade-out .12s ease-in forwards }
+.an-app .an-hold.is-out .an-hold__lift{ animation:an-unlift .2s ease-in forwards }
+@keyframes an-unlift{ from{ transform:scale(1.04) } to{ transform:none; box-shadow:none } }
+.an-app.is-dark .an-hold__b,.an-app.is-dark .an-hold__tip{ background:#2a2a35; color:#f2f2f5 }
+.an-app.is-dark .an-hold__b.is-hot{ background:#f2f2f5; color:#16161e }
+.an-app.is-dark .an-hold__b.is-add.is-hot{ background:var(--red); color:#fff }
+.an-app.is-dark .an-hold__scrim{ background:rgb(0 0 0 / .6) }
+.an-touch.is-press{ transform-origin:center; background:rgb(255 255 255 / .6) }
+
 /* inbox */
 .an-app .an-seg{ position:relative; flex:none; display:grid; grid-template-columns:1fr 1fr; margin:2px 6px 6px; padding:4px; height:58px; border-radius:30px; background:var(--card); font-size:15.5px }
 .an-app .an-seg__pill{ position:absolute; left:4px; top:4px; bottom:4px; width:calc(50% - 4px); border-radius:26px; background:var(--red); transition:transform .32s cubic-bezier(.3,.8,.25,1.05) }
@@ -3535,7 +3699,7 @@ html:not([data-w]) .section--works .card--group .card__subs a{ padding:.55rem 0 
 
 @media (prefers-reduced-motion: reduce){
   .an-app *{ animation:none !important; transition:none !important }
-  .an-touch{ transition:none } .an-ctl[data-state="play"] .an-ctl__dot{ animation:none }
+  .an-live::before{ animation:none !important } .an-touch{ transition:none } .an-ctl[data-state="play"] .an-ctl__dot{ animation:none }
 }
 
 /* Ani! case study page: the MyAnimeList cover, timeline, red-tinted screen panels, the film */
@@ -3569,6 +3733,166 @@ html:not([data-w]) .section--works .card--group .card__subs a{ padding:.55rem 0 
   .prose .screens--five .screens__row, .screens--five .screens__row{ display:flex; justify-content:flex-start; overflow-x:auto; padding:2px 2px 10px; scroll-snap-type:x proximity }
   .screens--five .screens__row > li{ flex:0 0 9.25rem; scroll-snap-align:start }
 }
+/* the 2021 MyAnimeList prototype recordings: blue panel (the redesign's colour), 7:10 loops */
+.screens--mal{ background:linear-gradient(180deg, #eef3fd 0%, #f5f7fc 100%); border-color:rgb(30 70 160 / .08) }
+.screens--mal .screens__img{ aspect-ratio:7 / 10; object-position:center; background-color:#f9fafc; box-shadow:0 0 0 1px rgb(20 40 90 / .07), 0 12px 26px -14px rgb(20 50 140 / .35) }
+.screens--mal figcaption{ border-top-color:rgb(30 70 160 / .09) }
 .an-film video{ display:block; width:100%; height:auto; aspect-ratio:16 / 9; border-radius:14px; background:#120606 }
 .an-film figcaption{ margin-top:.9rem }
 /* ===== end Ani! ===== */
+
+/* ---------- footer hillside drawn in code (desk pick F2, 11 Nov; assets/js/footer-hill.js). The image is the fallback. ---------- */
+html[data-f="F2"] .foot{ background:#03292a }
+.fx{ position:absolute; inset:0; z-index:-2; overflow:hidden; pointer-events:none }
+.fx canvas,.fx svg{ position:absolute; inset:0; width:100%; height:100%; display:block }
+/* a little paper grain over the painted and paper options */
+.fx--grain::after{
+  content:""; position:absolute; inset:0; opacity:.16; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- About: the garage folds up behind its line-up (desk pick F2, 11 Nov; assets/js/garage-fold.js) ---------- */
+html.js #garage.gf-on:not(.is-open) .rides{ display:none }
+html:not(.js) .gf, #garage.is-open .gf{ display:none }
+.gf{ margin-top:2rem }
+.gf-close{ margin-top:1.5rem }
+#garage:not(.is-open) .gf-close{ display:none }
+.gf--lineup > .label-mono{ margin:0; color:var(--muted-foreground) }
+.gf-tiles{ list-style:none; margin:1rem 0 0; padding:0; display:grid; grid-template-columns:repeat(5, minmax(0,1fr)); gap:.9rem }
+.gf-tiles button{ display:block; width:100%; padding:0; border:0; background:none; color:inherit; font:inherit; text-align:left; cursor:pointer }
+.gf-tiles .ph{ display:block; position:relative; border-radius:12px; overflow:hidden }
+.gf-tiles img{ display:block; width:100%; aspect-ratio:3 / 4; object-fit:cover; transition:transform .4s }
+.gf-tiles .ph::after{ content:"read \2193"; position:absolute; right:.5rem; bottom:.5rem; padding:.3rem .6rem; border-radius:999px; background:var(--background); color:var(--foreground); font:600 .72rem/1 var(--font-mono); letter-spacing:.06em; opacity:.92 }
+.gf-tiles button:hover img, .gf-tiles button:focus-visible img{ transform:scale(1.05) }
+.gf-tiles b{ display:block; margin-top:.65rem; font:700 1.08rem/1.2 var(--font-display) }
+.gf-tiles small{ display:block; margin-top:.2rem; font:400 .68rem/1.4 var(--font-mono); letter-spacing:.08em; text-transform:uppercase; color:var(--muted-foreground) }
+.gf-all{ margin-top:1.25rem }
+@media (max-width:760px){ .gf-tiles{ grid-template-columns:none; grid-auto-flow:column; grid-auto-columns:44%; overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:.5rem } .gf-tiles li{ scroll-snap-align:start } }
+
+/* ---------- Home: the about card as his mock (desk pick A1, 11 Nov; from _home-sections-p.html) ---------- */
+.hs-hand{ font-family:"Caveat", "Segoe Print", cursive; font-weight:500; font-size:1.35rem; line-height:1.1; color:var(--foreground) }
+.hs-curl{ width:30px; height:30px; display:inline-block; vertical-align:middle; color:var(--foreground); opacity:.8 }
+.hs-tape{ display:inline-block; padding:.35rem .7rem; background:color-mix(in oklab, var(--cream) 80%, #e8dcc0); font-family:"Caveat", cursive; font-size:1.15rem; line-height:1.05; color:var(--foreground); box-shadow:0 2px 6px rgb(16 35 41 / .12) }
+.hs-ico{ flex:none; display:grid; place-items:center; width:2.6rem; height:2.6rem; border-radius:10px }
+.hs-ico.t1{ background:color-mix(in oklab, var(--meadow) 18%, var(--card)); color:color-mix(in oklab, var(--meadow) 70%, #000) }
+.hs-ico.t2{ background:color-mix(in oklab, var(--sky) 18%, var(--card)); color:color-mix(in oklab, var(--sky) 60%, #000) }
+.hs-ico.t3{ background:color-mix(in oklab, var(--primary) 14%, var(--card)); color:var(--primary) }
+.hs-ico.t4{ background:color-mix(in oklab, var(--accent) 22%, var(--card)); color:color-mix(in oklab, var(--accent) 55%, #000) }
+.hs-ico.t5{ background:var(--muted); color:var(--foreground) }
+.hs-caps{ list-style:none; margin:0; padding:0; display:grid; gap:.6rem }
+.hs-caps a{ display:flex; align-items:center; gap:.9rem; text-decoration:none; color:inherit }
+.hs-cap__t b{ display:block; font:600 .98rem/1.25 var(--font-display); letter-spacing:-.01em }
+.hs-cap__t small{ display:block; margin-top:.2rem; font:400 .72rem/1.3 var(--font-mono); letter-spacing:.04em; color:var(--muted-foreground) }
+.hs-go{ margin-left:auto; color:var(--foreground); transition:transform .2s }
+.hs-caps a:hover .hs-go{ transform:translateX(3px) }
+.hs-caps--cards a{ padding:.95rem 1rem; border:1px solid var(--border); border-radius:14px; background:var(--card); box-shadow:0 1px 2px rgb(16 35 41 / .04); transition:border-color .2s, transform .2s }
+.hs-caps--cards a:hover{ border-color:color-mix(in oklab, var(--foreground) 35%, transparent); transform:translateY(-1px) }
+.hsa__eye{ display:flex; align-items:center; gap:.55rem; margin:0; font-size:.75rem; color:var(--foreground) }
+.hsa__title{ margin:1rem 0 0; font:800 italic clamp(2.2rem, 4vw, 3.6rem)/.98 var(--font-display); letter-spacing:-.04em }
+.hsa__body{ margin:1.25rem 0 0; max-width:34rem; font:400 1.1rem/1.6 var(--font-serif); color:color-mix(in oklab, var(--foreground) 80%, transparent) }
+.hsa .btn{ margin-top:1.75rem }
+.hsa__facts{ list-style:none; display:flex; flex-wrap:wrap; gap:.6rem 2rem; margin:2.25rem 0 0; padding:0; font:400 .92rem var(--font-display); color:color-mix(in oklab, var(--foreground) 82%, transparent) }
+.hsa__facts li{ display:flex; align-items:center; gap:.5rem }
+/* A1: his mock */
+.hsa--a1{ position:relative; display:grid; gap:2.5rem; align-items:center; padding:clamp(1.75rem, 4vw, 3.5rem); border:1px solid color-mix(in oklab, var(--primary) 14%, var(--border)); border-radius:24px;
+  background:linear-gradient(135deg, color-mix(in oklab, var(--secondary) 60%, var(--card)), color-mix(in oklab, var(--secondary) 25%, var(--card))) }
+@media (min-width:1100px){ .hsa--a1{ grid-template-columns:minmax(0,1.2fr) minmax(0,.85fr) minmax(0,1.05fr) } }
+@media (min-width:700px) and (max-width:1099px){ .hsa--a1{ grid-template-columns:1fr 1fr } .hsa--a1 .hs-caps{ grid-column:1 / -1 } }
+.hsa__pol{ position:relative; margin:2.5rem 0 0; align-self:center }
+.hsa__pol::before{ content:""; position:absolute; inset:-12% -18% -14% -12%; z-index:0; opacity:.55;
+  background-image:linear-gradient(color-mix(in oklab, var(--primary) 12%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in oklab, var(--primary) 12%, transparent) 1px, transparent 1px); background-size:22px 22px;
+  -webkit-mask-image:radial-gradient(closest-side, #000 50%, transparent); mask-image:radial-gradient(closest-side, #000 50%, transparent) }
+.hsa__polin{ position:relative; z-index:1; display:block; padding:12px 12px 46px; background:#fff; border-radius:10px; box-shadow:0 22px 40px -20px rgb(16 35 41 / .45); transform:rotate(3deg); text-decoration:none; color:inherit; transition:transform .3s }
+.hsa__polin:hover{ transform:rotate(1.5deg) translateY(-3px) }
+.hsa__polin img{ display:block; width:100%; height:auto; aspect-ratio:4 / 5; object-fit:cover; border-radius:6px; filter:brightness(1.12) }
+.hsa__polin figcaption{ position:absolute; left:20px; bottom:10px; font-size:1.25rem }
+.hsa__note{ position:absolute; z-index:2; left:-1.25rem; top:-2.75rem; transform:rotate(-7deg) }
+.hsa__pol .hs-curl{ position:absolute; z-index:2; left:42%; top:-2.4rem; width:38px; height:38px; transform:rotate(15deg) }
+.hs-squig{ position:absolute; z-index:2; right:-1rem; bottom:-.75rem; width:110px; height:46px; color:var(--meadow) }
+.section--aboutme{ overflow-x:clip }
+
+/* ---------- Case studies open on M17 (desk pick, 11 Nov, "for now"; M5 above stays as the base it overrides).
+   Text and facts on the left, the work on the right leaning back in 3D; it stands up flat over the first screen of
+   scrolling (--k 1 → 0, set by assets/js/cs-tilt.js on .cs-work). Phones tilt less; reduced motion holds one pose. ---------- */
+.cs-hero{ --amp:1; text-align:left; padding:7rem var(--edge) 4rem; overflow:hidden; background:linear-gradient(180deg, var(--cs-tint, var(--background)), var(--background)) }
+@media (max-width:700px){ .cs-hero{ --amp:.55 } }
+.cs-hero h1{ margin:1rem 0 0; max-width:14ch }
+.cs-hero .lede-serif{ margin:1.25rem 0 0; max-width:34rem }
+.cs-hero .meta{ display:grid; grid-template-columns:1fr 1fr; gap:1rem 1.75rem; justify-content:stretch; align-items:start; margin:2rem 0 0; max-width:34rem; flex-direction:row }
+.cs-hero .meta dt{ position:static; width:auto; height:auto; overflow:visible; clip:auto; white-space:normal; font:400 .66rem/1.3 var(--font-mono); letter-spacing:.16em; text-transform:lowercase; color:var(--muted-foreground) }
+.cs-hero .meta dd{ margin:.3rem 0 0; font:400 .98rem/1.45 var(--font-serif); letter-spacing:0 }
+.cs-hero .meta div + div dd::before{ content:none }
+@media (max-width:900px){ .cs-hero .meta{ display:grid; flex-direction:row; align-items:start } }
+.cs-hero .cs-hero__note{ justify-content:flex-start; text-align:left; max-width:34rem }
+.cs-hero .cs-work{ display:block; margin:3rem 0 0; max-width:none; perspective:1600px }
+.cs-work > .cs-stack, .cs-work > .cs-phones{ transform-style:preserve-3d; transform-origin:50% 60%; will-change:transform;
+  transform:rotateX(calc(var(--k, 1) * var(--amp) * 24deg)) rotateY(calc(var(--k, 1) * var(--amp) * -20deg)) rotateZ(calc(var(--k, 1) * var(--amp) * 7deg)) }
+.cs-work > .cs-stack .cs-browser{ box-shadow:calc(var(--k, 1) * 40px) 60px 90px -40px rgb(16 35 41 / .5) }
+.cs-work > .cs-stack .cs-ph{ transform:translateZ(calc(var(--k, 1) * var(--amp) * 90px + 10px)); right:-2rem }
+.cs-work > .cs-phones img{ transform:translateZ(calc(var(--k, 1) * var(--amp) * 40px)) }
+.cs-work > .cs-phones img:nth-child(2){ transform:translateY(-1.5rem) translateZ(calc(var(--k, 1) * var(--amp) * 90px + 10px)) }
+.cs-work > .cs-art{ transform:rotateX(calc(var(--k, 1) * var(--amp) * 24deg)) rotateY(calc(var(--k, 1) * var(--amp) * -20deg)) rotateZ(calc(var(--k, 1) * var(--amp) * 7deg)); transform-origin:50% 60% }
+@media (min-width:1080px){
+  .cs-hero:has(> .cs-work){ display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); gap:3rem; align-items:center; min-height:46rem }
+  .cs-hero:has(> .cs-work) .cs-work{ margin:0 }
+}
+@media (max-width:640px){ .cs-work > .cs-stack .cs-ph{ right:-.25rem } }
+.cs-hero .cs-hero__note{ display:block }
+.cs-hero .cs-hero__note > i{ display:inline-block; vertical-align:middle; margin-right:.6rem }
+.hs-ico svg, .hsa__facts svg, .hsg__verbs svg, .hs-go svg{ width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round }
+.hsa__eye i, .hsg__eye i{ width:.5rem; height:.5rem; border-radius:50%; background:var(--meadow); display:inline-block }
+/* the phone-width diagram scroller stays inside the column (its bleed ran 9px past a 375px screen on NAO) */
+@media (max-width:760px){ .figure-block__scroll{ margin-inline:0; padding-inline:0 } }
+@media (max-width:760px){ .point-row{ grid-template-columns:minmax(0,1fr) } .point-row > .screens.screens--inline{ min-width:0 } }
+
+/* ---------- case studies: the header takes the opening's colour (--cs-tint) and fades into the usual bar over the
+   first 260px of scroll (12 Nov, his pick v2 on the desk; assets/js/cs-tilt.js sets html.cs-tinted, --hd-tint, --hd-p) ---------- */
+html.cs-tinted .nav[data-tone]{ background-color:color-mix(in oklab, var(--hd-tint) var(--hd-p, 100%), color-mix(in oklab, var(--background) 88%, transparent)); transition:color .3s ease, background-color .35s ease }
+html.cs-tinted.hd-top .nav[data-tone]{ -webkit-backdrop-filter:none; backdrop-filter:none }
+
+/* ---------- NAO opening (12 Nov, his pick I): the segment-selection flow in a desktop window, his landing screen on a phone in
+   front. The flow is one SVG (assets/js/nao-open-flow.js), plays both segments in turn; ported from _build/nao-open.pl ---------- */
+/* E, F: the segment flow from his home reimagining (09 directions, A), in the site's colours */
+.no-fh .flow{ --line:var(--border); --line-2:color-mix(in oklab, var(--foreground) 22%, var(--border)); --ink:var(--foreground); --mute:var(--muted-foreground); --accent:var(--primary); --accent-soft:color-mix(in oklab, var(--primary) 16%, transparent); --dim:#b9b7ae; --sans:var(--font-display);
+  background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden; box-shadow:0 30px 70px -36px rgb(16 35 41 / .45) }
+.no-fh .mono{ font:400 .7rem/1.4 var(--font-mono); letter-spacing:.04em; text-transform:lowercase }
+.no-fh .flow__head, .no-fh .flow__foot{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:10px 14px }
+.no-fh .flow__head{ border-bottom:1px solid var(--line) }
+.no-fh .flow__foot{ border-top:1px solid var(--line); color:var(--mute) }
+.no-fh .flow__title{ color:var(--ink) } .no-fh .flow__title b{ font-weight:500; color:var(--accent) }
+.no-fh .seg{ display:inline-flex; border:1px solid var(--line-2); border-radius:999px; padding:3px }
+.no-fh .seg button{ font:500 13px/1 var(--sans); padding:8px 12px; border:0; border-radius:999px; background:transparent; color:var(--mute); cursor:pointer }
+.no-fh .seg button[aria-pressed="true"]{ background:var(--ink); color:#fff }
+.no-fh .flow__stage{ position:relative; background-color:#fbfbf9; background-image:radial-gradient(circle at 1px 1px, #d9d7cf 1px, transparent 1.2px); background-size:20px 20px; overflow:hidden; touch-action:pan-y }
+.no-fh .flow__canvas{ position:absolute; left:0; top:0; transform-origin:0 0 }
+.no-fh .flow svg{ position:absolute; left:0; top:0; overflow:visible; pointer-events:none }
+.no-fh .flow .e{ fill:none; stroke:var(--dim); stroke-width:2; transition:stroke .3s } .no-fh .flow .e.on{ stroke:var(--ink) }
+.no-fh .flow .el{ font:500 13px var(--sans); fill:var(--mute); transition:fill .3s } .no-fh .flow .el.on{ fill:var(--ink) }
+.no-fh .flow .el-bg{ fill:#fbfbf9 } .no-fh .flow .dot{ fill:var(--accent) } .no-fh .flow .halo{ fill:var(--accent); opacity:.18 }
+/* H: the E flow as a desktop window, one redone screen on a phone in front (the Up.alert composition) */
+.no-h .cs-browser{ aspect-ratio:4 / 3; display:flex; flex-direction:column; background:#fbfbf9 }
+/* sharp text: no cached layer while it tilts (will-change made Chrome scale a snapshot), and the phone sits below the header row */
+.cs-work > .cs-stack.no-h{ will-change:auto }
+.no-h .cs-browser, .no-h .cs-browser *{ -webkit-font-smoothing:antialiased }
+.no-h .cs-ph{ bottom:-1.5rem }
+.no-h .flow__head{ position:relative; z-index:2 }
+.no-h .cs-browser .flow{ flex:1; display:flex; flex-direction:column; border:0; border-radius:0; box-shadow:none;
+  background-color:#fbfbf9; background-image:radial-gradient(circle at 1px 1px, #d9d7cf 1px, transparent 1.2px); background-size:20px 20px }
+.no-h .cs-browser .flow__head, .no-h .cs-browser .flow__foot{ background:#fff }
+.no-h .cs-browser .flow__foot{ margin-top:auto }
+.no-h .cs-browser .flow__stage{ margin:auto 0; background:transparent }
+.no-h .cs-browser .el-bg{ fill:#fbfbf9 }
+/* H, I: the flow drawn as one SVG (sharp when tilted), no dragging, plays both segments in turn */
+.no-h .flow__stage{ height:auto !important; padding:6px 10px; overflow:visible }
+.no-h .flow__foot{ display:none }
+.no-h .sn rect{ fill:#fff; stroke:var(--line-2); stroke-width:1 }
+.no-h .sn text{ font:500 14px var(--sans); fill:var(--ink) }
+.no-h .sn.off rect{ stroke:var(--dim); stroke-dasharray:4 3 }
+.no-h .sn.off text{ fill:var(--dim) }
+.no-h .sn.hit rect{ stroke:var(--accent); stroke-width:2.2 }
+.no-h .sn rect, .no-h .sn text{ transition:stroke .3s, fill .3s }
+/* the window's shadow on its own layer behind it (12 Nov): it follows the tilt by sliding, so scrolling no longer repaints a 90px blur on every frame */
+.cs-work > .cs-stack.no-h .cs-browser{ box-shadow:none }
+.cs-work > .cs-stack.no-h::before{ content:""; position:absolute; left:40px; right:40px; top:40px; bottom:calc(2rem + 40px); border-radius:12px; background:rgb(16 35 41 / .5); filter:blur(45px); transform:translate3d(calc(var(--k, 1) * 40px), 60px, -2px); pointer-events:none }
+/* Chrome: hold the tilted window as one layer only while the page scrolls (smooth), and redraw it sharp once it stops */
+.cs-work > .cs-stack.no-h.is-moving{ will-change:transform }

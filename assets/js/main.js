@@ -49,7 +49,7 @@
   /* --- nav switches from cream to ink once the hero is behind you --- */
   var nav = document.querySelector('.nav');
   if (nav) {
-    var hero = document.querySelector('.hero, .cs-hero');
+    var hero = document.querySelector('.hero'); /* case studies open light (M5, 5 Nov), so their nav is ink from the top */
     var setTone = function () {
       /* Cream over the hero, ink everywhere else. A page with no hero is ink
          from the start — cream on the pale background is unreadable. */

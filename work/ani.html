@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400..800;1,400..800&family=EB+Garamond:wght@400;500&family=JetBrains+Mono:wght@400;500&family=Poppins:wght@400;500;600;700&display=swap">
 <script>document.documentElement.className += " js";</script>
-<link rel="stylesheet" href="../assets/css/style.css?v=20261101a">
+<link rel="stylesheet" href="../assets/css/style.css?v=20261112c">
 </head>
 <body>
 <a class="skip" href="#main">skip to content</a>
@@ -35,7 +35,8 @@
 
 <main id="main">
 
-<header class="cs-hero">
+<header class="cs-hero" style="--cs-tint:#fdf4f4">
+  <div class="cs-text">
     <a class="back label-mono" href="../index.html#works">← works</a>
     <p class="cs-hero__eyebrow label-mono">Case study 06</p>
     <h1 class="display-lg">Ani! &mdash; Anime Social Platform</h1>
@@ -48,6 +49,8 @@
       <div><dt>Origin</dt><dd>My 2021 MyAnimeList redesign</dd></div>
     </dl>
     <p class="cs-hero__note label-mono"><i aria-hidden="true"></i>the app on this page is rebuilt from the ani! design file and fully working &mdash; <a href="#app">tap through it</a></p>
+  </div>
+    <div class="cs-work"><div class="cs-phones"><img src="../assets/img/ani/frames/f-news.webp" width="375" height="812" alt="Ani! news: trending stories from the community" decoding="async"><img src="../assets/img/ani/frames/s-home.webp" width="604" height="1308" alt="The Ani! home feed with posts and fan art" decoding="async"><img src="../assets/img/ani/frames/f-chatrooms.webp" width="375" height="812" alt="Ani! chatrooms, in the same inbox as your DMs" decoding="async"></div></div>
 </header>
 
 <section class="section">
@@ -64,6 +67,17 @@
         <a href="https://www.behance.net/gallery/128891097/MyAnimeList-Mobile-app-UIUX" target="_blank" rel="noopener"><img src="../assets/img/ani/mal-cover.webp" srcset="../assets/img/ani/mal-cover-700.webp 700w, ../assets/img/ani/mal-cover.webp 1200w" sizes="(max-width: 760px) 100vw, 860px" alt="Cover of my MyAnimeList redesign: phone screens for search, a profile, Discover with an FLCL card and Currently Airing, and anime and manga stats, beside the words MyAnimeList, Organize, Discuss, Discover." width="1200" height="822" loading="lazy" decoding="async"></a>
         <figcaption>my myanimelist redesign, october 2021 &middot; <a href="https://www.behance.net/gallery/128891097/MyAnimeList-Mobile-app-UIUX" target="_blank" rel="noopener">see the full project on behance &#8599;</a></figcaption>
       </figure>
+      <p>The screens came out of research: a survey of 32 people from the anime community, and a read through the old app&rsquo;s Play Store reviews. People used MyAnimeList to track their shows first, then for reviews and airing shows. The community feed the old app opened on came last. So the redesign opens on Discover, with Seasonal and My List one tap away.</p>
+      <figure class="screens screens--mal screens--five" style="--n:5">
+        <ol class="screens__row">
+          <li><video class="loop screens__img" muted loop playsinline preload="none" poster="../assets/img/ani/mal-2021/home.webp" width="480" height="686" aria-label="Discover in the 2021 redesign, scrolling from the feature card through Currently Airing, Popular and Recommended, with the header shrinking into a search bar."><source src="../assets/video/mal-2021/home.mp4" type="video/mp4"></video><span class="screens__cap">discover, scrolling</span></li>
+          <li><video class="loop screens__img" muted loop playsinline preload="none" poster="../assets/img/ani/mal-2021/anime.webp" width="480" height="686" aria-label="An anime page for FLCL scrolling through characters, reviews and recommendations, then the floating edit button opening a sheet for status, progress and score."><source src="../assets/video/mal-2021/anime.mp4" type="video/mp4"></video><span class="screens__cap">anime page, edit button</span></li>
+          <li><video class="loop screens__img" muted loop playsinline preload="none" poster="../assets/img/ani/mal-2021/list.webp" width="480" height="686" aria-label="The list switching from All to Watching, with each show's progress bar."><source src="../assets/video/mal-2021/list.mp4" type="video/mp4"></video><span class="screens__cap">my list, categories</span></li>
+          <li><video class="loop screens__img" muted loop playsinline preload="none" poster="../assets/img/ani/mal-2021/quickadd.webp" width="480" height="686" aria-label="Search results: pressing and holding a poster dims the screen and shows close, share and add buttons."><source src="../assets/video/mal-2021/quickadd.mp4" type="video/mp4"></video><span class="screens__cap">quick add, press and hold</span></li>
+          <li><video class="loop screens__img" muted loop playsinline preload="none" poster="../assets/img/ani/mal-2021/profile.webp" width="480" height="686" aria-label="A profile with anime stats, the banner moving behind the profile card as it scrolls."><source src="../assets/video/mal-2021/profile.mp4" type="video/mp4"></video><span class="screens__cap">profile, parallax banner</span></li>
+        </ol>
+        <figcaption>the 2021 redesign in motion: five of my recordings from october 2021</figcaption>
+      </figure>
 
       <h2 id="company">From concept to company</h2>
       <p>In 2022, Kyle Kelly came across the redesign and got in touch. He wanted to build a standalone anime social app on it and asked for my permission and the screens. I said yes, handed over the concept and the design files, we talked the product through, and I came on as co-founder.</p>
@@ -77,16 +91,16 @@
       </ol>
 
       <h2 id="part">My part</h2>
-      <p>Ani! is my idea and my design. Kyle and I co-founded it: he ran engineering, and I owned the product&rsquo;s design.</p>
+      <p>Ani! is my idea and my design, and I led it. Kyle and I co-founded it: he ran engineering, and everything you see in the app stems from my concepts.</p>
       <ul>
         <li><strong>The idea.</strong> A social app for anime fans, grown out of my MyAnimeList redesign, with the tracker, profiles and discovery at its core.</li>
-        <li><strong>The design.</strong> The founding design the app was built from. The tracker that shipped is my 2021 Discover screen, layout and all.</li>
-        <li><strong>The product, with Kyle.</strong> Shaping the first version together: watchlist tracking, fan art posting, real-time chatrooms and the social feed.</li>
-        <li><strong>Through the build.</strong> Design reviews with Kyle while his team built it in 2023, up to the launch on both stores in 2024.</li>
+        <li><strong>The design, end to end.</strong> I led design from the first concept to the shipped app. The design file the team built from grew out of my screens, and the tracker that shipped is my 2021 Discover screen, layout and all.</li>
+        <li><strong>The product.</strong> I set the scope of the first version with Kyle: watchlist tracking, fan art posting, real-time chatrooms and the social feed.</li>
+        <li><strong>Through the build.</strong> I ran the design reviews while Kyle&rsquo;s team built it in 2023, up to the launch on both stores in 2024.</li>
       </ul>
       <figure class="screens screens--ani screens--fit">
         <ol class="screens__row">
-          <li><img class="screens__img" src="../assets/img/ani/frames/mal-discover.webp" alt="Discover in my 2021 MyAnimeList redesign: a profile greeting, an FLCL feature card, then Currently Airing with Chainsaw Man and Evangelion." width="300" height="470" loading="lazy" decoding="async"><span class="screens__cap"><b class="screens__tag is-then">2021</b>discover, in my myanimelist redesign</span></li>
+          <li><img class="screens__img" src="../assets/img/ani/frames/mal-discover-2021.webp" alt="Discover in my 2021 MyAnimeList redesign: a profile greeting, an FLCL feature card, then Currently Airing with Chainsaw Man and Evangelion." width="600" height="1300" loading="lazy" decoding="async"><span class="screens__cap"><b class="screens__tag is-then">2021</b>discover, in my myanimelist redesign</span></li>
           <li><img class="screens__img" src="../assets/img/ani/frames/s-discover.webp" alt="App Store screenshot of Ani!'s Discover: the same FLCL feature card and Currently Airing row with Chainsaw Man, Evangelion and Demon Slayer, in Ani! red." width="600" height="1300" loading="lazy" decoding="async"><span class="screens__cap"><b class="screens__tag">2024</b>discover, as ani! shipped it</span></li>
         </ol>
         <figcaption>the same screen, three years apart: feature card, currently airing, even the same artwork</figcaption>
@@ -122,7 +136,7 @@
           <li class="an-step" id="step-news" data-step="news">
             <p class="an-step__n">03 &middot; news</p>
             <h3>News lives inside the app</h3>
-            <p>Trending stories up top, articles by anime, manga and games below, and every story opens straight into its comments. The store listing pitched it as &ldquo;always in the loop&rdquo;.</p>
+            <p>Trending stories up top, articles by anime, manga and games below, and every story opens straight into its comments.</p>
             <button type="button" class="an-step__see">see the frames</button>
             <div class="screens screens--ani screens--step" style="--n:2"><ol class="screens__row">
               <li><img class="screens__img" src="../assets/img/ani/frames/f-news.webp" alt="Trending News: two story cards with art, then category tabs and a list of articles." width="375" height="812" loading="lazy" decoding="async"><span class="screens__cap">design file</span></li>
@@ -132,10 +146,11 @@
           <li class="an-step" id="step-tracker" data-step="tracker">
             <p class="an-step__n">04 &middot; tracker</p>
             <h3>The tracker came from my redesign</h3>
-            <p>Discover leads with a featured show, then Currently Airing and Popular; tap a poster to add it to Watching, or switch to a grid. It&rsquo;s the Discover screen from my 2021 MyAnimeList redesign, carried into Ani!</p>
+            <p>Discover leads with a featured show, then Currently Airing and Popular; tap a show for its page, where a floating edit button sets status, progress and score, or press and hold a poster and slide onto add. Discover, the show page and both ways of adding come from my 2021 MyAnimeList redesign; the Ani! file has no show page, so that one is rebuilt from the 2021 design.</p>
             <button type="button" class="an-step__see">see the frames</button>
-            <div class="screens screens--ani screens--step" style="--n:2"><ol class="screens__row">
-              <li><img class="screens__img" src="../assets/img/ani/frames/mal-discover.webp" alt="Discover in my 2021 MyAnimeList redesign." width="300" height="470" loading="lazy" decoding="async"><span class="screens__cap"><b class="screens__tag is-then">2021</b>my redesign</span></li>
+            <div class="screens screens--ani screens--step" style="--n:3"><ol class="screens__row">
+              <li><img class="screens__img" src="../assets/img/ani/frames/mal-discover-2021.webp" alt="Discover in my 2021 MyAnimeList redesign." width="600" height="1300" loading="lazy" decoding="async"><span class="screens__cap"><b class="screens__tag is-then">2021</b>my redesign</span></li>
+              <li><img class="screens__img" src="../assets/img/ani/frames/mal-anime-2021.webp" alt="The anime page in my 2021 MyAnimeList redesign: cover, score, facts, genres and description." width="600" height="1300" loading="lazy" decoding="async"><span class="screens__cap"><b class="screens__tag is-then">2021</b>show page</span></li>
               <li><img class="screens__img" src="../assets/img/ani/frames/s-discover.webp" alt="App Store screenshot of Ani!'s Discover screen." width="600" height="1300" loading="lazy" decoding="async"><span class="screens__cap"><b class="screens__tag">shipped</b>app store</span></li>
             </ol></div>
           </li>
@@ -213,12 +228,6 @@
         <figcaption>the app store listing, five screens</figcaption>
       </figure>
 
-      <figure class="wide an-film">
-        <video controls preload="none" playsinline poster="../assets/img/ani/launch-poster.webp" width="960" height="540">
-          <source src="../assets/video/ani-launch.mp4" type="video/mp4">
-        </video>
-        <figcaption>the launch film, 30 seconds, with sound</figcaption>
-      </figure>
 
       </article>
 
@@ -239,7 +248,7 @@
   <div class="foot__inner">
     <p class="foot__eyebrow label-mono">get in touch</p>
     <h2>let&rsquo;s work together</h2>
-    <p class="foot__lede">Currently open to new roles. Feel free to look through the projects, check out the CV, or drop an email to chat.</p>
+    <p class="foot__lede">Currently open to product design roles, anywhere in the world, and happy to relocate. Feel free to look through the projects, check out the CV, or drop an email to chat.</p>
     <div class="foot__actions">
       <a class="btn btn--solid" href="mailto:hrishi.ux@gmail.com">email me <span aria-hidden="true">&rarr;</span></a>
       <a class="btn btn--ghost" href="../assets/docs/Hrishikesh-Nanda-CV.pdf?v=22">
@@ -255,8 +264,10 @@
   </div>
 </footer>
 
-<script src="../assets/js/main.js?v=20261101a"></script>
+<script src="../assets/js/main.js?v=20261105a"></script>
+<script src="../assets/js/footer-hill.js?v=20261111a" defer></script>
+<script src="../assets/js/cs-tilt.js?v=20261112a" defer></script>
 <script src="../assets/js/console-card.js?v=20261104a" defer></script>
-<script src="../assets/js/ani-app.js?v=20261101a"></script>
+<script src="../assets/js/ani-app.js?v=20261106c"></script>
 </body>
 </html>
