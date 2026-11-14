@@ -345,5 +345,31 @@
     build(); onResize(build); wake();
   }
 
+  /* the way into the playground (13 Nov, his pick S4 on the desk pg-footsign): the meadow's lamp post with an arrow sign,
+     stood on the hill's ridge at the same scene spot at every width */
+  var HERE = (document.currentScript && document.currentScript.src) || '';
+  (function sign() {
+    var a = document.createElement('a'); a.className = 'pg-sign'; a.setAttribute('aria-label', 'The playground');
+    a.href = HERE ? HERE.replace(/assets\/js\/footer-hill\.js.*$/, 'playground.html') : 'playground.html';
+    a.innerHTML = '<svg viewBox="0 0 74 150" aria-hidden="true">' +
+      '<circle class="glow" cx="22" cy="20" r="26" fill="#ffe7a6"/>' +
+      '<path d="M30 150V30q0-14-12-14" fill="none" stroke="#173a3a" stroke-width="5" stroke-linecap="round"/>' +
+      '<path d="M10 16h18l-3-7H13z" fill="#173a3a"/><rect x="13" y="16" width="12" height="11" rx="2" fill="#fff1c4" stroke="#173a3a" stroke-width="2"/>' +
+      '<g class="arrow"><path d="M33 66h52l8 8-8 8H33z" fill="#d49b62" stroke="#7a5233" stroke-width="2" stroke-linejoin="round"/><circle cx="37" cy="74" r="1.3" fill="#7a5233"/>' +
+      '<text x="60" y="77.3" text-anchor="middle" font-family="Archivo, sans-serif" font-style="italic" font-size="8.2" font-weight="800" fill="#2c1a0c">playground</text></g></svg>';
+    foot.appendChild(a);
+    var SX = 1452, S = 1.4; /* scene x of the post; svg units to px */
+    function place() {
+      var m = fit(), W = m.W, x = m.ox + SX * m.s;
+      if (x > W - 110) x = W - 110;
+      var sx = (x - m.ox) / m.s, y = m.oy + (ridge(sx) + 16) * m.s;
+      a.style.left = (x - 30 * S) + 'px'; a.style.top = (y - 150 * S) + 'px';
+    }
+    place(); onResize(place);
+  })();
+  /* for the desk previews of other signs (_build/pg-place.js): the hill's own curve */
+  window.__footHill = { fit: fit, ridge: ridge, onResize: onResize, foot: foot };
+
+
   painted({ wind: true });
 })();

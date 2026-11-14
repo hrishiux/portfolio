@@ -3896,3 +3896,166 @@ html.cs-tinted.hd-top .nav[data-tone]{ -webkit-backdrop-filter:none; backdrop-fi
 .cs-work > .cs-stack.no-h::before{ content:""; position:absolute; left:40px; right:40px; top:40px; bottom:calc(2rem + 40px); border-radius:12px; background:rgb(16 35 41 / .5); filter:blur(45px); transform:translate3d(calc(var(--k, 1) * 40px), 60px, -2px); pointer-events:none }
 /* Chrome: hold the tilted window as one layer only while the page scrolls (smooth), and redraw it sharp once it stops */
 .cs-work > .cs-stack.no-h.is-moving{ will-change:transform }
+
+/* ---------- In short (13 Nov, his ask: from the Claude edition): three plain lines under each case study's opening,
+   his own sentences from the page. NAO adds a "result" row across the bottom. ---------- */
+.short{ margin:0 0 clamp(3rem, 6vw, 4.5rem) }
+.short__grid{ display:grid; gap:0; margin:0; border:1px solid var(--border); border-radius:20px; background:var(--card); overflow:hidden }
+@media (min-width:860px){ .short__grid{ grid-template-columns:repeat(3, minmax(0,1fr)) } }
+.short__grid > div{ padding:1.4rem 1.5rem 1.5rem }
+.short__grid > div + div{ border-top:1px solid var(--border) }
+@media (min-width:860px){ .short__grid > div + div{ border-top:0; border-left:1px solid var(--border) } }
+.short__grid dt{ display:flex; align-items:center; gap:.5rem; font:500 .6875rem/1.4 var(--font-mono); letter-spacing:.14em; text-transform:lowercase; color:var(--muted-foreground) }
+.short__grid dt i{ flex:none; width:.45rem; height:.45rem; border-radius:50%; background:var(--c, var(--primary)) }
+.short__grid dd{ margin:.7rem 0 0; font-family:var(--font-serif); font-size:1.125rem; line-height:1.5; color:var(--foreground) }
+.short__grid dd b{ font-family:var(--font-display); font-weight:600; font-size:.98em; font-variant-numeric:tabular-nums }
+/* NAO: the result, under "what changed", across the whole box */
+.short__grid > .short__result{ grid-column:1 / -1; border-left:0 !important; border-top:1px solid var(--border) !important; background:color-mix(in oklab, var(--meadow) 7%, var(--card)) }
+.short__result dt i{ background:var(--meadow); box-shadow:0 0 0 3px color-mix(in oklab, var(--meadow) 25%, transparent) }
+.short__result dd{ font-size:clamp(1.1875rem, 1.6vw, 1.375rem); line-height:1.45 }
+.short__try{ display:flex; flex-wrap:wrap; align-items:center; gap:.6rem 1rem; margin:1rem 0 0; color:var(--muted-foreground) }
+.short__try a{ color:var(--primary) }
+.short__tag{ display:inline-flex; align-items:center; gap:.4rem; padding:.28rem .6rem .26rem; border-radius:999px; letter-spacing:.08em;
+  background:color-mix(in oklab, var(--meadow) 18%, var(--card)); color:oklch(0.36 0.1 150) }
+.short__tag::before{ content:""; width:.42rem; height:.42rem; border-radius:50%; background:var(--meadow); box-shadow:0 0 0 3px color-mix(in oklab, var(--meadow) 25%, transparent) }
+/* inside the reading column (Other Upstox work: one box under each part's heading) */
+.prose .short{ max-width:none; margin:2rem 0 3rem }
+@media (min-width:860px) and (max-width:1279px){ .prose .short__grid{ grid-template-columns:1fr } .prose .short__grid > div + div{ border-left:0; border-top:1px solid var(--border) } }
+
+/* the "sections" rail (13 Nov, his ask: the Claude edition's font): Archivo in place of the serif */
+.cs-rail a{ font-family:var(--font-display) }
+.cs-rail .label-mono{ font-size:.6875rem }
+.section:has(> .gutter > .short){ padding-top:clamp(3rem, 6vw, 4.5rem) }
+.short__try{ letter-spacing:.08em }
+
+/* ---------- NAO at a glance: the template figure (13 Nov, his ask: the Claude edition's animated one in place of the CMS map).
+   Each step's number lights, turns into a check, and the next one lights. Before NAO 2.0 the numbers only light: nothing was
+   checked until afterwards. Drag a block, or arrow keys, to reorder in "after". ---------- */
+.tpl{ --tpl-ease:cubic-bezier(.2,.7,.3,1);
+  position:relative; background:var(--card); border:1px solid var(--border); border-radius:20px;
+  padding:clamp(1rem, 2.2vw, 1.5rem); box-shadow:0 1px 2px rgb(16 35 41 / .04), 0 12px 32px -18px rgb(16 35 41 / .22); font-family:var(--font-display) }
+.prose .tpl{ max-width:none; margin:2rem 0 0 }
+.prose .tpl p{ margin:0; font-size:inherit; line-height:inherit; max-width:none }
+.prose .tpl ol{ max-width:none; padding:0; margin-block:0 }
+.prose .tpl li{ margin:0; font-size:inherit; line-height:inherit }
+.tpl__head{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:.75rem 1rem }
+.tpl__title{ display:flex; flex-direction:column; gap:.15rem }
+.tpl__title b{ font:600 1rem/1.25 var(--font-display); letter-spacing:-.01em }
+.tpl__title span{ color:var(--muted-foreground); font-size:.75rem }
+.tpl .seg{ display:inline-flex; padding:3px; border-radius:999px; background:var(--muted); border:1px solid var(--border) }
+.tpl .seg button{ border:0; background:transparent; cursor:pointer; padding:.42rem .85rem; border-radius:999px;
+  font:500 .75rem/1 var(--font-mono); letter-spacing:.08em; text-transform:lowercase; color:var(--muted-foreground); transition:background-color .2s ease, color .2s ease }
+.tpl .seg button[aria-pressed="true"]{ background:var(--foreground); color:var(--cream) }
+.tpl__cms{ display:flex; flex-wrap:wrap; align-items:center; gap:.4rem .9rem; margin-top:1.1rem; padding:.65rem .8rem;
+  border-radius:12px; background:var(--foreground); color:var(--cream); transition:opacity .35s ease, filter .35s ease }
+.tpl__cms b{ font:600 .8125rem/1 var(--font-mono); letter-spacing:.06em }
+.tpl__cms span{ font:400 .75rem/1.3 var(--font-mono); letter-spacing:.02em; color:color-mix(in oklab, var(--cream) 72%, transparent) }
+.tpl__cms span + span::before{ content:"· "; color:color-mix(in oklab, var(--cream) 40%, transparent) }
+.tpl[data-mode="before"] .tpl__cms{ opacity:.28; filter:grayscale(1) }
+.prose .tpl .tpl__cms-note{ margin-top:.45rem; text-align:center; color:var(--muted-foreground); font-size:.6875rem }
+.tpl__track{ position:relative }
+.prose .tpl .tpl__row{ position:relative; list-style:none; margin:.55rem 0 0; padding:0; display:grid; gap:.35rem }
+.tpl__row::before{ content:""; position:absolute; left:calc(.6rem + .8rem); top:1rem; bottom:1rem; width:1px;
+  background:repeating-linear-gradient(to bottom, var(--border) 0 4px, transparent 4px 8px) }
+.tpl__b{ position:relative; display:grid; grid-template-columns:1.6rem minmax(0,1fr); align-items:center; gap:.75rem;
+  padding:.5rem .7rem .5rem .6rem; border-radius:12px; background:var(--card); border:1px solid var(--border); user-select:none; cursor:grab;
+  transition:border-color .3s ease, background-color .3s ease, box-shadow .3s ease, transform .25s var(--tpl-ease) }
+.tpl__b:active{ cursor:grabbing }
+.tpl__b.is-drag{ z-index:3; box-shadow:0 18px 40px -16px rgb(16 35 41 / .35); transition:none; cursor:grabbing }
+.tpl__b .n{ position:relative; z-index:1; width:1.6rem; height:1.6rem; border-radius:50%; display:grid; place-items:center;
+  background:var(--muted); font:500 .625rem/1 var(--font-mono); letter-spacing:.04em; color:var(--muted-foreground);
+  transition:background-color .3s ease, color .3s ease, transform .3s var(--tpl-ease) }
+.tpl__b .n > *{ grid-area:1 / 1; transition:opacity .2s ease, transform .3s var(--tpl-ease) }
+.tpl__b .n svg{ width:.75rem; height:.75rem; opacity:0; transform:scale(.4) }
+.tpl__b .t{ display:grid; grid-template-columns:6rem minmax(0,1fr); align-items:baseline; gap:.15rem .75rem; min-width:0 }
+.tpl__b b{ font:600 .9375rem/1.2 var(--font-display); letter-spacing:-.01em }
+.tpl__b small{ font:400 .8125rem/1.35 var(--font-display); color:var(--muted-foreground) }
+/* the step being filled in: its number lights */
+.tpl__b.is-lit{ border-color:color-mix(in oklab, var(--foreground) 22%, var(--border)) }
+.tpl__b.is-lit .n{ background:var(--foreground); color:var(--cream); transform:scale(1.08) }
+/* checked on the spot: the number turns into a check and stays */
+.tpl__b.is-done .n{ background:var(--meadow); color:#fff; transform:none }
+.tpl__b.is-done .n span{ opacity:0; transform:scale(.4) }
+.tpl__b.is-done .n svg{ opacity:1; transform:none }
+.tpl__b.is-done{ border-color:color-mix(in oklab, var(--meadow) 40%, var(--border)) }
+.tpl .when-before{ display:none } .tpl[data-mode="before"] .when-before{ display:inline }
+.tpl .when-after{ display:inline } .tpl[data-mode="before"] .when-after{ display:none }
+@media (max-width:520px){ .tpl__b .t{ grid-template-columns:1fr } .tpl__b small{ font-size:.75rem } }
+.prose .tpl .tpl__end{ display:grid; grid-template-columns:auto minmax(0,1fr); align-items:center; gap:.75rem;
+  margin-top:.6rem; padding:.75rem .9rem; border-radius:12px; border:1px dashed var(--border); transition:background-color .3s ease, border-color .3s ease }
+.tpl__end i{ width:2rem; height:2rem; border-radius:50%; display:grid; place-items:center; background:var(--muted); color:var(--muted-foreground) }
+.tpl__end i svg{ width:1rem; height:1rem }
+.prose .tpl .tpl__end p{ font-size:.875rem; line-height:1.4; color:color-mix(in oklab, var(--foreground) 80%, transparent) }
+.tpl__end p b{ font-weight:600; color:var(--foreground) }
+.tpl[data-mode="before"] .tpl__end{ border-style:solid; border-color:color-mix(in oklab, var(--foreground) 30%, var(--border)); background:var(--muted) }
+.tpl[data-mode="before"] .tpl__end i{ background:var(--foreground); color:var(--cream) }
+.tpl[data-mode="after"] .tpl__end i{ background:var(--meadow); color:#fff }
+.tpl__end i path.when-after{ display:none } .tpl[data-mode="after"] .tpl__end i path.when-after{ display:inline }
+.tpl__end i path.when-before{ display:none } .tpl[data-mode="before"] .tpl__end i path.when-before{ display:inline }
+.tpl__foot{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:.5rem 1rem; margin-top:.9rem; color:var(--muted-foreground) }
+.tpl__foot button{ border:0; background:none; padding:0; cursor:pointer; color:var(--primary); font:inherit; letter-spacing:inherit; text-transform:inherit }
+.tpl__foot button[hidden]{ display:none }
+
+/* ---------- Long detail, folded (13 Nov, his ask: the Claude edition's folds on NAO's audit and frameworks; the benchmark table stays open).
+   The live look is the Claude edition's card with a plus; html[data-fold] on the desk test page tries others. ---------- */
+.fold{ margin:2.5rem 0 0; border:1px solid var(--border); border-radius:18px; background:var(--card) }
+.prose .fold{ max-width:none }
+.fold > summary{ list-style:none; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:1.1rem 1.35rem; font-family:var(--font-display) }
+.fold > summary::-webkit-details-marker{ display:none }
+.fold > summary b{ display:block; font-weight:600; font-size:1.0625rem; letter-spacing:-.01em }
+.fold > summary small{ display:block; margin-top:.2rem; font:400 .75rem/1.45 var(--font-mono); letter-spacing:.04em; color:var(--muted-foreground) }
+.fold > summary .plus{ flex:none; width:2rem; height:2rem; border-radius:50%; display:grid; place-items:center; background:var(--muted); transition:transform .25s cubic-bezier(.2,.7,.3,1), background-color .2s }
+.fold > summary .plus svg{ width:.9rem; height:.9rem }
+.fold[open] > summary .plus{ transform:rotate(45deg); background:var(--secondary) }
+.fold > summary:hover .plus{ background:var(--secondary) }
+.fold__in{ padding:0 1.35rem 1.6rem; border-top:1px solid var(--border) }
+.fold__in > *:first-child{ margin-top:1.5rem }
+@media (max-width:600px){ .fold > summary{ padding:1rem 1.1rem } .fold__in{ padding:0 1.1rem 1.4rem } }
+.prose .tpl .tpl__foot{ font:400 .6875rem/1.5 var(--font-mono); letter-spacing:.1em; text-transform:lowercase; margin-top:.9rem }
+
+/* fold look C, his pick (13 Nov, desk nao-foldlook): the site's ink with cream text and a round arrow; the content opens in a white panel under it */
+.fold{ border:0; background:none; border-radius:16px }
+.fold > summary{ background:var(--foreground); color:var(--cream); border-radius:16px; padding:1rem 1rem 1rem 1.35rem; transition:transform .2s ease, border-radius .2s ease }
+.fold > summary:hover{ transform:translateY(-1px) }
+.fold > summary small{ color:color-mix(in oklab, var(--cream) 62%, transparent) }
+.fold > summary .plus, .fold > summary:hover .plus, .fold[open] > summary .plus{ background:var(--cream); color:var(--foreground) }
+.fold > summary .plus{ transform:none }
+.fold[open] > summary .plus{ transform:rotate(180deg) }
+.fold[open] > summary{ border-radius:16px 16px 0 0 }
+.fold__in{ border:1px solid var(--border); border-top:0; border-radius:0 0 16px 16px; background:var(--card) }
+
+/* the way into the playground on the footer hill (13 Nov, his pick S4): placed by footer-hill.js on the ridge */
+.pg-sign{ position:absolute; z-index:1; width:calc(74px * 1.4); display:block; text-decoration:none }
+.pg-sign svg{ display:block; width:100%; height:auto; overflow:visible }
+.pg-sign .glow{ opacity:.35; filter:blur(8px); transition:opacity .4s }
+.pg-sign:hover .glow, .pg-sign:focus-visible .glow{ opacity:.95 }
+/* 15 Nov, his note: on hover the sign swings on its nail and settles, the way a board hung on a post would (it used to slide right) */
+.pg-sign .arrow{ transform-box:view-box; transform-origin:37px 74px }
+.pg-sign:hover .arrow, .pg-sign:focus-visible .arrow{ animation:pg-swing 1.6s ease-out }
+@keyframes pg-swing{ 0%{ transform:rotate(0) } 25%{ transform:rotate(1.4deg) } 55%{ transform:rotate(-.6deg) } 80%{ transform:rotate(.2deg) } 100%{ transform:rotate(0) } }
+@media (prefers-reduced-motion:reduce){ .pg-sign:hover .arrow, .pg-sign:focus-visible .arrow{ animation:none } }
+.pg-sign:focus-visible{ outline:2px solid var(--cream); outline-offset:4px; border-radius:6px }
+@media (max-width:699px){ .pg-sign{ display:none } }
+
+/* ---------- NAO comparison as five cards (13 Nov, his pick U1 "for now", desk nao-bench still open); built by nao-bench.js ---------- */
+.tablewrap.bx-sr{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap }
+.bx{ margin-top:1.5rem; font-family:var(--font-display) }
+.prose .bx{ max-width:none }
+.prose .bx > ul{ padding:0; margin:0; list-style:none; max-width:none }
+.prose :where(.bx) :where(p, ul, ol, li){ margin:0; padding:0; max-width:none; list-style:none; font-size:inherit; line-height:inherit }
+.prose .bx__k{ display:flex; flex-wrap:wrap; gap:.4rem 1.1rem; margin-bottom:1rem; font:500 .6875rem/1 var(--font-mono); letter-spacing:.1em; text-transform:lowercase; color:var(--muted-foreground) }
+.prose .bx__k i{ display:inline-block; width:.6rem; height:.6rem; border-radius:50%; margin-right:.4rem; vertical-align:-.05rem; background:color-mix(in oklab, var(--foreground) 28%, var(--card)) }
+.prose .bx__k .us i{ background:var(--primary) }
+.prose .u-row{ display:grid; grid-template-columns:5.6rem minmax(0,1fr) 4.6rem; align-items:center; gap:.7rem; font-size:.8125rem; color:var(--muted-foreground); min-height:1.45rem }
+.prose .u-row i{ display:block; height:.55rem; border-radius:999px; background:color-mix(in oklab, var(--foreground) 16%, var(--card)); min-width:.55rem }
+.prose .u-row i.na{ width:1.6rem !important; background:none; border:1.5px dashed color-mix(in oklab, var(--foreground) 22%, var(--border)) }
+.prose .u-row i.open{ background:none; border:1.5px solid color-mix(in oklab, var(--foreground) 22%, var(--border)) }
+.prose .u-row b{ font:600 .8125rem/1 var(--font-display); color:var(--foreground); text-align:right; font-variant-numeric:tabular-nums }
+.prose .u-row.us{ color:var(--primary); font-weight:600 } .prose .u-row.us i{ background:var(--primary) } .prose .u-row.us i.open{ background:none; border-color:var(--primary) } .prose .u-row.us b{ color:var(--primary) }
+.prose .u-q{ margin:0 !important; font:600 .9375rem/1.25 var(--font-display); letter-spacing:-.01em; color:var(--foreground); min-height:2.4rem }
+.prose .u-sub{ display:block; margin-top:.15rem; font:400 .625rem/1.3 var(--font-mono); letter-spacing:.08em; text-transform:lowercase; color:var(--muted-foreground) }
+.prose .u-note{ margin-top:.7rem !important; padding-top:.6rem !important; border-top:1px dashed var(--border); font:400 .6875rem/1.45 var(--font-mono); letter-spacing:.02em; color:var(--muted-foreground) }
+.prose .u-bars{ display:grid; gap:.35rem; margin:.75rem 0 .2rem !important }
+/* each card keeps its own height (his note: the third card shouldn't stretch to match the fourth) */
+.prose .u1{ display:grid; grid-template-columns:repeat(auto-fill, minmax(17rem, 1fr)); gap:.75rem; align-items:start }
+.prose .u1 > li{ margin:0 !important; padding:1rem 1.1rem; border:1px solid var(--border); border-radius:16px; background:var(--card) }

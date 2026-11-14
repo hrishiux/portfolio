@@ -1,0 +1,32 @@
+/* NAO body reading style, R1.3 (picked 14 Nov, live for now). Built from _build/nao-read.pl; set by data-r="R13" on <html> */
+/* ===== shared by R1-R3: lighter type. The body moves from the serif to the site's sans, a little smaller and greyer, so the
+   bold phrases carry the scan; more air between paragraphs; a dash for bullets ===== */
+html[data-r] :is(article.prose, .fold__in, .rd-blk, .rd-pair, .point-row) > :is(p, ul, ol, h3){ font-family:var(--font-display) }
+html[data-r] :is(article.prose, .fold__in, .rd-blk, .rd-pair, .point-row) > p, html[data-r] :is(article.prose, .fold__in, .rd-blk, .rd-pair, .point-row) > :is(ul, ol) > li{ font-size:1.03125rem; line-height:1.7; color:color-mix(in oklab, var(--foreground) 78%, transparent); letter-spacing:-.003em }
+html[data-r] :is(article.prose, .fold__in, .rd-blk, .rd-pair, .point-row) > p strong, html[data-r] :is(article.prose, .fold__in, .rd-blk, .rd-pair, .point-row) > :is(ul, ol) > li strong{ color:var(--foreground); font-weight:600 }
+html[data-r] :is(article.prose, .fold__in, .rd-blk, .rd-pair, .point-row) > p{ margin-top:1.15rem }
+html[data-r] :is(article.prose, .fold__in, .rd-blk, .rd-pair, .point-row) > ul{ list-style:none; padding-left:0 }
+html[data-r] :is(article.prose, .fold__in, .rd-blk, .rd-pair, .point-row) > ul > li{ position:relative; padding-left:1.25rem; margin:.8rem 0 }
+html[data-r] :is(article.prose, .fold__in, .rd-blk, .rd-pair, .point-row) > ul > li::before{ content:""; position:absolute; left:0; top:.8em; width:.55rem; height:1.5px; background:color-mix(in oklab, var(--foreground) 35%, transparent) }
+html[data-r] :is(article.prose, .fold__in, .rd-blk, .rd-pair, .point-row) > ol{ padding-left:1.25rem }
+html[data-r] article.prose > h2 + p{ font-size:1.1875rem; line-height:1.6; color:var(--foreground) }
+html[data-r] :is(article.prose, .fold__in, .rd-blk, .rd-pair, .point-row) > h3{ font-size:1.25rem; margin-top:2.5rem }
+/* the "friction point" / "redesign solution" labels become small tags on their own line */
+/* a list inside a list item reads at the same size and colour as the item it belongs to */
+html[data-r] :is(article.prose, .fold__in, .rd-blk, .rd-pair, .point-row) > :is(ul, ol) > li li{ font-size:1em; line-height:1.6; color:inherit; margin:.45rem 0 }
+html[data-r] :is(article.prose, .fold__in, .rd-blk, .rd-pair, .point-row) > :is(ul, ol) > li > :is(ul, ol){ margin-top:.5rem; padding-left:1.1rem }
+html[data-r] .rd-tag{ display:inline-flex; align-items:center; gap:.4rem; margin:0 0 .45rem; padding:.28rem .6rem; border-radius:999px; font:500 .6875rem/1 var(--font-mono); letter-spacing:.08em; text-transform:lowercase }
+html[data-r] .rd-tag::before{ content:""; width:.42rem; height:.42rem; border-radius:50%; background:currentColor }
+html[data-r] .rd-tag--pain{ background:var(--muted); color:color-mix(in oklab, var(--foreground) 70%, transparent) }
+html[data-r] .rd-tag--fix{ background:color-mix(in oklab, var(--meadow) 16%, var(--card)); color:oklch(0.36 0.1 150) }
+html[data-r] .prose p.rd-pain{ margin-top:1rem; padding:.9rem 1.1rem 1rem; border-radius:14px; background:var(--muted); color:var(--foreground) }
+html[data-r] .prose p.rd-fixlabel{ margin:1.4rem 0 0 }
+/* a list item that opens with a bold phrase: the phrase on its own line, so the eye can run down them */
+html[data-r] .prose li > strong.rd-k{ display:block; margin-bottom:.1rem }
+
+/* ===== R1.3 (14 Nov, his ask): R1, with R3's section numbers made big and teal, and R3's block badges ===== */
+html[data-r="R13"] .prose h2{ display:block }
+html[data-r="R13"] .prose h2 .rd-n{ display:block; margin-bottom:.35rem; font:700 3.25rem/1 var(--font-display); letter-spacing:-.05em; color:var(--primary) }
+html[data-r="R13"] .prose h3.rd-blockh{ display:flex; align-items:center; gap:.8rem }
+html[data-r="R13"] .prose h3.rd-blockh .rd-letter{ flex:none; display:grid; place-items:center; width:2.4rem; height:2.4rem; border-radius:12px; background:var(--foreground); color:var(--cream); font:700 1.1rem/1 var(--font-display) }
+

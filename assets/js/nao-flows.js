@@ -232,7 +232,7 @@
       var cx = n.x + n.w / 2, cy = n.y + n.h / 2, lines = n.lines, y0 = cy - (16 + 13 * (lines.length - 1)) / 2 + 12;
       var t = '<text class="t1" x="' + cx + '" y="' + y0 + '">' + esc(lines[0]) + '</text>';
       for (var k = 1; k < lines.length; k++) t += '<text class="t2" x="' + cx + '" y="' + (y0 + 3 + 13 * k) + '">' + esc(lines[k]) + '</text>';
-      h.push('<g class="lf-node k-' + n.kind + '" data-id="' + n.id + '" tabindex="0" role="button" aria-label="' + esc(lines.join(', ')) + '"><rect class="box" x="' + n.x + '" y="' + n.y + '" width="' + n.w + '" height="' + n.h + '"/>' + t + '</g>');
+      h.push('<g class="lf-node k-' + n.kind + '" data-id="' + n.id + '" tabindex="0" role="button" aria-label="' + esc(lines.join(', ')) + '"><rect class="box" rx="10" ry="10" x="' + n.x + '" y="' + n.y + '" width="' + n.w + '" height="' + n.h + '"/>' + t + '</g>');
     });
     h.push('</g><g aria-hidden="true">');
     f.nodes.forEach(function (n) {

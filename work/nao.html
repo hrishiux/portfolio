@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-r="R13">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,7 +19,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400..800;1,400..800&family=EB+Garamond:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
 <script>document.documentElement.className += " js";</script>
-<link rel="stylesheet" href="../assets/css/style.css?v=20261112c">
+<link rel="stylesheet" href="../assets/css/style.css?v=20261115b">
+<link rel="stylesheet" href="../assets/css/nao-read.css?v=20261114a">
 <!-- Analytics: Umami + Microsoft Clarity (live site only, local previews are skipped) -->
 <script defer src="https://cloud.umami.is/script.js" data-website-id="31c09f8a-bb38-40d1-b682-4d9293501ad0" data-domains="hrishiux.github.io"></script>
 <script type="text/javascript">
@@ -66,6 +67,16 @@
 <section class="section">
   <div class="gutter">
 
+    <section class="short" aria-label="In short">
+      <dl class="short__grid">
+        <div><dt><i style="--c:var(--sky)"></i>the problem</dt><dd>Upstox is India&rsquo;s Robinhood equivalent, and every new investor starts by opening an account in the app. That flow was losing most of its leads: everything was typed by hand, and nothing was checked until a scrutiny team reviewed the application afterwards.</dd></div>
+        <div><dt><i style="--c:var(--primary)"></i>what I did</dt><dd>I rebuilt it as blocks the team could reorder from a dashboard, and redesigned six of the steps where people dropped off or were rejected, so each one checks the input while the person is still on it.</dd></div>
+        <div><dt><i style="--c:var(--meadow)"></i>result</dt><dd>Successfully redesigned and re-engineered the account opening experience for new customers, with real lifts across the user journey.</dd></div>
+      </dl>
+      <p class="short__try label-mono"><span class="short__tag">clickable flows</span><span>the information flows in block C and below open full screen: <a href="#block-c">jump to them</a></span></p>
+    </section>
+
+
     <div class="cs-body">
 
 
@@ -73,34 +84,35 @@
 
       <section class="glance" aria-labelledby="glance-t">
         <p class="glance__label label-mono" id="glance-t">at a glance</p>
-        <p class="glance__lede">Upstox is India&rsquo;s Robinhood equivalent, and every new investor starts by opening an account in the app. That flow was losing most of its leads: everything was typed by hand, and nothing was checked until a scrutiny team reviewed the application afterwards. I rebuilt it as blocks the team could reorder from a dashboard, and redesigned six of the steps where people dropped off or were rejected, so each one checks the input while the person is still on it.</p>
-        <ul class="figures figures--glance">
-          <li><b>21.47%</b><span>of leads became accounts before NAO 2.0; 35% of applications were rejected.</span></li>
-          <li><b>+4.9<small>pts</small></b><span>email step conversion with Google / Apple sign-in, <span class="nowrap">85.0% &rarr; 89.9%</span>.</span></li>
-          <li><b>+3.56<small>pts</small></b><span>PAN step conversion with an Equifax background check, <span class="nowrap">71.73% &rarr; 75.29%</span>.</span></li>
-          <li><b>9</b><span>mandatory manual fields, against 12&ndash;15 at Zerodha, Angel One and Groww.</span></li>
-        </ul>
-        <figure class="sysmap">
-          <div class="sysmap__grid">
-          <div class="sysmap__cms"><b>CMS</b><span>reorder blocks</span><span>explainer videos on or off</span><span>match thresholds</span><span>a template per segment</span></div>
-          <p class="sysmap__arrow">json rules</p>
-          <ol class="sysmap__row">
-            <li><b>Signup</b><span>number suggested, OTP read for you</span></li>
-            <li><b>Email</b><span>Google or Apple, one tap</span></li>
-            <li><b>PAN</b><span>Equifax check in the background</span></li>
-            <li><b>Bank</b><span>&#8377;1 penny drop, name matched to PAN</span></li>
-            <li><b>Selfie</b><span>liveness checked during capture</span></li>
-            <li><b>Signature</b><span>landscape canvas, stroke check</span></li>
-            <li><b>E-sign</b><span>a Setu frame in place of the NSDL portal</span></li>
-          </ol>
+        <figure class="tpl" data-tpl data-mode="after" aria-label="NAO 2.0, Upstox account opening, as seven blocks. Before: everything typed by hand and checked by a scrutiny team after the application was sent. After: each block checks the input while the person is still on it.">
+          <div class="tpl__head">
+            <p class="tpl__title"><b>NAO 2.0 &middot; account opening</b><span class="mono">seven blocks, one template</span></p>
+            <div class="seg" role="group" aria-label="Show account opening">
+              <button type="button" data-set="before" aria-pressed="false">before</button>
+              <button type="button" data-set="after" aria-pressed="true">after</button>
+            </div>
           </div>
-          <p class="sysmap__key"><i></i>checked inside the block, before the person moves on</p>
-          <figcaption>a template is an ordered set of blocks, run from the CMS; section 4 has the detail</figcaption>
+          <div class="tpl__cms" aria-hidden="true"><b>CMS</b><span>reorder blocks</span><span>explainer videos on or off</span><span>match thresholds</span><span>a template per segment</span></div>
+          <p class="tpl__cms-note mono"><span class="when-after">json rules &darr;</span><span class="when-before">a fixed, hard-coded sequence of steps</span></p>
+          <div class="tpl__track"><ol class="tpl__row">
+            <li class="tpl__b" data-k="signup"><span class="n">01</span><span class="t"><b>Signup</b><small><span class="when-after">number suggested, OTP read for you</span><span class="when-before">phone number typed by hand</span></small></span></li>
+            <li class="tpl__b" data-k="email"><span class="n">02</span><span class="t"><b>Email</b><small><span class="when-after">Google or Apple, one tap</span><span class="when-before">typed by hand, then an OTP</span></small></span></li>
+            <li class="tpl__b" data-k="pan"><span class="n">03</span><span class="t"><b>PAN</b><small><span class="when-after">Equifax check in the background</span><span class="when-before">PAN and date of birth typed by hand</span></small></span></li>
+            <li class="tpl__b" data-k="bank"><span class="n">04</span><span class="t"><b>Bank</b><small><span class="when-after">&#8377;1 penny drop, name matched to PAN</span><span class="when-before">account number typed twice, plus IFSC</span></small></span></li>
+            <li class="tpl__b" data-k="selfie"><span class="n">05</span><span class="t"><b>Selfie</b><small><span class="when-after">liveness checked during capture</span><span class="when-before">a plain camera capture, no guidance</span></small></span></li>
+            <li class="tpl__b" data-k="sign"><span class="n">06</span><span class="t"><b>Signature</b><small><span class="when-after">landscape canvas, stroke check</span><span class="when-before">drawn or photographed, often cut off</span></small></span></li>
+            <li class="tpl__b" data-k="esign"><span class="n">07</span><span class="t"><b>E-sign</b><small><span class="when-after">a Setu frame in place of the NSDL portal</span><span class="when-before">the NSDL government portal</span></small></span></li>
+          </ol></div>
+          <div class="tpl__end">
+            <i aria-hidden="true"><svg viewBox="0 0 16 16"><path class="when-after" d="M3.5 8.3 6.5 11l6-6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path class="when-before" d="M8 4v5M8 11.6v.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></i>
+            <p><span class="when-after"><b>Checked on the spot.</b> Each block checks the input while the person is still on it.</span><span class="when-before"><b>Checked afterwards.</b> A scrutiny team reviewed each application once it was sent; 35% were rejected.</span></p>
+          </div>
+          <figcaption class="tpl__foot mono"><span data-hint>drag a block, or switch to before</span><button type="button" data-reset hidden>reset the order</button></figcaption>
         </figure>
 
       </section>
 
-      <h2 id="summary">1. Executive summary &amp; overall business objective</h2>
+      <h2 id="summary" data-short="Executive summary">1. Executive summary &amp; overall business objective</h2>
 
       <h3>The challenge</h3>
       <p>Opening a broking account in India means a Demat account, KYC and SEBI registration, and like most things with government paperwork behind them, it&rsquo;s slow. Upstox&rsquo;s old flow had users type their email, PAN, bank details and signature by hand, and checked none of it until a scrutiny team reviewed the application afterwards.</p>
@@ -125,8 +137,11 @@
       </ol>
 
 
-      <h2 id="audit">2. Funnel audit &amp; drop-off mapping: where people dropped off</h2>
+      <h2 id="audit" data-short="Funnel audit">2. Funnel audit &amp; drop-off mapping: where people dropped off</h2>
       <p>To identify the structural bottlenecks, we conducted an audit of step-level drop-offs and rejections (June MTD data):</p>
+      <details class="fold">
+        <summary><span><b>The full audit, step by step</b><small>drop-off and share of rejections for eight steps (June MTD), then the five step boards</small></span><span class="plus" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3 6l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></summary>
+        <div class="fold__in">
 
       <div class="funnel" role="table" aria-label="Funnel audit, June MTD: drop-off and rejection weight for each onboarding step, with its friction point">
         <div class="funnel__head" role="row">
@@ -201,10 +216,16 @@
         </figure>
         <p class="boards__hint">tap any board to read it full size</p>
       </div>
+        </div>
+      </details>
 
 
-      <h2 id="philosophy">3. Experience philosophy: the &ldquo;N-star&rdquo; &amp; screen format frameworks</h2>
+
+      <h2 id="philosophy" data-short="Frameworks">3. Experience philosophy: the &ldquo;N-star&rdquo; &amp; screen format frameworks</h2>
       <p>We moved away from isolated, superficial UI updates, to framing our redesign around two strategic systems:</p>
+      <details class="fold">
+        <summary><span><b>Both frameworks</b><small>the N-star ladder, adapted from Airbnb&rsquo;s 11-star exercise, and the three screen formats</small></span><span class="plus" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3 6l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></summary>
+        <div class="fold__in">
 
       <h3>A. The N-star ladder</h3>
       <p>Airbnb&rsquo;s 11-star exercise, adapted so design, engineering and ops could agree on what &ldquo;better&rdquo; meant, from 1 (broken) to 10 (someone does it all for you):</p>
@@ -287,9 +308,12 @@
         <li><strong>Hand-holding format:</strong> Applied to high-friction, error-prone steps requiring external lookups. Features in-context instructional overlays, GIFs, or videos. <em>Example: Real-time interactive canvas for digital signatures with explicit boundary-rule cues.</em></li>
         <li><strong>Education format:</strong> Applied when we need the user to retain critical regulatory information or build trust in the platform&rsquo;s security. <em>Example: Front-loaded platform credibility carousel highlighting Upstox&rsquo;s 1Cr+ investor base.</em></li>
       </ol>
+        </div>
+      </details>
 
 
-      <h2 id="architecture">4. Templates and blocks</h2>
+
+      <h2 id="architecture" data-short="Templates and blocks">4. Templates and blocks</h2>
       <p>The old flow was a fixed, hard-coded sequence of steps. NAO 2.0 moved it to the backend-driven <strong>Templates and Blocks Architecture</strong>, so the funnel could be changed and experimented on without an app release.</p>
 
       <figure class="figure-block">
@@ -361,7 +385,7 @@
 
       
 
-      <h2 id="blocks">5. The blocks, redesigned</h2>
+      <h2 id="blocks" data-short="The blocks, redesigned">5. The blocks, redesigned</h2>
       <p>Each block below starts with what went wrong for the person, then what changed.</p>
       <nav class="block-index" aria-label="The six blocks"><a href="#block-a"><b>A</b>signup</a><a href="#block-b"><b>B</b>email</a><a href="#block-c"><b>C</b>bank</a><a href="#block-d"><b>D</b>selfie</a><a href="#block-e"><b>E</b>signature</a><a href="#block-f"><b>F</b>e-sign</a></nav>
 
@@ -693,7 +717,7 @@
       </aside>
 
 
-      <h2 id="benchmark">6. Competitive analysis &amp; benchmark</h2>
+      <h2 id="benchmark" data-short="Benchmark">6. Competitive analysis &amp; benchmark</h2>
       <p>How NAO 2.0 compared with the onboarding at Zerodha, Angel One and Groww:</p>
       <p class="bench-lead"><strong>In short:</strong> NAO 2.0 asked for the fewest fields typed by hand (9, against 12&ndash;15), no document uploads, and let people look around the app before doing KYC.</p>
       <div class="tablewrap">
@@ -714,7 +738,7 @@
 
 
 
-      <h2 id="impact">7. Business impact &amp; metric validation</h2>
+      <h2 id="impact" data-short="Business impact">7. Business impact &amp; metric validation</h2>
       <p>The rollout of individual modules within the NAO 2.0 initiative delivered immediate, quantifiable improvements across our organic cohorts:</p>
 
       <figure class="dumbbell" role="group" aria-label="Step conversion before and after, on a 65 to 95 percent scale. PAN step: 71.73% before, 75.29% after, plus 3.56 points. Email step: 85.00% before, 89.90% after, plus 4.90 points.">
@@ -807,11 +831,14 @@
 
 
 
-<script src="../assets/js/main.js?v=20261105a"></script>
-<script src="../assets/js/footer-hill.js?v=20261111a" defer></script>
+<script src="../assets/js/nao-read.js?v=20261114a"></script>
+<script src="../assets/js/main.js?v=20261113b"></script>
+<script src="../assets/js/footer-hill.js?v=20261114a" defer></script>
 <script src="../assets/js/cs-tilt.js?v=20261112a" defer></script>
 <script src="../assets/js/nao-open-flow.js?v=20261112a" defer></script>
+<script src="../assets/js/nao-tpl.js?v=20261113a" defer></script>
+<script src="../assets/js/nao-bench.js?v=20261113a" defer></script>
 <script src="../assets/js/console-card.js?v=20261104a" defer></script>
-<script src="../assets/js/nao-flows.js?v=20261016b"></script>
+<script src="../assets/js/nao-flows.js?v=20261114a"></script>
 </body>
 </html>

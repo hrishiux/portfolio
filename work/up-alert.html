@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400..800;1,400..800&family=EB+Garamond:wght@400;500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
 <script>document.documentElement.className += " js";</script>
-<link rel="stylesheet" href="../assets/css/style.css?v=20261112c">
+<link rel="stylesheet" href="../assets/css/style.css?v=20261115b">
 <!-- Analytics: Umami + Microsoft Clarity (live site only, local previews are skipped) -->
 <script defer src="https://cloud.umami.is/script.js" data-website-id="31c09f8a-bb38-40d1-b682-4d9293501ad0" data-domains="hrishiux.github.io"></script>
 <script type="text/javascript">
@@ -67,6 +67,15 @@
 <section class="section">
   <div class="gutter">
 
+    <section class="short" aria-label="In short">
+      <dl class="short__grid">
+        <div><dt><i style="--c:var(--sky)"></i>the problem</dt><dd>Every push notification, and every urgent in-app warning during a market event or an outage, needed an engineer and a code deployment.</dd></div>
+        <div><dt><i style="--c:var(--primary)"></i>what I did</dt><dd>The PM wrote the requirements; I did everything from flows to final UI. There was no earlier version to start from, and no design language for internal tools to borrow.</dd></div>
+        <div><dt><i style="--c:var(--meadow)"></i>where it ended</dt><dd>Up.alert went from brief to production-ready design in under a month: a project that had sat untouched for close to a year, designed, reviewed, and greenlit for production within a single sprint cycle.</dd></div>
+      </dl>
+    </section>
+
+
     <div class="cs-body">
 
 
@@ -75,7 +84,7 @@
       <h2 id="overview">Overview</h2>
       <p>Upstox is one of India&rsquo;s largest retail stock broking platforms, with 10M+ registered users and ~3M active traders. Up.alert was an internal web tool built for Upstox&rsquo;s marketing, content, and communications teams, giving them the ability to send push notifications and in-app alert banners to users directly, without any engineering involvement. A tool that can reach all of them in one click needs to be fast in a crisis and very hard to misuse. I was the sole designer, working end-to-end from requirements to production-ready screens.</p>
 
-      <figure class="wide ua-fig" data-ua="dashboard" data-hint="working prototype: open a message, filter, dismiss a banner">
+      <figure class="wide ua-fig" id="try" data-ua="dashboard" data-hint="working prototype: open a message, filter, dismiss a banner">
         <div class="ua-fallback"><img src="../assets/img/upalert/dashboard-alerts.jpg" alt="The Up.alert dashboard: two attention-required banners at the top, one orange and one beige, above a searchable table of messages with title, body, last edited by, type, time of delivery and status columns." loading="lazy" width="1600" height="1166"></div>
         <figcaption>the dashboard, with a critical and a warning banner live at the top</figcaption>
       </figure>
@@ -155,6 +164,10 @@
       </figure>
 
 
+      <details class="fold">
+        <summary><span><b>More detail</b><small>the user-facing notification centre, technical considerations, challenges, and the appendix of notification types</small></span><span class="plus" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3 6l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></summary>
+        <div class="fold__in">
+
       <h2 id="system">The wider system</h2>
       <p>The design covered two integrated components, built to Upstox&rsquo;s existing design language and experience standards.</p>
 
@@ -220,6 +233,9 @@
           </tbody>
         </table>
       </div>
+        </div>
+      </details>
+
 
       </article>
 
@@ -256,8 +272,8 @@
   </div>
 </footer>
 
-<script src="../assets/js/main.js?v=20261105a"></script>
-<script src="../assets/js/footer-hill.js?v=20261111a" defer></script>
+<script src="../assets/js/main.js?v=20261113b"></script>
+<script src="../assets/js/footer-hill.js?v=20261114a" defer></script>
 <script src="../assets/js/cs-tilt.js?v=20261112a" defer></script>
 <script src="../assets/js/console-card.js?v=20261104a" defer></script>
 <script src="../assets/js/upalert-app.js?v=20261016b"></script>

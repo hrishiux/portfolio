@@ -125,6 +125,17 @@
     }
   }
 
+
+  /* a link to a heading inside a closed fold opens the fold first (13 Nov) */
+  var openFor = function (id) {
+    var t = id && document.getElementById(id); if (!t) { return; }
+    var d = t.closest && t.closest('details'); if (d && !d.open) { d.open = true; }
+  };
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="#"]'); if (a) { openFor(a.getAttribute('href').slice(1)); }
+  }, true);
+  if (location.hash) { openFor(location.hash.slice(1)); }
+
   /* --- case study section rail, built from the headings on the page --- */
   var rail = document.querySelector('.cs-rail ol');
   if (rail) {
@@ -139,7 +150,7 @@
         var li = document.createElement('li');
         var a = document.createElement('a');
         a.href = '#' + h.id;
-        a.textContent = h.textContent.replace(/^\d+\.\s*/, '');
+        a.textContent = (h.getAttribute("data-short") || h.textContent).replace(/^\d+\.\s*/, '');
         li.appendChild(a);
         rail.appendChild(li);
         links.push({ a: a, h: h });
