@@ -4059,3 +4059,7 @@ html.cs-tinted.hd-top .nav[data-tone]{ -webkit-backdrop-filter:none; backdrop-fi
 /* each card keeps its own height (his note: the third card shouldn't stretch to match the fourth) */
 .prose .u1{ display:grid; grid-template-columns:repeat(auto-fill, minmax(17rem, 1fr)); gap:.75rem; align-items:start }
 .prose .u1 > li{ margin:0 !important; padding:1rem 1.1rem; border:1px solid var(--border); border-radius:16px; background:var(--card) }
+
+/* 15 Nov, his note: inside a fold the first heading lost its top space (.prose h2:first-child is meant for the top of the article), so
+   Up.alert's "07 The wider system" sat flush against the "More detail" bar */
+.prose .fold__in > h2:first-child{ margin-top:2rem }

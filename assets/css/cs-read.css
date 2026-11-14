@@ -1,0 +1,4 @@
+/* Case studies other than NAO (15 Nov, live), on top of nao-read.css. NAO mostly opens a section with a subheading, so its 19px
+   first-paragraph rule rarely shows there; these pages open every section with a paragraph, often long, so here the first
+   paragraph reads like the rest (his note on the font size). */
+html[data-r] article.prose > h2 + p{ font-size:1.03125rem; line-height:1.7; color:color-mix(in oklab, var(--foreground) 78%, transparent) }

@@ -23,6 +23,7 @@ html[data-r] .prose p.rd-pain{ margin-top:1rem; padding:.9rem 1.1rem 1rem; borde
 html[data-r] .prose p.rd-fixlabel{ margin:1.4rem 0 0 }
 /* a list item that opens with a bold phrase: the phrase on its own line, so the eye can run down them */
 html[data-r] .prose li > strong.rd-k{ display:block; margin-bottom:.1rem }
+html[data-r] .prose li > .rd-sep{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap }
 
 /* ===== R1.3 (14 Nov, his ask): R1, with R3's section numbers made big and teal, and R3's block badges ===== */
 html[data-r="R13"] .prose h2{ display:block }
